@@ -1,3 +1,24 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:storybook/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
+  ],
+
+  "settings": {
+    "next": {
+      "rootDir": "packages/*/"
+    }
+  },
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-var-requires": 0
+  }
 }
