@@ -1,19 +1,18 @@
+import React from 'react';
+import { Button, ButtonProps } from './';
 import type { Meta, StoryObj } from '@storybook/react';
-import Button from '.';
 
 const meta: Meta<typeof Button> = {
   title: 'atoms/Button',
   component: Button,
   argTypes: {
-    variant: {
+    variant: {},
+    color: {
       description: 'The type of button',
       control: 'inline-radio',
-      options: ['primary', 'secondary'],
+      options: ['primary', 'secondary', 'normal'],
     },
-    isSmall: {
-      description: 'A small version of the button',
-      type: 'boolean',
-    },
+    size: {},
   },
 };
 
@@ -21,13 +20,9 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
-  args: { variant: 'primary', children: 'Primary' },
-};
-
-export const Secondary: Story = {
-  args: { variant: 'secondary', children: 'Secondary' },
-};
-
-export const Small: Story = {
-  args: { isSmall: true, children: 'Small' },
+  args: {
+    variant: `filled`,
+    color: 'primary',
+    children: '버튼',
+  },
 };

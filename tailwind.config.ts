@@ -8,7 +8,9 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      primary: '#252A32',
+      main: {
+        primary: '#252A32',
+      },
       white: '#FFF',
       black: '#000',
       status: {
@@ -17,17 +19,22 @@ const config: Config = {
       gray: {
         normal: '#E1E1E1',
         light: '#F6F6F8',
-        secondary: '#E2E5EC',
+        primary: '#E2E5EC',
         disabled: '#CACACA',
       },
       blue: {
-        primary: '#405ABA',
-        secondary: '#4374F3',
+        primary: '#4374F3',
+        secondary: '#405ABA',
         normal: '#324883',
       },
       background: {
-        gray: '#F6F6F6',
+        lightgray: '#F6F6F6',
         bluegray: '#E2E5EC',
+      },
+      hover: {
+        primary: '#121418',
+        blueSecondary: '#2F4597',
+        bluePrimary: '#325DCE',
       },
     },
   },
