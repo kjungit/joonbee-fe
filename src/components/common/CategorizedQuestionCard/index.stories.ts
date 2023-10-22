@@ -31,7 +31,11 @@ export const Primary: Story = {
   args: {
     size: `md`,
     isFocus: false,
-    children: 'react에 대해서 설명해주세요.',
+    data: {
+      title: '프론트엔드',
+      subTitle: 'React',
+      question: 'react에 대해서 설명해주세요.',
+    },
   },
 };
 
@@ -39,7 +43,11 @@ export const Secondary: Story = {
   args: {
     size: `md`,
     isFocus: true,
-    children: 'react에 대해서 설명해주세요.',
+    data: {
+      title: '프론트엔드',
+      subTitle: 'React',
+      question: 'react에 대해서 설명해주세요.',
+    },
   },
 };
 
@@ -47,7 +55,11 @@ export const Tertiary: Story = {
   args: {
     size: `lg`,
     isFocus: false,
-    children: 'react에 대해서 설명해주세요.',
+    data: {
+      title: '프론트엔드',
+      subTitle: 'React',
+      question: 'react에 대해서 설명해주세요.',
+    },
   },
 };
 
@@ -55,6 +67,10 @@ export const Quaternary: Story = {
   args: {
     size: `lg`,
     isFocus: true,
-    children: 'react에 대해서 설명해주세요.',
+    data: {
+      title: '프론트엔드',
+      subTitle: 'React',
+      question: 'react에 대해서 설명해주세요.',
+    },
   },
 };
