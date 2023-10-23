@@ -9,6 +9,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   color?: ButtonColor;
   size?: ButtonSize;
   text?: ButtonText;
+  children: React.ReactNode;
+  onClick: () => void;
   disabled?: boolean;
 }
 
@@ -42,7 +44,7 @@ export const Button = ({
   };
 
   const textStyles = {
-    sm: 'text-[16px]',
+    sm: 'text-[14px]',
     md: 'text-[24px]',
     lg: 'text-[32px]',
   };

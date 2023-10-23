@@ -36,6 +36,7 @@ const config: Config = {
         blueSecondary: '#2F4597',
         bluePrimary: '#325DCE',
         blueNormarl: '#253560',
+        grayLight: '#EAEEF3',
       },
     },
   },
