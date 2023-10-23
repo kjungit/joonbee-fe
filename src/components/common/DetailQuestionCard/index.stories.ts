@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DetailQuestionCard } from '.';
 
 const meta: Meta<typeof DetailQuestionCard> = {
-  title: 'atoms/DetailQuestionCard',
+  title: 'DESIGN SYSTEM/Atoms/DetailQuestionCard',
   component: DetailQuestionCard,
-  argTypes: {},
+  tags: ['autodocs'],
 };
 
 export default meta;
