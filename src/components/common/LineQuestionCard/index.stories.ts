@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { LineQuestrionCard } from '.';
 
 const meta: Meta<typeof LineQuestrionCard> = {
-  title: 'atoms/LineQuestrionCard',
+  title: 'DESIGN SYSTEM/Atoms/LineQuestrionCard',
   component: LineQuestrionCard,
+  tags: ['autodocs'],
   argTypes: {
     size: {
       description: 'The size of the button',

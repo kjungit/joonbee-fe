@@ -21,11 +21,11 @@ export const LineQuestrionCard = ({
   children,
   ...props
 }: LineQuestrionCardProps) => {
-  const baseStyles = 'flex p-6 items-center  text-ellipsis  font-bold shadow-md rounded-xl';
+  const baseStyles = 'flex p-6 items-center text-ellipsis font-bold shadow-md rounded-xl';
 
   const sizeStyles = {
-    sm: 'h-[54px] w-[740px] overflow-auto',
-    md: 'h-[104px] w-[584px] overflow-auto',
+    sm: 'h-[54px] w-[740px]',
+    md: 'min-h-[104px] w-[584px]',
     lg: ' w-[1040px]',
     xl: ' w-[500px]',
   };
