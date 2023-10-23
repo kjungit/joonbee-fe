@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { QuestrionCard } from '.';
 
 const meta: Meta<typeof QuestrionCard> = {
-  title: 'atoms/QuestrionCard',
+  title: 'DESIGN SYSTEM/Atoms/QuestrionCard',
   component: QuestrionCard,
+  tags: ['autodocs'],
   argTypes: {
     color: {
       description: 'The type of button',
