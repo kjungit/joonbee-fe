@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CategorizedQuestionCard } from '.';
 
 const meta: Meta<typeof CategorizedQuestionCard> = {
-  title: 'atoms/CategorizedQuestionCard',
+  title: 'DESIGN SYSTEM/Atoms/CategorizedQuestionCard',
   component: CategorizedQuestionCard,
+  tags: ['autodocs'],
   argTypes: {
     size: {
       description: 'The size of the button',
