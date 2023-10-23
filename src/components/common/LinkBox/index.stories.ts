@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { LinkBox } from '.';
 
 const meta: Meta<typeof LinkBox> = {
-  title: 'atoms/LinkBox',
+  title: 'DESIGN SYSTEM/Atoms/LinkBox',
   component: LinkBox,
+  tags: ['autodocs'],
   argTypes: {
     color: {
       description: 'The type of button',
