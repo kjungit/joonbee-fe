@@ -1,37 +1,28 @@
 import React from 'react';
-import { Button } from './';
+import { Button, ButtonProps } from './';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Button> = {
-  title: 'Design System/Atoms/Button',
+  title: 'atoms/Button',
   component: Button,
-  tags: ['autodocs'],
   argTypes: {
+    variant: {},
     color: {
-      control: 'radio',
-      options: ['darkNavy', 'bluePrimary', 'blueSecondary', 'blueNormal'],
-    },
-    size: {
+      description: 'The type of button',
       control: 'inline-radio',
-      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'],
+      options: ['primary', 'secondary', 'normal'],
     },
-    text: {
-      control: 'inline-radio',
-      options: ['sm', 'md', 'lg'],
-    },
-    onClick: { action: 'clicked' },
-    disabled: { control: 'boolean' },
+    size: {},
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = {
+export const Primary: Story = {
   args: {
-    size: 'md',
-    text: 'md',
-    color: 'bluePrimary',
+    variant: `filled`,
+    color: 'primary',
     children: '버튼',
   },
 };

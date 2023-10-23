@@ -35,7 +35,6 @@ const config: Config = {
         primary: '#121418',
         blueSecondary: '#2F4597',
         bluePrimary: '#325DCE',
-        blueNormarl: '#253560',
       },
     },
   },

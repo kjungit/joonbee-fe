@@ -2,57 +2,54 @@
 
 import React from 'react';
 
-type ButtonColor = 'darkNavy' | 'bluePrimary' | 'blueSecondary' | 'blueNormal';
-type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
-type ButtonText = 'sm' | 'md' | 'lg';
+type ButtonVariant = 'filled' | 'outlined';
+type ButtonColor = 'primary' | 'secondary';
+type ButtonSize = 'sm' | 'md' | 'lg';
+
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
   color?: ButtonColor;
   size?: ButtonSize;
-  text?: ButtonText;
-  disabled?: boolean;
 }
 
 export const Button = ({
-  color = 'bluePrimary',
+  variant = 'filled',
+  color = 'primary',
   size = 'md',
-  text = 'md',
   children,
-  onClick,
-  disabled = false,
   ...props
 }: ButtonProps) => {
-  const baseStyles = 'rounded-[8px] font-bold text-[24px] text-white shadow-md';
+  const baseStyles =
+    'rounded text-red-100 font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 bg-red-100';
 
   const sizeStyles = {
-    xs: 'w-[90px] h-[50px]',
-    sm: 'w-[100px] h-[40px]',
-    md: 'w-[150px] h-[60px]',
-    lg: 'w-[280px] h-[60px]',
-    xl: 'w-[340px] h-[50px]',
-    '2xl': 'w-[500px] h-[60px]',
-    '3xl': 'w-[280px] h-[80px]',
-    '4xl': 'w-[536px] h-[88px]',
+    sm: 'py-9 px-8 text-sm',
+    md: 'py-2 px-4',
+    lg: 'py-3 px-6 text-lg',
   };
 
   const colorStyles = {
-    darkNavy: 'bg-main-primary hover:bg-hover-primary',
-    bluePrimary: 'bg-blue-primary hover:bg-hover-bluePrimary',
-    blueSecondary: 'bg-blue-secondary hover:bg-hover-blueSecondary',
-    blueNormal: 'bg-blue-normal hover:bg-hover-blueNormarl',
+    primary: {
+      filled: 'bg-[#d82525] hover:bg-blue-600 text-white focus:ring-blue-400',
+      outlined:
+        'bg-transparent hover:bg-blue-100 text-blue-500 border-blue-500 border focus:ring-blue-400',
+    },
+    secondary: {
+      filled: 'bg-gray-500 hover:bg-gray-600 text-white focus:ring-gray-400',
+      outlined:
+        'bg-transparent hover:bg-gray-100 text-gray-500 border-gray-500 border focus:ring-gray-400',
+    },
+    normal: {
+      filled: 'bg-gray-500 hover:bg-gray-600 text-white focus:ring-gray-400',
+      outlined:
+        'bg-transparent hover:bg-gray-100 text-gray-500 border-gray-500 border focus:ring-gray-400',
+    },
   };
 
-  const textStyles = {
-    sm: 'text-[16px]',
-    md: 'text-[24px]',
-    lg: 'text-[32px]',
-  };
-
-  const buttonStyles = `${baseStyles} ${textStyles[text]} ${sizeStyles[size]}  ${
-    disabled ? 'bg-gray-disabled cursor-not-allowed ' : colorStyles[color]
-  }`;
+  const buttonStyles = `${baseStyles} ${sizeStyles[size]} ${colorStyles[color][variant]}`;
 
   return (
-    <button className={buttonStyles} onClick={onClick} disabled={disabled} {...props}>
+    <button className={buttonStyles} {...props}>
       {children}
     </button>
   );
