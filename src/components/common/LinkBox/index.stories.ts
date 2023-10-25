@@ -28,6 +28,7 @@ export const Primary: Story = {
     color: 'navy',
     title: 'AI면접 시작하기',
     propsLink: '/',
+    iconSrc: 'ai_white',
   },
 };
 
@@ -37,6 +38,7 @@ export const Secondary: Story = {
     color: 'gray',
     title: '나의 질문 관리하기',
     propsLink: '/',
+    iconSrc: 'meeting',
   },
 };
 
@@ -51,6 +53,7 @@ export const Tertiary: Story = {
       second: '준비할 수 있어요.',
       third: '체계적으로 준비해봐요!',
     },
+    iconSrc: 'checklist',
   },
 };
 
@@ -65,5 +68,6 @@ export const Quaternary: Story = {
       second: '예상하지 못한 문제를',
       third: '준비해보세요!',
     },
+    iconSrc: 'random',
   },
 };

@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
+import { Icon, IconName } from '../Icon';
 
 type CardSize = 'sm' | 'md' | 'lg';
 type CardColor = 'gray' | 'navy';
@@ -15,6 +16,7 @@ export interface LinkBox extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   subTitle?: Discription;
   propsLink: string;
+  iconSrc?: IconName;
 }
 
 export const LinkBox = ({
@@ -23,6 +25,7 @@ export const LinkBox = ({
   propsLink = '/',
   title = 'AI면접 시작하기',
   subTitle,
+  iconSrc,
 }: LinkBox) => {
   const baseStyles = `font-bold flex items-center text-[30px] shadow-md  ${
     size === 'lg' ? 'rounded-2xl ' : 'rounded-xl'
@@ -52,7 +55,7 @@ export const LinkBox = ({
           </div>
         )}
         <div className={`${size === 'lg' && 'mt-10'}`}>{title}</div>
-        <div>아이콘</div>
+        {iconSrc && <Icon name={iconSrc} />}
       </Link>
     </button>
   );
