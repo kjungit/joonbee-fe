@@ -23,7 +23,7 @@ export const Button = ({
   disabled = false,
   ...props
 }: ButtonProps) => {
-  const baseStyles = 'rounded-[8px] font-bold text-[24px] text-white shadow-md';
+  const baseStyles = 'rounded-[8px] font-bold text-white shadow-md';
 
   const sizeStyles = {
     xs: 'w-[90px] h-[50px]',

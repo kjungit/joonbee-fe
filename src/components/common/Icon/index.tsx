@@ -8,8 +8,6 @@ export type IconName =
   | 'google'
   | 'meeting'
   | 'service'
-  | 'emptylike'
-  | 'copy'
   | 'check'
   | 'random'
   | 'blank'

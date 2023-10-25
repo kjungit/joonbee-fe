@@ -9,7 +9,7 @@ const meta: Meta<typeof VariableIcon> = {
   argTypes: {
     name: {
       control: 'select',
-      options: ['like', 'copy'],
+      options: ['emptyLike', 'copy', 'filledLike'],
     },
     size: {},
   },
@@ -20,6 +20,6 @@ type Story = StoryObj<typeof VariableIcon>;
 
 export const Primary: Story = {
   args: {
-    name: 'like',
+    name: 'emptyLike',
   },
 };
