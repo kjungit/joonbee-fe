@@ -23,7 +23,6 @@ export const LinkBox = ({
   propsLink = '/',
   title = 'AI면접 시작하기',
   subTitle,
-  ...props
 }: LinkBox) => {
   const baseStyles = `font-bold flex items-center text-[30px] shadow-md  ${
     size === 'lg' ? 'rounded-2xl ' : 'rounded-xl'
@@ -43,7 +42,7 @@ export const LinkBox = ({
   const buttonStyles = `${baseStyles} ${sizeStyles[size]} ${colorStyles[color]}`;
 
   return (
-    <button {...props}>
+    <button>
       <Link href={propsLink} className={buttonStyles}>
         {size === 'lg' && (
           <div className="text-[20px]  mt-6 text-[#717171]">
