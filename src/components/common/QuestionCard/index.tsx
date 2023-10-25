@@ -9,12 +9,7 @@ export interface QuestrionCardProps extends React.ButtonHTMLAttributes<HTMLButto
   color?: CardColor;
 }
 
-export const QuestrionCard = ({
-  color = 'white',
-  size = 'sm',
-  children,
-  ...props
-}: QuestrionCardProps) => {
+export const QuestrionCard = ({ color = 'white', size = 'sm', children }: QuestrionCardProps) => {
   const baseStyles = 'flex items-center font-bold pl-5 shadow-md rounded-xl';
 
   const sizeStyles = {
@@ -31,9 +26,5 @@ export const QuestrionCard = ({
 
   const buttonStyles = `${baseStyles} ${sizeStyles[size]} ${colorStyles[color]}`;
 
-  return (
-    <button className={buttonStyles} {...props}>
-      {children}
-    </button>
-  );
+  return <button className={buttonStyles}>{children}</button>;
 };
