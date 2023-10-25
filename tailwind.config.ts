@@ -35,6 +35,14 @@ const config: Config = {
         primary: '#121418',
         blueSecondary: '#2F4597',
         bluePrimary: '#325DCE',
+        blueNormarl: '#253560',
+        grayLight: '#EAEEF3',
+      },
+      yellow: {
+        kakao: '#FDDC3F',
+      },
+      green: {
+        naver: '#00C73C',
       },
     },
   },
