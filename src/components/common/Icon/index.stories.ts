@@ -32,7 +32,7 @@ type Story = StoryObj<typeof Icon>;
 
 export const Primary: Story = {
   args: {
-    name: 'copy',
+    name: 'kakao',
   },
   parameters: {
     backgrounds: {
