@@ -2,7 +2,7 @@ import React from 'react';
 
 import Image from 'next/image';
 
-type IconName =
+export type IconName =
   | 'kakao'
   | 'naver'
   | 'google'
