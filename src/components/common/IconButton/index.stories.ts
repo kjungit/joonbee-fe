@@ -1,10 +1,10 @@
 import React from 'react';
-import { IconButton } from './';
+import { SocialLoginButton } from './';
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof IconButton> = {
-  title: 'Design System/Molecule/IconButton',
-  component: IconButton,
+const meta: Meta<typeof SocialLoginButton> = {
+  title: 'Design System/Molecule/SocialLoginButton',
+  component: SocialLoginButton,
   tags: ['autodocs'],
   argTypes: {
     name: {
@@ -15,7 +15,7 @@ const meta: Meta<typeof IconButton> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof IconButton>;
+type Story = StoryObj<typeof SocialLoginButton>;
 
 export const Primary: Story = {
   args: {
