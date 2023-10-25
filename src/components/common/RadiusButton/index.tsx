@@ -24,7 +24,7 @@ export const RadiusButton = ({
   disabled = false,
   ...props
 }: RadiusButtonProps) => {
-  const baseStyles = 'rounded-[74px] font-bold text-[30px] text-white shadow-md';
+  const baseStyles = 'rounded-[74px] font-bold text-white shadow-md';
 
   const colorStyles = {
     dark: 'bg-main-primary hover:bg-hover-primary',
