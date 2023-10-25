@@ -20,7 +20,6 @@ export const CategorizedQuestionCard = ({
   size = 'md',
   isFocus = false,
   data,
-  ...props
 }: CategorizedQuestionCardProps) => {
   const baseStyles =
     'flex h-[54px] text-[18px] px-[10px] justify-between items-center font-bold shadow-md rounded-xl';
@@ -40,7 +39,7 @@ export const CategorizedQuestionCard = ({
   `;
 
   return (
-    <div className={buttonStyles} {...props}>
+    <div className={buttonStyles}>
       <div className="flex">
         <div className={textStyles}>{data.title}</div>
         <div className="border-l-gray-normal border-l-2" />
