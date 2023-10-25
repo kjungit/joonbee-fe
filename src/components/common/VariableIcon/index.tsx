@@ -1,8 +1,8 @@
 import React from 'react';
-import { GoThumbsup } from 'react-icons/go';
-import { IoMdCopy } from 'react-icons/io';
+import { BiLike, BiSolidLike } from 'react-icons/bi';
+import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
 
-export type IconName = 'like' | 'copy';
+export type IconName = 'emptyLike' | 'copy' | 'filledLike';
 
 export type VariableIconProps = {
   name: IconName;
@@ -13,8 +13,9 @@ export type VariableIconProps = {
 
 export const VariableIcon = ({ size = 24, name, color = 'black', onClick }: VariableIconProps) => {
   const components = {
-    like: GoThumbsup,
-    copy: IoMdCopy,
+    emptyLike: BiLike,
+    filledLike: BiSolidLike,
+    copy: HiOutlineClipboardDocumentList,
   };
 
   const Icon = components[name];
