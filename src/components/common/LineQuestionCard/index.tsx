@@ -19,7 +19,6 @@ export const LineQuestrionCard = ({
   fontSize = 'md',
   borderPosition = 'left',
   children,
-  ...props
 }: LineQuestrionCardProps) => {
   const baseStyles = 'flex p-6 items-center text-ellipsis font-bold shadow-md rounded-xl';
 
@@ -54,7 +53,7 @@ export const LineQuestrionCard = ({
   `;
 
   return (
-    <div className={buttonStyles} {...props}>
+    <div className={buttonStyles}>
       <p>{children}</p>
     </div>
   );
