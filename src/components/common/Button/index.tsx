@@ -21,7 +21,6 @@ export const Button = ({
   children,
   onClick,
   disabled = false,
-  ...props
 }: ButtonProps) => {
   const baseStyles = 'rounded-[8px] font-bold text-white shadow-md';
 
@@ -54,7 +53,7 @@ export const Button = ({
   }`;
 
   return (
-    <button className={buttonStyles} onClick={onClick} disabled={disabled} {...props}>
+    <button className={buttonStyles} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
