@@ -1,9 +1,9 @@
 import React from 'react';
-import { SocialLoginButton } from './';
+import { SocialLoginButton } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof SocialLoginButton> = {
-  title: 'Design System/Molecule/SocialLoginButton',
+  title: 'Design System/Molecules/SocialLoginButton',
   component: SocialLoginButton,
   tags: ['autodocs'],
   argTypes: {
