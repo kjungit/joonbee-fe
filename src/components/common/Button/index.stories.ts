@@ -15,12 +15,10 @@ const meta: Meta<typeof Button> = {
       control: 'inline-radio',
       options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'],
     },
-    text: {
-      control: 'inline-radio',
-      options: ['sm', 'md', 'lg'],
-    },
+
     onClick: { action: 'clicked' },
     disabled: { control: 'boolean' },
+    className: {},
   },
 };
 
@@ -30,8 +28,8 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
   args: {
     size: 'md',
-    text: 'md',
     color: 'bluePrimary',
+    className: '',
     children: '버튼',
   },
 };
