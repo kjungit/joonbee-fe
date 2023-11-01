@@ -25,5 +25,5 @@ export const categoryState = atom({
 
 export const selectedValueState = atom({
   key: 'selectedValue',
-  default: { selectedCategory: '카테고리', selectedSubcategory: '' },
+  default: { selectedCategory: 'frontEnd', selectedSubcategory: '' },
 });

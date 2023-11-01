@@ -23,7 +23,7 @@ type Story = StoryObj<typeof Dropdown>;
 
 export const Primary: Story = {
   args: {
-    size: 'sm',
+    size: 'md',
     dropdownType: 'double',
   },
 };

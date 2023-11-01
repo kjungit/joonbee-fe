@@ -9,7 +9,7 @@ type DropdownProps = {
   dropdownType?: 'single' | 'double';
 };
 
-const Dropdown = ({ size = 'sm', dropdownType = 'double' }: DropdownProps) => {
+const Dropdown = ({ size = 'md', dropdownType = 'double' }: DropdownProps) => {
   const categoryData = useRecoilValue(categoryState);
   const categories = Object.keys(categoryData).map(key => key);
   const { selectedCategory } = useRecoilValue(selectedValueState);
