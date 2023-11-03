@@ -14,11 +14,12 @@ const QuestionForm = () => {
     // TODO : 질문 추가 API 요청
     //console.log(selectedCategory, selectedSubcategory, question);
   };
+
   return (
-    <form className="flex" onSubmit={onSubmit}>
+    <form className="flex gap-5 w-auto" onSubmit={onSubmit}>
       <Dropdown />
       <Input inputValue={question} setInputValue={setQuestion} />
-      <Button type="submit" color="darkNavy" className="ml-[20px] text-[20px]">
+      <Button type="submit" color="darkNavy" size="md" text="md">
         등록하기
       </Button>
     </form>
