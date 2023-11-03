@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Logo from '.';
 
@@ -19,6 +18,12 @@ type Story = StoryObj<typeof Logo>;
 
 export const Primary: Story = {
   args: {
-    size: 30,
+    size: 'sm',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    size: 'md',
   },
 };

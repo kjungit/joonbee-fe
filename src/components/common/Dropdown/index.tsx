@@ -18,7 +18,7 @@ const Dropdown = ({ size = 'md', dropdownType = 'double' }: DropdownProps) => {
   const subcategories: string[] = categoryData[selectedCategory]?.subcategories || [];
 
   return (
-    <>
+    <div className="flex gap-5">
       <Dropdown.List name="category" size={size}>
         {categories.map(category => (
           <Dropdown.Item size={size} key={category}>
@@ -35,7 +35,7 @@ const Dropdown = ({ size = 'md', dropdownType = 'double' }: DropdownProps) => {
           ))}
         </Dropdown.List>
       )}
-    </>
+    </div>
   );
 };
 Dropdown.Item = Item;

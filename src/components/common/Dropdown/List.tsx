@@ -8,7 +8,7 @@ type ListProps = {
 };
 
 const List = ({ children, name, size = 'sm' }: ListProps) => {
-  const baseStyles = `bg-main-primary text-white rounded-[8px] font-bold text-center hover:bg-hover-primary mr-[20px] shadow-sm`;
+  const baseStyles = `bg-main-primary text-white rounded-[8px] font-bold text-center hover:bg-hover-primary shadow-sm`;
   const sizeStyles = {
     sm: 'text-[16px] w-[116px] h-[44px]',
     md: 'text-[20px] w-[160px] h-[60px]',

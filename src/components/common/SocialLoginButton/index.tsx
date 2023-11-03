@@ -6,11 +6,10 @@ export type IconName = 'kakao' | 'naver' | 'google';
 
 export type SocialLoginButtonProps = {
   name: IconName;
+  onClick: () => void;
 };
 
-export const SocialLoginButton = ({ name = 'kakao' }: SocialLoginButtonProps) => {
-  const onLogin = () => {};
-
+export const SocialLoginButton = ({ name = 'kakao', onClick }: SocialLoginButtonProps) => {
   const socialStyles = {
     kakao: {
       boxStyle: 'bg-yellow-kakao',
@@ -27,15 +26,14 @@ export const SocialLoginButton = ({ name = 'kakao' }: SocialLoginButtonProps) =>
   };
 
   const { boxStyle, text } = socialStyles[name];
-
   const capitalizedName = capitalizeFirstLetter(name);
 
   return (
-    <div className={`${boxStyle} w-[340px] h-[70px]`} onClick={onLogin}>
+    <button className={`${boxStyle} w-[340px] h-[70px] `} onClick={onClick}>
       <div className="h-full px-[30px] py-[10px] flex justify-start items-center">
         <Icon name={name} />
         <h2 className={`${text} font-bold text-[16px] pl-8`}>{capitalizedName}로 시작하기</h2>
       </div>
-    </div>
+    </button>
   );
 };
