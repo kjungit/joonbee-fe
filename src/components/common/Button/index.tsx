@@ -32,7 +32,7 @@ export const Button = ({
   const sizeStyles = {
     xs: 'w-[90px] h-[50px]',
     sm: 'w-[100px] h-[40px]',
-    md: 'w-[150px] h-[60px]',
+    md: 'min-w-[150px] h-[60px]',
     lg: 'w-[274px] h-[60px]',
     xl: 'w-[340px] h-[50px]',
     '2xl': 'w-[500px] h-[60px]',
