@@ -5,9 +5,10 @@ import { Button } from '../Button';
 export interface DetailAnswerCardProps {
   question: string;
   answer: string;
+  onClick: () => void;
 }
 
-export const DetailAnswerCard = ({ question, answer }: DetailAnswerCardProps) => {
+export const DetailAnswerCard = ({ question, answer, onClick }: DetailAnswerCardProps) => {
   const baseStyles =
     'flex p-6 h-[200px] w-[540px] z-10 border-l-main-primary border-l-[12px] flex-col font-bold shadow-md rounded-xl';
 
@@ -23,7 +24,7 @@ export const DetailAnswerCard = ({ question, answer }: DetailAnswerCardProps) =>
         </div>
       </div>
       <div className="absolute z-30 right-5 bottom-6">
-        <Button text="sm" size="sm" color="darkNavy" onClick={() => {}}>
+        <Button text="sm" size="sm" color="darkNavy" onClick={onClick}>
           자세히보기
         </Button>
       </div>
