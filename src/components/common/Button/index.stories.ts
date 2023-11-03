@@ -17,7 +17,7 @@ const meta: Meta<typeof Button> = {
     },
     text: {
       control: 'inline-radio',
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'md', 'lg', 'xl'],
     },
 
     onClick: { action: 'clicked' },
@@ -33,7 +33,7 @@ export const Default: Story = {
   args: {
     size: 'md',
     color: 'bluePrimary',
-    text: 'md',
+    text: 'lg',
     className: '',
     children: '버튼',
   },

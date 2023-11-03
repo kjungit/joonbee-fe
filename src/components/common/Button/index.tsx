@@ -4,7 +4,7 @@ import React from 'react';
 
 type ButtonColor = 'darkNavy' | 'bluePrimary' | 'blueSecondary' | 'blueNormal';
 type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
-type ButtonText = 'sm' | 'md' | 'lg';
+type ButtonText = 'sm' | 'md' | 'lg' | 'xl';
 type ButtonType = 'submit' | 'button';
 export type ButtonProps = {
   color?: ButtonColor;
@@ -20,7 +20,7 @@ export type ButtonProps = {
 export const Button = ({
   color = 'bluePrimary',
   size = 'md',
-  text = 'md',
+  text = 'lg',
   type = 'button',
   children,
   className,
@@ -31,7 +31,7 @@ export const Button = ({
 
   const sizeStyles = {
     xs: 'w-[90px] h-[50px]',
-    sm: 'w-[78px] h-[20px]',
+    sm: 'w-[100px] h-[40px]',
     md: 'w-[150px] h-[60px]',
     lg: 'w-[274px] h-[60px]',
     xl: 'w-[340px] h-[50px]',
@@ -42,8 +42,9 @@ export const Button = ({
 
   const textStyles = {
     sm: 'text-[16px]',
-    md: 'text-[24px]',
-    lg: 'text-[32px]',
+    md: 'text-[20px]',
+    lg: 'text-[24px]',
+    xl: 'text-[32px]',
   };
 
   const colorStyles = {
