@@ -4,8 +4,9 @@ import React from 'react';
 
 type ButtonColor = 'darkNavy' | 'bluePrimary' | 'blueSecondary' | 'blueNormal';
 type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+type ButtonText = 'sm' | 'md' | 'lg';
 type ButtonType = 'submit' | 'button';
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps = {
   color?: ButtonColor;
   size?: ButtonSize;
   type?: ButtonType;
@@ -13,11 +14,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   className?: string;
-}
+  text?: ButtonText;
+};
 
 export const Button = ({
   color = 'bluePrimary',
   size = 'md',
+  text = 'md',
   type = 'button',
   children,
   className,
@@ -37,6 +40,12 @@ export const Button = ({
     '4xl': 'w-[536px] h-[88px]',
   };
 
+  const textStyles = {
+    sm: 'text-[16px]',
+    md: 'text-[24px]',
+    lg: 'text-[32px]',
+  };
+
   const colorStyles = {
     darkNavy: 'bg-main-primary hover:bg-hover-primary',
     bluePrimary: 'bg-blue-primary hover:bg-hover-bluePrimary',
@@ -44,7 +53,7 @@ export const Button = ({
     blueNormal: 'bg-blue-normal hover:bg-hover-blueNormarl',
   };
 
-  const buttonStyles = `${baseStyles}  ${sizeStyles[size]} ${className}  ${
+  const buttonStyles = `${baseStyles} ${textStyles[text]} ${sizeStyles[size]} ${className}  ${
     disabled ? 'bg-gray-disabled cursor-not-allowed ' : colorStyles[color]
   }`;
 
