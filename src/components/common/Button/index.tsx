@@ -2,54 +2,64 @@
 
 import React from 'react';
 
-type ButtonVariant = 'filled' | 'outlined';
-type ButtonColor = 'primary' | 'secondary';
-type ButtonSize = 'sm' | 'md' | 'lg';
-
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
+type ButtonColor = 'darkNavy' | 'bluePrimary' | 'blueSecondary' | 'blueNormal';
+type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+type ButtonText = 'sm' | 'md' | 'lg' | 'xl';
+type ButtonType = 'submit' | 'button';
+export type ButtonProps = {
   color?: ButtonColor;
   size?: ButtonSize;
-}
+  type?: ButtonType;
+  children: React.ReactNode;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
+  className?: string;
+  text?: ButtonText;
+};
 
 export const Button = ({
-  variant = 'filled',
-  color = 'primary',
+  color = 'bluePrimary',
   size = 'md',
+  text = 'lg',
+  type = 'button',
   children,
-  ...props
+  className,
+  onClick,
+  disabled = false,
 }: ButtonProps) => {
-  const baseStyles =
-    'rounded text-red-100 font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 bg-red-100';
+  const baseStyles = 'rounded-[8px] font-bold text-white shadow-md';
 
   const sizeStyles = {
-    sm: 'py-9 px-8 text-sm',
-    md: 'py-2 px-4',
-    lg: 'py-3 px-6 text-lg',
+    xs: 'w-[90px] h-[50px]',
+    sm: 'w-[100px] h-[40px]',
+    md: 'w-[150px] h-[60px]',
+    lg: 'w-[274px] h-[60px]',
+    xl: 'w-[340px] h-[50px]',
+    '2xl': 'w-[500px] h-[60px]',
+    '3xl': 'w-[500px] h-[80px]',
+    '4xl': 'w-[536px] h-[88px]',
+  };
+
+  const textStyles = {
+    sm: 'text-[16px]',
+    md: 'text-[20px]',
+    lg: 'text-[24px]',
+    xl: 'text-[32px]',
   };
 
   const colorStyles = {
-    primary: {
-      filled: 'bg-[#d82525] hover:bg-blue-600 text-white focus:ring-blue-400',
-      outlined:
-        'bg-transparent hover:bg-blue-100 text-blue-500 border-blue-500 border focus:ring-blue-400',
-    },
-    secondary: {
-      filled: 'bg-gray-500 hover:bg-gray-600 text-white focus:ring-gray-400',
-      outlined:
-        'bg-transparent hover:bg-gray-100 text-gray-500 border-gray-500 border focus:ring-gray-400',
-    },
-    normal: {
-      filled: 'bg-gray-500 hover:bg-gray-600 text-white focus:ring-gray-400',
-      outlined:
-        'bg-transparent hover:bg-gray-100 text-gray-500 border-gray-500 border focus:ring-gray-400',
-    },
+    darkNavy: 'bg-main-primary hover:bg-hover-primary',
+    bluePrimary: 'bg-blue-primary hover:bg-hover-bluePrimary',
+    blueSecondary: 'bg-blue-secondary hover:bg-hover-blueSecondary',
+    blueNormal: 'bg-blue-normal hover:bg-hover-blueNormarl',
   };
 
-  const buttonStyles = `${baseStyles} ${sizeStyles[size]} ${colorStyles[color][variant]}`;
+  const buttonStyles = `${baseStyles} ${textStyles[text]} ${sizeStyles[size]} ${className}  ${
+    disabled ? 'bg-gray-disabled cursor-not-allowed ' : colorStyles[color]
+  }`;
 
   return (
-    <button className={buttonStyles} {...props}>
+    <button type={type} className={buttonStyles} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

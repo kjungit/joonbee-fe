@@ -1,40 +1,38 @@
 import React from 'react';
-import { Button } from './';
+import { RadiusButton } from './';
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof Button> = {
-  title: 'Design System/Atoms/Button',
-  component: Button,
+const meta: Meta<typeof RadiusButton> = {
+  title: 'Design System/Atoms/RadiusButton',
+  component: RadiusButton,
   tags: ['autodocs'],
   argTypes: {
     color: {
       control: 'radio',
-      options: ['darkNavy', 'bluePrimary', 'blueSecondary', 'blueNormal'],
+      options: ['dark', 'light', 'blue'],
     },
     size: {
       control: 'inline-radio',
-      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'],
+      options: ['sm', 'md'],
     },
     text: {
       control: 'inline-radio',
-      options: ['sm', 'md', 'lg', 'xl'],
+      options: ['sm', 'md'],
     },
 
     onClick: { action: 'clicked' },
     disabled: { control: 'boolean' },
-    className: {},
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof RadiusButton>;
 
 export const Default: Story = {
   args: {
-    size: 'md',
-    color: 'bluePrimary',
-    text: 'lg',
-    className: '',
+    size: 'sm',
+    text: 'md',
+    color: 'dark',
     children: '버튼',
   },
 };
