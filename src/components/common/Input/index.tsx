@@ -1,11 +1,17 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export type InputProps = {
   isDisabled?: boolean;
-}
+  inputValue: string;
+  setInputValue: (value: string) => void;
+};
 
-export const Input = ({ isDisabled = false }: InputProps) => {
+export const Input = ({ isDisabled = false, inputValue, setInputValue }: InputProps) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
   const baseStyles = `text-[18px]   ${isDisabled ? 'text-gray-disabled' : 'text-main-primary'}
    px-[10px] font-bold shadow-md rounded-xl `;
 
@@ -16,6 +22,12 @@ export const Input = ({ isDisabled = false }: InputProps) => {
   `;
 
   return (
-    <input className={buttonStyles} placeholder="질문을 작성해주세요." disabled={isDisabled} />
+    <input
+      onChange={onChange}
+      value={inputValue}
+      className={buttonStyles}
+      placeholder="질문을 작성해주세요."
+      disabled={isDisabled}
+    />
   );
 };

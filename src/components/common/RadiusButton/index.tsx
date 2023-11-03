@@ -22,7 +22,6 @@ export const RadiusButton = ({
   children,
   onClick,
   disabled = false,
-  ...props
 }: RadiusButtonProps) => {
   const baseStyles = 'rounded-[74px] font-bold text-white shadow-md';
 
@@ -47,7 +46,7 @@ export const RadiusButton = ({
   }`;
 
   return (
-    <button className={buttonStyles} onClick={onClick} disabled={disabled} {...props}>
+    <button className={buttonStyles} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
