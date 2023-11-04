@@ -21,7 +21,7 @@ type Story = StoryObj<typeof Dropdown>;
 export const Primary: Story = {
   args: {
     size: 'md',
-    data: ['프론트엔드', '백엔드', '언어', '프론트엔드', '프론트엔드'],
+    data: ['프론트엔드', '백엔드', '언어', 'CS', '모바일','기타'],
     title: '카테고리',
   },
 };
