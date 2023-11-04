@@ -6,7 +6,6 @@ type AvatarSize = 'sm' | 'md' | 'lg';
 
 export interface AvatarProps {
   size: AvatarSize;
-  children: React.ReactNode;
   onClick: () => void;
   profile: string;
 }
