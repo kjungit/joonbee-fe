@@ -25,11 +25,9 @@ const List = ({ children, name, size = 'sm' }: ListProps) => {
   };
 
   return (
-    <label>
-      <select name={name} defaultValue="카테고리" onChange={onChangeSelect} className={ListStyles}>
-        {children}
-      </select>
-    </label>
+    <select name={name} defaultValue="카테고리" onChange={onChangeSelect} className={ListStyles}>
+      {children}
+    </select>
   );
 };
 
