@@ -4,7 +4,7 @@ const useDropdown = () => {
   const [isOpened, setIsOpened] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  console.log(dropdownRef.current);
+  // console.log(dropdownRef.current);
 
   const toggleDropdown = () => {
     setIsOpened(prev => !prev);
