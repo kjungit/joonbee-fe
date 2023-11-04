@@ -3,7 +3,17 @@
 import React from 'react';
 
 type ButtonColor = 'darkNavy' | 'bluePrimary' | 'blueSecondary' | 'blueNormal';
-type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+type ButtonSize =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | 'dropdown-sm'
+  | 'dropdown-md';
 type ButtonText = 'sm' | 'md' | 'lg' | 'xl';
 type ButtonType = 'submit' | 'button';
 export type ButtonProps = {
@@ -38,6 +48,8 @@ export const Button = ({
     '2xl': 'w-[500px] h-[60px]',
     '3xl': 'w-[500px] h-[80px]',
     '4xl': 'w-[536px] h-[88px]',
+    'dropdown-sm': 'w-[114px] h-[44px]',
+    'dropdown-md': 'w-[160px] h-[60px]',
   };
 
   const textStyles = {
