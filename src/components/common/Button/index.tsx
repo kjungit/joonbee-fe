@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-type ButtonColor = 'darkNavy' | 'bluePrimary' | 'blueSecondary' | 'blueNormal';
+type ButtonColor = 'darkNavy' | 'bluePrimary' | 'blueSecondary' | 'blueNormal' | 'blueTertiary';
 type ButtonSize =
   | 'xs'
   | 'sm'
@@ -63,6 +63,7 @@ export const Button = ({
     darkNavy: 'bg-main-primary hover:bg-hover-primary',
     bluePrimary: 'bg-blue-primary hover:bg-hover-bluePrimary',
     blueSecondary: 'bg-blue-secondary hover:bg-hover-blueSecondary',
+    blueTertiary: 'bg-blue-tertiary hover:bg-hover-blueTertiary',
     blueNormal: 'bg-blue-normal hover:bg-hover-blueNormarl',
   };
 

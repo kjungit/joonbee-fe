@@ -8,7 +8,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     color: {
       control: 'radio',
-      options: ['darkNavy', 'bluePrimary', 'blueSecondary', 'blueNormal'],
+      options: ['darkNavy', 'bluePrimary', 'blueSecondary', 'blueNormal', 'blueTertiary'],
     },
     size: {
       control: 'inline-radio',
