@@ -12,7 +12,7 @@ type DropdownProps = {
 
 const Dropdown = ({ size = 'md', data, title = '카테고리', onSelect }: DropdownProps) => {
   const [selected, setSelected] = useState('');
-  const { isOpened, toggleModal, ModalRef } = useModalOutsideClick();
+  const { isOpened, toggleModal, modalRef } = useModalOutsideClick();
 
   const onSelectItem = (item: string) => {
     setSelected(item);
@@ -42,7 +42,7 @@ const Dropdown = ({ size = 'md', data, title = '카테고리', onSelect }: Dropd
   };
 
   return (
-    <section ref={ModalRef} className={`${sizeStyles[size].section} relative`}>
+    <section ref={modalRef} className={`${sizeStyles[size].section} relative`}>
       <Button color="darkNavy" text={size} size={`dropdown-${size}`} onClick={onToggleList}>
         {showSelectedItem()}
       </Button>
