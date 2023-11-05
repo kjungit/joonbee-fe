@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+import React, { useState } from 'react';
 import { VariableIcon } from '../VariableIcon';
 import useModalOutsideClick from '../../../hooks/useModalOutsideClick';
 
