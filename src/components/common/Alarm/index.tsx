@@ -1,0 +1,49 @@
+import React, { useEffect, useState } from 'react';
+import { VariableIcon } from '../VariableIcon';
+import useModalOutsideClick from '../../../hooks/useModalOutsideClick';
+
+type AlarmProps = {
+  isAlarm: boolean;
+  data: any;
+};
+
+const Alarm = ({ data }: AlarmProps) => {
+  const { isAlarmMessage, alarm } = data;
+  const [isAlarm, setIsAlarm] = useState(isAlarmMessage);
+  const { isOpened, toggleModal, modalRef } = useModalOutsideClick();
+
+  useEffect(() => {
+    if (isOpened) setIsAlarm(false);
+  }, [isOpened]);
+
+  return (
+    <div className="relative flex flex-col gap-2">
+      <VariableIcon size={36} name="alarm" onClick={toggleModal} />
+      {isAlarm && (
+        <div className="absolute w-[10px] h-[10px] bg-status-alert rounded-full left-6 top-0 animate-ping" />
+      )}
+      {isOpened && (
+        <ul
+          ref={modalRef}
+          className="absolute top-9 -left-[230px] w-[270px] h-[240px] rounded-[10px] shadow-normal p-[14px] overflow-y-scroll scroll-hide">
+          {isAlarm ? (
+            <p className="font-bold text-[14px] text-center">알림이 현재 없습니다.</p>
+          ) : (
+            alarm.map((item: any) => (
+              <li key={item.id} className="flex flex-col gap-2">
+                <div className="flex gap-1 items-baseline">
+                  <p className="font-bold text-[12px] text-blue-secondary">알림</p>
+                  <p className="text-[10px] text-gray-normal">{item.time}</p>
+                </div>
+                <h2 className="font-bold text-[14px]">{item.title}</h2>
+                <div className="border-b-2 border-gray-normal mb-2" />
+              </li>
+            ))
+          )}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default Alarm;
