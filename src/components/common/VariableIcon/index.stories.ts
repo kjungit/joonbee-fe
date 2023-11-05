@@ -9,7 +9,7 @@ const meta: Meta<typeof VariableIcon> = {
   argTypes: {
     name: {
       control: 'select',
-      options: ['emptyLike', 'copy', 'filledLike'],
+      options: ['emptyLike', 'copy', 'filledLike', 'alarm'],
     },
     size: {},
   },

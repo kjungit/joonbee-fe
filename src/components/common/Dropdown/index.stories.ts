@@ -3,18 +3,23 @@ import Dropdown from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Dropdown> = {
-  title: 'Design System/Atoms/Dropdown',
+  title: 'Design System/Molecules/Dropdown',
   component: Dropdown,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 400,
+      },
+    },
+  },
   argTypes: {
     size: {
       control: 'inline-radio',
       options: ['sm', 'md'],
     },
-    dropdownType: {
-      contro: 'inline-radio',
-      options: ['single', 'double'],
-    },
+    data: {},
   },
 };
 
@@ -24,6 +29,7 @@ type Story = StoryObj<typeof Dropdown>;
 export const Primary: Story = {
   args: {
     size: 'md',
-    dropdownType: 'double',
+    data: ['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타'],
+    title: '카테고리',
   },
 };

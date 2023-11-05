@@ -1,25 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dropdown from '../Dropdown';
 import { Input } from '../Input';
 import { Button } from '../Button';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedValueState } from '../../../recoil/select/atom';
 
-const QuestionForm = () => {
-  const [question, setQuestion] = useState('');
-  const { selectedCategory, selectedSubcategory } = useRecoilValue(selectedValueState);
+type QuestionFormProps = {
+  data: any;
+};
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const QuestionForm = ({ data }: QuestionFormProps) => {
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedSubcategory, setSelectedSubcategory] = useState('');
+  const [subcategoryName, setSubcateogyName] = useState([]);
+  const [question, setQuestion] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const categoryNames = data.map((item: any) => item.category);
+
+  useEffect(() => {
+    setSubcateogyName(
+      data.find((item: any) => item.category === selectedCategory)?.subcategory || [],
+    );
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    onDisableSubmitButton();
+  }, [selectedCategory, question, selectedSubcategory]);
+
+  const onSubmitQuestion = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO : 질문 추가 API 요청
-    //console.log(selectedCategory, selectedSubcategory, question);
+  };
+
+  const onDisableSubmitButton = () => {
+    Boolean(selectedCategory && selectedSubcategory && question)
+      ? setIsDisabled(false)
+      : setIsDisabled(true);
   };
 
   return (
-    <form className="flex gap-5 w-auto" onSubmit={onSubmit}>
-      <Dropdown />
+    <form className="flex gap-5 w-auto" onSubmit={onSubmitQuestion}>
+      <Dropdown data={categoryNames} onSelect={setSelectedCategory} />
+      <Dropdown data={subcategoryName} onSelect={setSelectedSubcategory} title="세부 카테고리" />
       <Input inputValue={question} setInputValue={setQuestion} />
-      <Button type="submit" color="darkNavy" size="md" text="md">
+      <Button type="submit" color="darkNavy" size="md" text="md" disabled={isDisabled}>
         등록하기
       </Button>
     </form>

@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 type IconProps = {
-  size: 'sm' | 'md';
+  size?: 'sm' | 'md';
 };
 
 const Logo = ({ size = 'sm' }: IconProps) => {
