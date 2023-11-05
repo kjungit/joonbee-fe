@@ -3,7 +3,6 @@ import { VariableIcon } from '../VariableIcon';
 import useModalOutsideClick from '../../../hooks/useModalOutsideClick';
 
 type AlarmProps = {
-  isAlarm: boolean;
   data: any;
 };
 
@@ -11,10 +10,6 @@ const Alarm = ({ data }: AlarmProps) => {
   const { isAlarmMessage, alarm } = data;
   const [isAlarm, setIsAlarm] = useState(isAlarmMessage);
   const { isOpened, toggleModal, modalRef } = useModalOutsideClick();
-
-  useEffect(() => {
-    if (isOpened) setIsAlarm(false);
-  }, [isOpened]);
 
   return (
     <div className="relative flex flex-col gap-2">
@@ -25,8 +20,8 @@ const Alarm = ({ data }: AlarmProps) => {
       {isOpened && (
         <ul
           ref={modalRef}
-          className="absolute top-9 -left-[230px] w-[270px] h-[240px] rounded-[10px] shadow-normal p-[14px] overflow-y-scroll scroll-hide">
-          {isAlarm ? (
+          className="absolute z-10 top-9 -left-[230px] w-[270px] h-[240px] rounded-[10px] shadow-normal p-[14px] overflow-y-scroll scroll-hide bg-white">
+          {!isAlarm ? (
             <p className="font-bold text-[14px] text-center">알림이 현재 없습니다.</p>
           ) : (
             alarm.map((item: any) => (
