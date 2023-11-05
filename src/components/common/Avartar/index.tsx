@@ -19,7 +19,6 @@ export const Avatar = ({ size, profile, onClick }: AvatarProps) => {
     lg: 'w-[140px] h-[140px]',
   };
 
-  // const alarmStyles = `absolute w-[10px] h-[10px] bg-status-alert rounded-full right-0 top-[1px]`;
   const AvatarStyles = `${baseStyles} ${sizeStyles[size]}`;
 
   return (
