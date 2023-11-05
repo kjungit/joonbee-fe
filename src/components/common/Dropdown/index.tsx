@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Button } from '../Button';
-import useDropdown from '../../../hooks/userDropdown';
+import useModalOutsideClick from '../../../hooks/useModalOutsideClick';
 
 type DropdownProps = {
   size?: 'sm' | 'md';
@@ -12,7 +12,7 @@ type DropdownProps = {
 
 const Dropdown = ({ size = 'md', data, title = '카테고리', onSelect }: DropdownProps) => {
   const [selected, setSelected] = useState('');
-  const { isOpened, toggleDropdown, dropdownRef } = useDropdown();
+  const { isOpened, toggleModal, ModalRef } = useModalOutsideClick();
 
   const onSelectItem = (item: string) => {
     setSelected(item);
@@ -21,7 +21,7 @@ const Dropdown = ({ size = 'md', data, title = '카테고리', onSelect }: Dropd
   };
 
   const onToggleList = () => {
-    toggleDropdown();
+    toggleModal();
   };
 
   const showSelectedItem = () => {
@@ -42,7 +42,7 @@ const Dropdown = ({ size = 'md', data, title = '카테고리', onSelect }: Dropd
   };
 
   return (
-    <section ref={dropdownRef} className={`${sizeStyles[size].section} relative`}>
+    <section ref={ModalRef} className={`${sizeStyles[size].section} relative`}>
       <Button color="darkNavy" text={size} size={`dropdown-${size}`} onClick={onToggleList}>
         {showSelectedItem()}
       </Button>
