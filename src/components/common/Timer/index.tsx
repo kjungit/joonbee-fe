@@ -10,9 +10,6 @@ const Timer = ({ time = 60 }: TimerProps) => {
 
   const { remainingTime, isCompleted } = useTimer(time);
 
-  console.log(remainingTime);
-
-
   return (
     <div className="w-[180px] h-[180px] relative">
       <svg className="circle">

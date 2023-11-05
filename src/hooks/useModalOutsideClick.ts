@@ -4,8 +4,6 @@ const useModalOutsideClick = () => {
   const [isOpened, setIsOpened] = useState(false);
   const modalRef = useRef<HTMLUListElement | null>(null);
 
-  // console.log(modalRef.current);
-
   const toggleModal = () => {
     setIsOpened(prev => !prev);
   };
@@ -15,8 +13,6 @@ const useModalOutsideClick = () => {
   };
 
   const handleDocumentClick = (e: MouseEvent) => {
-    console.log(e);
-    console.log(modalRef.current);
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
       setIsOpened(false);
     }
