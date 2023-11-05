@@ -1,16 +1,15 @@
 import Image from 'next/image';
 import React from 'react';
-import naver from '/public/icons/naver.png';
 
 type AvatarSize = 'sm' | 'md' | 'lg';
 
 export interface AvatarProps {
-  size: AvatarSize;
-  onClick: () => void;
-  profile: string;
+  size?: AvatarSize;
+  onClick?: () => void;
+  thunbnail: string;
 }
 
-export const Avatar = ({ size, profile, onClick }: AvatarProps) => {
+export const Avatar = ({ size = 'sm', thunbnail, onClick }: AvatarProps) => {
   const baseStyles = 'rounded-full bg-gray-normal relative';
 
   const sizeStyles = {
@@ -23,11 +22,11 @@ export const Avatar = ({ size, profile, onClick }: AvatarProps) => {
 
   return (
     <div className={AvatarStyles} onClick={onClick}>
-      {profile && (
+      {thunbnail && (
         <Image
           className="rounded-full"
-          src={profile}
-          alt="profile"
+          src={thunbnail}
+          alt="thunbnail"
           layout="fill"
           objectFit="cover"
         />

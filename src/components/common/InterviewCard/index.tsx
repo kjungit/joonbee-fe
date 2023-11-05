@@ -33,7 +33,7 @@ const InterviewCard = ({ data }: InterviewCardProps) => {
       </div>
       <div className="flex justify-between items-center rounded-b-[20px] h-[80px] border-t border-t-gray-normal px-[28px] py-[12px]">
         <div className="flex gap-2">
-          <Avatar size="sm" profile={userInfo.thumbnail} onClick={onClickAvatar} />
+          <Avatar size="sm" thunbnail={userInfo.thumbnail} onClick={onClickAvatar} />
           <p className="font-bold text-[16px]">by {maskNickname(userInfo.nickName)}</p>
         </div>
         <div className="flex gap-2">
