@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={inter.className}>
         <RecoilRootProvider>
           <Header />
-          <main className=" min-h-[calc(100vh-64px)]">{children}</main>
+          <main className="h-[calc(100vh-64px)]">{children}</main>
         </RecoilRootProvider>
       </body>
     </html>
