@@ -2,12 +2,11 @@ import React from 'react';
 import Alarm from '../Alarm';
 import { Avatar } from '../../ui/Avartar';
 import Logo from '../../ui/Logo';
+import { alarmData } from '@/constants/alarm';
 
-type HeaderProps = {
-  data: any;
-};
+const Header = () => {
+  const data = alarmData;
 
-const Header = ({ data }: HeaderProps) => {
   return (
     <header className="w-screen h-[64px] shadow-sm flex justify-center items-center bg-white">
       <div className="min-w-[1240px] flex justify-between px-8 items-center">
