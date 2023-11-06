@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from '../Button';
-import { QuestrionCard } from '../QuestionCard';
-import { VariableIcon } from '../VariableIcon';
-import { Avatar } from '../Avartar';
 import { maskNickname } from '../../../utils/format';
+import { QuestrionCard } from '../QuestionCard';
+import { Button } from '@/components/ui/Button';
+import { Avatar } from '@/components/ui/Avartar';
+import { VariableIcon } from '@/components/ui/VariableIcon';
 
 type InterviewCardProps = {
   data: any;

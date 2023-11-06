@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { VariableIcon } from '../VariableIcon';
+import React, { useState } from 'react';
+import { VariableIcon } from '../../ui/VariableIcon';
 import useModalOutsideClick from '../../../hooks/useModalOutsideClick';
 
 type AlarmProps = {

@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Logo from '../Logo';
+import Logo from '@/components/ui/Logo';
 import { SocialLoginButton } from '../SocialLoginButton';
 
 export const LoginBox = () => {

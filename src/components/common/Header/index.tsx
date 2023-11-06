@@ -1,7 +1,7 @@
 import React from 'react';
 import Alarm from '../Alarm';
-import { Avatar } from '../Avartar';
-import Logo from '../Logo';
+import { Avatar } from '../../ui/Avartar';
+import Logo from '../../ui/Logo';
 
 type HeaderProps = {
   data: any;
