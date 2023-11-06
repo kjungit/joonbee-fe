@@ -1,0 +1,52 @@
+'use client';
+import React, { useState } from 'react';
+
+type ItemProps = {
+  id: number;
+  text: string;
+};
+
+export interface RadioButtonGroupProps {
+  data: ItemProps[];
+  size: 'md' | 'lg';
+  onClickFunc: (param: ItemProps) => void;
+}
+
+export const RadioButtonGroup = ({ data, size = 'md', onClickFunc }: RadioButtonGroupProps) => {
+  const [checkedRadio, setCheckedRadio] = useState(data[0].id);
+
+  const sizeStyles = {
+    md: 'w-[110px]',
+    lg: 'w-[300px]',
+  };
+  return (
+    <div className="flex gap-4">
+      {data.map(item => (
+        <div key={item.id}>
+          <label htmlFor={`default-radio-${item.id}`} className="block">
+            <input
+              id={`default-radio-${item.id}`}
+              type="radio"
+              value={'i.text'}
+              name="default-radio"
+              className="w-4 h-4 hidden peer"
+              checked={checkedRadio === item.id}
+            />
+            <div
+              className={`peer-checked:bg-main-primary peer-checked:text-white bg-white text-main-primary   h-[60px] shadow-md flex items-center justify-center font-bold text-lg rounded-lg ${
+                checkedRadio === item.id
+              } ${sizeStyles[size]}`}
+              onClick={() => {
+                if (item.id !== checkedRadio) {
+                  setCheckedRadio(item.id);
+                  onClickFunc(item);
+                }
+              }}>
+              {item.text}
+            </div>
+          </label>
+        </div>
+      ))}
+    </div>
+  );
+};

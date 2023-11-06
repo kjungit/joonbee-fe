@@ -26,6 +26,7 @@ const config: Config = {
         primary: '#4374F3',
         secondary: '#405ABA',
         normal: '#324883',
+        tertiary: '#475F85',
       },
       background: {
         lightgray: '#F6F6F6',
@@ -35,6 +36,22 @@ const config: Config = {
         primary: '#121418',
         blueSecondary: '#2F4597',
         bluePrimary: '#325DCE',
+        blueNormarl: '#253560',
+        blueTertiary: '#30405A',
+        grayLight: '#EAEEF3',
+      },
+      yellow: {
+        kakao: '#FDDC3F',
+      },
+      green: {
+        naver: '#00C73C',
+      },
+    },
+    extend: {
+      boxShadow: {
+        normal: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+        sm: '0px 2px 2px 0px rgba(0, 0, 0, 0.25)',
+        md: '0px 2px 8px rgba(0, 0, 0, 0.1)',
       },
     },
   },
