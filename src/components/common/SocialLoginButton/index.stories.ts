@@ -1,4 +1,3 @@
-import React from 'react';
 import { SocialLoginButton } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 

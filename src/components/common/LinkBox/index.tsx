@@ -1,7 +1,8 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-import { Icon, IconName } from '../Icon';
+import { IconName } from '../SocialLoginButton';
+import { Icon } from '@/components/ui/Icon';
 
 type CardSize = 'sm' | 'md' | 'lg';
 type CardColor = 'gray' | 'navy';

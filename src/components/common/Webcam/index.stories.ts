@@ -1,5 +1,4 @@
-import React from 'react';
-import Webcam from './';
+import Webcam from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Webcam> = {
