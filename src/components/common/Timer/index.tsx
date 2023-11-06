@@ -1,5 +1,5 @@
 import useTimer from '../../../hooks/useTimer';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 type TimerProps = {
   time: number;

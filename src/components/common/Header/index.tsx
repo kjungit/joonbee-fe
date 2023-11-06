@@ -1,8 +1,8 @@
 import React from 'react';
 import Alarm from '../Alarm';
-import { Avatar } from '../Avartar';
-import Logo from '../Logo';
-import { alarmData } from '../../../constants/alarm';
+import { Avatar } from '../../ui/Avartar';
+import Logo from '../../ui/Logo';
+import { alarmData } from '@/constants/alarm';
 
 const Header = () => {
   const data = alarmData;

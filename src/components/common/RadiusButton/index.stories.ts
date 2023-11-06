@@ -1,5 +1,4 @@
-import React from 'react';
-import { RadiusButton } from './';
+import { RadiusButton } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof RadiusButton> = {

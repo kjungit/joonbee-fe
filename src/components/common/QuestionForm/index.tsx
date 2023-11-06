@@ -1,9 +1,7 @@
+import { Button } from '@/components/ui/Button';
+import Dropdown from '@/components/ui/Dropdown';
+import { Input } from '@/components/ui/Input';
 import React, { useEffect, useState } from 'react';
-import Dropdown from '../Dropdown';
-import { Input } from '../Input';
-import { Button } from '../Button';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedValueState } from '../../../recoil/select/atom';
 
 type QuestionFormProps = {
   data: any;
