@@ -14,3 +14,7 @@ type Story = StoryObj<typeof Webcam>;
 export const Primary: Story = {
   args: {},
 };
+
+export const secondary: Story = {
+  args: {},
+};
