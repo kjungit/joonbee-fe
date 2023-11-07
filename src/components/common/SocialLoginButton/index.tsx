@@ -1,5 +1,5 @@
 import React from 'react';
-import { capitalizeFirstLetter } from '../../../utils/format';
+import { capitalizeFirstLetter } from '@/utils/format';
 import { Icon } from '@/components/ui/Icon';
 
 export type IconName = 'kakao' | 'naver' | 'google';

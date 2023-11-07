@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Button } from '../Button';
-import useModalOutsideClick from '../../../hooks/useModalOutsideClick';
+import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 
 type DropdownProps = {
   size?: 'sm' | 'md';
