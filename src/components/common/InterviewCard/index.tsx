@@ -1,5 +1,5 @@
 import React from 'react';
-import { maskNickname } from '../../../utils/format';
+import { maskNickname } from '@/utils/format';
 import { QuestrionCard } from '../QuestionCard';
 import { Button } from '@/components/ui/Button';
 import { Avatar } from '@/components/ui/Avartar';

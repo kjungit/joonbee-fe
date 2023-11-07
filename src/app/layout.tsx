@@ -2,6 +2,7 @@ import RecoilRootProvider from '@/recoil/recoilRootProvider';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Header from '../components/common/Header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,9 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className={inter.className}>
         <RecoilRootProvider>
-          <main>
-            <div>{children}</div>
-          </main>
+          <Header />
+          <main className="h-[calc(100vh-64px)]">{children}</main>
         </RecoilRootProvider>
       </body>
     </html>
