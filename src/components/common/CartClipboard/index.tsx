@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { VariableIcon } from '../../ui/VariableIcon';
-import ModalPortal from '../../ui/ModalPortal';
+import { VariableIcon } from '@/components/ui/VariableIcon';
+import ModalPortal from '@/components/ui/ModalPortal';
 
 type CardColor = 'black' | 'white';
 

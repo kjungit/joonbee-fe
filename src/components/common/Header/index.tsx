@@ -1,7 +1,7 @@
 import React from 'react';
 import Alarm from '../Alarm';
-import { Avatar } from '../../ui/Avartar';
-import Logo from '../../ui/Logo';
+import { Avatar } from '@/components/ui/Avartar';
+import Logo from '@/components/ui/Logo';
 import { alarmData } from '@/constants/alarm';
 
 const Header = () => {

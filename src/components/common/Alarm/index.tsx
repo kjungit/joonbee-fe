@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import { VariableIcon } from '../../ui/VariableIcon';
-import useModalOutsideClick from '../../../hooks/useModalOutsideClick';
+import { VariableIcon } from '@/components/ui/VariableIcon';
+import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 
 type AlarmProps = {
   data: any;
