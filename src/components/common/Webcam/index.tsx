@@ -19,6 +19,7 @@ const Webcam = () => {
     <div className="App">
       <video autoPlay ref={videoRef} />
       <button onClick={startVideo}>start</button>
+      <button>end</button>
     </div>
   );
 };
