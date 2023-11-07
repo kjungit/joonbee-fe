@@ -11,7 +11,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "format": "prettier --cache --write .",
-    "lint": "eslint --cache ."
+    "lint": "eslint --cache .",
+    "chromatic": "chromatic --project-token CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
     "apexcharts": "^3.44.0",
@@ -53,6 +54,7 @@
     "storybook": "^7.4.6",
     "tailwindcss": "^3",
     "ts-jest": "^29.1.1",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5"
   }
 }
