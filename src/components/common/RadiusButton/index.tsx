@@ -23,12 +23,12 @@ export const RadiusButton = ({
   onClick,
   disabled = false,
 }: RadiusButtonProps) => {
-  const baseStyles = 'rounded-[74px] font-bold text-white shadow-md';
+  const baseStyles = 'rounded-[74px] font-bold  shadow-md';
 
   const colorStyles = {
-    dark: 'bg-main-primary hover:bg-hover-primary',
+    dark: 'bg-main-primary hover:bg-hover-primary text-white',
     light: 'bg-gray-light hover:bg-hover-grayLight text-black',
-    blue: 'bg-blue-secondary hover:bg-hover-blueSecondary',
+    blue: 'bg-blue-secondary hover:bg-hover-blueSecondary text-white',
   };
 
   const textStyles = {

@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <header className="w-screen h-[64px] shadow-sm flex justify-center items-center bg-white">
-      <div className="min-w-[1240px] flex justify-between px-8 items-center">
+      <div className="w-[1240px] flex justify-between px-8 items-center">
         <div className="flex gap-4 items-center">
           <Logo />
           <h2 className="text-blue-secondary text-[24px] font-bold">JOONBEE</h2>
