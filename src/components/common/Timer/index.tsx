@@ -1,8 +1,10 @@
+'use client';
+
 import useTimer from '@/hooks/useTimer';
 import React from 'react';
 
 type TimerProps = {
-  time: number;
+  time?: number;
 };
 
 const Timer = ({ time = 60 }: TimerProps) => {

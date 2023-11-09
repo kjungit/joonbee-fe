@@ -9,7 +9,7 @@ type current = number;
 
 export interface InterviewBarProps extends React.HTMLAttributes<HTMLDivElement> {
   data: QuestionList[];
-  currentId: current;
+  currentId?: current;
 }
 
 export const InterviewBar = ({ data, currentId = 1 }: InterviewBarProps) => {
