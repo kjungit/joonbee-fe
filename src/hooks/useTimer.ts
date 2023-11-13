@@ -1,25 +1,32 @@
+import { TimerState } from '@/types';
 import React, { useEffect, useState } from 'react';
 
-const useTimer = (time: number) => {
+const useTimer = (
+  time: number,
+  timerState: TimerState,
+  setTimerState: (state: TimerState) => void,
+) => {
   const [remainingTime, setRemainingTime] = useState(time);
-  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (remainingTime > 0) {
-        setRemainingTime(remainingTime - 1);
-      } else {
+    if (timerState === 'READY') setRemainingTime(time);
+    if (timerState === 'PROGRESS') {
+      const timer = setInterval(() => {
+        if (remainingTime > 0) {
+          setTimerState('PROGRESS');
+          setRemainingTime(remainingTime - 1);
+        } else {
+          setTimerState('DONE');
+          clearInterval(timer);
+        }
+      }, 1000);
+      return () => {
         clearInterval(timer);
-        setIsCompleted(true);
-      }
-    }, 1000);
+      };
+    }
+  }, [remainingTime, timerState]);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [remainingTime]);
-
-  return { remainingTime, isCompleted };
+  return { remainingTime };
 };
 
 export default useTimer;
