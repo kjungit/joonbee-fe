@@ -10,10 +10,10 @@ type WebcamProps = {
   videoRef?: React.MutableRefObject<HTMLVideoElement | null>;
 };
 
-const Webcam = ({ isPermitVideo, size = 'sm', className, onStartVideo, videoRef }: WebcamProps) => {
-  useEffect(() => {
-    if (isPermitVideo && onStartVideo) onStartVideo();
-  }, [isPermitVideo]);
+const Webcam = ({ isPermitVideo, size = 'sm', className, videoRef }: WebcamProps) => {
+  // useEffect(() => {
+  //   if (isPermitVideo && onStartVideo) onStartVideo();
+  // }, [isPermitVideo]);
 
   const sizeStyles = {
     sm: 'w-[500px] h-[320px]',
