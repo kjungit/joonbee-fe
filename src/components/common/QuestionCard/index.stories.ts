@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { QuestrionCard } from '.';
+import { QuestionCard } from '.';
 
-const meta: Meta<typeof QuestrionCard> = {
+const meta: Meta<typeof QuestionCard> = {
   title: 'DESIGN SYSTEM/Atoms/QuestrionCard',
-  component: QuestrionCard,
+  component: QuestionCard,
   tags: ['autodocs'],
   argTypes: {
     color: {
@@ -20,7 +20,7 @@ const meta: Meta<typeof QuestrionCard> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof QuestrionCard>;
+type Story = StoryObj<typeof QuestionCard>;
 
 export const Primary: Story = {
   args: {
