@@ -7,7 +7,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Button } from '@/components/ui/Button';
 import { TextArea } from '@/components/ui/TextArea';
 import { InterviewBar } from '@/components/common/InterviewBar';
-import { QuestrionCard } from '@/components/common/QuestionCard';
 import Timer from '@/components/common/Timer';
 import Webcam from '@/components/common/Webcam';
 import { interviewQuestionState } from '@/recoil/interviewQuestion/atom';
@@ -15,6 +14,7 @@ import { TimerState } from '@/types';
 import useVideo from '@/hooks/useVideo';
 import { questionVideoState } from '@/recoil/questionVideo/atom';
 import useSpeechToText from '@/hooks/useSpeechToText';
+import { QuestionCard } from '@/components/common/QuestionCard';
 
 const InterviewScreen = () => {
   const interviewQuestion = useRecoilValue(interviewQuestionState);
@@ -90,7 +90,7 @@ const InterviewScreen = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5">
-          <QuestrionCard size="lg">{currentQuestion.questionContent}</QuestrionCard>
+          <QuestionCard size="lg">{currentQuestion.questionContent}</QuestionCard>
           <TextArea inputValue={transcript} setInputValue={setTranscript} />
           <Button size="4xl" onClick={onClickBtn} disabled={onDisableBtn()}>
             {btnText}
