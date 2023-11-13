@@ -6,7 +6,7 @@ const useVideo = () => {
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
 
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
-  const [recordedMediaUrl, setRecordedMediaUrl] = useState<string | null>(null);
+  const [recordedMediaUrl, setRecordedMediaUrl] = useState('');
 
   useEffect(() => {
     onStartAudio();
@@ -77,7 +77,15 @@ const useVideo = () => {
     }
   };
 
-  return { onStartVideo, videoRef, onStartAudio, onStartRecord, onStopRecord, onDownload };
+  return {
+    onStartVideo,
+    videoRef,
+    onStartAudio,
+    onStartRecord,
+    onStopRecord,
+    onDownload,
+    recordedMediaUrl,
+  };
 };
 
 export default useVideo;
