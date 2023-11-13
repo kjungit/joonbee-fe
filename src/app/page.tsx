@@ -1,3 +1,15 @@
+import InfoSection from '@/components/page/Main/InfoSection';
+import InterviewSection from '@/components/page/Main/InterviewSection';
+import QuestionSection from '@/components/page/Main/QuestionSection';
+import TopSection from '@/components/page/Main/TopSection';
+
 export default function Home() {
-  return <div className="bg-blue-primary w-full h-full">홈페이지</div>;
+  return (
+    <div className=" w-full h-[4000px] flex items-center flex-col">
+      <TopSection />
+      <InterviewSection />
+      <QuestionSection />
+      <InfoSection />
+    </div>
+  );
 }

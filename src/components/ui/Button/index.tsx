@@ -2,7 +2,13 @@
 
 import React from 'react';
 
-type ButtonColor = 'darkNavy' | 'bluePrimary' | 'blueSecondary' | 'blueNormal' | 'blueTertiary';
+export type ButtonColor =
+  | 'white'
+  | 'darkNavy'
+  | 'bluePrimary'
+  | 'blueSecondary'
+  | 'blueNormal'
+  | 'blueTertiary';
 type ButtonSize =
   | 'xs'
   | 'sm'
@@ -37,7 +43,7 @@ export const Button = ({
   onClick,
   disabled = false,
 }: ButtonProps) => {
-  const baseStyles = 'rounded-[8px] font-bold text-white shadow-md';
+  const baseStyles = 'rounded-[8px] font-bold  shadow-md';
 
   const sizeStyles = {
     xs: 'w-[90px] h-[50px]',
@@ -60,11 +66,12 @@ export const Button = ({
   };
 
   const colorStyles = {
-    darkNavy: 'bg-main-primary hover:bg-hover-primary',
-    bluePrimary: 'bg-blue-primary hover:bg-hover-bluePrimary',
-    blueSecondary: 'bg-blue-secondary hover:bg-hover-blueSecondary',
-    blueTertiary: 'bg-blue-tertiary hover:bg-hover-blueTertiary',
-    blueNormal: 'bg-blue-normal hover:bg-hover-blueNormarl',
+    darkNavy: 'bg-main-primary hover:bg-hover-primary text-white',
+    bluePrimary: 'bg-blue-primary hover:bg-hover-bluePrimary text-white',
+    blueSecondary: 'bg-blue-secondary hover:bg-hover-blueSecondary text-white',
+    blueTertiary: 'bg-blue-tertiary hover:bg-hover-blueTertiary text-white',
+    blueNormal: 'bg-blue-normal hover:bg-hover-blueNormarl text-white',
+    white: 'bg-white hover:bg-gray-light text-main-primary',
   };
 
   const buttonStyles = `${baseStyles} ${textStyles[text]} ${sizeStyles[size]} ${className}  ${
