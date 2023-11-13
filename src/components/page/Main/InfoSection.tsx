@@ -1,4 +1,5 @@
 import { ToggleInfo } from '@/components/common/ToggleInfo';
+import React from 'react';
 
 const data = [
   {
@@ -104,7 +105,6 @@ const data = [
     면접 영상을 따로 저장하고 싶으면 신중하게 다음 단계로 넘어가주세요!`,
   },
 ];
-import React from 'react';
 
 export default function InfoSection() {
   return (

@@ -1,3 +1,4 @@
+'use client';
 import { IconName, StackLogo } from '@/components/common/StackLogo.tsx';
 import { AutoSlider } from '@/components/ui/AutoSlider';
 import React from 'react';
