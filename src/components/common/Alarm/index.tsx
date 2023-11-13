@@ -13,10 +13,10 @@ const Alarm = ({ data }: AlarmProps) => {
   const { isOpened, toggleModal, modalRef } = useModalOutsideClick();
 
   return (
-    <div className="relative flex flex-col gap-2">
-      <VariableIcon size={36} name="alarm" onClick={toggleModal} />
+    <div className="relative flex flex-col gap-2 justify-center">
+      <VariableIcon size={28} name="alarm" onClick={toggleModal} />
       {isAlarm && (
-        <div className="absolute w-[10px] h-[10px] bg-status-alert rounded-full left-6 top-0 animate-ping" />
+        <div className="absolute w-[6px] h-[6px] bg-status-alert rounded-full left-5 top-[4px] animate-ping" />
       )}
       {isOpened && (
         <ul

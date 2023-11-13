@@ -9,7 +9,7 @@ export interface ToggleInfoProps {
 export const ToggleInfo = ({ title, explanation }: ToggleInfoProps) => {
   const [isClick, setIsClick] = useState(false);
 
-  const baseStyles = `w-[584px] flex-col cursor-pointer justify-center flex border-b-main-primary border-b-[12px] font-bold shadow-md py-6 px-10  rounded-xl ${
+  const baseStyles = `w-[584px] flex-col cursor-pointer bg-white justify-center flex border-b-main-primary border-b-[12px] font-bold shadow-md py-6 px-10  rounded-xl ${
     isClick ? 'h-auto' : 'h-[110px]'
   }`;
 

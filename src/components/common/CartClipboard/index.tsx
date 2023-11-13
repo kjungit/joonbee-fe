@@ -10,7 +10,7 @@ export interface CartClipboardProps extends React.HTMLAttributes<HTMLDivElement>
   onClick: () => void;
 }
 
-export const CartClipboard = ({ color = 'white', onClick, children }: CartClipboardProps) => {
+export const CartClipboard = ({ color = 'white', onClick }: CartClipboardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const CartClipboard = ({ color = 'white', onClick, children }: CartClipbo
         <ModalPortal>
           <div className="fixed -translate-x-1/2 left-1/2 top-3/4">
             <div className="fadeOutBox w-[600px] rounded-lg items-center justify-center flex text-lg h-[50px]  bg-[#05081E] opacity-90 text-white">
-              내 질문에 추가 되었습니다.{' '}
+              내 질문에 추가 되었습니다.
             </div>
           </div>
         </ModalPortal>

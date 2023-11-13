@@ -1,8 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-import { IconName } from '../SocialLoginButton';
-import { Icon } from '@/components/ui/Icon';
+import { Icon, IconName } from '@/components/ui/Icon';
 
 type CardSize = 'sm' | 'md' | 'lg';
 type CardColor = 'gray' | 'navy';
@@ -35,12 +34,12 @@ export const LinkBox = ({
   const sizeStyles = {
     sm: 'justify-between h-[140px] w-[584px] px-[80px]',
     md: 'justify-between h-[312px] w-[584px] pl-[80px] pr-[100px]',
-    lg: 'justify-center h-[560px] w-[560px] flex-col-reverse',
+    lg: 'justify-center h-[500px] w-[500px] flex-col-reverse',
   };
 
   const colorStyles = {
-    gray: `bg-gray-light text-main-primary border-gray-normal border-2`,
-    navy: 'bg-main-primary text-gray-light',
+    gray: `bg-gray-light text-main-primary border-gray-normal border-4 hover:bg-white  hover:border-main-primary`,
+    navy: 'bg-main-primary text-gray-light hover:bg-hover-primary ',
   };
 
   const buttonStyles = `${baseStyles} ${sizeStyles[size]} ${colorStyles[color]}`;
