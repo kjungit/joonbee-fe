@@ -14,7 +14,9 @@ const useSpeechToText = () => {
     recognition.lang = 'ko-KR';
 
     recognition.onresult = (e: SpeechRecognitionEvent) => {
-      const speechToText = e.results[0][0].transcript;
+      let speechToText = Array.from(e.results)
+        .map(result => result[0].transcript)
+        .join('');
       setTranscript(speechToText);
       console.log('Speech to text:', speechToText);
     };
