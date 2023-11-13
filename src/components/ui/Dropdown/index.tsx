@@ -8,9 +8,16 @@ type DropdownProps = {
   data: string[];
   title?: string;
   onSelect: (item: string) => void;
+  color?: 'white' | 'darkNavy';
 };
 
-const Dropdown = ({ size = 'md', data, title = '카테고리', onSelect }: DropdownProps) => {
+const Dropdown = ({
+  size = 'md',
+  data,
+  title = '카테고리',
+  onSelect,
+  color = 'darkNavy',
+}: DropdownProps) => {
   const [selected, setSelected] = useState('');
   const { isOpened, toggleModal, modalRef } = useModalOutsideClick();
 
@@ -43,12 +50,12 @@ const Dropdown = ({ size = 'md', data, title = '카테고리', onSelect }: Dropd
 
   return (
     <section ref={modalRef} className={`${sizeStyles[size].section} relative`}>
-      <Button color="darkNavy" text={size} size={`dropdown-${size}`} onClick={onToggleList}>
+      <Button color={color} text={size} size={`dropdown-${size}`} onClick={onToggleList}>
         {showSelectedItem()}
       </Button>
       {isOpened && (
         <ul
-          className={`shadow-md px-[8px] py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  absolute
+          className={`shadow-md px-[8px] py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  bg-white absolute
           ${sizeStyles[size].list}`}>
           {data.map(item => (
             <div key={item}>
