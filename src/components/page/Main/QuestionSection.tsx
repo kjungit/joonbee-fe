@@ -21,6 +21,7 @@ const data = [
   'react에 대해서 설명해주세요.',
 ];
 const COLOR_NUMBER = [2, 3, 6, 7, 10, 11, 14, 15];
+
 export default function QuestionSection() {
   const [select, setSelect] = useState('');
 

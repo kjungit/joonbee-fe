@@ -115,7 +115,7 @@ export default function InterviewSection() {
           ))}
         </ul>
         <div className="flex justify-center my-12">
-          <RadiusButton text color="dark" textSize="sm" size="sm" onClick={() => {}}>
+          <RadiusButton text="md" color="dark" size="sm" onClick={() => {}}>
             전체 질문 보기
           </RadiusButton>
         </div>

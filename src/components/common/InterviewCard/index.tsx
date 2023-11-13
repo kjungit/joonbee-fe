@@ -32,11 +32,11 @@ const InterviewCard = ({ data }: InterviewCardProps) => {
             <QuestionCard key={question.id}>{question.question}</QuestionCard>
           ))}
         </ul>
-        <button onMouseOver={() => setIsFocus(true)} onMouseOut={() => setIsFocus(false)}>
+        <div onMouseOver={() => setIsFocus(true)} onMouseOut={() => setIsFocus(false)}>
           <Button size="xl" text="sm" color="blueTertiary" className="shadow-normal">
             <p>질문 자세히 보기</p>
           </Button>
-        </button>
+        </div>
       </div>
       <div className="flex justify-between items-center rounded-b-[20px] h-[80px] border-t border-t-gray-normal px-[28px] py-[12px]">
         <div className="flex gap-2">
