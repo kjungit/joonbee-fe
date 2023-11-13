@@ -63,12 +63,11 @@ const InterviewScreen = () => {
         onStartRecord();
         onStartListening();
         break;
-      case 'PROGRESS':
-        setTimerState('DONE');
-        break;
+
       case 'DONE':
         setTimerState('READY');
         onDoneButtonClick();
+
         break;
       default:
         break;
