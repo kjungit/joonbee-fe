@@ -15,6 +15,7 @@ import useVideo from '@/hooks/useVideo';
 import { questionVideoState } from '@/recoil/questionVideo/atom';
 import useSpeechToText from '@/hooks/useSpeechToText';
 import { QuestionCard } from '@/components/common/QuestionCard';
+import { interviewAnswerSelector } from '@/recoil/interviewQuestion/withWriteAnswer';
 
 const InterviewScreen = () => {
   const interviewQuestion = useRecoilValue(interviewQuestionState);
@@ -22,6 +23,8 @@ const InterviewScreen = () => {
   const [currentQuestion, setCurrentQuestion] = useState(interviewQuestion.questions[0]);
   const [timerState, setTimerState] = useState<TimerState>('READY');
   const [btnText, setBtnText] = useState('시작하기');
+  const [interviewAnswer, setInterviewAnswer] = useRecoilState(interviewAnswerSelector);
+
   const [questionVideo, setQestuionVideo] = useRecoilState(questionVideoState);
   const { videoRef, onStartVideo, onStartRecord, onStopRecord, onDownload, recordedMediaUrl } =
     useVideo();
@@ -29,8 +32,11 @@ const InterviewScreen = () => {
 
   const router = useRouter();
 
+  console.log(interviewQuestion);
+
   useEffect(() => {
     if (timerState === 'DONE') {
+      setInterviewAnswer({ questionId: currentQuestion.questionId, newAnswerContent: transcript });
       onStopRecord();
       onStopListening();
       setBtnText(
@@ -42,6 +48,7 @@ const InterviewScreen = () => {
   }, [timerState, currentQuestion, questionCount]);
 
   const onDoneButtonClick = () => {
+    setTimerState('READY');
     setTranscript('');
     setQestuionVideo([...questionVideo, recordedMediaUrl]);
 
@@ -65,7 +72,6 @@ const InterviewScreen = () => {
         break;
 
       case 'DONE':
-        setTimerState('READY');
         onDoneButtonClick();
 
         break;
@@ -80,11 +86,14 @@ const InterviewScreen = () => {
 
   return (
     <section className="h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] overflow-scroll">
-      <InterviewBar questions={interviewQuestion.questions} />
+      <InterviewBar
+        questions={interviewQuestion.questions}
+        currentId={currentQuestion.questionId}
+      />
       <h2 className="font-bold text-[32px]">질문 {currentQuestion.questionId}</h2>
       <div className="flex justify-between">
         <div className="flex flex-col gap-5">
-          <Webcam isPermitVideo={true} onStartVideo={onStartVideo} videoRef={videoRef} />
+          <Webcam isPermitVideo={true} videoRef={videoRef} onStartVideo={onStartVideo} />
           <div className="flex justify-center">
             <Timer timerState={timerState} setTimerState={setTimerState} />
           </div>
