@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { RadiusButton } from '@/components/common/RadiusButton';
 
 import Webcam from '@/components/common/Webcam';
+import useVideo from '@/hooks/useVideo';
 
 const audioConstraints = {
   audio: true,
@@ -14,10 +15,12 @@ const DeviceControl = () => {
   const [isPressedVideoBtn, setIsPressedVideoBtn] = useState(false);
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
 
+  const { videoRef, onStartVideo } = useVideo();
+
   const router = useRouter();
 
-  const onStartVideo = async () => {
-    setIsPressedVideoBtn(true);
+  const onToggleVideo = async () => {
+    setIsPressedVideoBtn(prev => !prev);
   };
 
   const onStartAudio = async () => {
@@ -36,13 +39,13 @@ const DeviceControl = () => {
 
   return (
     <div className="h-full flex flex-col justify-center items-center">
-      <Webcam isPermitVideo={isPressedVideoBtn} size="md" className="mb-10" />
+      <Webcam isPermitVideo={isPressedVideoBtn} size="md" className="mb-10" videoRef={videoRef} onStartVideo={onStartVideo} />
       <div>
         <div className="flex justify-between mb-6">
           <RadiusButton color="light" text="md" size="sm" onClick={onStartAudio}>
             마이크 권한 설정
           </RadiusButton>
-          <RadiusButton color="light" text="md" size="sm" onClick={onStartVideo}>
+          <RadiusButton color="light" text="md" size="sm" onClick={onToggleVideo}>
             카메라 권한 설정
           </RadiusButton>
         </div>
