@@ -7,13 +7,23 @@ type WebcamProps = {
   size?: 'sm' | 'md';
   className?: string;
   onStartVideo?: () => void;
+  onStartAudio?: () => void;
   videoRef?: React.MutableRefObject<HTMLVideoElement | null>;
 };
 
-const Webcam = ({ isPermitVideo, size = 'sm', className, videoRef }: WebcamProps) => {
-  // useEffect(() => {
-  //   if (isPermitVideo && onStartVideo) onStartVideo();
-  // }, [isPermitVideo]);
+const Webcam = ({
+  isPermitVideo,
+  size = 'sm',
+  className,
+  videoRef,
+  onStartVideo,
+  onStartAudio,
+}: WebcamProps) => {
+  useEffect(() => {
+    if (isPermitVideo && onStartVideo ) {
+      onStartVideo();
+    }
+  }, [isPermitVideo]);
 
   const sizeStyles = {
     sm: 'w-[500px] h-[320px]',
@@ -23,7 +33,7 @@ const Webcam = ({ isPermitVideo, size = 'sm', className, videoRef }: WebcamProps
   return isPermitVideo ? (
     <video autoPlay ref={videoRef} className={`object-cover ${sizeStyles[size]} ${className}`} />
   ) : (
-    <div className={`bg-black${sizeStyles[size]} ${className}`}></div>
+    <div className={`bg-black ${sizeStyles[size]} ${className}`}></div>
   );
 };
 
