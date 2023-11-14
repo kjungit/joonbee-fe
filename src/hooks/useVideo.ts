@@ -10,7 +10,6 @@ const useVideo = () => {
 
   useEffect(() => {
     onStartAudio();
-    onStartVideo();
   }, []);
 
   // useEffect(() => {
