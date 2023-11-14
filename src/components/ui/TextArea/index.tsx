@@ -8,7 +8,7 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 }
 
 export const TextArea = ({ isDisabled = false, inputValue = '', setInputValue }: TextareaProps) => {
-  const baseStyles = `text-[18px] border-white focus:border-main-primary border-4 focus:border-4 ${
+  const baseStyles = `text-[18px] border-4 border-gray-normal ${
     isDisabled ? 'text-gray-disabled' : 'text-main-primary'
   } p-5 font-bold shadow-md rounded-xl`;
 
@@ -26,6 +26,7 @@ export const TextArea = ({ isDisabled = false, inputValue = '', setInputValue }:
 
   return (
     <textarea
+      readOnly
       minLength={10}
       rows={10}
       cols={20}
