@@ -1,6 +1,18 @@
 import { atom, useRecoilState } from 'recoil';
 
-export const interviewQuestionState = atom({
+type Question = {
+  questionId: number;
+  subcategory: string;
+  questionContent: string;
+  answerContent: string;
+};
+
+type InterviewQuestionState = {
+  categoryName: string;
+  questions: Question[];
+};
+
+export const interviewQuestionState = atom<InterviewQuestionState>({
   key: 'interviewQuestionState',
   default: {
     categoryName: '프론트엔드',
