@@ -40,8 +40,13 @@ const QuestionForm = ({ data }: QuestionFormProps) => {
 
   return (
     <form className="flex gap-5 w-auto" onSubmit={onSubmitQuestion}>
-      <Dropdown data={categoryNames} onSelect={setSelectedCategory} />
-      <Dropdown data={subcategoryName} onSelect={setSelectedSubcategory} title="세부 카테고리" />
+      <Dropdown data={categoryNames} onSelect={setSelectedCategory} color="white" />
+      <Dropdown
+        data={subcategoryName}
+        onSelect={setSelectedSubcategory}
+        title="세부 카테고리"
+        color="white"
+      />
       <Input inputValue={question} setInputValue={setQuestion} />
       <Button type="submit" color="darkNavy" size="md" text="md" disabled={isDisabled}>
         등록하기
