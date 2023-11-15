@@ -15,6 +15,6 @@ export const Primary: Story = {
   args: {},
 };
 
-export const secondary: Story = {
+export const Secondary: Story = {
   args: {},
 };
