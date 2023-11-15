@@ -12,12 +12,25 @@ type Story = StoryObj<typeof InterviewBar>;
 
 export const Primary: Story = {
   args: {
-    data: [
-      { id: 1, question: '질문1' },
-      { id: 2, question: '질문2' },
-      { id: 3, question: '질문3' },
-      { id: 4, question: '질문4' },
-      { id: 5, question: '질문5' },
+    questions: [
+      {
+        questionId: 1,
+        subcategory: 'TypeScript',
+        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
+        answerContent: '',
+      },
+      {
+        questionId: 2,
+        subcategory: 'TypeScript',
+        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
+        answerContent: '',
+      },
+      {
+        questionId: 3,
+        subcategory: 'TypeScript',
+        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
+        answerContent: '',
+      },
     ],
     currentId: 3,
   },
@@ -25,39 +38,19 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    data: [
-      { id: 1, question: '질문1' },
-      { id: 2, question: '질문2' },
-      { id: 3, question: '질문3' },
-      { id: 4, question: '질문4' },
-      { id: 5, question: '질문5' },
-      { id: 6, question: '질문6' },
-    ],
-  },
-};
-
-export const Tertiary: Story = {
-  args: {
-    data: [
-      { id: 1, question: '질문1' },
-      { id: 2, question: '질문2' },
-      { id: 3, question: '질문3' },
-      { id: 4, question: '질문4' },
-      { id: 5, question: '질문5' },
-      { id: 6, question: '질문6' },
-    ],
-  },
-};
-
-export const Quaternary: Story = {
-  args: {
-    data: [
-      { id: 1, question: '질문1' },
-      { id: 2, question: '질문2' },
-      { id: 3, question: '질문3' },
-      { id: 4, question: '질문4' },
-      { id: 5, question: '질문5' },
-      { id: 6, question: '질문6' },
+    questions: [
+      {
+        questionId: 1,
+        subcategory: 'TypeScript',
+        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
+        answerContent: '',
+      },
+      {
+        questionId: 2,
+        subcategory: 'TypeScript',
+        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
+        answerContent: '',
+      },
     ],
   },
 };
