@@ -1,4 +1,4 @@
-import DeviceControl from '@/components/interview/permission/DeviceControl';
+import DeviceControl from '@/components/page/interview/permission/DeviceControl';
 import React from 'react';
 
 const InterviewPermissonPage = () => {

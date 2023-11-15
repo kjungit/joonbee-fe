@@ -1,4 +1,4 @@
-import InterviewScreen from '@/components/interview/progress/InterviewScreen';
+import InterviewScreen from '@/components/page/interview/progress/InterviewScreen';
 import React, { useRef } from 'react';
 
 const InterviewProgressPage = () => {
