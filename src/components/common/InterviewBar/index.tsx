@@ -19,7 +19,7 @@ export const InterviewBar = ({ questions, currentId = 0 }: InterviewBarProps) =>
   return (
     <ul className="flex justify-between w-full items-center">
       <li className={`min-w-[16px] h-4 rounded-full border-blue-normal bg-[#606DE3] border-4`}></li>
-      {questions.slice(0, -1).map(question => (
+      {questions.map(question => (
         <div key={question.questionId} style={{ width: widthCur }} className="relative h-full">
           {
             <li
