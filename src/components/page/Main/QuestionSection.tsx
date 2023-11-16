@@ -35,7 +35,7 @@ export default function QuestionSection() {
 
       <div className="w-[1200px] mt-14">
         <div className="flex gap-6">
-          <DropdownCategory />
+          <DropdownCategory color="white" />
         </div>
 
         <ul className="flex flex-wrap gap-4 justify-between mt-10">
