@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button } from '../Button';
 import useModalOutsideClick from '@/hooks/useModalOutsideClick';
+import { CategoryName, SubcategoryName } from '@/types/question';
 
 type DropdownProps = {
   size?: 'sm' | 'md';
-  data: string[];
+  data: (CategoryName | SubcategoryName)[];
   title?: string;
-  onSelect: (item: string) => void;
+  selected: CategoryName | SubcategoryName;
+  onSelect: (item: any) => void;
   color?: 'white' | 'darkNavy';
 };
 
@@ -16,13 +18,12 @@ const Dropdown = ({
   data,
   title = '카테고리',
   onSelect,
+  selected,
   color = 'darkNavy',
 }: DropdownProps) => {
-  const [selected, setSelected] = useState('');
   const { isOpened, toggleModal, modalRef } = useModalOutsideClick();
 
-  const onSelectItem = (item: string) => {
-    setSelected(item);
+  const onSelectItem = (item: CategoryName | SubcategoryName) => {
     onToggleList();
     onSelect(item);
   };
@@ -37,7 +38,7 @@ const Dropdown = ({
 
   const sizeStyles = {
     sm: {
-      item: 'px-[14px] py-[8px] text-[16px]',
+      item: 'px-[14px] py-[8px] text-[14px]',
       section: 'w-[116px]',
       list: 'top-[50px] h-[178px]',
     },
