@@ -8,7 +8,7 @@ import { selectedCategoryState, selectedSubcategoryState } from '@/recoil/select
 type DropdownCategoryProps = {
   color?: 'white' | 'darkNavy';
 };
-export default function DropdownCategory({ color = 'darkNavy' }: DropdownCategoryProps) {
+export default function DropdownCategory({ color = 'white' }: DropdownCategoryProps) {
   const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryState);
   const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(selectedSubcategoryState);
 
