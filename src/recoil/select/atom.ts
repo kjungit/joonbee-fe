@@ -1,29 +1,12 @@
+import { CategoryName, SubcategoryName } from '@/types/question';
 import { atom } from 'recoil';
 
-type categoryType = 'frontEnd' | 'backEnd' | 'language';
-
-type Category = {
-  [key in categoryType]: { subcategories: string[] };
-};
-
-const category: Category = {
-  frontEnd: {
-    subcategories: ['React', 'Vue', 'Angular'],
-  },
-  backEnd: {
-    subcategories: ['Express', 'Next'],
-  },
-  language: {
-    subcategories: ['Javascript', 'Typescript'],
-  },
-};
-
-export const categoryState = atom({
-  key: 'category',
-  default: category,
+export const selectedCategoryState = atom<CategoryName>({
+  key: 'selectedCategoryState',
+  default: '카테고리',
 });
 
-export const selectedValueState = atom({
-  key: 'selectedValue',
-  default: { selectedCategory: 'frontEnd', selectedSubcategory: '' },
+export const selectedSubcategoryState = atom<SubcategoryName>({
+  key: 'selectedSubcategoryState',
+  default: '세부 카테고리',
 });
