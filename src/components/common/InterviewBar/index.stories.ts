@@ -15,19 +15,16 @@ export const Primary: Story = {
     questions: [
       {
         questionId: 1,
-        subcategory: 'TypeScript',
         questionContent: 'TypeScript의 장점에 대해 설명하세요.',
         answerContent: '',
       },
       {
         questionId: 2,
-        subcategory: 'TypeScript',
         questionContent: 'TypeScript의 장점에 대해 설명하세요.',
         answerContent: '',
       },
       {
         questionId: 3,
-        subcategory: 'TypeScript',
         questionContent: 'TypeScript의 장점에 대해 설명하세요.',
         answerContent: '',
       },
@@ -41,13 +38,11 @@ export const Secondary: Story = {
     questions: [
       {
         questionId: 1,
-        subcategory: 'TypeScript',
         questionContent: 'TypeScript의 장점에 대해 설명하세요.',
         answerContent: '',
       },
       {
         questionId: 2,
-        subcategory: 'TypeScript',
         questionContent: 'TypeScript의 장점에 대해 설명하세요.',
         answerContent: '',
       },

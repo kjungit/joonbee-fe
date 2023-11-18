@@ -1,15 +1,10 @@
 'use client';
+import { Question } from '@/recoil/interviewQuestion/atom';
 import React from 'react';
 
-type QuestionList = {
-  questionId: number;
-  subcategory: string;
-  questionContent: string;
-  answerContent: string;
-};
 
 export type InterviewBarProps = {
-  questions: QuestionList[];
+  questions: Question[];
   currentId?: number;
 };
 

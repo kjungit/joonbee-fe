@@ -4,7 +4,6 @@ import { CategoryName, SubcategoryName } from '@/types/question';
 export type Question = {
   questionId: number;
   questionContent: string;
-  subcategoryName: SubcategoryName;
   answerContent: string;
 };
 
@@ -20,7 +19,6 @@ export const interviewQuestionState = atom<InterviewQuestionState>({
     questions: [
       {
         questionId: 1,
-        subcategoryName: 'React',
         questionContent: 'TypeScript의 장점에 대해 설명하세요.',
         answerContent: '',
       },
