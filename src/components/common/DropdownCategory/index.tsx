@@ -3,19 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { questionCategory } from '@/constants/category';
 import { CategoryName, SubcategoryName } from '@/types/question';
 import { useRecoilState } from 'recoil';
-import { selectedCategoryState, selectedSubcategoryState } from '@/recoil/select/atom';
+import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 
 type DropdownCategoryProps = {
   color?: 'white' | 'darkNavy';
 };
 export default function DropdownCategory({ color = 'white' }: DropdownCategoryProps) {
-  const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryState);
-  const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(selectedSubcategoryState);
+  const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryAtom);
+  const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(selectedSubcategoryAtom);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const [subcategoryName, setSubcateogyName] = useState<SubcategoryName[]>([]);
   const categoryNames = questionCategory.map(item => item.category);
 
   useEffect(() => {
+    selectedCategory === 'All' ? setIsDisabled(true) : setIsDisabled(false);
+
     setSubcateogyName(
       questionCategory.find(item => item.category === selectedCategory)?.subcategory || [],
     );
@@ -43,6 +46,7 @@ export default function DropdownCategory({ color = 'white' }: DropdownCategoryPr
         onSelect={setSelectedSubcategory}
         title="세부 카테고리"
         color={color}
+        isDisabled={isDisabled}
       />
     </div>
   );
