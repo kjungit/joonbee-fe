@@ -21,13 +21,13 @@ type Story = StoryObj<typeof QuestionForm>;
 
 export const Primary: Story = {
   args: {
-    data: [
-      { category: '프론트엔드', subcategory: ['React', 'Vue', 'Nextjs'] },
-      { category: '백엔드', subcategory: ['DB', 'Express', 'MSA'] },
-      { category: 'CS', subcategory: ['Docker', '운영체제', '컴퓨터구조'] },
-      { category: '모바일', subcategory: ['IOS', '플러터'] },
-      { category: '기타', subcategory: ['Git'] },
-    ],
+    type: 'primary',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    type: 'secondary',
   },
 };
 

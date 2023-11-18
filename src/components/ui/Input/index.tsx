@@ -13,7 +13,7 @@ export const Input = ({ isDisabled = false, inputValue, setInputValue }: InputPr
   };
 
   const baseStyles = `text-[18px]   ${isDisabled ? 'text-gray-disabled' : 'text-main-primary'}
-   px-5 font-bold shadow-md rounded-xl border-main-primary focus:border-4`;
+   px-5 font-bold shadow-md rounded-xl focus:border-4 focus:border-main-primary  border-4 border-gray-normal`;
 
   const sizeStyles = 'h-[60px] w-[570px] flex text-5 items-center';
 

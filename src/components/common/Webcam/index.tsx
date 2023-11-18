@@ -1,26 +1,39 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 
-const CONSTRAINTS = { video: true };
+type WebcamProps = {
+  isPermitVideo: boolean;
+  size?: 'sm' | 'md';
+  className?: string;
+  onStartVideo?: () => void;
+  onStartAudio?: () => void;
+  videoRef?: React.MutableRefObject<HTMLVideoElement | null>;
+};
 
-const Webcam = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const startVideo = async () => {
-    console.log(videoRef);
-    const stream = await navigator.mediaDevices.getUserMedia(CONSTRAINTS);
-    if (videoRef && videoRef.current && !videoRef.current.srcObject) {
-      videoRef.current.srcObject = stream;
+const Webcam = ({
+  isPermitVideo,
+  size = 'sm',
+  className,
+  videoRef,
+  onStartVideo,
+  onStartAudio,
+}: WebcamProps) => {
+  useEffect(() => {
+    if (isPermitVideo && onStartVideo ) {
+      onStartVideo();
     }
+  }, [isPermitVideo]);
+
+  const sizeStyles = {
+    sm: 'w-[500px] h-[320px]',
+    md: 'w-[584px] h-[374px]',
   };
 
-  return (
-    <div className="App">
-      <video autoPlay ref={videoRef} />
-      <button onClick={startVideo}>start</button>
-      <button>end</button>
-    </div>
+  return isPermitVideo ? (
+    <video autoPlay ref={videoRef} className={`object-cover ${sizeStyles[size]} ${className}`} />
+  ) : (
+    <div className={`bg-black ${sizeStyles[size]} ${className}`}></div>
   );
 };
 

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Dropdown from '@/components/ui/Dropdown';
 import { QuestionCard } from '@/components/common/QuestionCard';
 import SlideSection from './SlideSection';
+import DropdownCategory from '@/components/common/DropdownCategory';
 
 const data = [
   'react에 대해서 설명해주세요.',
@@ -34,24 +35,7 @@ export default function QuestionSection() {
 
       <div className="w-[1200px] mt-14">
         <div className="flex gap-6">
-          <Dropdown
-            color="darkNavy"
-            title="카테고리"
-            size="md"
-            data={['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타']}
-            onSelect={item => {
-              setSelect(item);
-            }}
-          />
-          <Dropdown
-            color="white"
-            title="세부 카테고리"
-            size="md"
-            data={['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타']}
-            onSelect={item => {
-              setSelect(item);
-            }}
-          />
+          <DropdownCategory color="white" />
         </div>
 
         <ul className="flex flex-wrap gap-4 justify-between mt-10">

@@ -1,26 +1,24 @@
+'use client';
+
 import { Button } from '@/components/ui/Button';
-import Dropdown from '@/components/ui/Dropdown';
 import { Input } from '@/components/ui/Input';
 import React, { useEffect, useState } from 'react';
+import DropdownCategory from '../DropdownCategory';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
+import { categoryNameSelector } from '@/recoil/interviewQuestion/withWriteQuestion';
+import { myQuestionAddSelector } from '@/recoil/myQuestion/withAdd';
 
-type QuestionFormProps = {
-  data: any;
+type QuestionForm = {
+  type?: 'primary' | 'secondary';
 };
 
-const QuestionForm = ({ data }: QuestionFormProps) => {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedSubcategory, setSelectedSubcategory] = useState('');
-  const [subcategoryName, setSubcateogyName] = useState([]);
+const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
+  const [myQuestion, setMyQuestion] = useRecoilState(myQuestionAddSelector);
+  const [categoryName, setCategoryName] = useRecoilState(categoryNameSelector);
+  const selectedCategory = useRecoilValue(selectedCategoryAtom);
+  const selectedSubcategory = useRecoilValue(selectedSubcategoryAtom);
   const [question, setQuestion] = useState('');
-  const [isDisabled, setIsDisabled] = useState(true);
-
-  const categoryNames = data.map((item: any) => item.category);
-
-  useEffect(() => {
-    setSubcateogyName(
-      data.find((item: any) => item.category === selectedCategory)?.subcategory || [],
-    );
-  }, [selectedCategory]);
 
   useEffect(() => {
     onDisableSubmitButton();
@@ -28,22 +26,47 @@ const QuestionForm = ({ data }: QuestionFormProps) => {
 
   const onSubmitQuestion = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setCategoryName(selectedCategory);
+    setMyQuestion([
+      {
+        questionId: myQuestion.length + 1,
+        categoryName: selectedCategory,
+        subcategoryName: selectedSubcategory,
+        questionContent: question,
+        isChecked: false,
+      },
+    ]);
   };
 
   const onDisableSubmitButton = () => {
-    Boolean(selectedCategory && selectedSubcategory && question)
-      ? setIsDisabled(false)
-      : setIsDisabled(true);
+    console.log(selectedCategory);
+
+    if (selectedCategory === 'All' || selectedSubcategory === '세부 카테고리') {
+      return true;
+    }
+
+    return !(selectedCategory && selectedSubcategory && question);
+  };
+
+  const typeStyles = {
+    primary: 'flex gap-5',
+    secondary: 'flex-col space-y-2 ',
   };
 
   return (
-    <form className="flex gap-5 w-auto" onSubmit={onSubmitQuestion}>
-      <Dropdown data={categoryNames} onSelect={setSelectedCategory} />
-      <Dropdown data={subcategoryName} onSelect={setSelectedSubcategory} title="세부 카테고리" />
-      <Input inputValue={question} setInputValue={setQuestion} />
-      <Button type="submit" color="darkNavy" size="md" text="md" disabled={isDisabled}>
-        등록하기
-      </Button>
+    <form className={typeStyles[type]} onSubmit={onSubmitQuestion}>
+      <DropdownCategory />
+      <div className="flex gap-5 ">
+        <Input inputValue={question} setInputValue={setQuestion} />
+        <Button
+          type="submit"
+          color="darkNavy"
+          size="md"
+          text="md"
+          disabled={onDisableSubmitButton()}>
+          등록하기
+        </Button>
+      </div>
     </form>
   );
 };

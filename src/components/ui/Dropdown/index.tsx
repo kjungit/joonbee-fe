@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button } from '../Button';
 import useModalOutsideClick from '@/hooks/useModalOutsideClick';
+import { CategoryName, SubcategoryName } from '@/types/question';
 
 type DropdownProps = {
   size?: 'sm' | 'md';
-  data: string[];
+  data: (CategoryName | SubcategoryName)[];
   title?: string;
-  onSelect: (item: string) => void;
+  selected: CategoryName | SubcategoryName;
+  onSelect: (item: any) => void;
   color?: 'white' | 'darkNavy';
+  isDisabled?: boolean;
 };
 
 const Dropdown = ({
@@ -16,13 +19,13 @@ const Dropdown = ({
   data,
   title = '카테고리',
   onSelect,
+  selected,
   color = 'darkNavy',
+  isDisabled = false,
 }: DropdownProps) => {
-  const [selected, setSelected] = useState('');
   const { isOpened, toggleModal, modalRef } = useModalOutsideClick();
 
-  const onSelectItem = (item: string) => {
-    setSelected(item);
+  const onSelectItem = (item: CategoryName | SubcategoryName) => {
     onToggleList();
     onSelect(item);
   };
@@ -37,7 +40,7 @@ const Dropdown = ({
 
   const sizeStyles = {
     sm: {
-      item: 'px-[14px] py-[8px] text-[16px]',
+      item: 'px-[14px] py-[8px] text-[14px]',
       section: 'w-[116px]',
       list: 'top-[50px] h-[178px]',
     },
@@ -50,12 +53,17 @@ const Dropdown = ({
 
   return (
     <section ref={modalRef} className={`${sizeStyles[size].section} relative`}>
-      <Button color={color} text={size} size={`dropdown-${size}`} onClick={onToggleList}>
+      <Button
+        color={color}
+        text={size}
+        size={`dropdown-${size}`}
+        onClick={onToggleList}
+        disabled={isDisabled}>
         {showSelectedItem()}
       </Button>
       {isOpened && (
         <ul
-          className={`shadow-md px-[8px] py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  bg-white absolute
+          className={`shadow-normal px-[8px] py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  bg-white absolute
           ${sizeStyles[size].list}`}>
           {data.map(item => (
             <div key={item}>

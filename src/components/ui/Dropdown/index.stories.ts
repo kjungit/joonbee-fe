@@ -19,7 +19,10 @@ const meta: Meta<typeof Dropdown> = {
       control: 'inline-radio',
       options: ['sm', 'md'],
     },
-    data: {},
+    color: {
+      control: 'inline-radio',
+      options: ['white', 'darkNavy'],
+    },
   },
 };
 
@@ -31,5 +34,15 @@ export const Primary: Story = {
     size: 'md',
     data: ['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타'],
     title: '카테고리',
+    color: 'white',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    size: 'sm',
+    data: ['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타'],
+    title: '카테고리',
+    color: 'darkNavy',
   },
 };

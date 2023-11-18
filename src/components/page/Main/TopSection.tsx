@@ -11,7 +11,7 @@ export default function TopSection() {
             size="md"
             color="navy"
             title="AI면접 시작하기"
-            propsLink="/choice"
+            propsLink="/question-types"
             iconSrc="ai_white"
           />
         </div>

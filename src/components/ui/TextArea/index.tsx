@@ -3,10 +3,12 @@ import React from 'react';
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   isDisabled?: boolean;
+  inputValue?: string;
+  setInputValue?: (value: string) => void;
 }
 
-export const TextArea = ({ isDisabled = false }: TextareaProps) => {
-  const baseStyles = `text-[18px] border-white focus:border-main-primary border-4 focus:border-4 ${
+export const TextArea = ({ isDisabled = false, inputValue = '', setInputValue }: TextareaProps) => {
+  const baseStyles = `text-[18px] border-4 border-gray-normal ${
     isDisabled ? 'text-gray-disabled' : 'text-main-primary'
   } p-5 font-bold shadow-md rounded-xl`;
 
@@ -16,14 +18,23 @@ export const TextArea = ({ isDisabled = false }: TextareaProps) => {
   ${baseStyles} ${sizeStyles}
   `;
 
+  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (setInputValue) {
+      setInputValue(event.target.value);
+    }
+  };
+
   return (
     <textarea
+      readOnly
       minLength={10}
       rows={10}
       cols={20}
       className={TextAreaStyles}
       placeholder="질문을 작성해주세요."
       disabled={isDisabled}
+      value={inputValue}
+      onChange={onChange}
     />
   );
 };

@@ -30,7 +30,7 @@ const config: Config = {
         light: '#F5F6F8',
       },
       background: {
-        lightgray: '#F6F6F6',
+        lightgray: '#F4F4F4',
         bluegray: '#E2E5EC',
       },
       hover: {

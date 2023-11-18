@@ -1,40 +1,39 @@
 'use client';
 import React from 'react';
 
-interface QuestionList {
-  id: number;
-  question: string;
-}
-type current = number;
+type QuestionList = {
+  questionId: number;
+  subcategory: string;
+  questionContent: string;
+  answerContent: string;
+};
 
-export interface InterviewBarProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: QuestionList[];
-  currentId: current;
-}
+export type InterviewBarProps = {
+  questions: QuestionList[];
+  currentId?: number;
+};
 
-export const InterviewBar = ({ data, currentId = 1 }: InterviewBarProps) => {
-  const widthCur = Number(1100 / (data.length - 1)) + 'px';
+export const InterviewBar = ({ questions, currentId = 0 }: InterviewBarProps) => {
+  const widthCur = `${100 / (questions.length - 1)}%`;
 
-  const cur = `width: ${widthCur}px`;
   return (
-    <div className="">
-      <ul className="flex justify-between w-[1100px] items-center">
-        {data.map(i => (
-          <>
+    <ul className="flex justify-between w-full items-center">
+      <li className={`min-w-[16px] h-4 rounded-full border-blue-normal bg-[#606DE3] border-4`}></li>
+      {questions.map(question => (
+        <div key={question.questionId} style={{ width: widthCur }} className="relative h-full">
+          {
             <li
-              className={`w-4 h-4 rounded-full border-blue-normal ${
-                i.id <= currentId + 1 ? 'bg-[#606DE3]' : 'bg-white'
-              } border-4`}></li>
-            {data.length !== i.id && (
-              <li
-                style={{ width: widthCur }}
-                className={` h-[4px] ${i.id <= currentId ? 'bg-blue-normal' : 'bg-[#B1BDDE]'}
-             
+              className={` h-[4px] absolute w-full top-[6px] ${
+                question.questionId <= currentId - 1 ? 'bg-blue-normal' : 'bg-[#B1BDDE]'
+              }
              `}></li>
-            )}
-          </>
-        ))}
-      </ul>
-    </div>
+          }
+          <li
+            className={`w-4 h-4 rounded-full border-blue-normal top-0 right-0 absolute ${
+              question.questionId <= currentId - 1 ? 'bg-[#606DE3]' : 'bg-white'
+            } border-4`}></li>
+        </div>
+      ))}
+    </ul>
   );
 };

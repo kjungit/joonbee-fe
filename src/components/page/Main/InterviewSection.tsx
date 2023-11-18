@@ -2,6 +2,7 @@
 import InterviewCard from '@/components/common/InterviewCard';
 import { RadiusButton } from '@/components/common/RadiusButton';
 import Dropdown from '@/components/ui/Dropdown';
+import { CategoryName } from '@/types/question';
 import React, { useState } from 'react';
 
 const data = [
@@ -92,7 +93,7 @@ const data = [
 ];
 
 export default function InterviewSection() {
-  const [select, setSelect] = useState('');
+  const [select, setSelect] = useState<CategoryName>('카테고리');
   return (
     <section className=" pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
       <div className="w-[1200px]">
@@ -101,6 +102,7 @@ export default function InterviewSection() {
             color="white"
             title="카테고리"
             size="md"
+            selected={select}
             data={['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타']}
             onSelect={item => {
               setSelect(item);
