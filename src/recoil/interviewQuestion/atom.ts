@@ -1,14 +1,15 @@
-import { atom, useRecoilState } from 'recoil';
+import { atom, useRecoilValue } from 'recoil';
+import { CategoryName, SubcategoryName } from '@/types/question';
 
-type Question = {
+export type Question = {
   questionId: number;
-  subcategory: string;
   questionContent: string;
+  subcategoryName: SubcategoryName;
   answerContent: string;
 };
 
-type InterviewQuestionState = {
-  categoryName: string;
+export type InterviewQuestionState = {
+  categoryName: CategoryName;
   questions: Question[];
 };
 
@@ -19,14 +20,8 @@ export const interviewQuestionState = atom<InterviewQuestionState>({
     questions: [
       {
         questionId: 1,
-        subcategory: 'TypeScript',
+        subcategoryName: 'React',
         questionContent: 'TypeScript의 장점에 대해 설명하세요.',
-        answerContent: '',
-      },
-      {
-        questionId: 2,
-        subcategory: 'JavaScript',
-        questionContent: 'JavaScript의 동작원리에 대해 설명하세요.',
         answerContent: '',
       },
     ],
