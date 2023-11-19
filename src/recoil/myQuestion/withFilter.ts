@@ -9,14 +9,19 @@ export const myQuestionFilterSelector = selector<MyQuestion[]>({
     const subcategoryName = get(selectedSubcategoryAtom);
     const allQuestions = get(myQuestionAtom);
 
-    if (categoryName === 'All') {
+    console.log('cat', categoryName);
+    console.log('sub', subcategoryName);
+
+    if (categoryName === 'All' || categoryName === '') {
       return allQuestions;
-    } else {
-      const filteredQuestions = allQuestions.filter(
-        question =>
-          question.categoryName === categoryName && question.subcategoryName === subcategoryName,
-      );
-      return filteredQuestions;
     }
+
+    const filteredQuestions = allQuestions.filter(question => {
+      if (subcategoryName === '') {
+        return question.categoryName === categoryName;
+      }
+      return question.categoryName === categoryName && question.subcategoryName === subcategoryName;
+    });
+    return filteredQuestions;
   },
 });
