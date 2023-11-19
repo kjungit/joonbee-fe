@@ -15,7 +15,6 @@ export const interviewAnswerSelector = selector({
   set: ({ get, set }, newValue: UpdatedAnswer) => {
     const questionId = newValue.questionId;
     const newAnswerContent = newValue.newAnswerContent;
-    console.log(questionId, newAnswerContent);
     const interviewQuestion = get(interviewQuestionState);
     const updatedQuestions = interviewQuestion.questions.map(question => {
       if (question.questionId === questionId) {

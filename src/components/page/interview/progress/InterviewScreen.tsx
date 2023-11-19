@@ -32,7 +32,6 @@ const InterviewScreen = () => {
 
   const router = useRouter();
 
-  console.log(interviewQuestion);
 
   useEffect(() => {
     if (timerState === 'DONE') {
@@ -61,7 +60,6 @@ const InterviewScreen = () => {
   };
 
   const onClickBtn = () => {
-    console.log(timerState);
 
     switch (timerState) {
       case 'READY':
