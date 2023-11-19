@@ -10,7 +10,7 @@ export type MyQuestion = {
 };
 
 export const myQuestionAtom = atom<MyQuestion[]>({
-  key: 'myQuestionState',
+  key: 'myQuestionAtom',
   default: [
     {
       questionId: 1,
