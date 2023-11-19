@@ -3,15 +3,15 @@
 import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestionCard';
 import QuestionForm from '@/components/common/QuestionForm';
 import { Button } from '@/components/ui/Button';
-import { myQuestionAtom } from '@/recoil/myQuestion/atom';
+import NoQuestionMessage from '@/components/ui/NoQuestionMessage';
 import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
 import { myQuestionFilterSelector } from '@/recoil/myQuestion/withFilter';
-import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
 
 export default function QuestionChoice() {
   const questions = useRecoilValue(myQuestionFilterSelector);
-  const filteredQuestion = useRecoilValue(myQuestionClickSelector);
+  const ClickedQuestion = useRecoilValue(myQuestionClickSelector);
   return (
     <section className="w-[1200px] h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] relative">
       <h2 className="text-[32px] font-bold">질문을 준비해주세요</h2>
@@ -29,9 +29,15 @@ export default function QuestionChoice() {
           />
         ))}
       </div>
+      {questions.length === 0 && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <NoQuestionMessage />
+        </div>
+      )}
+
       <div className="h-[80px]">
         <Button color="blueSecondary" size="lg" className="absolute bottom-9 right-[50px]">
-          {filteredQuestion.length}개 선택된 질문 보기
+          {ClickedQuestion.length}개 선택된 질문 보기
         </Button>
       </div>
     </section>
