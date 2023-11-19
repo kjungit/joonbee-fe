@@ -11,13 +11,5 @@ export type MyQuestion = {
 
 export const myQuestionAtom = atom<MyQuestion[]>({
   key: 'myQuestionAtom',
-  default: [
-    {
-      questionId: 1,
-      categoryName: '프론트엔드',
-      subcategoryName: 'React',
-      questionContent: 'React의 장점에 대해 설명하세요.',
-      isChecked: false,
-    },
-  ],
+  default: [],
 });
