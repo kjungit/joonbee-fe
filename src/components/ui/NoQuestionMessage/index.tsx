@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icon } from '../Icon';
 
-export default function NoQuestionsMessage() {
+export default function NoQuestionMessage() {
   return (
     <>
       <div className="w-[270px] flex flex-col items-center gap-3">
