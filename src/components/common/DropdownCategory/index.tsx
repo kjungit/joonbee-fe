@@ -25,7 +25,7 @@ export default function DropdownCategory({ color = 'white' }: DropdownCategoryPr
   }, [selectedCategory]);
 
   useEffect(() => {
-    setSelectedSubcategory('세부 카테고리');
+    setSelectedSubcategory('');
   }, [selectedCategory]);
 
   const handleCategorySelect: (item: CategoryName) => void = item => {

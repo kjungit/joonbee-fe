@@ -1,14 +1,6 @@
-export type CategoryName =
-  | '프론트엔드'
-  | '백엔드'
-  | 'CS'
-  | '모바일'
-  | '기타'
-  | '언어'
-  | '카테고리'
-  | 'All';
+export type CategoryName = '' | '프론트엔드' | '백엔드' | 'CS' | '모바일' | '기타' | '언어' | 'All';
 export type SubcategoryName =
-  | '세부 카테고리'
+  | ''
   | 'React'
   | 'Vue'
   | 'Nextjs'
