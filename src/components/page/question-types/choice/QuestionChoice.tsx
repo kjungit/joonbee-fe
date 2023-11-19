@@ -16,7 +16,7 @@ export default function QuestionChoice() {
     <section className="w-[1200px] h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] relative">
       <h2 className="text-[32px] font-bold">질문을 준비해주세요</h2>
       <QuestionForm />
-      <div className="flex flex-col gap-5 scroll-hide overflow-y-scroll pb-2">
+      <div className="flex flex-col gap-5 scroll-hide overflow-y-scroll pb-2 items-center">
         {questions.map(question => (
           <CategorizedQuestionCard
             questionId={question.questionId}
@@ -28,12 +28,8 @@ export default function QuestionChoice() {
             size="lg"
           />
         ))}
+        {questions.length === 0 && <NoQuestionMessage />}
       </div>
-      {questions.length === 0 && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <NoQuestionMessage />
-        </div>
-      )}
 
       <div className="h-[80px]">
         <Button color="blueSecondary" size="lg" className="absolute bottom-9 right-[50px]">
