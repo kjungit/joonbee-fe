@@ -4,7 +4,8 @@ import { MyQuestion, myQuestionAtom } from './atom';
 export const myQuestionClickSelector = selector<MyQuestion[]>({
   key: 'myQuestionClickSelector',
   get: ({ get }) => {
-    return get(myQuestionAtom);
+    const question = get(myQuestionAtom);
+    return question.filter(question => question.isChecked === true);
   },
   set: ({ get, set }, newValue) => {
     if (newValue instanceof DefaultValue) {
