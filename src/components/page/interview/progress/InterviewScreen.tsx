@@ -12,7 +12,7 @@ import Webcam from '@/components/common/Webcam';
 import { interviewQuestionAtom } from '@/recoil/interviewQuestion/atom';
 import { TimerState } from '@/types';
 import useVideo from '@/hooks/useVideo';
-import { questionVideoState } from '@/recoil/questionVideo/atom';
+import { interviewVideoAtom } from '@/recoil/interviewVideo/atom';
 import useSpeechToText from '@/hooks/useSpeechToText';
 import { QuestionCard } from '@/components/common/QuestionCard';
 import { interviewAnswerSelector } from '@/recoil/interviewQuestion/withWriteAnswer';
@@ -25,7 +25,7 @@ const InterviewScreen = () => {
   const [btnText, setBtnText] = useState('시작하기');
   const [interviewAnswer, setInterviewAnswer] = useRecoilState(interviewAnswerSelector);
 
-  const [questionVideo, setQestuionVideo] = useRecoilState(questionVideoState);
+  const [interviewVideo, setInterviewVideo] = useRecoilState(interviewVideoAtom);
   const { videoRef, onStartVideo, onStartRecord, onStopRecord, onDownload, recordedMediaUrl } =
     useVideo();
   const { onStartListening, onStopListening, transcript, setTranscript } = useSpeechToText();
@@ -48,7 +48,7 @@ const InterviewScreen = () => {
   const onDoneButtonClick = () => {
     setTimerState('READY');
     setTranscript('');
-    setQestuionVideo([...questionVideo, recordedMediaUrl]);
+    setInterviewVideo([...interviewVideo, recordedMediaUrl]);
 
     if (currentQuestion.questionId < questionCount) {
       setBtnText('시작하기');
