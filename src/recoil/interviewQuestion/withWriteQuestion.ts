@@ -1,36 +1,36 @@
 import { selector } from 'recoil';
-import { Question, interviewQuestionState } from './atom';
+import { Question, interviewQuestionAtom } from './atom';
 import { CategoryName } from '@/types/question';
 
 export const questionsSelector = selector({
   key: 'questionsSelector',
   get: ({ get }) => {
-    const interviewQuestion = get(interviewQuestionState);
+    const interviewQuestion = get(interviewQuestionAtom);
     return interviewQuestion.questions;
   },
   set: ({ set, get }, newValue) => {
-    const currentQuestions = get(interviewQuestionState).questions;
+    const currentQuestions = get(interviewQuestionAtom).questions;
 
     const updatedQuestion = {
-      ...get(interviewQuestionState),
+      ...get(interviewQuestionAtom),
       questions: [...currentQuestions, ...(newValue as Question[])],
     };
-    set(interviewQuestionState, updatedQuestion);
+    set(interviewQuestionAtom, updatedQuestion);
   },
 });
 
 export const categoryNameSelector = selector({
   key: 'categoryNameSelector',
   get: ({ get }) => {
-    const interviewQuestion = get(interviewQuestionState);
+    const interviewQuestion = get(interviewQuestionAtom);
     return interviewQuestion.categoryName;
   },
   set: ({ set, get }, newValue) => {
     const updatedCategoryName = {
-      ...get(interviewQuestionState),
+      ...get(interviewQuestionAtom),
       categoryName: newValue as CategoryName,
     };
 
-    set(interviewQuestionState, updatedCategoryName);
+    set(interviewQuestionAtom, updatedCategoryName);
   },
 });

@@ -9,7 +9,7 @@ import { TextArea } from '@/components/ui/TextArea';
 import { InterviewBar } from '@/components/common/InterviewBar';
 import Timer from '@/components/common/Timer';
 import Webcam from '@/components/common/Webcam';
-import { interviewQuestionState } from '@/recoil/interviewQuestion/atom';
+import { interviewQuestionAtom } from '@/recoil/interviewQuestion/atom';
 import { TimerState } from '@/types';
 import useVideo from '@/hooks/useVideo';
 import { questionVideoState } from '@/recoil/questionVideo/atom';
@@ -18,7 +18,7 @@ import { QuestionCard } from '@/components/common/QuestionCard';
 import { interviewAnswerSelector } from '@/recoil/interviewQuestion/withWriteAnswer';
 
 const InterviewScreen = () => {
-  const interviewQuestion = useRecoilValue(interviewQuestionState);
+  const interviewQuestion = useRecoilValue(interviewQuestionAtom);
   const questionCount = interviewQuestion.questions.length;
   const [currentQuestion, setCurrentQuestion] = useState(interviewQuestion.questions[0]);
   const [timerState, setTimerState] = useState<TimerState>('READY');
@@ -31,7 +31,6 @@ const InterviewScreen = () => {
   const { onStartListening, onStopListening, transcript, setTranscript } = useSpeechToText();
 
   const router = useRouter();
-
 
   useEffect(() => {
     if (timerState === 'DONE') {
@@ -60,7 +59,6 @@ const InterviewScreen = () => {
   };
 
   const onClickBtn = () => {
-
     switch (timerState) {
       case 'READY':
         setBtnText('음성 인식 중');
