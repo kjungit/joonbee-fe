@@ -7,16 +7,16 @@ export const myQuestionFilterSelector = selector<MyQuestion[]>({
   get: ({ get }) => {
     const categoryName = get(selectedCategoryAtom);
     const subcategoryName = get(selectedSubcategoryAtom);
-    const allQuestions = get(myQuestionAtom);
+    const questions = get(myQuestionAtom);
 
     console.log('cat', categoryName);
     console.log('sub', subcategoryName);
 
     if (categoryName === 'All' || categoryName === '') {
-      return allQuestions;
+      return questions;
     }
 
-    const filteredQuestions = allQuestions.filter(question => {
+    const filteredQuestions = questions.filter(question => {
       if (subcategoryName === '') {
         return question.categoryName === categoryName;
       }
@@ -25,3 +25,4 @@ export const myQuestionFilterSelector = selector<MyQuestion[]>({
     return filteredQuestions;
   },
 });
+
