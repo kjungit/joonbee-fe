@@ -19,7 +19,8 @@ type ButtonSize =
   | '3xl'
   | '4xl'
   | 'dropdown-sm'
-  | 'dropdown-md';
+  | 'dropdown-md'
+  | 'setting';
 type ButtonText = 'sm' | 'md' | 'lg' | 'xl';
 type ButtonType = 'submit' | 'button';
 export type ButtonProps = {
@@ -54,12 +55,14 @@ export const Button = ({
     '2xl': 'w-[500px] h-[60px]',
     '3xl': 'w-[500px] h-[80px]',
     '4xl': 'w-[536px] h-[88px]',
+    setting: 'min-w-[110px] h-[60px]',
     'dropdown-sm': 'w-[114px] h-[44px]',
     'dropdown-md': 'w-[160px] h-[60px]',
   };
 
   const textStyles = {
-    sm: 'text-[16px]',
+    xs: 'text-[16px]',
+    sm: 'text-[18px]',
     md: 'text-[20px]',
     lg: 'text-[24px]',
     xl: 'text-[32px]',
