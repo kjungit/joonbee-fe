@@ -11,7 +11,7 @@ const LINK_INFO = [
       second: '준비할 수 있어요.',
       third: '체계적으로 준비해봐요.',
     },
-    propsLink: '/question-types/choice',
+    propsLink: '/interview/choice',
     iconSrc: 'checklist' as IconName,
   },
   {
@@ -22,12 +22,12 @@ const LINK_INFO = [
       second: '예상하지 못한 문제를',
       third: '준비해보세요!',
     },
-    propsLink: '/question-types/random',
+    propsLink: '/interview/random',
     iconSrc: 'random' as IconName,
   },
 ];
 
-export default function QuestionTypesPage() {
+export default function InterviewPage() {
   return (
     <div className="bg-main-primary w-full h-full flex justify-center items-center gap-14">
       {LINK_INFO.map(item => (

@@ -9,30 +9,30 @@ import { TextArea } from '@/components/ui/TextArea';
 import { InterviewBar } from '@/components/common/InterviewBar';
 import Timer from '@/components/common/Timer';
 import Webcam from '@/components/common/Webcam';
-import { interviewQuestionState } from '@/recoil/interviewQuestion/atom';
+import { interviewQuestionAtom } from '@/recoil/interviewQuestion/atom';
 import { TimerState } from '@/types';
 import useVideo from '@/hooks/useVideo';
-import { questionVideoState } from '@/recoil/questionVideo/atom';
+import { interviewVideoAtom } from '@/recoil/interviewVideo/atom';
 import useSpeechToText from '@/hooks/useSpeechToText';
 import { QuestionCard } from '@/components/common/QuestionCard';
 import { interviewAnswerSelector } from '@/recoil/interviewQuestion/withWriteAnswer';
+import { interviewTimeAtom } from '@/recoil/interviewTime/atom';
 
 const InterviewScreen = () => {
-  const interviewQuestion = useRecoilValue(interviewQuestionState);
+  const interviewQuestion = useRecoilValue(interviewQuestionAtom);
   const questionCount = interviewQuestion.questions.length;
   const [currentQuestion, setCurrentQuestion] = useState(interviewQuestion.questions[0]);
   const [timerState, setTimerState] = useState<TimerState>('READY');
   const [btnText, setBtnText] = useState('시작하기');
   const [interviewAnswer, setInterviewAnswer] = useRecoilState(interviewAnswerSelector);
+  const clickedTime = useRecoilValue(interviewTimeAtom);
 
-  const [questionVideo, setQestuionVideo] = useRecoilState(questionVideoState);
+  const [interviewVideo, setInterviewVideo] = useRecoilState(interviewVideoAtom);
   const { videoRef, onStartVideo, onStartRecord, onStopRecord, onDownload, recordedMediaUrl } =
     useVideo();
   const { onStartListening, onStopListening, transcript, setTranscript } = useSpeechToText();
 
   const router = useRouter();
-
-  console.log(interviewQuestion);
 
   useEffect(() => {
     if (timerState === 'DONE') {
@@ -50,7 +50,7 @@ const InterviewScreen = () => {
   const onDoneButtonClick = () => {
     setTimerState('READY');
     setTranscript('');
-    setQestuionVideo([...questionVideo, recordedMediaUrl]);
+    setInterviewVideo([...interviewVideo, recordedMediaUrl]);
 
     if (currentQuestion.questionId < questionCount) {
       setBtnText('시작하기');
@@ -61,8 +61,6 @@ const InterviewScreen = () => {
   };
 
   const onClickBtn = () => {
-    console.log(timerState);
-
     switch (timerState) {
       case 'READY':
         setBtnText('음성 인식 중');
@@ -95,7 +93,7 @@ const InterviewScreen = () => {
         <div className="flex flex-col gap-5">
           <Webcam isPermitVideo={true} videoRef={videoRef} onStartVideo={onStartVideo} />
           <div className="flex justify-center">
-            <Timer timerState={timerState} setTimerState={setTimerState} />
+            <Timer timerState={timerState} setTimerState={setTimerState} time={clickedTime} />
           </div>
         </div>
         <div className="flex flex-col gap-5">

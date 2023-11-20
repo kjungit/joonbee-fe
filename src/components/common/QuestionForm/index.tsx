@@ -33,15 +33,14 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
         categoryName: selectedCategory,
         subcategoryName: selectedSubcategory,
         questionContent: question,
-        isChecked: false,
+        isChecked: true,
       },
     ]);
+    setQuestion('');
   };
 
   const onDisableSubmitButton = () => {
-    console.log(selectedCategory);
-
-    if (selectedCategory === 'All' || selectedSubcategory === '세부 카테고리') {
+    if (selectedCategory === 'All' || selectedSubcategory === '') {
       return true;
     }
 

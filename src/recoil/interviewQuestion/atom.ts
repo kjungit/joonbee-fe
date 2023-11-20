@@ -1,5 +1,5 @@
-import { atom, useRecoilValue } from 'recoil';
-import { CategoryName, SubcategoryName } from '@/types/question';
+import { atom } from 'recoil';
+import { CategoryName } from '@/types/question';
 
 export type Question = {
   questionId: number;
@@ -7,13 +7,13 @@ export type Question = {
   answerContent: string;
 };
 
-export type InterviewQuestionState = {
+export type InterviewQuestion = {
   categoryName: CategoryName;
   questions: Question[];
 };
 
-export const interviewQuestionState = atom<InterviewQuestionState>({
-  key: 'interviewQuestionState',
+export const interviewQuestionAtom = atom<InterviewQuestion>({
+  key: 'interviewQuestionAtom',
   default: {
     categoryName: '프론트엔드',
     questions: [

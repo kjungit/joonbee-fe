@@ -4,6 +4,7 @@ import { MyQuestion } from '@/recoil/myQuestion/atom';
 import { myQuestionAddSelector } from '@/recoil/myQuestion/withAdd';
 import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
 import { CategoryName, SubcategoryName } from '@/types/question';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -20,6 +21,8 @@ export const CategorizedQuestionCard = ({
   questionId,
   isChecked,
 }: CategorizedQuestionCardProps) => {
+  const pathname = usePathname();
+
   const [myQuestion, setMyQuestion] = useRecoilState(myQuestionClickSelector);
 
   const baseStyles = `flex h-[54px] text-[18px] px-[10px] justify-between items-center font-bold shadow-md
@@ -40,6 +43,9 @@ export const CategorizedQuestionCard = ({
   `;
 
   const onClickQuestion = () => {
+    if (pathname === '/interview/choice/setting') {
+      return;
+    }
     setMyQuestion([
       {
         categoryName,

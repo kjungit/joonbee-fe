@@ -93,7 +93,7 @@ const data = [
 ];
 
 export default function InterviewSection() {
-  const [select, setSelect] = useState<CategoryName>('카테고리');
+  const [select, setSelect] = useState<CategoryName>('');
   return (
     <section className=" pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
       <div className="w-[1200px]">
