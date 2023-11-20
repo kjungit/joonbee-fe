@@ -33,14 +33,13 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
         categoryName: selectedCategory,
         subcategoryName: selectedSubcategory,
         questionContent: question,
-        isChecked: false,
+        isChecked: true,
       },
     ]);
     setQuestion('');
   };
 
   const onDisableSubmitButton = () => {
-
     if (selectedCategory === 'All' || selectedSubcategory === '') {
       return true;
     }
