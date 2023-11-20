@@ -16,6 +16,7 @@ import { interviewVideoAtom } from '@/recoil/interviewVideo/atom';
 import useSpeechToText from '@/hooks/useSpeechToText';
 import { QuestionCard } from '@/components/common/QuestionCard';
 import { interviewAnswerSelector } from '@/recoil/interviewQuestion/withWriteAnswer';
+import { interviewTimeAtom } from '@/recoil/interviewTime/atom';
 
 const InterviewScreen = () => {
   const interviewQuestion = useRecoilValue(interviewQuestionAtom);
@@ -24,6 +25,7 @@ const InterviewScreen = () => {
   const [timerState, setTimerState] = useState<TimerState>('READY');
   const [btnText, setBtnText] = useState('시작하기');
   const [interviewAnswer, setInterviewAnswer] = useRecoilState(interviewAnswerSelector);
+  const clickedTime = useRecoilValue(interviewTimeAtom);
 
   const [interviewVideo, setInterviewVideo] = useRecoilState(interviewVideoAtom);
   const { videoRef, onStartVideo, onStartRecord, onStopRecord, onDownload, recordedMediaUrl } =
@@ -91,7 +93,7 @@ const InterviewScreen = () => {
         <div className="flex flex-col gap-5">
           <Webcam isPermitVideo={true} videoRef={videoRef} onStartVideo={onStartVideo} />
           <div className="flex justify-center">
-            <Timer timerState={timerState} setTimerState={setTimerState} />
+            <Timer timerState={timerState} setTimerState={setTimerState} time={clickedTime} />
           </div>
         </div>
         <div className="flex flex-col gap-5">
