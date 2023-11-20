@@ -1,5 +1,5 @@
+import QuestionChoice from '@/components/page/interview/choice/QuestionChoice';
 import React from 'react';
-import QuestionChoice from '@/components/page/question-types/choice/QuestionChoice';
 
 export default function ChoicePage() {
   return (
