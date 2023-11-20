@@ -1,10 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import { interviewTimeAtom } from '@/recoil/interviewTime/atom';
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 export default function ButtonTimeSetting() {
-  const [clickedTime, setClickedTime] = useState(60);
+  const [clickedTime, setClickedTime] = useRecoilState(interviewTimeAtom);
 
   const onClick = (time: number) => {
     setClickedTime(time);
