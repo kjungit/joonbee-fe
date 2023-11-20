@@ -4,6 +4,7 @@ import ButtonTimeSetting from '@/components/common/ButtonTimeSetting';
 import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestionCard';
 import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
+import { myCategoryAddSelector } from '@/recoil/myQuestion/withAddCategory';
 import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
 import { CategoryName } from '@/types/question';
 import Link from 'next/link';
@@ -13,17 +14,13 @@ import { useRecoilValue } from 'recoil';
 export default function QuestionChocieSetting() {
   const [selected, setSelected] = useState<CategoryName>('');
   const questions = useRecoilValue(myQuestionClickSelector);
+  const categories = useRecoilValue(myCategoryAddSelector);
 
   return (
     <section className="w-[1200px] h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] relative">
       <h2 className="text-[32px] font-bold">면접 전 설정해주세요</h2>
       <div className="flex gap-5 items-center">
-        <Dropdown
-          color="white"
-          selected={selected}
-          onSelect={setSelected}
-          data={['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타']}
-        />
+        <Dropdown color="white" selected={selected} onSelect={setSelected} data={categories} />
         <p className="font-bold text-[20px]">전체 질문 카테고리를 선택해주세요</p>
       </div>
       <div
