@@ -12,11 +12,11 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 export default function QuestionChoice() {
-  const questions = useRecoilValue(myQuestionFilterSelector);
-  const ClickedQuestion = useRecoilValue(myQuestionClickSelector);
+  const filteredquestions = useRecoilValue(myQuestionFilterSelector);
+  const clickedQuestion = useRecoilValue(myQuestionClickSelector);
 
   const onDisabledButton = () => {
-    if (questions.length === 0) {
+    if (clickedQuestion.length === 0) {
       return true;
     }
     return false;
@@ -28,9 +28,9 @@ export default function QuestionChoice() {
       <QuestionForm />
       <div
         className={`flex flex-col gap-5 scroll-hide overflow-y-scroll pb-2 items-center h-[70%] ${
-          questions.length === 0 && 'justify-center'
+          filteredquestions.length === 0 && 'justify-center'
         }`}>
-        {questions.map(question => (
+        {filteredquestions.map(question => (
           <CategorizedQuestionCard
             questionId={question.questionId}
             categoryName={question.categoryName}
@@ -41,7 +41,7 @@ export default function QuestionChoice() {
             size="lg"
           />
         ))}
-        {questions.length === 0 && <NoQuestionMessage />}
+        {filteredquestions.length === 0 && <NoQuestionMessage />}
       </div>
 
       <Link href="/interview/choice/setting">
@@ -50,7 +50,7 @@ export default function QuestionChoice() {
           size="lg"
           className="absolute bottom-9 right-[50px]"
           disabled={onDisabledButton()}>
-          {ClickedQuestion.length}개 선택된 질문 보기
+          {clickedQuestion.length}개 선택된 질문 보기
         </Button>
       </Link>
     </section>
