@@ -9,7 +9,6 @@ import { TextArea } from '@/components/ui/TextArea';
 import { InterviewBar } from '@/components/common/InterviewBar';
 import Timer from '@/components/common/Timer';
 import Webcam from '@/components/common/Webcam';
-import { interviewQuestionAtom } from '@/recoil/interviewQuestion/atom';
 import { TimerState } from '@/types';
 import useVideo from '@/hooks/useVideo';
 import { interviewVideoAtom } from '@/recoil/interviewVideo/atom';
@@ -17,11 +16,12 @@ import useSpeechToText from '@/hooks/useSpeechToText';
 import { QuestionCard } from '@/components/common/QuestionCard';
 import { interviewAnswerSelector } from '@/recoil/interviewQuestion/withWriteAnswer';
 import { interviewTimeAtom } from '@/recoil/interviewTime/atom';
+import { interviewResetSelector } from '@/recoil/interviewQuestion/withReset';
 
 const InterviewScreen = () => {
-  const interviewQuestion = useRecoilValue(interviewQuestionAtom);
-  const questionCount = interviewQuestion.questions.length;
-  const [currentQuestion, setCurrentQuestion] = useState(interviewQuestion.questions[0]);
+  const interview = useRecoilValue(interviewResetSelector);
+  const questionCount = interview.questions.length;
+  const [currentQuestion, setCurrentQuestion] = useState(interview.questions[0]);
   const [timerState, setTimerState] = useState<TimerState>('READY');
   const [btnText, setBtnText] = useState('시작하기');
   const [interviewAnswer, setInterviewAnswer] = useRecoilState(interviewAnswerSelector);
@@ -54,7 +54,7 @@ const InterviewScreen = () => {
 
     if (currentQuestion.questionId < questionCount) {
       setBtnText('시작하기');
-      setCurrentQuestion(interviewQuestion.questions[currentQuestion.questionId]);
+      setCurrentQuestion(interview.questions[currentQuestion.questionId]);
     } else {
       router.push('/interview/check');
     }
@@ -84,11 +84,8 @@ const InterviewScreen = () => {
 
   return (
     <section className="w-[1200px] h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] overflow-scroll">
-      <InterviewBar
-        questions={interviewQuestion.questions}
-        currentId={currentQuestion.questionId}
-      />
-      <h2 className="font-bold text-[32px]">질문 {currentQuestion.questionId}</h2>
+      <InterviewBar questions={interview.questions} currentId={currentQuestion?.questionId} />
+      <h2 className="font-bold text-[32px]">질문 {currentQuestion?.questionId}</h2>
       <div className="flex justify-between">
         <div className="flex flex-col gap-5">
           <Webcam isPermitVideo={true} videoRef={videoRef} onStartVideo={onStartVideo} />
@@ -97,7 +94,7 @@ const InterviewScreen = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5">
-          <QuestionCard size="lg">{currentQuestion.questionContent}</QuestionCard>
+          <QuestionCard size="lg">{currentQuestion?.questionContent}</QuestionCard>
           <TextArea inputValue={transcript} setInputValue={setTranscript} />
           <Button size="4xl" onClick={onClickBtn} disabled={onDisableBtn()}>
             {btnText}
