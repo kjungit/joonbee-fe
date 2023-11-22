@@ -84,8 +84,8 @@ const InterviewScreen = () => {
 
   return (
     <section className="w-[1200px] h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] overflow-scroll">
-      <InterviewBar questions={interview.questions} currentId={currentQuestion.questionId} />
-      <h2 className="font-bold text-[32px]">질문 {currentQuestion.questionId}</h2>
+      <InterviewBar questions={interview.questions} currentId={currentQuestion?.questionId} />
+      <h2 className="font-bold text-[32px]">질문 {currentQuestion?.questionId}</h2>
       <div className="flex justify-between">
         <div className="flex flex-col gap-5">
           <Webcam isPermitVideo={true} videoRef={videoRef} onStartVideo={onStartVideo} />
@@ -94,7 +94,7 @@ const InterviewScreen = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5">
-          <QuestionCard size="lg">{currentQuestion.questionContent}</QuestionCard>
+          <QuestionCard size="lg">{currentQuestion?.questionContent}</QuestionCard>
           <TextArea inputValue={transcript} setInputValue={setTranscript} />
           <Button size="4xl" onClick={onClickBtn} disabled={onDisableBtn()}>
             {btnText}
