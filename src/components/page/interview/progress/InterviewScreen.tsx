@@ -16,10 +16,10 @@ import useSpeechToText from '@/hooks/useSpeechToText';
 import { QuestionCard } from '@/components/common/QuestionCard';
 import { interviewAnswerSelector } from '@/recoil/interviewQuestion/withWriteAnswer';
 import { interviewTimeAtom } from '@/recoil/interviewTime/atom';
-import { interviewAtom } from '@/recoil/interviewQuestion/atom';
+import { interviewResetSelector } from '@/recoil/interviewQuestion/withReset';
 
 const InterviewScreen = () => {
-  const interview = useRecoilValue(interviewAtom);
+  const interview = useRecoilValue(interviewResetSelector);
   const questionCount = interview.questions.length;
   const [currentQuestion, setCurrentQuestion] = useState(interview.questions[0]);
   const [timerState, setTimerState] = useState<TimerState>('READY');
