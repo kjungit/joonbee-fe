@@ -16,6 +16,10 @@ export default function QuestionChocieSetting() {
   const questions = useRecoilValue(myQuestionClickSelector);
   const categories = useRecoilValue(myCategoryAddSelector);
 
+  const onDisabledButton = () => {
+    return !selected ? true : false;
+  };
+
   return (
     <section className="w-[1200px] h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] relative">
       <h2 className="text-[32px] font-bold">면접 전 설정해주세요</h2>
@@ -44,7 +48,11 @@ export default function QuestionChocieSetting() {
         <ButtonTimeSetting />
       </div>
       <Link href="/interview/permission">
-        <Button color="blueSecondary" size="lg" className="absolute bottom-9 right-[50px]">
+        <Button
+          color="blueSecondary"
+          size="lg"
+          className="absolute bottom-9 right-[50px]"
+          disabled={onDisabledButton()}>
           면접 시작하기
         </Button>
       </Link>
