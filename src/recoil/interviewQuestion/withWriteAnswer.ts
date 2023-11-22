@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { interviewQuestionAtom } from './atom';
+import { interviewAtom } from './atom';
 
 type UpdatedAnswer = {
   questionId: number;
@@ -9,14 +9,14 @@ type UpdatedAnswer = {
 export const interviewAnswerSelector = selector({
   key: 'interviewAnswerSelector',
   get: ({ get }) => {
-    return get(interviewQuestionAtom);
+    return get(interviewAtom);
   },
   //@ts-ignore
   set: ({ get, set }, newValue: UpdatedAnswer) => {
     const questionId = newValue.questionId;
     const newAnswerContent = newValue.newAnswerContent;
-    const interviewQuestion = get(interviewQuestionAtom);
-    const updatedQuestions = interviewQuestion.questions.map(question => {
+    const interview = get(interviewAtom);
+    const updatedQuestions = interview.questions.map(question => {
       if (question.questionId === questionId) {
         return {
           ...question,
@@ -27,10 +27,10 @@ export const interviewAnswerSelector = selector({
     });
 
     const updatedQuestionState = {
-      ...interviewQuestion,
+      ...interview,
       questions: updatedQuestions,
     };
 
-    set(interviewQuestionAtom, updatedQuestionState);
+    set(interviewAtom, updatedQuestionState);
   },
 });

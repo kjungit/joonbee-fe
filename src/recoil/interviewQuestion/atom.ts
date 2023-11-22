@@ -7,21 +7,15 @@ export type Question = {
   answerContent: string;
 };
 
-export type InterviewQuestion = {
+export type Interview = {
   categoryName: CategoryName;
   questions: Question[];
 };
 
-export const interviewQuestionAtom = atom<InterviewQuestion>({
-  key: 'interviewQuestionAtom',
+export const interviewAtom = atom<Interview>({
+  key: 'interviewAtom',
   default: {
     categoryName: '프론트엔드',
-    questions: [
-      {
-        questionId: 1,
-        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
-        answerContent: '',
-      },
-    ],
+    questions: [],
   },
 });
