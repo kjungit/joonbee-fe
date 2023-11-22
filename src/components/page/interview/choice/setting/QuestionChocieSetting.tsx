@@ -4,15 +4,17 @@ import ButtonTimeSetting from '@/components/common/ButtonTimeSetting';
 import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestionCard';
 import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
+
 import { myCategoryAddSelector } from '@/recoil/myQuestion/withAddCategory';
 import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
+import { selectedCategoryAtom } from '@/recoil/selectedCategory/atom';
 import { CategoryName } from '@/types/question';
 import Link from 'next/link';
-import React, { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import React from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function QuestionChocieSetting() {
-  const [selected, setSelected] = useState<CategoryName>('');
+  const [selected, setSelected] = useRecoilState<CategoryName>(selectedCategoryAtom);
   const questions = useRecoilValue(myQuestionClickSelector);
   const categories = useRecoilValue(myCategoryAddSelector);
 
