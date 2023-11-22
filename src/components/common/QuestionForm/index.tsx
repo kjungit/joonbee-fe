@@ -33,7 +33,7 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
         categoryName: selectedCategory,
         subcategoryName: selectedSubcategory,
         questionContent: question,
-        isChecked: true,
+        isChecked: false,
       },
     ]);
     setQuestion('');
