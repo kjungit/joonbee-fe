@@ -3,7 +3,7 @@ import { atom } from 'recoil';
 
 export const selectedCategoryAtom = atom<CategoryName>({
   key: 'selectedCategoryAtom',
-  default: '',
+  default: 'All',
 });
 
 export const selectedSubcategoryAtom = atom<SubcategoryName>({
