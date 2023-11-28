@@ -15,7 +15,7 @@ export type Interview = {
 export const interviewAtom = atom<Interview>({
   key: 'interviewAtom',
   default: {
-    categoryName: '프론트엔드',
+    categoryName: '',
     questions: [],
   },
 });
