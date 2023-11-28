@@ -2,7 +2,6 @@
 import { Question } from '@/recoil/interviewQuestion/atom';
 import React from 'react';
 
-
 export type InterviewBarProps = {
   questions: Question[];
   currentId?: number;
@@ -15,7 +14,10 @@ export const InterviewBar = ({ questions, currentId = 0 }: InterviewBarProps) =>
     <ul className="flex justify-between w-full items-center">
       <li className={`min-w-[16px] h-4 rounded-full border-blue-normal bg-[#606DE3] border-4`}></li>
       {questions.map(question => (
-        <div key={question.questionId} style={{ width: widthCur }} className="relative h-full">
+        <div
+          key={question.questionId}
+          style={{ width: widthCur }}
+          className="relative w-full h-full">
           {
             <li
               className={` h-[4px] absolute w-full top-[6px] ${
