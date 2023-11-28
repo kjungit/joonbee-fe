@@ -17,9 +17,11 @@ import { QuestionCard } from '@/components/common/QuestionCard';
 import { interviewAnswerSelector } from '@/recoil/interviewQuestion/withWriteAnswer';
 import { interviewTimeAtom } from '@/recoil/interviewTime/atom';
 import { interviewResetSelector } from '@/recoil/interviewQuestion/withReset';
+import { interviewAtom } from '@/recoil/interviewQuestion/atom';
+import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
 
 const InterviewScreen = () => {
-  const interview = useRecoilValue(interviewResetSelector);
+  const interview = useRecoilValue(interviewAtom);
   const questionCount = interview.questions.length;
   const [currentQuestion, setCurrentQuestion] = useState(interview.questions[0]);
   const [timerState, setTimerState] = useState<TimerState>('READY');
@@ -27,59 +29,119 @@ const InterviewScreen = () => {
   const [interviewAnswer, setInterviewAnswer] = useRecoilState(interviewAnswerSelector);
   const clickedTime = useRecoilValue(interviewTimeAtom);
 
+  const isAllowedVideo = useRecoilValue(videoPermissionAtom);
+
   const [interviewVideo, setInterviewVideo] = useRecoilState(interviewVideoAtom);
   const { videoRef, onStartVideo, onStartRecord, onStopRecord, onDownload, recordedMediaUrl } =
     useVideo();
   const { onStartListening, onStopListening, transcript, setTranscript } = useSpeechToText();
+  const [countdown, setCountdown] = useState(5);
 
   const router = useRouter();
 
+  useEffect(() => {}, [timerState, currentQuestion, questionCount]);
+
   useEffect(() => {
+    onSetCountdown();
+  }, [countdown]);
+
+  useEffect(() => {
+    console.log(timerState);
+
+    if (timerState === 'PROGRESS') {
+      setCountdown(5);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      if (countdown > 0) {
+        setCountdown(countdown - 1);
+      }
+
+      if (countdown === 0) {
+        onClickButton();
+        setCountdown(5);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [timerState, countdown]);
+
+  const onSetCountdown = () => {
     if (timerState === 'DONE') {
-      setInterviewAnswer({ questionId: currentQuestion.questionId, newAnswerContent: transcript });
-      onStopRecord();
-      onStopListening();
       setBtnText(
         currentQuestion.questionId === questionCount
-          ? '면접결과 확인하기'
-          : '다음 질문으로 넘어가기',
+          ? `면접결과 확인하기 ${countdown}`
+          : `다음 질문으로 넘어가기 ${countdown}`,
       );
     }
-  }, [timerState, currentQuestion, questionCount]);
 
-  const onDoneButtonClick = () => {
+    if (timerState === 'READY') {
+      setBtnText(`시작하기 ${countdown}`);
+    }
+  };
+
+  const onClickDoneButton = () => {
     setTimerState('READY');
+    setCountdown(5);
+
     setTranscript('');
-    setInterviewVideo([...interviewVideo, recordedMediaUrl]);
+    if (isAllowedVideo) {
+      setInterviewVideo([...interviewVideo, recordedMediaUrl]);
+    }
 
     if (currentQuestion.questionId < questionCount) {
-      setBtnText('시작하기');
       setCurrentQuestion(interview.questions[currentQuestion.questionId]);
     } else {
       router.push('/interview/check');
     }
   };
 
-  const onClickBtn = () => {
+  const onClickProgressButton = () => {
+    setTimerState('DONE');
+    setCountdown(5);
+    setInterviewAnswer({ questionId: currentQuestion.questionId, newAnswerContent: transcript });
+
+    if (isAllowedVideo) {
+      onStopRecord();
+    }
+
+    onStopListening();
+    setBtnText(
+      currentQuestion.questionId === questionCount
+        ? `면접결과 확인하기 ${countdown}`
+        : `다음 질문으로 넘어가기 ${countdown}`,
+    );
+  };
+
+  const onClickButton = () => {
     switch (timerState) {
       case 'READY':
         setBtnText('음성 인식 중');
         setTimerState('PROGRESS');
-        onStartRecord();
+        if (isAllowedVideo) {
+          onStartRecord();
+        }
         onStartListening();
         break;
 
-      case 'DONE':
-        onDoneButtonClick();
-
+      case 'PROGRESS':
+        onClickProgressButton();
         break;
+
+      case 'DONE':
+        onClickDoneButton();
+        break;
+
       default:
         break;
     }
   };
 
-  const onDisableBtn = () => {
-    return timerState === 'PROGRESS';
+  const onVoice = () => {
+    return timerState === 'PROGRESS' ? true : false;
   };
 
   return (
@@ -88,15 +150,15 @@ const InterviewScreen = () => {
       <h2 className="font-bold text-[32px]">질문 {currentQuestion?.questionId}</h2>
       <div className="flex justify-between">
         <div className="flex flex-col gap-5">
-          <Webcam isPermitVideo={true} videoRef={videoRef} onStartVideo={onStartVideo} />
+          <Webcam isPermitVideo={isAllowedVideo} videoRef={videoRef} onStartVideo={onStartVideo} />
           <div className="flex justify-center">
-            <Timer timerState={timerState} setTimerState={setTimerState} time={clickedTime} />
+            <Timer timerState={timerState} setTimerState={setTimerState} time={10} />
           </div>
         </div>
         <div className="flex flex-col gap-5">
           <QuestionCard size="lg">{currentQuestion?.questionContent}</QuestionCard>
-          <TextArea inputValue={transcript} setInputValue={setTranscript} />
-          <Button size="4xl" onClick={onClickBtn} disabled={onDisableBtn()}>
+          <TextArea inputValue={transcript} setInputValue={setTranscript} isVoice={onVoice()} />
+          <Button size="4xl" onClick={onClickButton}>
             {btnText}
           </Button>
         </div>
