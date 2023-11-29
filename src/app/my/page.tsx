@@ -61,6 +61,7 @@ export default function MyPage() {
   return (
     <div className="bg-main-primary w-full h-full flex justify-center items-center">
       <div className="flex  gap-6  ">
+        <Profile />
         <div className="flex flex-col justify-between gap-6 ">
           <div className="flex gap-6">
             <Button size="2md">면접 관리</Button>
