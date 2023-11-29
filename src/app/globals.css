@@ -48,6 +48,18 @@
     -ms-overflow-style: none; /* IE and 엣지 */
     scrollbar-width: none; /* 파이어폭스 */
   }
+
+  .voice {
+    display: block;
+    position: absolute;
+    background-image: url('/voice.gif');
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0.5;
+  }
 }
 
 @layer utilities {

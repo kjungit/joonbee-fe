@@ -6,13 +6,11 @@ import { RadiusButton } from '@/components/common/RadiusButton';
 
 import Webcam from '@/components/common/Webcam';
 import useVideo from '@/hooks/useVideo';
-
-const audioConstraints = {
-  audio: true,
-};
+import { useRecoilState } from 'recoil';
+import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
 
 const DeviceControl = () => {
-  const [isPressedVideoBtn, setIsPressedVideoBtn] = useState(false);
+  const [isPressedVideoBtn, setIsPressedVideoBtn] = useRecoilState(videoPermissionAtom);
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
 
   const { videoRef, onStartVideo } = useVideo();
@@ -25,7 +23,9 @@ const DeviceControl = () => {
 
   const onStartAudio = async () => {
     console.log('onStartAudio');
-    const stream = await navigator.mediaDevices.getUserMedia(audioConstraints);
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+    });
     setAudioStream(stream);
   };
 
@@ -39,7 +39,13 @@ const DeviceControl = () => {
 
   return (
     <div className="h-full flex flex-col justify-center items-center">
-      <Webcam isPermitVideo={isPressedVideoBtn} size="md" className="mb-10" videoRef={videoRef} onStartVideo={onStartVideo} />
+      <Webcam
+        isPermitVideo={isPressedVideoBtn}
+        size="md"
+        className="mb-10"
+        videoRef={videoRef}
+        onStartVideo={onStartVideo}
+      />
       <div>
         <div className="flex justify-between mb-6">
           <RadiusButton color="light" text="md" size="sm" onClick={onStartAudio}>
