@@ -13,7 +13,6 @@ const useTimer = (
     if (timerState === 'PROGRESS') {
       const timer = setInterval(() => {
         if (remainingTime > 0) {
-          setTimerState('PROGRESS');
           setRemainingTime(remainingTime - 1);
         } else {
           setTimerState('DONE');

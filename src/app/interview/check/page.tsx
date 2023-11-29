@@ -1,7 +1,12 @@
+import InterviewCheck from '@/components/page/interview/check/InterviewCheck';
 import React from 'react';
 
 const InterviewCheckPage = () => {
-  return <div>면접 확인 페이지</div>;
+  return (
+    <div>
+      <InterviewCheck />
+    </div>
+  );
 };
 
 export default InterviewCheckPage;
