@@ -23,7 +23,7 @@ export const PolarChart = ({ data }: PolarChartProps) => {
   }, [data]);
 
   return (
-    <div id="chart" className="w-[350px]">
+    <div id="chart" className="w-[330px]">
       <ReactApexChart options={chartData.options} series={chartData.series} type="polarArea" />
     </div>
   );

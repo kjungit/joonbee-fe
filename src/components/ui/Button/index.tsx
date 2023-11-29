@@ -8,11 +8,14 @@ export type ButtonColor =
   | 'bluePrimary'
   | 'blueSecondary'
   | 'blueNormal'
-  | 'blueTertiary';
+  | 'blueTertiary'
+  | 'darkGray'
+  | 'gray';
 type ButtonSize =
   | 'xs'
   | 'sm'
   | 'md'
+  | '2md'
   | 'lg'
   | 'xl'
   | '2xl'
@@ -50,6 +53,7 @@ export const Button = ({
     xs: 'w-[90px] h-[50px]',
     sm: 'w-[100px] h-[40px]',
     md: 'min-w-[150px] h-[60px]',
+    '2md': 'w-[180px] h-[60px]',
     lg: 'w-[274px] h-[60px]',
     xl: 'w-[340px] h-[50px]',
     '2xl': 'w-[500px] h-[60px]',
@@ -75,6 +79,8 @@ export const Button = ({
     blueTertiary: 'bg-blue-tertiary hover:bg-hover-blueTertiary text-white',
     blueNormal: 'bg-blue-normal hover:bg-hover-blueNormarl text-white',
     white: 'bg-white hover:bg-gray-light text-main-primary',
+    darkGray: 'bg-gray-dark  text-white',
+    gray: 'bg-gray-normal hover:bg-gray-dark text-white',
   };
 
   const buttonStyles = `${baseStyles} ${textStyles[text]} ${sizeStyles[size]} ${className}  ${
