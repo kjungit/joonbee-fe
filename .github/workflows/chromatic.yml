@@ -8,7 +8,7 @@ on:
       - main
 # List of jobs
 jobs:
-  chromatic-deployment:
+  test:
     # Operating System
     runs-on: ubuntu-latest
     # Job steps
