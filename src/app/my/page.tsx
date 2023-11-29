@@ -1,7 +1,8 @@
 'use client';
+import { BetweenBox } from '@/components/common/BetweenBox';
 import { DetailAnswerCard } from '@/components/common/DetailAnswerCard';
+import { PolarChart } from '@/components/common/PolarChart';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
-import Profile from '@/components/page/My/Profile';
 import { Button } from '@/components/ui/Button';
 import React from 'react';
 
@@ -61,7 +62,19 @@ export default function MyPage() {
   return (
     <div className="bg-main-primary w-full h-full flex justify-center items-center">
       <div className="flex  gap-6  ">
-        <Profile />
+        <div className="lg:h-[600px] 2xl:h-[700px] bg-white w-[300px] p-6  rounded-2xl flex flex-col items-center">
+          <h3 className="text-xl font-bold w-full">프로필</h3>
+          <div className="w-32 h-32 rounded-full bg-main-primary"></div>
+          <p className="mt-4 text-xl font-bold">리액트척척박사</p>
+          <div className="border-b-2 border-gray-light w-[80%] my-4"></div>
+
+          <div className="flex flex-col gap-4">
+            <BetweenBox first="면접 수" second="3" />
+            <BetweenBox first="질문 수" second="3" />
+          </div>
+          <div className="border-b-2 border-gray-light w-[80%] my-4"></div>
+          <p className="text-xl font-bold px-6 pb-2 w-full">내 면접 질문 통계</p>
+        </div>
         <div className="flex flex-col justify-between gap-6 ">
           <div className="flex gap-6">
             <Button size="2md">면접 관리</Button>
