@@ -101,3 +101,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.apx-legend-position-right {
+  top: 8px !important;
+  right: 40px !important;
+}
+
+.apexcharts-legend-text {
+  font-size: 10px !important;
+}
