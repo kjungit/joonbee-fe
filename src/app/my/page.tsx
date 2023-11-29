@@ -1,7 +1,6 @@
 'use client';
 import { BetweenBox } from '@/components/common/BetweenBox';
 import { DetailAnswerCard } from '@/components/common/DetailAnswerCard';
-import { PolarChart } from '@/components/common/PolarChart';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
 import { Button } from '@/components/ui/Button';
 import React from 'react';
