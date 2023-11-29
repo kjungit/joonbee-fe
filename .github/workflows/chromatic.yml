@@ -2,11 +2,7 @@
 name: 'Chromatic'
 
 # Event for the workflow
-on:
-  push:
-    branches:
-      - main
-
+on: pull_request
 # List of jobs
 jobs:
   chromatic-deployment:
@@ -23,7 +19,7 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
       - name: comment PR
-        uses: thollander/actions-comment-pull-request@v1
+        uses: thollander/actions-comment-pull-request@v2
         env:
           GITHUB_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         with:
