@@ -3,7 +3,7 @@ name: 'Chromatic'
 
 # Event for the workflow
 on:
-  push:
+  pull\_request:
     branches:
       - main
 # List of jobs
@@ -23,7 +23,5 @@ jobs:
 
       - name: comment PR
         uses: thollander/actions-comment-pull-request@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         with:
           message: '🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}'
