@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from '../Button';
 import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 import { CategoryName, SubcategoryName } from '@/types/question';
+import { useModal } from '@/hooks/useModal';
 
 type DropdownProps = {
   size?: 'sm' | 'md';
@@ -23,7 +24,8 @@ const Dropdown = ({
   color = 'darkNavy',
   isDisabled = false,
 }: DropdownProps) => {
-  const { isOpened, toggleModal, modalRef } = useModalOutsideClick();
+  const { isOpened, onClose, onToggle } = useModal();
+  const { modalRef } = useModalOutsideClick(onClose);
 
   const onSelectItem = (item: CategoryName | SubcategoryName) => {
     onToggleList();
@@ -31,7 +33,7 @@ const Dropdown = ({
   };
 
   const onToggleList = () => {
-    toggleModal();
+    onToggle();
   };
 
   const showSelectedItem = () => {
