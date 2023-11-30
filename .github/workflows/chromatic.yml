@@ -3,7 +3,7 @@ name: 'Chromatic'
 
 # Event for the workflow
 on:
-  pull_request:
+  push:
     branches:
       - main
 # List of jobs
@@ -20,8 +20,3 @@ jobs:
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-
-      - name: comment PR
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: '🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}'
