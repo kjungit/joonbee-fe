@@ -5,14 +5,13 @@ import { Avatar } from '@/components/ui/Avartar';
 import { alarmData } from '@/constants/alarm';
 import ModalPortal from '@/components/ui/ModalPortal';
 import { LoginBox } from '../LoginBox';
-import { useRouter } from 'next/navigation';
+import LogoText from '@/components/ui/LogoText';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const data = alarmData;
-  const router = useRouter();
-
+  
   const onClickLogin = () => {
     setIsOpen(!isOpen);
   };
@@ -25,12 +24,7 @@ const Header = () => {
     <>
       <header className="w-screen z-50 h-[60px] shadow-sm flex justify-center items-center bg-white">
         <div className="min-w-[1200px] flex justify-between items-center">
-          <button onClick={() => router.push('/')}>
-            <div className="flex gap-3 items-center">
-              <Logo />
-              <h2 className="text-blue-secondary text-[24px] font-bold">JOONBEE</h2>
-            </div>
-          </button>
+          <LogoText />
           <div className="flex gap-4">
             <Alarm data={data} />
             {isLogin ? (
