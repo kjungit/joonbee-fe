@@ -21,7 +21,7 @@ const data = [
     },
   },
   {
-    id: '293x',
+    id: '293x2',
     category: '프론트엔드',
     questions: [
       { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
@@ -35,7 +35,7 @@ const data = [
     },
   },
   {
-    id: '293x',
+    id: '293x3',
     category: '프론트엔드',
     questions: [
       { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
@@ -49,7 +49,7 @@ const data = [
     },
   },
   {
-    id: '293x',
+    id: '293x4',
     category: '프론트엔드',
     questions: [
       { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
@@ -63,7 +63,7 @@ const data = [
     },
   },
   {
-    id: '293x',
+    id: '293x5',
     category: '프론트엔드',
     questions: [
       { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
@@ -77,7 +77,7 @@ const data = [
     },
   },
   {
-    id: '293x',
+    id: '293x6',
     category: '프론트엔드',
     questions: [
       { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
