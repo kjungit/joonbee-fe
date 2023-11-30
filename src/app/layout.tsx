@@ -1,4 +1,6 @@
 import RecoilRootProvider from '@/recoil/recoilRootProvider';
+import { RouteChangesProvider } from 'nextjs-router-events';
+
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -16,10 +18,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className={inter.className}>
         <RecoilRootProvider>
-          <Header />
-          <main className="h-[calc(100vh-64px)] ">{children}</main>
+          <RouteChangesProvider>
+            <Header />
+            <main className="h-[calc(100vh-64px)] ">{children}</main>
+          </RouteChangesProvider>
         </RecoilRootProvider>
-        <div id="potal"></div>
+        <div id="portal"></div>
       </body>
     </html>
   );
