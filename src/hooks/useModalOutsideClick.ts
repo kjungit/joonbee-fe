@@ -1,20 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const useModalOutsideClick = () => {
-  const [isOpened, setIsOpened] = useState(false);
-  const modalRef = useRef<HTMLUListElement | null>(null);
-
-  const toggleModal = () => {
-    setIsOpened(prev => !prev);
-  };
-
-  const closeModal = () => {
-    setIsOpened(false);
-  };
+const useModalOutsideClick = (onClose: () => void) => {
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const handleDocumentClick = (e: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      setIsOpened(false);
+      onClose();
     }
   };
 
@@ -25,7 +16,7 @@ const useModalOutsideClick = () => {
     };
   }, []);
 
-  return { isOpened, toggleModal, closeModal, modalRef };
+  return { modalRef };
 };
 
 export default useModalOutsideClick;
