@@ -1,14 +1,14 @@
 'use client';
 import React, { useState } from 'react';
 
-type ItemProps = {
+export type ItemProps = {
   id: number;
   text: string;
 };
 
 export interface RadioButtonGroupProps {
   data: ItemProps[];
-  size: 'md' | 'lg';
+  size: 'sm' | 'md' | 'lg';
   onClickFunc: (param: ItemProps) => void;
 }
 
@@ -16,8 +16,9 @@ export const RadioButtonGroup = ({ data, size = 'md', onClickFunc }: RadioButton
   const [checkedRadio, setCheckedRadio] = useState(data[0].id);
 
   const sizeStyles = {
-    md: 'w-[110px]',
-    lg: 'w-[300px]',
+    sm: 'w-[100px] h-[40px]',
+    md: 'w-[110px] h-[60px]',
+    lg: 'w-[300px] h-[60px]',
   };
   return (
     <div className="flex gap-4">
@@ -33,7 +34,7 @@ export const RadioButtonGroup = ({ data, size = 'md', onClickFunc }: RadioButton
               checked={checkedRadio === item.id}
             />
             <div
-              className={`peer-checked:bg-main-primary peer-checked:text-white bg-white text-main-primary   h-[60px] shadow-md flex items-center justify-center font-bold text-lg rounded-lg ${
+              className={`peer-checked:bg-main-primary peer-checked:text-white bg-white text-main-primary   shadow-md flex items-center justify-center font-bold text-lg rounded-lg ${
                 checkedRadio === item.id
               } ${sizeStyles[size]}`}
               onClick={() => {

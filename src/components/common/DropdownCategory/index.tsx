@@ -35,6 +35,7 @@ export default function DropdownCategory({ color = 'white' }: DropdownCategoryPr
   return (
     <div className="flex gap-5">
       <Dropdown
+        title="All"
         data={categoryNames}
         selected={selectedCategory}
         onSelect={handleCategorySelect}
