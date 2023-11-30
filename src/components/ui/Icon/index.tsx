@@ -16,10 +16,11 @@ export type IconName =
 
 export interface IconProps {
   name: IconName;
+  className?: string;
 }
 
-export const Icon = ({ name }: IconProps) => {
+export const Icon = ({ name, className }: IconProps) => {
   const icon = require(`/public/icons/${name}.png`);
 
-  return <Image src={icon} alt={icon} />;
+  return <Image src={icon} alt={icon} className={className} />;
 };
