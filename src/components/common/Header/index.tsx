@@ -1,8 +1,8 @@
 import React from 'react';
 import Alarm from '../Alarm';
 import { Avatar } from '@/components/ui/Avartar';
-import Logo from '@/components/ui/Logo';
 import { alarmData } from '@/constants/alarm';
+import LogoText from '@/components/ui/LogoText';
 
 const Header = () => {
   const data = alarmData;
@@ -10,10 +10,7 @@ const Header = () => {
   return (
     <header className="w-screen h-[64px] shadow-sm flex justify-center items-center bg-white">
       <div className="min-w-[1200px] flex justify-between items-center">
-        <div className="flex gap-3 items-center">
-          <Logo />
-          <h2 className="text-blue-secondary text-[24px] font-bold">JOONBEE</h2>
-        </div>
+        <LogoText/>
         <div className="flex gap-4">
           <Alarm data={data} />
           <Avatar size="md" thunbnail="" />
