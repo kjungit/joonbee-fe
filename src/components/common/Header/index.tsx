@@ -2,7 +2,6 @@
 import React, { MouseEvent, useEffect, useState } from 'react';
 import Alarm from '../Alarm';
 import { Avatar } from '@/components/ui/Avartar';
-import Logo from '@/components/ui/Logo';
 import { alarmData } from '@/constants/alarm';
 import ModalPortal from '@/components/ui/ModalPortal';
 import { LoginBox } from '../LoginBox';
@@ -17,6 +16,7 @@ import { getUserInfo } from '@/app/apis/services/member';
 import { isRefreshStatus } from '@/recoil/isRefresh/atoms';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Category } from '@/constants/category';
+import Logo from '@/components/ui/Logo';
 
 interface UserInfoProps {
   id: string;
@@ -32,7 +32,7 @@ const Header = () => {
   const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
   const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
   const [isNickError, setIsError] = useState(false);
-
+  const router = useRouter();
   const { data: userInfo } = useSWR<AxiosResponse<UserInfoProps, AxiosError>>(
     ['/auth/member/info'],
     getUserInfo,
@@ -63,7 +63,6 @@ const Header = () => {
   });
 
   const data = alarmData;
-  const router = useRouter();
 
   const onClickLogin = () => {
     setIsOpen(!isOpen);

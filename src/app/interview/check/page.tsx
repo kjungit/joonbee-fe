@@ -3,7 +3,7 @@ import React from 'react';
 
 const InterviewCheckPage = () => {
   return (
-    <div>
+    <div className="h-full flex justify-center items-center bg-main-primary">
       <InterviewCheck />
     </div>
   );

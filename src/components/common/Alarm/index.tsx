@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { VariableIcon } from '@/components/ui/VariableIcon';
 import useModalOutsideClick from '@/hooks/useModalOutsideClick';
+import { useModal } from '@/hooks/useModal';
 
 type AlarmProps = {
   data: any;
@@ -10,16 +11,17 @@ type AlarmProps = {
 const Alarm = ({ data }: AlarmProps) => {
   const { isAlarmMessage, alarm } = data;
   const [isAlarm, setIsAlarm] = useState(isAlarmMessage);
-  const { isOpened, toggleModal, modalRef } = useModalOutsideClick();
+  const { isOpened, onClose, onToggle } = useModal();
+  const { modalRef } = useModalOutsideClick(onClose);
 
   return (
     <div className="relative flex flex-col gap-2 justify-center">
-      <VariableIcon size={24} name="alarm" onClick={toggleModal} />
+      <VariableIcon size={28} name="alarm" onClick={onToggle} />
       {isAlarm && (
         <div className="absolute w-[6px] h-[6px] bg-status-alert rounded-full left-5 top-[4px] animate-ping" />
       )}
       {isOpened && (
-        <ul
+        <div
           ref={modalRef}
           className="absolute z-10 top-9 -left-[230px] w-[270px] h-[240px] rounded-[10px] shadow-normal p-[14px] overflow-y-scroll scroll-hide bg-white">
           {!isAlarm ? (
@@ -36,7 +38,7 @@ const Alarm = ({ data }: AlarmProps) => {
               </li>
             ))
           )}
-        </ul>
+        </div>
       )}
     </div>
   );

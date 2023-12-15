@@ -19,6 +19,7 @@ import { interviewTimeAtom } from '@/recoil/interviewTime/atom';
 import { interviewResetSelector } from '@/recoil/interviewQuestion/withReset';
 import { interviewAtom } from '@/recoil/interviewQuestion/atom';
 import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
+import useLeaveConfirmation from '@/hooks/useLeaveConfirmation';
 
 const InterviewScreen = () => {
   const interview = useRecoilValue(interviewAtom);
@@ -36,6 +37,8 @@ const InterviewScreen = () => {
     useVideo();
   const { onStartListening, onStopListening, transcript, setTranscript } = useSpeechToText();
   const [countdown, setCountdown] = useState(5);
+
+  const { confirmationDialog } = useLeaveConfirmation();
 
   const router = useRouter();
 
@@ -163,6 +166,7 @@ const InterviewScreen = () => {
           </Button>
         </div>
       </div>
+      {confirmationDialog}
     </section>
   );
 };
