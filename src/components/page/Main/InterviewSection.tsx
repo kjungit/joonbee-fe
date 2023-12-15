@@ -1,102 +1,40 @@
 'use client';
+import { getInterview } from '@/app/apis/services/interview';
 import InterviewCard from '@/components/common/InterviewCard';
 import { RadiusButton } from '@/components/common/RadiusButton';
 import Dropdown from '@/components/ui/Dropdown';
 import { CategoryName } from '@/types/question';
-import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
-const data = [
-  {
-    id: '293x',
-    category: '프론트엔드',
-    questions: [
-      { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'fe22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'gw22', question: 'React의 장점은 무엇입니까?' },
-    ],
-    likeCount: 5,
-    userInfo: {
-      nickName: 'kimJaeWoo98',
-      thunbnail: '',
-    },
-  },
-  {
-    id: '293x',
-    category: '프론트엔드',
-    questions: [
-      { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'fe22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'gw22', question: 'React의 장점은 무엇입니까?' },
-    ],
-    likeCount: 5,
-    userInfo: {
-      nickName: 'kimJaeWoo98',
-      thunbnail: '',
-    },
-  },
-  {
-    id: '293x',
-    category: '프론트엔드',
-    questions: [
-      { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'fe22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'gw22', question: 'React의 장점은 무엇입니까?' },
-    ],
-    likeCount: 5,
-    userInfo: {
-      nickName: 'kimJaeWoo98',
-      thunbnail: '',
-    },
-  },
-  {
-    id: '293x',
-    category: '프론트엔드',
-    questions: [
-      { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'fe22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'gw22', question: 'React의 장점은 무엇입니까?' },
-    ],
-    likeCount: 5,
-    userInfo: {
-      nickName: 'kimJaeWoo98',
-      thunbnail: '',
-    },
-  },
-  {
-    id: '293x',
-    category: '프론트엔드',
-    questions: [
-      { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'fe22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'gw22', question: 'React의 장점은 무엇입니까?' },
-    ],
-    likeCount: 5,
-    userInfo: {
-      nickName: 'kimJaeWoo98',
-      thunbnail: '',
-    },
-  },
-  {
-    id: '293x',
-    category: '프론트엔드',
-    questions: [
-      { id: 'xd22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'fe22', question: 'React의 장점은 무엇입니까?' },
-      { id: 'gw22', question: 'React의 장점은 무엇입니까?' },
-    ],
-    likeCount: 5,
-    userInfo: {
-      nickName: 'kimJaeWoo98',
-      thunbnail: '',
-    },
-  },
-];
+export type QuestionItemType = {
+  questionId: string;
+  questionContent: string;
+};
+
+export interface InterviewItemType {
+  id: string;
+  categoryName: string;
+  questions: QuestionItemType[];
+  likeCount: string;
+  thumbnail: string;
+  memberId: string;
+}
 
 export default function InterviewSection() {
   const [select, setSelect] = useState<CategoryName>('');
+  const router = useRouter();
+
+  const { data } = useSWR<InterviewItemType[]>('/api/interview/all', () =>
+    getInterview({ page: 0 }),
+  );
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   return (
     <section className=" pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
-      <div className="w-[1200px]">
+      <div className="w-[1024px]">
         <div>
           <Dropdown
             color="white"
@@ -110,14 +48,21 @@ export default function InterviewSection() {
           />
         </div>
         <ul className="flex flex-wrap justify-between">
-          {data.map(i => (
-            <li key={i.id} className="mt-8">
-              <InterviewCard data={i} />
-            </li>
-          ))}
+          {data &&
+            data.map(i => (
+              <li key={i.id} className="mt-8">
+                <InterviewCard props={i} />
+              </li>
+            ))}
         </ul>
         <div className="flex justify-center my-12">
-          <RadiusButton text="md" color="dark" size="sm" onClick={() => {}}>
+          <RadiusButton
+            text="md"
+            color="dark"
+            size="sm"
+            onClick={() => {
+              router.push('/questions');
+            }}>
             전체 질문 보기
           </RadiusButton>
         </div>
