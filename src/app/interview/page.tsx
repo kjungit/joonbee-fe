@@ -1,5 +1,6 @@
 import { LinkBox } from '@/components/common/LinkBox';
 import { IconName } from '@/components/ui/Icon';
+import Image from 'next/image';
 import React from 'react';
 
 const LINK_INFO = [
@@ -29,18 +30,26 @@ const LINK_INFO = [
 
 export default function InterviewPage() {
   return (
-    <div className="bg-main-primary w-full h-full flex justify-center items-center gap-14">
-      {LINK_INFO.map(item => (
-        <LinkBox
-          key={item.id}
-          size="lg"
-          color="gray"
-          title={item.title}
-          subTitle={item.subTitle}
-          propsLink={item.propsLink}
-          iconSrc={item.iconSrc}
-        />
-      ))}
+    <div className="bg-main-primary w-full h-full flex justify-center items-center ">
+      <div className="max-w-[1024px] w-full flex gap-14 justify-between">
+        {LINK_INFO.map(item => (
+          <LinkBox
+            key={item.id}
+            size="lg"
+            color="gray"
+            title={item.title}
+            subTitle={item.subTitle}
+            propsLink={item.propsLink}>
+            <Image
+              src={`/icons/${item.iconSrc}.png`}
+              alt="ai_white"
+              width={100}
+              height={100}
+              className="w-14  lg:w-20"
+            />
+          </LinkBox>
+        ))}
+      </div>
     </div>
   );
 }
