@@ -1,7 +1,7 @@
 import React from 'react';
 import { BiLike, BiSolidLike } from 'react-icons/bi';
 import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
-import { GoBell } from 'react-icons/go';
+import { HiOutlineBellAlert } from 'react-icons/hi2';
 
 export type IconName = 'emptyLike' | 'copy' | 'filledLike' | 'alarm';
 
@@ -17,7 +17,7 @@ export const VariableIcon = ({ size = 24, name, color = 'black', onClick }: Vari
     emptyLike: BiLike,
     filledLike: BiSolidLike,
     copy: HiOutlineClipboardDocumentList,
-    alarm: GoBell,
+    alarm: HiOutlineBellAlert,
   };
 
   const Icon = components[name];
