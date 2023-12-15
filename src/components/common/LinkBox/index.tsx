@@ -16,7 +16,7 @@ export interface LinkBox extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   subTitle?: Discription;
   propsLink: string;
-  iconSrc?: IconName;
+  children: React.ReactNode;
 }
 
 export const LinkBox = ({
@@ -25,16 +25,16 @@ export const LinkBox = ({
   propsLink = '/',
   title = 'AI면접 시작하기',
   subTitle,
-  iconSrc,
+  children,
 }: LinkBox) => {
-  const baseStyles = `font-bold flex items-center text-[30px] shadow-md  ${
+  const baseStyles = `lg:text-2xl text-xl w-full font-bold flex items-center p-10 text-[30px] shadow-md  flex-grow  ${
     size === 'lg' ? 'rounded-2xl ' : 'rounded-xl'
   }`;
 
   const sizeStyles = {
-    sm: 'justify-between h-[140px] w-[584px] px-[80px]',
-    md: 'justify-between h-[312px] w-[584px] pl-[80px] pr-[100px]',
-    lg: 'justify-center h-[500px] w-[500px] flex-col-reverse',
+    sm: 'justify-between h-[140px] max-w-[500px]',
+    md: 'justify-between h-[140px] md:h-[312px] max-w-[800px] ',
+    lg: 'justify-center h-[500px] flex-col-reverse max-w-[500px]',
   };
 
   const colorStyles = {
@@ -45,18 +45,16 @@ export const LinkBox = ({
   const buttonStyles = `${baseStyles} ${sizeStyles[size]} ${colorStyles[color]}`;
 
   return (
-    <button>
-      <Link href={propsLink} className={buttonStyles}>
-        {size === 'lg' && (
-          <div className="text-[20px]  mt-6 text-[#717171]">
-            <p>{subTitle?.first}</p>
-            <p>{subTitle?.second}</p>
-            <p>{subTitle?.third}</p>
-          </div>
-        )}
-        <div className={`${size === 'lg' && 'mt-10'}`}>{title}</div>
-        {iconSrc && <Icon name={iconSrc} />}
-      </Link>
-    </button>
+    <Link href={propsLink} className={buttonStyles}>
+      {size === 'lg' && (
+        <div className="text-[20px]  mt-6 text-[#717171]">
+          <p>{subTitle?.first}</p>
+          <p>{subTitle?.second}</p>
+          <p>{subTitle?.third}</p>
+        </div>
+      )}
+      <div className={`${size === 'lg' && 'mt-10'}`}>{title}</div>
+      {children}
+    </Link>
   );
 };

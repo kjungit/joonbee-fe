@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const instance = (withCredentials = false) => {
+export const instance = (withCredentials = true) => {
   const instance = axios.create({
     baseURL: '/api',
     headers: {

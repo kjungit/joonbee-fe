@@ -6,15 +6,15 @@ type AvatarSize = 'sm' | 'md' | 'lg';
 export interface AvatarProps {
   size?: AvatarSize;
   onClick?: () => void;
-  thunbnail: string;
+  thumbnail: string;
 }
 
-export const Avatar = ({ size = 'sm', thunbnail, onClick }: AvatarProps) => {
+export const Avatar = ({ size = 'sm', thumbnail, onClick }: AvatarProps) => {
   const baseStyles = 'rounded-full bg-gray-normal relative';
 
   const sizeStyles = {
     sm: 'w-[26px] h-[26px]',
-    md: 'w-[38px] h-[38px]',
+    md: 'w-[30px] h-[30px]',
     lg: 'w-[140px] h-[140px]',
   };
 
@@ -22,11 +22,11 @@ export const Avatar = ({ size = 'sm', thunbnail, onClick }: AvatarProps) => {
 
   return (
     <div className={AvatarStyles} onClick={onClick}>
-      {thunbnail && (
+      {thumbnail && (
         <Image
           className="rounded-full"
-          src={thunbnail}
-          alt="thunbnail"
+          src={thumbnail}
+          alt="thumbnail"
           layout="fill"
           objectFit="cover"
         />

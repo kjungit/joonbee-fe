@@ -53,7 +53,7 @@ const config: Config = {
       boxShadow: {
         normal: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         sm: '0px 2px 2px 0px rgba(0, 0, 0, 0.25)',
-        md: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+        md: '0px 2px 8px rgba(0, 0, 0, 0.15)',
       },
     },
   },
