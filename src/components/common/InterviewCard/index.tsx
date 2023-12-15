@@ -5,14 +5,12 @@ import { Button } from '@/components/ui/Button';
 import { Avatar } from '@/components/ui/Avartar';
 import { VariableIcon } from '@/components/ui/VariableIcon';
 import { QuestionCard } from '../QuestionCard';
+import { Category } from '@/constants/category';
+import { InterviewItemType } from '@/components/page/Main/InterviewSection';
 
-type InterviewCardProps = {
-  data: any;
-};
-
-const InterviewCard = ({ data }: InterviewCardProps) => {
+const InterviewCard = ({ props }: { props: InterviewItemType }) => {
   const [isFocus, setIsFocus] = useState(false);
-  const { category, userInfo, likeCount, questions } = data;
+  const { categoryName, thumbnail, likeCount, memberId, questions } = props;
 
   const onOpenModal = () => {};
 
@@ -24,12 +22,12 @@ const InterviewCard = ({ data }: InterviewCardProps) => {
         isFocus && 'border-main-primary border-4 rounded-[20px]'
       }w-[380px] h-[392px] shadow-normal rounded-[20px] border-4 border-gray-normal`}>
       <div className="bg-[#252A32] h-[70px] p-[24px] shadow-normal rounded-t-[16px]">
-        <h2 className="text-white text-[16px] font-bold">{category}</h2>
+        <h2 className="text-white text-[16px] font-bold">{Category[categoryName]}</h2>
       </div>
       <div className="h-[242px] px-[10px] py-[16px] flex flex-col items-center justify-between">
         <ul className="flex flex-col gap-2">
           {questions.map((question: any) => (
-            <QuestionCard key={question.id}>{question.question}</QuestionCard>
+            <QuestionCard key={question.questionId}>{question.questionContent}</QuestionCard>
           ))}
         </ul>
         <div onMouseOver={() => setIsFocus(true)} onMouseOut={() => setIsFocus(false)}>
@@ -40,8 +38,8 @@ const InterviewCard = ({ data }: InterviewCardProps) => {
       </div>
       <div className="flex justify-between items-center rounded-b-[20px] h-[80px] border-t border-t-gray-normal px-[28px] py-[12px]">
         <div className="flex gap-2">
-          <Avatar size="sm" thunbnail={userInfo.thumbnail} onClick={onClickAvatar} />
-          <p className="font-bold text-[16px]">by {maskNickname(userInfo.nickName)}</p>
+          {thumbnail && <Avatar size="sm" thumbnail={thumbnail} onClick={onClickAvatar} />}
+          {memberId && <p className="font-bold text-[16px]">by {maskNickname(memberId)}</p>}
         </div>
         <div className="flex gap-2">
           <VariableIcon name="emptyLike" onClick={onOpenModal} />
