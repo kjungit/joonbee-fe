@@ -23,16 +23,21 @@ const useVideo = () => {
   };
 
   const onStartVideo = async () => {
-    console.log('onStartVideo');
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-    setVideoStream(stream);
+    try {
+      console.log('onStartVideo');
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      setVideoStream(stream);
 
-    if (videoRef && videoRef.current && !videoRef.current.srcObject) {
-      videoRef.current.srcObject = stream;
+      if (videoRef && videoRef.current && !videoRef.current.srcObject) {
+        videoRef.current.srcObject = stream;
+      }
+    } catch {
+      console.log('비디오가 없어요');
     }
   };
 
   const onStartRecord = () => {
+    if (!videoStream) return;
     console.log('onStartRecord');
     const combined = new MediaStream([...videoStream!.getTracks(), ...audioStream!.getTracks()]);
     const mediaData: Blob[] = [];
