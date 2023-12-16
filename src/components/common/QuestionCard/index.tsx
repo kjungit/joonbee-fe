@@ -23,7 +23,7 @@ export const QuestionCard = ({
 
   const sizeStyles = {
     sm: 'h-[42px] w-[354px] text-[14px]',
-    md: 'h-[52px] w-[584px] ',
+    md: 'h-[52px] w-full max-w-[490px] ',
     lg: 'h-[68px] w-[540px] text-[16px]',
   };
 

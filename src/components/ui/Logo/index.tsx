@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 type IconProps = {
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'lg';
 };
 
 const Logo = ({ size = 'sm' }: IconProps) => {
@@ -10,7 +10,8 @@ const Logo = ({ size = 'sm' }: IconProps) => {
 
   const textStyles = {
     sm: 29,
-    md: 120,
+    md: 100,
+    lg: 120,
   };
 
   return <Image src={logo} alt="JOONBEE Logo" width={textStyles[size]} height={textStyles[size]} />;

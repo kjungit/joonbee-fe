@@ -33,7 +33,7 @@ export default function QuestionSection() {
       </h3>
       <SlideSection />
 
-      <div className="w-[1200px] mt-14">
+      <div className="max-w-[1024px] w-full mt-14">
         <div className="flex gap-6">
           <DropdownCategory color="white" />
         </div>
