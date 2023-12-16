@@ -8,10 +8,13 @@ import Webcam from '@/components/common/Webcam';
 import useVideo from '@/hooks/useVideo';
 import { useRecoilState } from 'recoil';
 import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
+import DeviceSettinModal from '@/components/ui/Modal/DeviceSettingModal';
+import { useModal } from '@/hooks/useModal';
 
 const DeviceControl = () => {
   const [isPressedVideoBtn, setIsPressedVideoBtn] = useRecoilState(videoPermissionAtom);
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
+  const { isOpened, onClose, onOpen } = useModal();
 
   const { videoRef, onStartVideo } = useVideo();
 
@@ -22,11 +25,14 @@ const DeviceControl = () => {
   };
 
   const onStartAudio = async () => {
-    console.log('onStartAudio');
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-    });
-    setAudioStream(stream);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
+      setAudioStream(stream);
+    } catch {
+      onOpen()
+    }
   };
 
   const onNavigate = () => {
@@ -64,6 +70,7 @@ const DeviceControl = () => {
           다음
         </RadiusButton>
       </div>
+      <DeviceSettinModal isOpened={isOpened} onClose={onClose} />
     </div>
   );
 };
