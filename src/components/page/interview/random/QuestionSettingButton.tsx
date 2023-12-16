@@ -39,7 +39,7 @@ export default function QuestionSettingButton() {
         </Button>
 
         {uniqueSubcategories.map(subcategory => (
-          <Button color="white" key={subcategory} size="setting" text="sm" className="relative">
+          <Button color="white" key={subcategory} size="dropdown-xs" text="xs" className="relative">
             {subcategory}
             <div className="absolute top-2 right-2">
               <VariableIcon

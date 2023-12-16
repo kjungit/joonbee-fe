@@ -24,7 +24,7 @@ export default function QuestionChoice() {
 
   return (
     <section className="w-[1024px] h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] relative">
-      <h2 className="text-[32px] font-bold">질문을 준비해주세요</h2>
+      <h2 className="text-[20px] font-bold">질문을 준비해주세요</h2>
       <QuestionForm />
       <div
         className={`flex flex-col gap-5 scroll-hide overflow-y-scroll pb-2 items-center h-[70%] ${

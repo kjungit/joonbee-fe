@@ -56,12 +56,12 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
     <form className={typeStyles[type]} onSubmit={onSubmitQuestion}>
       <DropdownCategory />
       <div className="flex gap-5 ">
-        <Input inputValue={question} setInputValue={setQuestion} />
+        <Input inputValue={question} setInputValue={setQuestion} size="sm" />
         <Button
           type="submit"
           color="darkNavy"
-          size="md"
-          text="md"
+          size="dropdown-xs"
+          text="xs"
           disabled={onDisableSubmitButton()}>
           등록하기
         </Button>
