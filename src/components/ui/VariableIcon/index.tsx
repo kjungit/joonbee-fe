@@ -25,5 +25,5 @@ export const VariableIcon = ({ size = 24, name, color = 'black', onClick }: Vari
 
   const Icon = components[name];
 
-  return <Icon size={size} color={color} onClick={onClick} className='cursor-pointer' />;
+  return <Icon size={size} color={color} onClick={onClick} className="cursor-pointer" />;
 };
