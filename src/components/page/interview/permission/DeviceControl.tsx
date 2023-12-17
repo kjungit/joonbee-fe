@@ -11,7 +11,12 @@ import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
 import DeviceSettinModal from '@/components/ui/Modal/DeviceSettingModal';
 import { useModal } from '@/hooks/useModal';
 
-const DeviceControl = () => {
+export default function DeviceControl() {
+  const { interviewTypeAtom: type } =
+    typeof window !== 'undefined'
+      ? JSON.parse(localStorage.getItem('interviewType') || 'null')
+      : null;
+
   const [isPressedVideoBtn, setIsPressedVideoBtn] = useRecoilState(videoPermissionAtom);
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
   const { isOpened, onClose, onOpen } = useModal();
@@ -31,11 +36,13 @@ const DeviceControl = () => {
       });
       setAudioStream(stream);
     } catch {
-      onOpen()
+      onOpen();
     }
   };
 
   const onNavigate = () => {
+    if (type === 'chocie') return router.push('/interview/start');
+    if (type === 'random') return router.push('/interview/progress');
     router.push('/interview/start');
   };
 
@@ -45,34 +52,35 @@ const DeviceControl = () => {
 
   return (
     <div className="h-full flex flex-col justify-center items-center">
-      <Webcam
-        isPermitVideo={isPressedVideoBtn}
-        size="md"
-        className="mb-10"
-        videoRef={videoRef}
-        onStartVideo={onStartVideo}
-      />
-      <div>
-        <div className="flex justify-between mb-6">
-          <RadiusButton color="light" text="md" size="sm" onClick={onStartAudio}>
-            마이크 권한 설정
-          </RadiusButton>
-          <RadiusButton color="light" text="md" size="sm" onClick={onToggleVideo}>
-            카메라 권한 설정
+      <div className="bg-gray-light p-4 shadow-md rounded-lg">
+        <Webcam
+          isPermitVideo={isPressedVideoBtn}
+          size="md"
+          className="mb-6"
+          videoRef={videoRef}
+          onStartVideo={onStartVideo}
+        />
+        <div className="flex gap-5 justify-between w-[584px]">
+          <div className="flex gap-5">
+            <RadiusButton color="light" text="xs" size="xs" onClick={onStartAudio}>
+              마이크 권한 설정
+            </RadiusButton>
+            <RadiusButton color="light" text="xs" size="xs" onClick={onToggleVideo}>
+              카메라 권한 설정
+            </RadiusButton>
+          </div>
+          <RadiusButton
+            color="blue"
+            text="xs"
+            size="xs"
+            className="w-[120px]"
+            onClick={onNavigate}
+            disabled={isDisableNextBtn()}>
+            다음
           </RadiusButton>
         </div>
-        <RadiusButton
-          color="blue"
-          text="md"
-          size="md"
-          onClick={onNavigate}
-          disabled={isDisableNextBtn()}>
-          다음
-        </RadiusButton>
       </div>
       <DeviceSettinModal isOpened={isOpened} onClose={onClose} />
     </div>
   );
-};
-
-export default DeviceControl;
+}
