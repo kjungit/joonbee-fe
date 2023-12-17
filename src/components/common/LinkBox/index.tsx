@@ -42,10 +42,10 @@ export const LinkBox = ({
     navy: 'bg-main-primary text-gray-light hover:bg-hover-primary ',
   };
 
-  const buttonStyles = `${baseStyles} ${sizeStyles[size]} ${colorStyles[color]}`;
+  const LinkBoxStyles = `${baseStyles} ${sizeStyles[size]} ${colorStyles[color]}`;
 
   return (
-    <Link href={propsLink} className={buttonStyles}>
+    <Link href={propsLink} className={LinkBoxStyles}>
       {size === 'lg' && (
         <div className="text-[20px]  mt-6 text-[#717171]">
           <p>{subTitle?.first}</p>

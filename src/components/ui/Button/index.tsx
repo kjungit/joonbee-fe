@@ -61,7 +61,7 @@ export const Button = ({
     xl: 'w-[340px] h-[50px]',
     '2xl': 'w-[500px] h-[60px]',
     '3xl': 'w-[500px] h-[80px]',
-    '4xl': 'w-[536px] h-[88px]',
+    '4xl': 'w-[440px] h-[60px]',
     setting: 'min-w-[110px] h-[60px]',
     'dropdown-xs': 'w-[110px] h-[44px]',
     'dropdown-sm': 'w-[114px] h-[44px]',

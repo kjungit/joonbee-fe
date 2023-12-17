@@ -3,8 +3,8 @@
 import React from 'react';
 
 type ButtonColor = 'dark' | 'light' | 'blue';
-type ButtonText = 'sm' | 'md';
-type ButtonSize = 'sm' | 'md';
+type ButtonText = 'xs' | 'sm' | 'md';
+type ButtonSize = 'xs' | 'sm' | 'md';
 
 export interface RadiusButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color: ButtonColor;
@@ -13,6 +13,7 @@ export interface RadiusButtonProps extends React.ButtonHTMLAttributes<HTMLButton
   children: React.ReactNode;
   onClick: () => void;
   disabled?: boolean;
+  className?: string;
 }
 
 export const RadiusButton = ({
@@ -22,6 +23,7 @@ export const RadiusButton = ({
   children,
   onClick,
   disabled = false,
+  className,
 }: RadiusButtonProps) => {
   const baseStyles = 'rounded-[74px] font-bold  shadow-md';
 
@@ -32,16 +34,18 @@ export const RadiusButton = ({
   };
 
   const textStyles = {
+    xs: 'text-[14px]',
     sm: 'text-[20px]',
     md: 'text-[30px]',
   };
 
   const sizeStyles = {
+    xs: 'p-3',
     sm: 'w-[250px] h-[88px]',
     md: 'w-[590px] h-[80px]',
   };
 
-  const buttonStyles = `${baseStyles} ${textStyles[text]} ${sizeStyles[size]} ${
+  const buttonStyles = `${baseStyles} ${textStyles[text]} ${sizeStyles[size]} ${className} ${
     disabled ? 'bg-gray-disabled cursor-not-allowed ' : colorStyles[color]
   }`;
 

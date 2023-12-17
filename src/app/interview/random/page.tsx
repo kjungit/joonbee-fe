@@ -6,10 +6,10 @@ import React from 'react';
 export default function RandomPage() {
   return (
     <div className="h-full flex justify-center items-center bg-main-primary">
-      <section className="w-[1200px] h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] overflow-scroll flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] overflow-scroll relative">
+      <section className="w-[1024px] h-[706px] flex flex-col gap-5 bg-background-lightgray p-8 rounded-[40px] relative">
         <h2 className="text-[20px] font-bold">랜덤 질문을 준비해주세요</h2>
         <QuestionSettingButton />
-        <Link href="/interview/permisson">
+        <Link href="/interview/permission">
           <Button color="blueSecondary" size="lg" className="absolute bottom-9 right-[50px]">
             랜덤 면접 질문 보기
           </Button>
