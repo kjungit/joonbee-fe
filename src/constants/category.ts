@@ -1,14 +1,4 @@
 import { QuestionCategory } from '@/types/question';
-
-export const questionCategory: QuestionCategory[] = [
-  { category: 'All', subcategory: [] },
-  { category: '프론트엔드', subcategory: ['React', 'Vue', 'Nextjs'] },
-  { category: '백엔드', subcategory: ['DB', 'Express', 'MSA'] },
-  { category: 'CS', subcategory: ['Docker', '운영체제', '컴퓨터구조'] },
-  { category: '모바일', subcategory: ['IOS', '플러터'] },
-  { category: '기타', subcategory: ['Git'] },
-];
-
 export const Category: {
   [key: string]: string;
 } = {
@@ -26,11 +16,11 @@ export const Category: {
   vue: 'VUE',
   svelte: 'SVELTE',
   db: '',
-  spring: '스프링',
+  spring_framework: '스프링',
   nest: 'NEST',
   node: 'NODE',
   msa: 'MSA',
-  rabbitmq: 'RabbitMQ',
+  rabbit_mq: 'RabbitMQ',
   redis: '레디스',
   java: 'JAVA',
   kotlin: '코틀린',
@@ -41,17 +31,27 @@ export const Category: {
   'c#': 'C#',
   golang: 'GO',
   swift: '스위프트',
-  'objective-c': '오브젝티브-C',
+  objective_c: '오브젝티브-C',
   aos: '안드로이드',
   ios: 'IOS',
   flutter: '플러터',
-  reactNative: '리엑트 네이티브',
+  react_native: '리엑트 네이티브',
   git: '깃',
   team: '팀 협업',
   project: '프로젝트',
-  datastructureAlgorithms: '자료구조/알고리즘',
-  operatingSystem: '운영 체제',
-  virtualMachine: '가상 머신',
+  cs_network: 'CS 네트워크',
+  datastructure_algorithm: '자료구조/알고리즘',
+  operating_system: '운영 체제',
+  virtual_machine: '가상 머신',
   docker: '도커',
-  computerArchitecture: '컴퓨터 구조',
+  computer_architecture: '컴퓨터 구조',
 };
+
+export const questionCategory: QuestionCategory[] = [
+  { category: 'All', subcategory: [] },
+  { category: 'fe', subcategory: ['react', 'vue', 'next'] },
+  { category: 'be', subcategory: ['db', 'spring', 'msa'] },
+  { category: 'cs', subcategory: ['docker', 'operatingSystem', 'computerArchitecture'] },
+  { category: 'mobile', subcategory: ['aos', 'ios', 'flutter'] },
+  { category: 'ect', subcategory: ['git'] },
+];
