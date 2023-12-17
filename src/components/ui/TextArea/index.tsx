@@ -15,11 +15,11 @@ export const TextArea = ({
   setInputValue,
   isVoice = false,
 }: TextareaProps) => {
-  const baseStyles = `text-[18px] border-4 border-gray-normal ${
+  const baseStyles = `text-[16px] border-4 border-gray-normal ${
     isDisabled ? 'text-gray-disabled' : 'text-main-primary'
   } p-5 font-bold shadow-md rounded-xl`;
 
-  const sizeStyles = 'h-[360px] w-[540px] text-4';
+  const sizeStyles = 'h-[360px] w-[440px] text-4';
 
   const TextAreaStyles = `
   ${baseStyles} ${sizeStyles}
@@ -43,16 +43,7 @@ export const TextArea = ({
         disabled={isDisabled}
         value={inputValue}
         onChange={onChange}></textarea>
-      {isVoice && (
-        // <Image
-        //   height={80}
-        //   width={80}
-        //   src="/voice.gif"
-        //   alt="voice"
-        //   className="absolute right-4 bottom-4"
-        // />
-        <div className="voice"></div>
-      )}
+      {isVoice && <div className="voice"></div>}
     </div>
   );
 };
