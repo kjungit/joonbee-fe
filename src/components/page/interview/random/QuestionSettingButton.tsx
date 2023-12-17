@@ -5,6 +5,7 @@ import DropdownCategory from '@/components/common/DropdownCategory';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { VariableIcon } from '@/components/ui/VariableIcon';
+import { questionCountAtom } from '@/recoil/interviewSetting/atoms';
 import { selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 import { selectedSubcategoryListAtom } from '@/recoil/selectedSubcategoryList/atom';
 import { SubcategoryName } from '@/types/question';
@@ -12,12 +13,12 @@ import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function QuestionSettingButton() {
-  const [clickedQuestionNumber, setClickedQuestionNumber] = useState(2);
+  const [questionCount, setQuestionCount] = useRecoilState(questionCountAtom);
   const [subcategories, setSubcategories] = useRecoilState(selectedSubcategoryListAtom);
   const buttonValues = [2, 4, 6, 8, 10];
 
-  const onClick = (value: number) => {
-    setClickedQuestionNumber(value);
+  const handleClickQuestionCount = (value: number) => {
+    setQuestionCount(value);
   };
 
   const uniqueSubcategories = Array.from(new Set(subcategories));
@@ -58,11 +59,11 @@ export default function QuestionSettingButton() {
         </Button>
         {buttonValues.map(value => (
           <Button
-            color={`${clickedQuestionNumber === value ? 'darkNavy' : 'white'}`}
+            color={`${questionCount === value ? 'darkNavy' : 'white'}`}
             key={value}
             size="setting"
             text="sm"
-            onClick={() => onClick(value)}>
+            onClick={() => handleClickQuestionCount(value)}>
             {value}
           </Button>
         ))}
