@@ -20,20 +20,24 @@ const Webcam = ({
   onStartAudio,
 }: WebcamProps) => {
   useEffect(() => {
-    if (isPermitVideo && onStartVideo ) {
+    if (isPermitVideo && onStartVideo) {
       onStartVideo();
     }
   }, [isPermitVideo]);
 
   const sizeStyles = {
-    sm: 'w-[500px] h-[320px]',
+    sm: 'w-[400px] h-[280px]',
     md: 'w-[584px] h-[374px]',
   };
 
   return isPermitVideo ? (
-    <video autoPlay ref={videoRef} className={`object-cover ${sizeStyles[size]} ${className}`} />
+    <video
+      autoPlay
+      ref={videoRef}
+      className={`object-cover shadow-md rounded-xl  ${sizeStyles[size]} ${className}`}
+    />
   ) : (
-    <div className={`bg-black ${sizeStyles[size]} ${className}`}></div>
+    <div className={`bg-black shadow-md rounded-xl ${sizeStyles[size]} ${className}`}></div>
   );
 };
 
