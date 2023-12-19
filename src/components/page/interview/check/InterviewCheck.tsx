@@ -7,13 +7,13 @@ import { TextArea } from '@/components/ui/TextArea';
 import { useModal } from '@/hooks/useModal';
 import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 import { MyInterview, myInterviewAtom } from '@/recoil/myInterview/atom';
-import { myInterviewAtomEditSelector } from '@/recoil/myInterview/withEdit';
+import { myInterviewEditSelector } from '@/recoil/myInterview/withEdit';
 import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 export default function InterviewCheck() {
   const questions = useRecoilValue(myInterviewAtom);
-  const setQuestion = useSetRecoilState(myInterviewAtomEditSelector);
+  const setQuestion = useSetRecoilState(myInterviewEditSelector);
   const { isOpened, onClose, onOpen } = useModal();
   const { modalRef } = useModalOutsideClick(onClose);
   const [clickedQuestion, setClickedQuestion] = useState<MyInterview>();
