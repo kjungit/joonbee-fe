@@ -32,7 +32,7 @@ type Story = StoryObj<typeof Dropdown>;
 export const Primary: Story = {
   args: {
     size: 'md',
-    data: ['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타'],
+    data: ['fe', 'be', 'language', 'cs', 'mobile', 'etc'],
     title: '카테고리',
     color: 'white',
   },
@@ -41,7 +41,7 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     size: 'sm',
-    data: ['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타'],
+    data: ['fe', 'be', 'language', 'cs', 'mobile', 'etc'],
     title: '카테고리',
     color: 'darkNavy',
   },

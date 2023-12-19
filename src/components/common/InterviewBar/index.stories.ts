@@ -29,23 +29,6 @@ export const Primary: Story = {
         answerContent: '',
       },
     ],
-    currentId: 3,
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    questions: [
-      {
-        questionId: 1,
-        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
-        answerContent: '',
-      },
-      {
-        questionId: 2,
-        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
-        answerContent: '',
-      },
-    ],
+    currentQuestionCount: 3,
   },
 };

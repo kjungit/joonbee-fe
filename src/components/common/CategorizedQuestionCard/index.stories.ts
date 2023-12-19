@@ -22,8 +22,8 @@ type Story = StoryObj<typeof CategorizedQuestionCard>;
 export const Primary: Story = {
   args: {
     size: `md`,
-    categoryName: '백엔드',
-    subcategoryName: 'Express',
+    categoryName: 'fe',
+    subcategoryName: 'react',
     questionContent: 'Express에 대해 설명하시오',
     isChecked: false,
   },
@@ -32,8 +32,8 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     size: `lg`,
-    categoryName: '백엔드',
-    subcategoryName: 'Express',
+    categoryName: 'fe',
+    subcategoryName: 'react',
     questionContent: 'Express에 대해 설명하시오',
     isChecked: true,
   },
