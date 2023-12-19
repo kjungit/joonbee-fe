@@ -18,7 +18,6 @@ const useSpeechToText = () => {
         .map(result => result[0].transcript)
         .join('');
       setTranscript(speechToText);
-      console.log('Speech to text:', speechToText);
     };
 
     recognition.start();
