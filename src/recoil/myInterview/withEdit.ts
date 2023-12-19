@@ -1,8 +1,8 @@
 import { DefaultValue, selector } from 'recoil';
 import { myInterviewAtom } from './atom';
 
-export const myInterviewAtomEditSelector = selector({
-  key: 'myInterviewAtomEditSelector',
+export const myInterviewEditSelector = selector({
+  key: 'myInterviewEditSelector',
   get: ({ get }) => {
     return get(myInterviewAtom);
   },
