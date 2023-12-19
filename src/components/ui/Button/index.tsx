@@ -12,6 +12,7 @@ export type ButtonColor =
   | 'darkGray'
   | 'gray';
 type ButtonSize =
+  | 'auto'
   | 'xs'
   | 'sm'
   | 'md'
@@ -52,6 +53,7 @@ export const Button = ({
   const baseStyles = 'rounded-[8px] font-bold  shadow-md';
 
   const sizeStyles = {
+    auto: 'px-3 py-2',
     xs: 'w-[90px] h-[50px]',
     sm: 'w-[100px] h-[40px]',
     md: 'min-w-[150px] h-[60px]',
