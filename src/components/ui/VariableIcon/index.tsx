@@ -11,9 +11,16 @@ export type VariableIconProps = {
   size?: number;
   color?: string;
   onClick?: () => void;
+  className?: string;
 };
 
-export const VariableIcon = ({ size = 24, name, color = 'black', onClick }: VariableIconProps) => {
+export const VariableIcon = ({
+  size = 24,
+  name,
+  color = 'black',
+  onClick,
+  className,
+}: VariableIconProps) => {
   const components = {
     emptyLike: BiLike,
     filledLike: BiSolidLike,
@@ -24,5 +31,7 @@ export const VariableIcon = ({ size = 24, name, color = 'black', onClick }: Vari
 
   const Icon = components[name];
 
-  return <Icon size={size} color={color} onClick={onClick} className="cursor-pointer" />;
+  return (
+    <Icon size={size} color={color} onClick={onClick} className={`${className} cursor-pointer`} />
+  );
 };
