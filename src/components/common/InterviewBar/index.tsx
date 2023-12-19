@@ -4,10 +4,10 @@ import React from 'react';
 
 export type InterviewBarProps = {
   questions: Question[];
-  currentId?: number;
+  currentQuestionCount: number;
 };
 
-export const InterviewBar = ({ questions, currentId = 0 }: InterviewBarProps) => {
+export const InterviewBar = ({ questions, currentQuestionCount }: InterviewBarProps) => {
   const widthCur = `${100 / (questions.length - 1)}%`;
 
   return (
@@ -21,13 +21,13 @@ export const InterviewBar = ({ questions, currentId = 0 }: InterviewBarProps) =>
           {
             <li
               className={` h-[4px] absolute w-full top-[6px] ${
-                question.questionId <= currentId - 1 ? 'bg-blue-normal' : 'bg-[#B1BDDE]'
+                question.questionId <= currentQuestionCount - 1 ? 'bg-blue-normal' : 'bg-[#B1BDDE]'
               }
              `}></li>
           }
           <li
             className={`w-4 h-4 rounded-full border-blue-normal top-0 right-0 absolute ${
-              question.questionId <= currentId - 1 ? 'bg-[#606DE3]' : 'bg-white'
+              question.questionId <= currentQuestionCount - 1 ? 'bg-[#606DE3]' : 'bg-white'
             } border-4`}></li>
         </div>
       ))}

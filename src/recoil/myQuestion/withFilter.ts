@@ -9,9 +9,6 @@ export const myQuestionFilterSelector = selector<MyQuestion[]>({
     const subcategoryName = get(selectedSubcategoryAtom);
     const questions = get(myQuestionAtom);
 
-    console.log('cat', categoryName);
-    console.log('sub', subcategoryName);
-
     if (categoryName === 'All' || categoryName === '') {
       return questions;
     }
@@ -25,4 +22,3 @@ export const myQuestionFilterSelector = selector<MyQuestion[]>({
     return filteredQuestions;
   },
 });
-

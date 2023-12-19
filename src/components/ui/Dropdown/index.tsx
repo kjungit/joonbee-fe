@@ -6,7 +6,7 @@ import { CategoryName, SubcategoryName } from '@/types/question';
 import { useModal } from '@/hooks/useModal';
 
 type DropdownProps = {
-  size?: 'sm' | 'md';
+  size?: 'xs' | 'sm' | 'md';
   data: (CategoryName | SubcategoryName)[];
   title?: string;
   selected: CategoryName | SubcategoryName;
@@ -16,7 +16,7 @@ type DropdownProps = {
 };
 
 const Dropdown = ({
-  size = 'md',
+  size = 'sm',
   data,
   title = '카테고리',
   onSelect,
@@ -41,6 +41,12 @@ const Dropdown = ({
   };
 
   const sizeStyles = {
+    xs: {
+      item: 'px-[14px] py-[8px] text-[12px]',
+      section: 'w-[110px]',
+      list: 'top-[50px] h-[178px]',
+    },
+
     sm: {
       item: 'px-[14px] py-[8px] text-[14px]',
       section: 'w-[116px]',
@@ -65,7 +71,7 @@ const Dropdown = ({
       </Button>
       {isOpened && (
         <ul
-          className={`shadow-normal px-[8px] py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  bg-white absolute
+          className={`shadow-normal w-full px-[8px] py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  bg-white absolute
           ${sizeStyles[size].list}`}>
           {data.map(item => (
             <div key={item}>

@@ -4,6 +4,7 @@ import { questionCategory } from '@/constants/category';
 import { CategoryName, SubcategoryName } from '@/types/question';
 import { useRecoilState } from 'recoil';
 import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
+import { selectedSubcategoryListAtom } from '@/recoil/selectedSubcategoryList/atom';
 
 type DropdownCategoryProps = {
   color?: 'white' | 'darkNavy';
@@ -11,6 +12,9 @@ type DropdownCategoryProps = {
 export default function DropdownCategory({ color = 'white' }: DropdownCategoryProps) {
   const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryAtom);
   const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(selectedSubcategoryAtom);
+  const [selectedSubcategories, setSelectedSubcategories] = useRecoilState(
+    selectedSubcategoryListAtom,
+  );
   const [isDisabled, setIsDisabled] = useState(false);
 
   const [subcategoryName, setSubcateogyName] = useState<SubcategoryName[]>([]);
@@ -28,13 +32,24 @@ export default function DropdownCategory({ color = 'white' }: DropdownCategoryPr
     setSelectedSubcategory('');
   }, [selectedCategory]);
 
+  //카테고리 바뀔 시 서브카테고리 배열 초기화
+  useEffect(() => {
+    setSelectedSubcategories([]);
+  }, [selectedCategory]);
+
   const handleCategorySelect: (item: CategoryName) => void = item => {
     setSelectedCategory(item);
   };
 
+  const handleSubCategorySelect: (item: SubcategoryName) => void = item => {
+    setSelectedSubcategory(item);
+    setSelectedSubcategories(prev => [...prev, item]);
+  };
+
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-5 relative z-10">
       <Dropdown
+        size="xs"
         title="All"
         data={categoryNames}
         selected={selectedCategory}
@@ -42,9 +57,10 @@ export default function DropdownCategory({ color = 'white' }: DropdownCategoryPr
         color={color}
       />
       <Dropdown
+        size="xs"
         data={subcategoryName}
         selected={selectedSubcategory}
-        onSelect={setSelectedSubcategory}
+        onSelect={handleSubCategorySelect}
         title="세부 카테고리"
         color={color}
         isDisabled={isDisabled}

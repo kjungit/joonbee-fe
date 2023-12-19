@@ -1,14 +1,115 @@
 'use client';
 
-import { interviewAtom } from '@/recoil/interviewQuestion/atom';
-import React from 'react';
-import { useRecoilState } from 'recoil';
+import { DetailQuestionCard } from '@/components/common/DetailQuestionCard';
+import { Button } from '@/components/ui/Button';
+import ModalPortal from '@/components/ui/ModalPortal';
+import { TextArea } from '@/components/ui/TextArea';
+import { useModal } from '@/hooks/useModal';
+import useModalOutsideClick from '@/hooks/useModalOutsideClick';
+import { MyInterview, myInterviewAtom } from '@/recoil/myInterview/atom';
+import { myInterviewEditSelector } from '@/recoil/myInterview/withEdit';
+import React, { useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 export default function InterviewCheck() {
-  const interview = useRecoilState(interviewAtom);
-  console.log('인터뷰 결과', interview);
+  const questions = useRecoilValue(myInterviewAtom);
+  const setQuestion = useSetRecoilState(myInterviewEditSelector);
+  const { isOpened, onClose, onOpen } = useModal();
+  const { modalRef } = useModalOutsideClick(onClose);
+  const [clickedQuestion, setClickedQuestion] = useState<MyInterview>();
+  const [clickedCount, setClickedCount] = useState(0);
+  const [newAnswer, setNewAnswer] = useState('');
+  const [isEditmode, setIsEditMode] = useState(false);
+
+  console.log('인터뷰 결과', questions);
+
+  const handleClickQuestion = (question: MyInterview, questionCount: number) => {
+    setClickedQuestion(question);
+    setClickedCount(questionCount + 1);
+    onOpen();
+  };
+
+  const handleToggleMode = () => {
+    setIsEditMode(prev => !prev);
+  };
+
+  const handleSubmitAnswer = () => {
+    setQuestion([
+      {
+        questionId: clickedQuestion!.questionId,
+        questionContent: clickedQuestion!.questionContent,
+        answerContent: newAnswer,
+      },
+    ]);
+    handleToggleMode();
+    onClose();
+  };
 
   return (
-    <section className="w-[1200px] h-[90%] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] overflow-scroll"></section>
+    <>
+      <ul className="flex flex-col gap-4">
+        {questions.map((question, index) => (
+          <li key={question.questionId}>
+            <DetailQuestionCard
+              question={question}
+              questionCount={index + 1}
+              onClick={() => handleClickQuestion(question, index)}
+            />
+          </li>
+        ))}
+      </ul>
+      {isOpened && (
+        <ModalPortal>
+          <div className="fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
+            <div
+              ref={modalRef}
+              className="w-[874px] h-[500px] rounded-xl bg-white shadow-md relative p-5">
+              <div className="flex justify-between items-end pb-3 border-b-2 border-gray-light mb-5">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-gray-dark text-[18px] font-bold mr-5">질문 {clickedCount}</h2>
+                  <p className="text-[16px] text-gray-dark font-bold">
+                    {clickedQuestion?.questionContent}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  {isEditmode ? (
+                    <Button
+                      text="xs"
+                      size="auto"
+                      color="blueSecondary"
+                      onClick={handleSubmitAnswer}>
+                      변경
+                    </Button>
+                  ) : (
+                    <Button text="xs" size="auto" color="blueSecondary" onClick={handleToggleMode}>
+                      수정
+                    </Button>
+                  )}
+
+                  <Button text="xs" size="auto" color="darkGray" onClick={onClose}>
+                    닫기
+                  </Button>
+                </div>
+              </div>
+              <h2 className="text-gray-dark text-[18px] font-bold mb-5">답변</h2>
+              <div className="h-[300px] bg-gray-normal opacity-60 shadow-md rounded-xl p-5">
+                {isEditmode ? (
+                  <TextArea
+                    size="auto"
+                    isRead={false}
+                    inputValue={newAnswer}
+                    setInputValue={setNewAnswer}
+                  />
+                ) : (
+                  <p className="text-gray-dark text-[16px] font-bold">
+                    {clickedQuestion?.answerContent}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </ModalPortal>
+      )}
+    </>
   );
 }

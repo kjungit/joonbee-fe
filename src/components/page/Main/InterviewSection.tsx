@@ -41,7 +41,7 @@ export default function InterviewSection() {
             title="카테고리"
             size="md"
             selected={select}
-            data={['프론트엔드', '백엔드', '언어', 'CS', '모바일', '기타']}
+            data={['fe', 'be', 'language', 'cs', 'mobile', 'etc']}
             onSelect={item => {
               setSelect(item);
             }}

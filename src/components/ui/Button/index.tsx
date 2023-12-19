@@ -12,6 +12,7 @@ export type ButtonColor =
   | 'darkGray'
   | 'gray';
 type ButtonSize =
+  | 'auto'
   | 'xs'
   | 'sm'
   | 'md'
@@ -22,10 +23,11 @@ type ButtonSize =
   | '2xl'
   | '3xl'
   | '4xl'
+  | 'dropdown-xs'
   | 'dropdown-sm'
   | 'dropdown-md'
   | 'setting';
-type ButtonText = 'sm' | 'md' | 'lg' | 'xl';
+type ButtonText = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type ButtonType = 'submit' | 'button';
 export type ButtonProps = {
   color?: ButtonColor;
@@ -51,6 +53,7 @@ export const Button = ({
   const baseStyles = 'rounded-[8px] font-bold  shadow-md';
 
   const sizeStyles = {
+    auto: 'px-3 py-2',
     xs: 'w-[90px] h-[50px]',
     sm: 'w-[100px] h-[40px]',
     md: 'min-w-[150px] h-[60px]',
@@ -60,14 +63,15 @@ export const Button = ({
     xl: 'w-[340px] h-[50px]',
     '2xl': 'w-[500px] h-[60px]',
     '3xl': 'w-[500px] h-[80px]',
-    '4xl': 'w-[536px] h-[88px]',
+    '4xl': 'w-[440px] h-[60px]',
     setting: 'min-w-[110px] h-[60px]',
+    'dropdown-xs': 'w-[110px] h-[44px]',
     'dropdown-sm': 'w-[114px] h-[44px]',
     'dropdown-md': 'w-[160px] h-[60px]',
   };
 
   const textStyles = {
-    xs: 'text-[16px]',
+    xs: 'text-[14px]',
     sm: 'text-[18px]',
     md: 'text-[20px]',
     lg: 'text-[24px]',

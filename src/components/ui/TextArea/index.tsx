@@ -1,28 +1,32 @@
 'use client';
-import Image from 'next/image';
-import React from 'react';
 
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+type TextareaProps = {
   isDisabled?: boolean;
   inputValue?: string;
   isVoice?: boolean;
+  isRead?: boolean;
+  size?: 'md' | 'auto';
   setInputValue?: (value: string) => void;
-}
+};
 
 export const TextArea = ({
   isDisabled = false,
   inputValue = '',
   setInputValue,
+  isRead = true,
+  size = 'md',
   isVoice = false,
 }: TextareaProps) => {
-  const baseStyles = `text-[18px] border-4 border-gray-normal ${
+  const baseStyles = `text-[16px] border-4 border-gray-normal ${
     isDisabled ? 'text-gray-disabled' : 'text-main-primary'
   } p-5 font-bold shadow-md rounded-xl`;
 
-  const sizeStyles = 'h-[360px] w-[540px] text-4';
-
+  const sizeStyles = {
+    md: 'h-[360px] w-[440px] text-4',
+    auto: 'w-full h-full',
+  };
   const TextAreaStyles = `
-  ${baseStyles} ${sizeStyles}
+  ${baseStyles} ${sizeStyles[size]} 
   `;
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,9 +36,9 @@ export const TextArea = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
       <textarea
-        readOnly
+        readOnly={isRead}
         minLength={10}
         rows={10}
         cols={20}
@@ -43,16 +47,7 @@ export const TextArea = ({
         disabled={isDisabled}
         value={inputValue}
         onChange={onChange}></textarea>
-      {isVoice && (
-        // <Image
-        //   height={80}
-        //   width={80}
-        //   src="/voice.gif"
-        //   alt="voice"
-        //   className="absolute right-4 bottom-4"
-        // />
-        <div className="voice"></div>
-      )}
+      {isVoice && <div className="voice"></div>}
     </div>
   );
 };

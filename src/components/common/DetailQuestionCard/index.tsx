@@ -1,28 +1,27 @@
 'use client';
+import { MyInterview } from '@/recoil/myInterview/atom';
 import React from 'react';
 
-interface Question {
-  title: string;
-  question: string;
-}
+type DetailQuestionCardProps = {
+  question: MyInterview;
+  questionCount: number;
+  onClick?: () => void;
+};
 
-export interface DetailQuestionCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: Question;
-}
-
-export const DetailQuestionCard = ({ data }: DetailQuestionCardProps) => {
+export const DetailQuestionCard = ({
+  question,
+  questionCount,
+  onClick,
+}: DetailQuestionCardProps) => {
   const baseStyles =
-    'flex h-[100px] w-auto text-[18px] text-main-primary px-[10px] items-center font-bold shadow-md rounded-xl';
+    'flex h-[48px] text-[18px] text-main-primary px-[10px] items-center font-bold shadow-md rounded-xl cursor-pointer';
   const textStyles = 'flex justify-center ';
-  const buttonStyles = `
-  ${baseStyles}
-  `;
 
   return (
-    <div className={buttonStyles}>
-      <div className={`${textStyles} text-[32px] w-[190px]`}>{data.title}</div>
-      <div className="border-l-gray-normal border-l-2 h-16" />
-      <div className={`${textStyles} text-[24px] ml-12`}>{data.question}</div>
+    <div className={baseStyles} onClick={onClick}>
+      <div className={`${textStyles} text-[16px] w-[190px]`}>질문 {questionCount}</div>
+      <div className="border-l-gray-normal border-l-2 h-[48px]" />
+      <div className={`${textStyles} text-[16px] ml-12`}>{question.questionContent}</div>
     </div>
   );
 };

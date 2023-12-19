@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
-import { interviewTimeAtom } from '@/recoil/interviewTime/atom';
+import { interviewTimeAtom } from '@/recoil/interviewSetting/atoms';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
