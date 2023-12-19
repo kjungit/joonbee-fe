@@ -60,6 +60,12 @@
     right: 20px;
     opacity: 0.5;
   }
+
+  .ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 @layer utilities {
