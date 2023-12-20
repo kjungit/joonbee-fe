@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { VariableIcon } from '@/components/ui/VariableIcon';
 import ModalPortal from '@/components/ui/ModalPortal';
 
-type CardColor = 'black' | 'white';
+type CardColor = 'text-black' | 'text-white';
 
 export interface CartClipboardProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: CardColor;
   onClick: () => void;
 }
 
-export const CartClipboard = ({ color = 'white', onClick }: CartClipboardProps) => {
+export const CartClipboard = ({ color = 'text-white', onClick }: CartClipboardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const CartClipboard = ({ color = 'white', onClick }: CartClipboardProps) 
           onClick={() => {
             setIsOpen(true);
           }}
-          color={color}
+          style={color}
         />
       </button>
       {isOpen && (
