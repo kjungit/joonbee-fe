@@ -26,7 +26,7 @@ interface UserInfoProps {
 }
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isDefautData, setIsDefautData] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [nickName, setNickName] = useState('');
   const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
@@ -45,22 +45,22 @@ const Header = () => {
     console.log(userInfo);
   }, []);
 
-  const {
-    data: loginData,
-    error: nickError,
-    trigger,
-  } = useSWRMutation('/auth/login/nick', () => postNickName({ id: isTokened.id, nickName }), {
-    onSuccess: data => {
-      setIsTokened({
-        ...isTokened,
-        isLogined: false,
-      });
+  const { error: nickError, trigger } = useSWRMutation(
+    '/auth/login/nick',
+    () => postNickName({ id: isTokened.id, nickName }),
+    {
+      onSuccess: data => {
+        setIsTokened({
+          ...isTokened,
+          isLogined: false,
+        });
+      },
+      onError: error => {
+        setIsError(true);
+      },
+      revalidate: false,
     },
-    onError: error => {
-      setIsError(true);
-    },
-    revalidate: false,
-  });
+  );
 
   const data = alarmData;
 
@@ -87,7 +87,7 @@ const Header = () => {
   return (
     <>
       <header className="w-screen z-50 h-[60px] shadow-sm flex justify-center items-center bg-white">
-        <div className="max-w-[1024px] w-full flex justify-between items-center">
+        <div className="max-w-[1024px] p-5  w-full flex justify-between items-center">
           <button onClick={() => router.push('/')}>
             <div className="flex gap-3 items-center">
               <Logo />
