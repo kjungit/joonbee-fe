@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function TopSection() {
   return (
-    <section className=" px-5 w-full  max-w-[1024px] mainBg gap-4 flex flex-col items-center h-[480px] ">
+    <section className=" px-5 w-full  max-w-[1024px] mainBg gap-5 flex flex-col items-center h-[480px] ">
       <div className=" w-full flex-grow items-center">
         <p className="z-10 w-full  pt-10 font-bold flex max-w-[1024px] text-lg ">AI 면접 서비스</p>
         <div className="flex w-full md:flex-row flex-col max-w-[1024px] items-center justify-center gap-4 md:gap-10  flex-grow">
