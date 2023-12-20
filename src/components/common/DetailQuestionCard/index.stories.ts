@@ -13,8 +13,9 @@ type Story = StoryObj<typeof DetailQuestionCard>;
 export const Primary: Story = {
   args: {
     data: {
-      title: '질문 1',
-      question: 'react에 대해서 설명해주세요.',
+      index: 0,
+      questionId: '질문 1',
+      questionContent: 'react에 대해서 설명해주세요.',
     },
   },
 };
@@ -22,8 +23,9 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     data: {
-      title: '질문 1',
-      question: 'react에 대해서 설명해주세요.',
+      index: 0,
+      questionId: '질문 1',
+      questionContent: 'react에 대해서 설명해주세요.',
     },
   },
 };
@@ -31,8 +33,9 @@ export const Secondary: Story = {
 export const Tertiary: Story = {
   args: {
     data: {
-      title: '질문 1',
-      question: 'react에 대해서 설명해주세요.',
+      index: 0,
+      questionId: '질문 1',
+      questionContent: 'react에 대해서 설명해주세요.',
     },
   },
 };
@@ -40,8 +43,9 @@ export const Tertiary: Story = {
 export const Quaternary: Story = {
   args: {
     data: {
-      title: '질문 1',
-      question: 'react에 대해서 설명해주세요.',
+      index: 0,
+      questionId: '질문 1',
+      questionContent: 'react에 대해서 설명해주세요.',
     },
   },
 };

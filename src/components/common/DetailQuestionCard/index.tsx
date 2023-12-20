@@ -2,8 +2,9 @@
 import React from 'react';
 
 interface Question {
-  title: string;
-  question: string;
+  index: number;
+  questionId: string;
+  questionContent: string;
 }
 
 export interface DetailQuestionCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -12,17 +13,17 @@ export interface DetailQuestionCardProps extends React.HTMLAttributes<HTMLDivEle
 
 export const DetailQuestionCard = ({ data }: DetailQuestionCardProps) => {
   const baseStyles =
-    'flex h-[100px] w-auto text-[18px] text-main-primary px-[10px] items-center font-bold shadow-md rounded-xl';
+    'flex  w-full text-[18px] text-main-primary px-[10px] py-2 items-center font-bold shadow-md rounded-xl';
   const textStyles = 'flex justify-center ';
-  const buttonStyles = `
-  ${baseStyles}
-  `;
 
   return (
-    <div className={buttonStyles}>
-      <div className={`${textStyles} text-[32px] w-[190px]`}>{data.title}</div>
-      <div className="border-l-gray-normal border-l-2 h-16" />
-      <div className={`${textStyles} text-[24px] ml-12`}>{data.question}</div>
-    </div>
+    <li className={baseStyles}>
+      <div className={`${textStyles} text-[18px]  basis-40 border-r-gray-normal border-r-2 `}>
+        질문{data.index + 1}
+      </div>
+      <div className={`${textStyles} text-start text-[14px] w-auto px-4 overflow-x-auto `}>
+        {data.questionContent}
+      </div>
+    </li>
   );
 };
