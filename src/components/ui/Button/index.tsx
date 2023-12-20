@@ -51,13 +51,13 @@ export const Button = ({
   const baseStyles = 'rounded-[8px] font-bold  shadow-md';
 
   const sizeStyles = {
-    xs: 'w-[90px] h-[50px]',
+    xs: 'w-[80px] h-[40px]',
     sm: 'w-[100px] h-[40px]',
     md: 'min-w-[150px] h-[60px]',
     '2md': 'w-[180px] h-[60px]',
-    lg: 'w-[274px] h-[60px]',
+    lg: 'w-[220px] h-[50px]',
     '2lg': 'w-[292px] min-h-[58px]',
-    xl: 'w-[340px] h-[50px]',
+    xl: 'w-[290px] h-[50px]',
     '2xl': 'w-[500px] h-[60px]',
     '3xl': 'w-[500px] h-[80px]',
     '4xl': 'w-[536px] h-[88px]',
@@ -81,7 +81,7 @@ export const Button = ({
     blueTertiary: 'bg-blue-tertiary hover:bg-hover-blueTertiary text-white',
     blueNormal: 'bg-blue-normal hover:bg-hover-blueNormarl text-white',
     white: 'bg-white hover:bg-gray-light text-main-primary',
-    darkGray: 'bg-gray-dark  text-white',
+    darkGray: 'bg-gray-dark  text-white hover:bg-black',
     gray: 'bg-gray-normal hover:bg-gray-dark text-white',
   };
 
