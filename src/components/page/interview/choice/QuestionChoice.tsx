@@ -11,20 +11,29 @@ import { myQuestionFilterSelector } from '@/recoil/myQuestion/withFilter';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import useSWR from 'swr';
-import { getRandomQuestions } from '@/app/apis/services/cart';
+import {
+  UserQuestionsResponseData,
+  getRandomQuestions,
+  getUserQuestions,
+} from '@/app/apis/services/cart';
+import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
+import DropdownCategory from '@/components/common/DropdownCategory';
 
 export default function QuestionChoice() {
-  // const params = {
-  //   category,
-  //   subcategory,
-  //   questionCount,
-  // };
+  const category = useRecoilValue(selectedCategoryAtom);
+  const subcategory = useRecoilValue(selectedSubcategoryAtom);
 
-  // const { data: questions, isLoading } = useSWR(['/api/question/gpt', params], () =>
-  //   getRandomQuestions(params),
-  // );
+  const params = {
+    category,
+    subcategory,
+  };
 
-  // if (isLoading) return;
+  const { data: questions, isLoading } = useSWR<UserQuestionsResponseData[]>(
+    ['/api/cart/questions', params],
+    () => getUserQuestions(params),
+  );
+
+  console.log(questions);
 
   // const filteredQuestions = useRecoilValue(myQuestionFilterSelector);
   // const clickedQuestions = useRecoilValue(myQuestionClickSelector);
@@ -38,24 +47,25 @@ export default function QuestionChoice() {
 
   return (
     <>
+      {/* <DropdownCategory size="xs" /> */}
       <QuestionForm />
-      {/* <div
+      <div
         className={`flex flex-col gap-3 scroll-hide overflow-y-scroll pb-2 items-center h-[70%] ${
-          filteredQuestions.length === 0 && 'justify-center'
+          questions?.length === 0 && 'justify-center'
         }`}>
-        {filteredQuestions.map(question => (
+        {questions?.map(question => (
           <CategorizedQuestionCard
             questionId={question.questionId}
-            categoryName={question.categoryName}
-            subcategoryName={question.subcategoryName}
+            category={question.category}
+            subcategory={question.subcategory}
             questionContent={question.questionContent}
-            isChecked={question.isChecked}
+            // isChecked={question.isChecked}
             key={question.questionId}
             size="sm"
           />
         ))}
-        {filteredQuestions.length === 0 && <NoQuestionMessage />}
-      </div> */}
+        {questions?.length === 0 && <NoQuestionMessage />}
+      </div>
 
       <Link href="/interview/choice/setting">
         {/* <Button
