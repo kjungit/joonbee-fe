@@ -11,7 +11,7 @@ export type SubcategoryName =
   | 'network'
   | 'react'
   | 'html/css'
-  | 'next'
+  | 'nextjs'
   | 'vue'
   | 'svelte'
   | 'db'
@@ -47,4 +47,9 @@ export type SubcategoryName =
 export type QuestionCategory = {
   category: CategoryName;
   subcategory: SubcategoryName[];
+};
+
+export type AllCategory = {
+  category: CategoryName;
+  subcategory: SubcategoryName;
 };
