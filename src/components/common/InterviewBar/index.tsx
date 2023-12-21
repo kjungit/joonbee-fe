@@ -1,13 +1,14 @@
 'use client';
 import { Question } from '@/recoil/interviewQuestion/atom';
+import { MyInterview } from '@/recoil/myInterview/atom';
 import React from 'react';
 
 export type InterviewBarProps = {
-  questions: Question[];
-  currentQuestionCount: number;
+  questions: MyInterview[];
+  currentCount: number;
 };
 
-export const InterviewBar = ({ questions, currentQuestionCount }: InterviewBarProps) => {
+export const InterviewBar = ({ questions, currentCount }: InterviewBarProps) => {
   const widthCur = `${100 / (questions.length - 1)}%`;
 
   return (
@@ -21,13 +22,13 @@ export const InterviewBar = ({ questions, currentQuestionCount }: InterviewBarPr
           {
             <li
               className={` h-[4px] absolute w-full top-[6px] ${
-                question.questionId <= currentQuestionCount - 1 ? 'bg-blue-normal' : 'bg-[#B1BDDE]'
+                currentCount <= questions.length - 1 ? 'bg-blue-normal' : 'bg-[#B1BDDE]'
               }
              `}></li>
           }
           <li
             className={`w-4 h-4 rounded-full border-blue-normal top-0 right-0 absolute ${
-              question.questionId <= currentQuestionCount - 1 ? 'bg-[#606DE3]' : 'bg-white'
+              currentCount <= questions.length - 1? 'bg-[#606DE3]' : 'bg-white'
             } border-4`}></li>
         </div>
       ))}
