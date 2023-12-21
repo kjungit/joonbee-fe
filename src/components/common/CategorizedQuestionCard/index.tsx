@@ -1,4 +1,5 @@
 'use client';
+import { UserQuestionsResponseData } from '@/app/apis/services/cart';
 import { Icon } from '@/components/ui/Icon';
 import { MyQuestion } from '@/recoil/myQuestion/atom';
 import { myQuestionAddSelector } from '@/recoil/myQuestion/withAdd';
@@ -10,16 +11,17 @@ import { useRecoilState } from 'recoil';
 
 type CardSize = 'sm' | 'md' | 'lg';
 
-interface CategorizedQuestionCardProps extends MyQuestion {
+type CategorizedQuestionCardProps = UserQuestionsResponseData & {
   size?: CardSize;
-}
+  isChecked?: boolean;
+};
 export const CategorizedQuestionCard = ({
   size = 'md',
-  categoryName,
-  subcategoryName,
+  category,
+  subcategory,
   questionContent,
   questionId,
-  isChecked,
+  isChecked = false,
 }: CategorizedQuestionCardProps) => {
   const pathname = usePathname();
 
@@ -49,8 +51,8 @@ export const CategorizedQuestionCard = ({
     }
     setMyQuestion([
       {
-        categoryName,
-        subcategoryName,
+        category,
+        subcategory,
         questionContent,
         questionId,
         isChecked: !isChecked,
@@ -61,9 +63,9 @@ export const CategorizedQuestionCard = ({
   return (
     <div className={buttonStyles} onClick={onClickQuestion}>
       <div className="flex">
-        <div className={textStyles}>{categoryName}</div>
+        <div className={textStyles}>{category}</div>
         <div className="border-l-gray-normal border-l-2" />
-        <div className={textStyles}>{subcategoryName}</div>
+        <div className={textStyles}>{subcategory}</div>
         <div className="border-l-gray-normal border-l-2" />
         <div className="ml-10">{questionContent}</div>
       </div>
