@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 import { categoryNameSelector } from '@/recoil/interviewQuestion/withWriteQuestion';
 import { myQuestionAddSelector } from '@/recoil/myQuestion/withAdd';
+import useMutateUserQuestion from '@/hooks/apis/useMutateUserQuestion';
 
 type QuestionForm = {
   type?: 'primary' | 'secondary';
@@ -18,25 +19,35 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
   const [categoryName, setCategoryName] = useRecoilState(categoryNameSelector);
   const selectedCategory = useRecoilValue(selectedCategoryAtom);
   const selectedSubcategory = useRecoilValue(selectedSubcategoryAtom);
-  const [question, setQuestion] = useState('');
+  const [questionContent, setQuestionContent] = useState('');
+
+  const { trigger: postUserQuestion, data } = useMutateUserQuestion(
+    selectedCategory,
+    selectedSubcategory,
+    questionContent,
+  );
+
+  console.log('category', selectedCategory, 'sub', selectedSubcategory);
+  console.log('data', data);
 
   useEffect(() => {
     onDisableSubmitButton();
-  }, [selectedCategory, question, selectedSubcategory]);
+  }, [selectedCategory, questionContent, selectedSubcategory]);
 
   const onSubmitQuestion = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setCategoryName(selectedCategory);
-    setMyQuestion([
-      {
-        questionId: myQuestion.length + 1,
-        categoryName: selectedCategory,
-        subcategoryName: selectedSubcategory,
-        questionContent: question,
-        isChecked: false,
-      },
-    ]);
-    setQuestion('');
+    postUserQuestion();
+    // setCategoryName(selectedCategory);
+    // setMyQuestion([
+    //   {
+    //     questionId: myQuestion.length + 1,
+    //     categoryName: selectedCategory,
+    //     subcategoryName: selectedSubcategory,
+    //     questionContent: questionContent,
+    //     isChecked: false,
+    //   },
+    // ]);
+    // setQuestionContent('');
   };
 
   const onDisableSubmitButton = () => {
@@ -44,7 +55,7 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
       return true;
     }
 
-    return !(selectedCategory && selectedSubcategory && question);
+    return !(selectedCategory && selectedSubcategory && questionContent);
   };
 
   const typeStyles = {
@@ -54,9 +65,9 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
 
   return (
     <form className={typeStyles[type]} onSubmit={onSubmitQuestion}>
-      <DropdownCategory />
+      <DropdownCategory size="xs" />
       <div className="flex gap-5 ">
-        <Input inputValue={question} setInputValue={setQuestion} size="sm" />
+        <Input inputValue={questionContent} setInputValue={setQuestionContent} size="sm" />
         <Button
           type="submit"
           color="darkNavy"
