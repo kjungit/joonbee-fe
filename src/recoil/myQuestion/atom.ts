@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { CategoryName, SubcategoryName } from '@/types/question';
 
 export type MyQuestion = {
-  questionId: number;
+  questionId: string;
   categoryName: CategoryName;
   subcategoryName: SubcategoryName;
   questionContent: string;
