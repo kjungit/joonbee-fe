@@ -27,14 +27,14 @@ export const LinkBox = ({
   subTitle,
   children,
 }: LinkBox) => {
-  const baseStyles = `lg:text-2xl text-xl w-full font-bold flex items-center p-10 text-[30px] shadow-md  flex-grow  ${
+  const baseStyles = `lg:text-xl md:text-lg xs:text-sm  w-full  font-bold flex items-center p-7 md:p-10 shadow-md  flex-grow mb-6 ${
     size === 'lg' ? 'rounded-2xl ' : 'rounded-xl'
   }`;
 
   const sizeStyles = {
     sm: 'justify-between h-[140px] max-w-[500px]',
     md: 'justify-between h-[140px] md:h-[312px] max-w-[800px] ',
-    lg: 'justify-center h-[500px] flex-col-reverse max-w-[500px]',
+    lg: 'justify-center lg:h-[480px] md:h-[420px] xs:h-[380px] flex-col-reverse',
   };
 
   const colorStyles = {
@@ -47,7 +47,7 @@ export const LinkBox = ({
   return (
     <Link href={propsLink} className={LinkBoxStyles}>
       {size === 'lg' && (
-        <div className="text-[20px]  mt-6 text-[#717171]">
+        <div className="lg:text-lg md:text-base mt-6 text-[#717171] text-sm">
           <p>{subTitle?.first}</p>
           <p>{subTitle?.second}</p>
           <p>{subTitle?.third}</p>
