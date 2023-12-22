@@ -5,11 +5,11 @@ export type RandomQuestionsParams = QuestionCategory & {
   questionCount: number;
 };
 
-type UserQuestionsParams = AllCategory & {
+export type UserQuestionsParams = AllCategory & {
   page?: number;
 };
 
-type QuestionData = AllCategory & {
+export type QuestionData = AllCategory & {
   questionContent: string;
 };
 
@@ -40,20 +40,8 @@ export const getRandomQuestions = async ({
 /**
  * 사용자가 추가한 질문들 가져오기 api
  */
-export const getUserQuestions = async ({
-  category,
-  subcategory,
-  page = 1,
-}: UserQuestionsParams) => {
-  category = category === 'All' ? '' : category;
-
-  const res = await instance().get('/api/cart/questions', {
-    params: {
-      category,
-      subcategory,
-      page,
-    },
-  });
+export const getUserQuestions = async (url: string) => {
+  const res = await instance().get(url);
 
   console.log('res', res.data.data.result);
 
