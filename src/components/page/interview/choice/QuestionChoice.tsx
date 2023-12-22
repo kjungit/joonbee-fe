@@ -6,26 +6,21 @@ import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestion
 import QuestionForm from '@/components/common/QuestionForm';
 import { Button } from '@/components/ui/Button';
 import NoQuestionMessage from '@/components/ui/NoQuestionMessage';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
-import useUserQuestion from '@/hooks/questions/useUserQuestion';
+import useInfiniteUserQuestion from '@/hooks/questions/useInfiniteUserQuestion';
+import { UserQuestionsResponseData } from '@/app/apis/services/cart';
 
 export default function QuestionChoice() {
   const category = useRecoilValue(selectedCategoryAtom);
   const subcategory = useRecoilValue(selectedSubcategoryAtom);
+  const [questionContent, setQuestionContent] = useState('');
 
-  const params = {
-    category,
-    subcategory,
-  };
+  const { newData, setTarget, setSize } = useInfiniteUserQuestion(category, subcategory);
 
-  const { myQuestions, isLoading } = useUserQuestion(params);
-
-  const clickedCount = useMemo(() => {
-    return myQuestions.filter(item => item.isClicked === true).length;
-  }, [myQuestions]);
+  const myQuestions = newData ? newData[0] : [];
 
   const disableBtn = () => {
     if (myQuestions?.length === 0) {
@@ -36,7 +31,8 @@ export default function QuestionChoice() {
 
   return (
     <>
-      <QuestionForm />
+      <button onClick={() => setSize(prev => prev + 1)}>테스트</button>
+      <QuestionForm questionContent={questionContent} setQuestionContent={setQuestionContent} />
       <div
         className={`overflow-y-scroll flex flex-col gap-2 items-center h-[360px] scroll-hide ${
           myQuestions?.length === 0 && 'justify-center'
@@ -47,12 +43,13 @@ export default function QuestionChoice() {
             category={question.category}
             subcategory={question.subcategory}
             questionContent={question.questionContent}
-            isClicked={question.isClicked}
+            // isClicked={question.isClicked}
             key={question.questionId}
             size="sm"
           />
         ))}
         {myQuestions?.length === 0 && <NoQuestionMessage />}
+        {/* <div ref={setTarget} className="w-full h-[100px] bg-status-alert"></div> */}
       </div>
 
       <Link href="/interview/choice/setting">
@@ -62,7 +59,7 @@ export default function QuestionChoice() {
           text="sm"
           className="absolute bottom-8 right-8"
           disabled={disableBtn()}>
-          {clickedCount}개 선택된 질문 보기
+          N개 선택된 질문 보기
         </Button>
       </Link>
     </>
