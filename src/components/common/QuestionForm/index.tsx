@@ -8,7 +8,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 import { categoryNameSelector } from '@/recoil/interviewQuestion/withWriteQuestion';
 import { myQuestionAddSelector } from '@/recoil/myQuestion/withAdd';
-import useMutateUserQuestion from '@/hooks/apis/useMutateUserQuestion';
+import useMutateUserQuestion from '@/hooks/questions/useMutateUserQuestion';
 
 type QuestionForm = {
   type?: 'primary' | 'secondary';
