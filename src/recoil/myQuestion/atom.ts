@@ -3,10 +3,10 @@ import { CategoryName, SubcategoryName } from '@/types/question';
 
 export type MyQuestion = {
   questionId: string;
-  categoryName: CategoryName;
-  subcategoryName: SubcategoryName;
+  category: CategoryName;
+  subcategory: SubcategoryName;
   questionContent: string;
-  isChecked: boolean;
+  isClicked: boolean;
 };
 
 export const myQuestionAtom = atom<MyQuestion[]>({
