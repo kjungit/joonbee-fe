@@ -6,18 +6,11 @@ import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestion
 import QuestionForm from '@/components/common/QuestionForm';
 import { Button } from '@/components/ui/Button';
 import NoQuestionMessage from '@/components/ui/NoQuestionMessage';
-import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
-import { myQuestionFilterSelector } from '@/recoil/myQuestion/withFilter';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
-import useSWR from 'swr';
-import {
-  UserQuestionsResponseData,
-  getRandomQuestions,
-  getUserQuestions,
-} from '@/app/apis/services/cart';
+
 import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
-import DropdownCategory from '@/components/common/DropdownCategory';
+import useUserQuestion from '@/hooks/questions/useUserQuestion';
 
 export default function QuestionChoice() {
   const category = useRecoilValue(selectedCategoryAtom);
@@ -28,53 +21,49 @@ export default function QuestionChoice() {
     subcategory,
   };
 
-  const { data: questions, isLoading } = useSWR<UserQuestionsResponseData[]>(
-    ['/api/cart/questions', params],
-    () => getUserQuestions(params),
-  );
+  const { myQuestions, isLoading } = useUserQuestion(params);
 
-  console.log(questions);
+  const clickedCount = useMemo(() => {
+    return myQuestions.filter(item => item.isClicked === true).length;
+  }, [myQuestions]);
 
-  // const filteredQuestions = useRecoilValue(myQuestionFilterSelector);
-  // const clickedQuestions = useRecoilValue(myQuestionClickSelector);
-
-  // const onDisabledButton = () => {
-  //   if (clickedQuestions.length === 0) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
+  const disableBtn = () => {
+    if (myQuestions?.length === 0) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <>
-      {/* <DropdownCategory size="xs" /> */}
       <QuestionForm />
       <div
-        className={`flex flex-col gap-3 scroll-hide overflow-y-scroll pb-2 items-center h-[70%] ${
-          questions?.length === 0 && 'justify-center'
+        className={`overflow-y-scroll flex flex-col gap-2 items-center h-[360px] scroll-hide ${
+          myQuestions?.length === 0 && 'justify-center'
         }`}>
-        {questions?.map(question => (
+        {myQuestions?.map(question => (
           <CategorizedQuestionCard
             questionId={question.questionId}
             category={question.category}
             subcategory={question.subcategory}
             questionContent={question.questionContent}
-            // isChecked={question.isChecked}
+            isClicked={question.isClicked}
             key={question.questionId}
             size="sm"
           />
         ))}
-        {questions?.length === 0 && <NoQuestionMessage />}
+        {myQuestions?.length === 0 && <NoQuestionMessage />}
       </div>
 
       <Link href="/interview/choice/setting">
-        {/* <Button
+        <Button
           color="blueSecondary"
-          size="lg"
-          className="absolute bottom-9 right-[50px]"
-          disabled={onDisabledButton()}>
-          {clickedQuestions.length}개 선택된 질문 보기
-        </Button> */}
+          size="auto"
+          text="sm"
+          className="absolute bottom-8 right-8"
+          disabled={disableBtn()}>
+          {clickedCount}개 선택된 질문 보기
+        </Button>
       </Link>
     </>
   );
