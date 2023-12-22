@@ -12,23 +12,19 @@ import useMutateUserQuestion from '@/hooks/questions/useMutateUserQuestion';
 
 type QuestionForm = {
   type?: 'primary' | 'secondary';
+  questionContent: string;
+  setQuestionContent: (content: string) => void;
 };
 
-const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
-  const [myQuestion, setMyQuestion] = useRecoilState(myQuestionAddSelector);
-  const [categoryName, setCategoryName] = useRecoilState(categoryNameSelector);
+const QuestionForm = ({ type = 'primary', questionContent, setQuestionContent }: QuestionForm) => {
   const selectedCategory = useRecoilValue(selectedCategoryAtom);
   const selectedSubcategory = useRecoilValue(selectedSubcategoryAtom);
-  const [questionContent, setQuestionContent] = useState('');
 
-  const { trigger: postUserQuestion, data } = useMutateUserQuestion(
+  const { trigger: postUserQuestion } = useMutateUserQuestion(
     selectedCategory,
     selectedSubcategory,
     questionContent,
   );
-
-  console.log('category', selectedCategory, 'sub', selectedSubcategory);
-  console.log('data', data);
 
   useEffect(() => {
     onDisableSubmitButton();
@@ -37,17 +33,6 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
   const onSubmitQuestion = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     postUserQuestion();
-    // setCategoryName(selectedCategory);
-    // setMyQuestion([
-    //   {
-    //     questionId: myQuestion.length + 1,
-    //     categoryName: selectedCategory,
-    //     subcategoryName: selectedSubcategory,
-    //     questionContent: questionContent,
-    //     isChecked: false,
-    //   },
-    // ]);
-    // setQuestionContent('');
   };
 
   const onDisableSubmitButton = () => {
