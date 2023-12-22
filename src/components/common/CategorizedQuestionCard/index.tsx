@@ -58,8 +58,6 @@ export const CategorizedQuestionCard = ({
     }
   };
 
-  console.log(isClicked);
-
   return (
     <div className={cardStyles} onClick={onClickQuestion}>
       <div className="flex">
