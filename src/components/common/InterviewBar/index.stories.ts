@@ -12,23 +12,7 @@ type Story = StoryObj<typeof InterviewBar>;
 
 export const Primary: Story = {
   args: {
-    questions: [
-      {
-        questionId: 1,
-        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
-        answerContent: '',
-      },
-      {
-        questionId: 2,
-        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
-        answerContent: '',
-      },
-      {
-        questionId: 3,
-        questionContent: 'TypeScript의 장점에 대해 설명하세요.',
-        answerContent: '',
-      },
-    ],
-    currentQuestionCount: 3,
+    questions: [],
+    currentCount: 3,
   },
 };

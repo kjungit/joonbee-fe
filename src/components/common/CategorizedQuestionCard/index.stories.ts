@@ -10,9 +10,6 @@ const meta: Meta<typeof CategorizedQuestionCard> = {
       control: 'inline-radio',
       options: ['md', 'lg'],
     },
-    isChecked: {
-      control: 'boolean',
-    },
   },
 };
 
@@ -22,19 +19,17 @@ type Story = StoryObj<typeof CategorizedQuestionCard>;
 export const Primary: Story = {
   args: {
     size: `md`,
-    categoryName: 'fe',
-    subcategoryName: 'react',
+    category: 'fe',
+    subcategory: 'react',
     questionContent: 'Express에 대해 설명하시오',
-    isChecked: false,
   },
 };
 
 export const Secondary: Story = {
   args: {
     size: `lg`,
-    categoryName: 'fe',
-    subcategoryName: 'react',
+    category: 'fe',
+    subcategory: 'react',
     questionContent: 'Express에 대해 설명하시오',
-    isChecked: true,
   },
 };
