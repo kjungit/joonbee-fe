@@ -26,3 +26,26 @@ export const postInterviewLike = async (interviewId: string) => {
     throw error;
   }
 };
+
+export const getCategoryInterview = async (page: number) => {
+  try {
+    const res = await instance().get(`api/member/category`, {
+      params: {
+        page,
+      },
+    });
+    console.log(res);
+    return res.data.data.result;
+  } catch (error) {}
+};
+
+export const getLikeCategoryInterview = async (page: number) => {
+  try {
+    const res = await instance().get(`api/member/category/like`, {
+      params: {
+        page,
+      },
+    });
+    return res.data.data.result;
+  } catch (error) {}
+};
