@@ -11,7 +11,6 @@ import { useRecoilValue } from 'recoil';
 
 import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 import useInfiniteUserQuestion from '@/hooks/questions/useInfiniteUserQuestion';
-import { UserQuestionsResponseData } from '@/app/apis/services/cart';
 
 export default function QuestionChoice() {
   const category = useRecoilValue(selectedCategoryAtom);
