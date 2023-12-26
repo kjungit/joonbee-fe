@@ -78,7 +78,7 @@ const Dropdown = ({
                   item === selected ? 'bg-hover-grayLight shadow-noraml' : ''
                 }`}
                 onClick={() => onSelectItem(item)}>
-                {item}
+                {!item ? '카테고리' : item}
               </div>
               {index !== data.length - 1 && <div className="border-b-2 border-gray-normal" />}
             </li>
