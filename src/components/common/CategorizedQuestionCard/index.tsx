@@ -3,7 +3,7 @@ import { UserQuestionsResponseData } from '@/app/apis/services/cart';
 import { Icon } from '@/components/ui/Icon';
 import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 type CardSize = 'sm' | 'md' | 'lg';
@@ -19,12 +19,11 @@ export const CategorizedQuestionCard = ({
   subcategory,
   questionContent,
   questionId,
-  isClicked = false,
   className,
 }: CategorizedQuestionCardProps) => {
-  const pathname = usePathname();
-
+  const [isClicked, isSetClicked] = useState(false);
   const [myQuestion, setMyQuestion] = useRecoilState(myQuestionClickSelector);
+  const pathname = usePathname();
 
   const baseStyles = `flex px-[10px] justify-between items-center font-bold shadow-md shrink-0
      rounded-[8px] bg-white cursor-pointer ${className}`;
