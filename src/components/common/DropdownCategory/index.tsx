@@ -17,7 +17,7 @@ export default function DropdownCategory({ color = 'white' }: DropdownCategoryPr
   const categoryNames = questionCategory.map(item => item.category);
 
   useEffect(() => {
-    selectedCategory === 'All' ? setIsDisabled(true) : setIsDisabled(false);
+    selectedCategory === '' ? setIsDisabled(true) : setIsDisabled(false);
 
     setSubcateogyName(
       questionCategory.find(item => item.category === selectedCategory)?.subcategory || [],
@@ -25,7 +25,7 @@ export default function DropdownCategory({ color = 'white' }: DropdownCategoryPr
   }, [selectedCategory]);
 
   useEffect(() => {
-    setSelectedSubcategory('');
+    setSelectedSubcategory('세부 카테고리');
   }, [selectedCategory]);
 
   const handleCategorySelect: (item: CategoryName) => void = item => {
@@ -35,7 +35,7 @@ export default function DropdownCategory({ color = 'white' }: DropdownCategoryPr
   return (
     <div className="flex gap-5">
       <Dropdown
-        title="All"
+        title=""
         data={categoryNames}
         selected={selectedCategory}
         onSelect={handleCategorySelect}
