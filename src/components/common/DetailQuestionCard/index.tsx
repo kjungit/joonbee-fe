@@ -1,9 +1,8 @@
 'use client';
-import { MyInterview } from '@/recoil/myInterview/atom';
 import React from 'react';
 
 type DetailQuestionCardProps = {
-  question: MyInterview;
+  question: string;
   questionCount: number;
   onClick?: () => void;
 };
@@ -21,7 +20,7 @@ export const DetailQuestionCard = ({
     <div className={baseStyles} onClick={onClick}>
       <div className={`${textStyles} text-[16px] w-[190px]`}>질문 {questionCount}</div>
       <div className="border-l-gray-normal border-l-2 h-[48px]" />
-      <div className={`${textStyles} text-[16px] ml-12`}>{question.questionContent}</div>
+      <div className={`${textStyles} text-[16px] ml-12`}>{question}</div>
     </div>
   );
 };
