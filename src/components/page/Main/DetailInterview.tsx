@@ -37,9 +37,9 @@ export default function DetailInterview({
           </div>
         </div>
         <ul className=" gap-4 flex flex-col max-h-[220px] overflow-y-auto p-2">
-          {item.questions.map((question, index) => (
+          {/* {item.questions.map((question, index) => (
             <DetailQuestionCard data={{ ...question, index }} key={question.questionId} />
-          ))}
+          ))} */}
         </ul>
         <div className="flex justify-end">
           <Button size="lg" text="sm">

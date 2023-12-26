@@ -11,10 +11,10 @@ export type VariableIconProps = {
   name: IconName;
   size?: number;
   onClick?: () => void;
-  style?: string;
+  className?: string;
 };
 
-export const VariableIcon = ({ size = 24, name, onClick, style }: VariableIconProps) => {
+export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIconProps) => {
   const components = {
     emptyLike: BiLike,
     filledLike: BiSolidLike,
@@ -30,7 +30,7 @@ export const VariableIcon = ({ size = 24, name, onClick, style }: VariableIconPr
     <Icon
       size={size}
       onClick={onClick}
-      className={`${style} cursor-pointer hover:text-gray-disabled`}
+      className={`${className} cursor-pointer hover:text-gray-disabled`}
     />
   );
 };

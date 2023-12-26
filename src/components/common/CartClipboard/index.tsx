@@ -31,7 +31,7 @@ export const CartClipboard = ({ color = 'text-white', onClick }: CartClipboardPr
           onClick={() => {
             setIsOpen(true);
           }}
-          style={color}
+          className={color}
         />
       </button>
       {isOpen && (

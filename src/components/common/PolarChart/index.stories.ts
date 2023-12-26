@@ -12,6 +12,6 @@ type Story = StoryObj<typeof PolarChart>;
 
 export const Primary: Story = {
   args: {
-    data: [23, 12, 35, 10, 23, 12, 22],
+    data: [],
   },
 };
