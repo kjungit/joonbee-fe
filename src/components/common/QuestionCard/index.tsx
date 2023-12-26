@@ -23,7 +23,7 @@ export const QuestionCard = ({
 
   const sizeStyles = {
     sm: 'h-[42px] max-w-[290px] w-full text-[14px]',
-    md: 'h-[52px] w-full max-w-[490px] ',
+    md: 'h-[52px] w-full lg:max-w-[480px] max-w-[1000px] text-xs',
     lg: 'h-[68px] w-[540px] text-[16px]',
   };
 
@@ -37,7 +37,7 @@ export const QuestionCard = ({
 
   return (
     <div className={buttonStyles}>
-      <p className="text-ellipsis break-words whitespace-nowrap overflow-hidden">{children}</p>
+      <p className="text-ellipsis break-words  overflow-hidden ">{children}</p>
       {isCopy && <CartClipboard onClick={() => {}} color={btnColor} />}
     </div>
   );
