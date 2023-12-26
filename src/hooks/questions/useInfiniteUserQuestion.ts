@@ -10,11 +10,7 @@ export default function useInfiniteUserQuestion(
   category: CategoryName,
   subcategory: SubcategoryName,
 ) {
-  const [newData, setNewData] = useState<UserQuestionsResponseData[]>([]);
-
   const getKey = (page: number, previousPageData: UserQuestionsResponseData[]) => {
-    // console.log('pp', page);
-    // console.log('data', previousPageData);
     const newPage = page + 1;
     if (previousPageData && !previousPageData.length) {
       return null;
@@ -23,22 +19,26 @@ export default function useInfiniteUserQuestion(
     return `/api/cart/questions?page=${newPage}&category=${newCategory}&subcategory=${subcategory}`;
   };
 
-  const { data, error, size, setSize, isValidating, isLoading } = useSWRInfinite<
+  const { data, error, size, setSize, isValidating,  } = useSWRInfinite<
     UserQuestionsResponseData[]
-  >(getKey, url => getUserQuestions(url), { revalidateFirstPage: false });
+  >(
+    getKey,
+    url => {
+      console.log('url', url);
+      return getUserQuestions(url);
+    },
+    {
+      initialSize: 1,
+      revalidateFirstPage: false,
+    },
+  );
 
-  //   useEffect(() => {
-  //     // 데이터를 통합
-  //     if (data) {
-  //       const allData = data.flatMap((pageData: UserQuestionsResponseData[]) => pageData);
-  //       console.log(allData);
-  //       setNewData(allData);
-  //     }
-  //   }, [data]);
-
+  const newData = data?.flatMap(data => data);
   console.log('new', newData);
 
-  const { setTarget } = useIntersectionObserver(setSize, true);
+  const isFetching = !isValidating;
+
+  const { setTarget } = useIntersectionObserver(setSize, isFetching);
 
   return { newData, error, size, setSize, isValidating, setTarget };
 }
