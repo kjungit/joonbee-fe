@@ -16,7 +16,6 @@ import { UserQuestionsResponseData } from '@/app/apis/services/cart';
 export default function QuestionChoice() {
   const category = useRecoilValue(selectedCategoryAtom);
   const subcategory = useRecoilValue(selectedSubcategoryAtom);
-  const [questionContent, setQuestionContent] = useState('');
 
   const {
     newData: myQuestions,
@@ -33,8 +32,8 @@ export default function QuestionChoice() {
 
   return (
     <>
-      {/* <button onClick={() => setSize(prev => prev + 1)}>테스트</button> */}
-      <QuestionForm questionContent={questionContent} setQuestionContent={setQuestionContent} />
+      <button onClick={() => setSize(prev => prev + 1)}>테스트</button>
+      <QuestionForm />
       <div
         className={`overflow-y-scroll flex flex-col gap-2 items-center h-[360px] scroll-hide ${
           myQuestions?.length === 0 && 'justify-center'
@@ -51,7 +50,7 @@ export default function QuestionChoice() {
           />
         ))}
         {myQuestions?.length === 0 && <NoQuestionMessage />}
-        <div ref={setTarget} className="w-full h-[100px] bg-status-alert"></div>
+        <div ref={setTarget} className="w-full h-[2px] shrink-0 bg-status-alert"></div>
       </div>
 
       <Link href="/interview/choice/setting">

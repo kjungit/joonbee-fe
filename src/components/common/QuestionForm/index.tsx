@@ -12,13 +12,12 @@ import useMutateUserQuestion from '@/hooks/questions/useMutateUserQuestion';
 
 type QuestionForm = {
   type?: 'primary' | 'secondary';
-  questionContent: string;
-  setQuestionContent: (content: string) => void;
 };
 
-const QuestionForm = ({ type = 'primary', questionContent, setQuestionContent }: QuestionForm) => {
+const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
   const selectedCategory = useRecoilValue(selectedCategoryAtom);
   const selectedSubcategory = useRecoilValue(selectedSubcategoryAtom);
+  const [questionContent, setQuestionContent] = useState('');
 
   const { trigger: postUserQuestion } = useMutateUserQuestion(
     selectedCategory,
