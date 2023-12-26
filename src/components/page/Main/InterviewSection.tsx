@@ -3,10 +3,13 @@ import { getInterview } from '@/app/apis/services/interview';
 import InterviewCard from '@/components/common/InterviewCard';
 import { RadiusButton } from '@/components/common/RadiusButton';
 import Dropdown from '@/components/ui/Dropdown';
+import ModalPortal from '@/components/ui/ModalPortal';
 import { CategoryName } from '@/types/question';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 import useSWR from 'swr';
+import DetailInterview from './DetailInterview';
+import SkeletonInterview from './SkeletonInterview';
 
 export type QuestionItemType = {
   questionId: string;
@@ -14,7 +17,7 @@ export type QuestionItemType = {
 };
 
 export interface InterviewItemType {
-  id: string;
+  interviewId: string;
   categoryName: string;
   questions: QuestionItemType[];
   likeCount: string;
@@ -23,34 +26,54 @@ export interface InterviewItemType {
 }
 
 export default function InterviewSection() {
-  const [select, setSelect] = useState<CategoryName>('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectInterview, setSelectInterview] = useState<null | InterviewItemType>(null);
+  const [categorySelect, setCategorySelect] = useState<CategoryName>('');
+  const [interviewData, setInterviewData] = useState(null);
   const router = useRouter();
 
-  const { data } = useSWR<InterviewItemType[]>('/api/interview/all', () =>
-    getInterview({ page: 0 }),
+  const { data, isLoading } = useSWR<InterviewItemType[]>(
+    ['/api/interview/all', categorySelect],
+    () => getInterview({ page: 1, category: categorySelect, sort: 'latest' }),
+    {
+      onSuccess: data => {
+        console.log(data);
+      },
+    },
   );
+
+  const onClickOpen = (e: MouseEvent<HTMLDivElement | HTMLLIElement>) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    console.log(selectInterview);
+  }, [data, selectInterview]);
+
   return (
     <section className=" pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
-      <div className="w-[1024px]">
+      <div className="max-w-[1024px] w-full px-5">
         <div>
           <Dropdown
             color="white"
             title="카테고리"
             size="md"
-            selected={select}
-            data={['fe', 'be', 'language', 'cs', 'mobile', 'etc']}
-            onSelect={item => {
-              setSelect(item);
-            }}
+            selected={categorySelect}
+            data={['fe', 'be', 'cs', 'mobile', 'etc', 'language']}
+            onSelect={setCategorySelect}
           />
         </div>
-        <ul className="flex flex-wrap justify-between">
+        {isLoading && <SkeletonInterview />}
+        <ul className="flex flex-wrap justify-between ">
           {data &&
-            data.map(i => (
-              <li key={i.id} className="mt-8">
+            data.slice(0, 6).map(i => (
+              <li
+                key={i.interviewId}
+                className="mt-8 w-full max-w-[320px]"
+                onClick={e => {
+                  setSelectInterview(i);
+                  onClickOpen(e);
+                }}>
                 <InterviewCard props={i} />
               </li>
             ))}
@@ -66,6 +89,15 @@ export default function InterviewSection() {
             전체 질문 보기
           </RadiusButton>
         </div>
+        {isOpen && (
+          <ModalPortal>
+            {selectInterview && (
+              <div onClick={onClickOpen}>
+                <DetailInterview item={selectInterview} onClickClose={() => setIsOpen(false)} />
+              </div>
+            )}
+          </ModalPortal>
+        )}
       </div>
     </section>
   );

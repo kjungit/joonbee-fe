@@ -1,12 +1,14 @@
-export type CategoryName = '' | 'All' | 'fe' | 'be' | 'cs' | 'mobile' | 'ect' | 'language';
-export type SubcategoryName =
+export type CategoryName =
   | ''
   | 'fe'
   | 'be'
   | 'language'
+  | 'cs'
   | 'mobile'
   | 'etc'
-  | 'cs'
+  | '세부 카테고리';
+export type SubcategoryName =
+  | '세부 카테고리'
   | 'web'
   | 'network'
   | 'react'
@@ -15,7 +17,7 @@ export type SubcategoryName =
   | 'vue'
   | 'svelte'
   | 'db'
-  | 'spring'
+  | 'spring_framework'
   | 'nest'
   | 'node'
   | 'msa'
@@ -49,7 +51,9 @@ export type QuestionCategory = {
   subcategory: SubcategoryName[];
 };
 
-export type AllCategory = {
-  category: CategoryName;
-  subcategory: SubcategoryName;
+export type QustionItem = {
+  questionId: string;
+  categoryId: number;
+  questionContent: string;
+  subcategoryName: string;
 };

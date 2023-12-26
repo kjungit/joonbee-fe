@@ -7,7 +7,7 @@ export const myCategoryAddSelector = selector<CategoryName[]>({
   get: ({ get }) => {
     const questions = get(myQuestionAtom);
     const filteredQuestions = questions.filter(
-      question => question.isClicked === true && question.category !== 'All',
+      question => question.isChecked === true && question.categoryName !== '',
     );
     const categorySet = new Set<CategoryName>();
 

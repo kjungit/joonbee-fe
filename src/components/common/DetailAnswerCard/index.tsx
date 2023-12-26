@@ -10,12 +10,12 @@ export interface DetailAnswerCardProps {
 
 export const DetailAnswerCard = ({ question, answer, onClick }: DetailAnswerCardProps) => {
   const baseStyles =
-    'flex p-6 h-[160px] w-[400px] z-10 border-l-main-primary border-l-[12px] flex-col font-bold shadow-md rounded-xl';
+    'flex p-6 h-[140px] w-full z-10 border-l-main-primary border-l-[12px] flex-col font-bold shadow-md rounded-xl';
 
   return (
-    <div className="relative h-[160px] w-[400px] shadow-md">
-      <div className="absolute h-[160px] w-[380px] top-0 right-0 z-20 bg-gradient-to-t from-white to-white/0 rounded-xl "></div>
-      <div className="absolute">
+    <div className="relative h-[140px] w-full max-w-[590px] shadow-md rounded-xl">
+      <div className="absolute h-[140px] w-[96%] right-0 top-0 rounded-xl z-20 bg-gradient-to-t from-white to-white/0  "></div>
+      <div className="absolute w-full ">
         <div className={baseStyles}>
           <p className="text-md ">질문 1</p>
           <p className="text-sm">{question}</p>

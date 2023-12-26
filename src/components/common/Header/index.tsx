@@ -1,5 +1,5 @@
 'use client';
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import Alarm from '../Alarm';
 import { Avatar } from '@/components/ui/Avartar';
 import { alarmData } from '@/constants/alarm';
@@ -12,55 +12,36 @@ import { postNickName } from '@/app/apis/services/auth';
 import { useRecoilState } from 'recoil';
 import { isTokenedState } from '@/recoil/isTokened/atoms';
 import useSWRMutation from 'swr/mutation';
-import { getUserInfo } from '@/app/apis/services/member';
 import { isRefreshStatus } from '@/recoil/isRefresh/atoms';
-import { AxiosError, AxiosResponse } from 'axios';
-import { Category } from '@/constants/category';
 import Logo from '@/components/ui/Logo';
-
-interface UserInfoProps {
-  id: string;
-  interviewCount: string;
-  nickName: string;
-  thumbnail: string;
-}
+import Link from 'next/link';
+import { useUserInfo } from '@/hooks/useUserInfo';
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [nickName, setNickName] = useState('');
   const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
   const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
   const [isNickError, setIsError] = useState(false);
   const router = useRouter();
-  const { data: userInfo } = useSWR<AxiosResponse<UserInfoProps, AxiosError>>(
-    ['/auth/member/info'],
-    getUserInfo,
+  const { userInfo } = useUserInfo();
+
+  const { error: nickError, trigger } = useSWRMutation(
+    '/auth/login/nick',
+    () => postNickName({ id: isTokened.id, nickName }),
     {
-      shouldRetryOnError: true,
+      onSuccess: data => {
+        setIsTokened({
+          ...isTokened,
+          isLogined: false,
+        });
+      },
+      onError: error => {
+        setIsError(true);
+      },
+      revalidate: false,
     },
   );
-
-  useEffect(() => {
-    console.log(userInfo);
-  }, []);
-
-  const {
-    data: loginData,
-    error: nickError,
-    trigger,
-  } = useSWRMutation('/auth/login/nick', () => postNickName({ id: isTokened.id, nickName }), {
-    onSuccess: data => {
-      setIsTokened({
-        ...isTokened,
-        isLogined: false,
-      });
-    },
-    onError: error => {
-      setIsError(true);
-    },
-    revalidate: false,
-  });
 
   const data = alarmData;
 
@@ -87,7 +68,7 @@ const Header = () => {
   return (
     <>
       <header className="w-screen z-50 h-[60px] shadow-sm flex justify-center items-center bg-white">
-        <div className="max-w-[1024px] w-full flex justify-between items-center">
+        <div className="max-w-[1024px] p-5  w-full flex justify-between items-center">
           <button onClick={() => router.push('/')}>
             <div className="flex gap-3 items-center">
               <Logo />
@@ -97,9 +78,9 @@ const Header = () => {
           <div className="flex gap-4">
             <Alarm data={data} />
             {userInfo ? (
-              <button>
+              <Link href="/my">
                 <Avatar size="md" thumbnail={userInfo.data.thumbnail} />
-              </button>
+              </Link>
             ) : (
               <button onClick={onClickLogin}>로그인</button>
             )}

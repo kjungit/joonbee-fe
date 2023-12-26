@@ -8,7 +8,7 @@ type CardColor = 'white' | 'gray' | 'navy';
 export interface QuestionCardProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: CardSize;
   color?: CardColor;
-  btnColor?: 'black' | 'white';
+  btnColor?: 'text-black' | 'text-white';
   isCopy?: boolean;
 }
 
@@ -16,15 +16,15 @@ export const QuestionCard = ({
   color = 'white',
   size = 'sm',
   children,
-  btnColor = 'black',
+  btnColor = 'text-black',
   isCopy = false,
 }: QuestionCardProps) => {
-  const baseStyles = 'flex items-center font-bold px-5 shadow-md rounded-xl justify-between';
+  const baseStyles = 'flex items-center  font-bold px-5 shadow-md rounded-lg justify-between';
 
   const sizeStyles = {
-    sm: 'h-[42px] w-[354px] text-[14px]',
-    md: 'h-[52px] w-full max-w-[490px] ',
-    lg: 'min-h-[68px] w-[440px] text-[16px]',
+    sm: 'h-[42px] max-w-[290px] w-full text-[14px]',
+    md: 'h-[52px] w-full lg:max-w-[480px] max-w-[1000px] text-xs',
+    lg: 'h-[68px] w-[540px] text-[16px]',
   };
 
   const colorStyles = {
@@ -37,7 +37,7 @@ export const QuestionCard = ({
 
   return (
     <div className={buttonStyles}>
-      <p>{children}</p>
+      <p className="text-ellipsis break-words  overflow-hidden ">{children}</p>
       {isCopy && <CartClipboard onClick={() => {}} color={btnColor} />}
     </div>
   );

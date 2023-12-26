@@ -19,17 +19,19 @@ type Story = StoryObj<typeof CategorizedQuestionCard>;
 export const Primary: Story = {
   args: {
     size: `md`,
-    category: 'fe',
-    subcategory: 'react',
-    questionContent: 'Express에 대해 설명하시오',
+    categoryName: 'be',
+    subcategoryName: 'spring_framework',
+    questionContent: 'spring에 대해 설명하시오',
+    isChecked: false,
   },
 };
 
 export const Secondary: Story = {
   args: {
     size: `lg`,
-    category: 'fe',
-    subcategory: 'react',
-    questionContent: 'Express에 대해 설명하시오',
+    categoryName: 'be',
+    subcategoryName: 'spring_framework',
+    questionContent: 'spring에 대해 설명하시오',
+    isChecked: true,
   },
 };

@@ -19,13 +19,14 @@ export default function DropdownCategory({ color = 'white', size = 'sm' }: Dropd
   const [subcategoryName, setSubcateogyName] = useState<SubcategoryName[]>([]);
   const categoryNames = questionCategory.map(item => item.category);
   useEffect(() => {
-    selectedCategory === 'All' ? setIsDisabled(true) : setIsDisabled(false);
+    selectedCategory === '' ? setIsDisabled(true) : setIsDisabled(false);
+
     setSubcateogyName(
       questionCategory.find(item => item.category === selectedCategory)?.subcategory || [],
     );
   }, [selectedCategory]);
   useEffect(() => {
-    setSelectedSubcategory('');
+    setSelectedSubcategory('세부 카테고리');
   }, [selectedCategory]);
   //카테고리 바뀔 시 서브카테고리 배열 초기화
   useEffect(() => {
@@ -41,8 +42,7 @@ export default function DropdownCategory({ color = 'white', size = 'sm' }: Dropd
   return (
     <div className="flex gap-5 relative z-10">
       <Dropdown
-        size={size}
-        title="All"
+        title=""
         data={categoryNames}
         selected={selectedCategory}
         onSelect={handleCategorySelect}
