@@ -34,7 +34,7 @@ export default function InterviewSection() {
 
   const { data, isLoading } = useSWR<InterviewItemType[]>(
     ['/api/interview/all', categorySelect],
-    () => getInterview({ page: 0, category: categorySelect }),
+    () => getInterview({ page: 1, category: categorySelect, sort: 'latest' }),
     {
       onSuccess: data => {
         console.log(data);
@@ -59,7 +59,7 @@ export default function InterviewSection() {
             title="카테고리"
             size="md"
             selected={categorySelect}
-            data={['fe', 'be', 'cs', 'mobile', 'ect', 'language']}
+            data={['fe', 'be', 'cs', 'mobile', 'etc', 'language']}
             onSelect={setCategorySelect}
           />
         </div>
