@@ -46,9 +46,6 @@ export const getRandomQuestions = async ({
  */
 export const getUserQuestions = async (url: string) => {
   const res = await instance().get(url);
-
-  console.log('res', res.data.data.result);
-
   return res.data.data.result;
 };
 
@@ -60,7 +57,6 @@ export const postUserQuestion = async ({
   subcategory,
   questionContent,
 }: QuestionData) => {
-  console.log('api 호출');
   const res = await instance().post('/api/cart/question/save', {
     categoryName: category,
     subcategoryName: subcategory,
