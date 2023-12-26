@@ -19,14 +19,9 @@ export default function useInfiniteUserQuestion(
     return `/api/cart/questions?page=${newPage}&category=${newCategory}&subcategory=${subcategory}`;
   };
 
-  const { data, error, size, setSize, isValidating,  } = useSWRInfinite<
-    UserQuestionsResponseData[]
-  >(
+  const { data, error, size, setSize, isValidating } = useSWRInfinite<UserQuestionsResponseData[]>(
     getKey,
-    url => {
-      console.log('url', url);
-      return getUserQuestions(url);
-    },
+    url => getUserQuestions(url),
     {
       initialSize: 1,
       revalidateFirstPage: false,
@@ -38,7 +33,7 @@ export default function useInfiniteUserQuestion(
 
   const isFetching = !isValidating;
 
-  const { setTarget } = useIntersectionObserver(setSize, isFetching);
+  const { setTarget } = useIntersectionObserver(setSize);
 
-  return { newData, error, size, setSize, isValidating, setTarget };
+  return { newData, error, size, isValidating, setTarget, setSize };
 }
