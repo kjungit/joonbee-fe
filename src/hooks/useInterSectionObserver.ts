@@ -10,11 +10,12 @@ export const useIntersectionObserver = (
     return (entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          console.log('ww');
           setSize(prev => prev + 1);
         }
       });
     };
-  }, []);
+  }, [setSize]);
 
   useEffect(() => {
     if (!target) return;
