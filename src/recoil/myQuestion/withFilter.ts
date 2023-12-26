@@ -15,9 +15,9 @@ export const myQuestionFilterSelector = selector<MyQuestion[]>({
 
     const filteredQuestions = questions.filter(question => {
       if (subcategoryName === '') {
-        return question.categoryName === categoryName;
+        return question.category === categoryName;
       }
-      return question.categoryName === categoryName && question.subcategoryName === subcategoryName;
+      return question.category === categoryName && question.subcategory === subcategoryName;
     });
     return filteredQuestions;
   },
