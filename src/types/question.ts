@@ -13,7 +13,7 @@ export type SubcategoryName =
   | 'network'
   | 'react'
   | 'html/css'
-  | 'next'
+  | 'nextjs'
   | 'vue'
   | 'svelte'
   | 'db'

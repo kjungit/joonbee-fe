@@ -51,7 +51,7 @@ export default function InterviewCheck() {
         {questions.map((question, index) => (
           <li key={question.questionId}>
             <DetailQuestionCard
-              question={question}
+              question={question.questionContent}
               questionCount={index + 1}
               onClick={() => handleClickQuestion(question, index)}
             />

@@ -70,7 +70,7 @@ const Dropdown = ({
         <ul
           className={`shadow-normal px-[8px] py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  bg-white absolute
           ${sizeStyles[size].ul}`}>
-          {data.map(item => (
+          {data.map((item, index) => (
             <li key={item}>
               <div
                 className={`font-bold hover:bg-hover-grayLight hover:shadow-normal rounded-[8px] text-center
@@ -78,9 +78,9 @@ const Dropdown = ({
                   item === selected ? 'bg-hover-grayLight shadow-noraml' : ''
                 }`}
                 onClick={() => onSelectItem(item)}>
-                {item}
+                {!item ? '카테고리' : item}
               </div>
-              <div className="border-b-2 border-gray-normal" />
+              {index !== data.length - 1 && <div className="border-b-2 border-gray-normal" />}
             </li>
           ))}
         </ul>

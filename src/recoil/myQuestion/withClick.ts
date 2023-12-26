@@ -5,7 +5,7 @@ export const myQuestionClickSelector = selector<MyQuestion[]>({
   key: 'myQuestionClickSelector',
   get: ({ get }) => {
     const question = get(myQuestionAtom);
-    return question.filter(question => question.isChecked === true);
+    return question.filter(question => question.isClicked === true);
   },
   set: ({ get, set }, newValue) => {
     if (newValue instanceof DefaultValue) {
@@ -20,7 +20,7 @@ export const myQuestionClickSelector = selector<MyQuestion[]>({
       question.questionId === newQuestion.questionId
         ? {
             ...question,
-            isChecked: !question.isChecked,
+            isClicked: !question.isClicked,
           }
         : question,
     );

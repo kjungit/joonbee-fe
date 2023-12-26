@@ -154,7 +154,7 @@ export default function Questions({ questions }: QuestionsProps) {
 
   return (
     <>
-      {/* <InterviewBar questions={questions} currentQuestionCount={question.questionId} /> */}
+      <InterviewBar questions={questions} currentCount={currentCount} />
       <h2 className="font-bold text-[20px]">질문 {currentCount}</h2>
       <div className="flex justify-between min-w-[860px]">
         <div className="flex flex-col gap-5 ">

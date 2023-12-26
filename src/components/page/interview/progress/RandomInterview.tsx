@@ -6,21 +6,16 @@ import { selectedSubcategoryListAtom } from '@/recoil/selectedSubcategoryList/at
 import { useRecoilValue } from 'recoil';
 import useSWR from 'swr';
 import Questions from './Questions';
-import { getRandomQuestions } from '@/app/apis/services/cart';
+import { getRandomQuestions } from '@/app/apis/services/question';
 
 export default function RandomInterview() {
   const category = useRecoilValue(selectedCategoryAtom);
   const subcategory = useRecoilValue(selectedSubcategoryListAtom);
   const questionCount = useRecoilValue(questionCountAtom);
 
-  const params = {
-    category,
-    subcategory,
-    questionCount,
-  };
-
-  const { data: questions, isLoading } = useSWR(['/api/question/gpt', params], () =>
-    getRandomQuestions(params),
+  const { data: questions, isLoading } = useSWR(
+    ['/api/question/gpt', category, subcategory, questionCount],
+    () => getRandomQuestions(category, subcategory, questionCount),
   );
 
   if (isLoading) return;

@@ -42,6 +42,7 @@ export default function DropdownCategory({ color = 'white', size = 'sm' }: Dropd
   return (
     <div className="flex gap-5 relative z-10">
       <Dropdown
+        size={size}
         title=""
         data={categoryNames}
         selected={selectedCategory}

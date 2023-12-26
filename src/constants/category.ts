@@ -2,7 +2,7 @@ import { QuestionCategory } from '@/types/question';
 
 export const questionCategory: QuestionCategory[] = [
   { category: '', subcategory: [] },
-  { category: 'fe', subcategory: ['react', 'vue', 'next'] },
+  { category: 'fe', subcategory: ['react', 'vue', 'nextjs'] },
   { category: 'be', subcategory: ['db', 'spring_framework', 'msa'] },
   { category: 'language', subcategory: ['javascript', 'typescript'] },
   { category: 'cs', subcategory: ['docker', 'operatingSystem', 'computerArchitecture'] },
@@ -27,7 +27,7 @@ export const SubCategory: {
   web: '웹',
   network: '네트워크',
   react: '리액트',
-  next: 'NEXT.js',
+  nextjs: 'NEXT.js',
   'html/css': 'HTML/CSS',
   vue: 'VUE',
   svelte: 'SVELTE',
@@ -76,7 +76,7 @@ export const Category: {
   web: '웹',
   network: '네트워크',
   react: '리액트',
-  next: 'NEXT.js',
+  nextjs: 'NEXT.js',
   'html/css': 'HTML/CSS',
   vue: 'VUE',
   svelte: 'SVELTE',

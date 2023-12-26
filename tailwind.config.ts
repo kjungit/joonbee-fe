@@ -7,6 +7,22 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: {
+      /**
+       * size: mobile : 480px;
+       */
+      xs: '480px',
+
+      /**
+       * size: table : 768px;
+       */
+      md: '768px',
+
+      /**
+       * size: desktop : 1024px;
+       */
+      lg: '1024px',
+    },
     colors: {
       main: {
         primary: '#252A32',

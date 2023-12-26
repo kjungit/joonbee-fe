@@ -7,7 +7,7 @@ export const interviewResetSelector = selector({
   key: 'interviewResetSelector',
   get: ({ get }) => {
     const questions = get(myQuestionAtom);
-    const filterdQuestions = questions.filter(question => question.isChecked === true);
+    const filterdQuestions = questions.filter(question => question.isClicked === true);
 
     const updatedQuestions = filterdQuestions.map(question => ({
       questionId: question.questionId,
@@ -22,21 +22,21 @@ export const interviewResetSelector = selector({
 
     return updatedInterview;
   },
-  set: ({ get, set }) => {
-    const questions = get(myQuestionAtom);
-    const filterdQuestions = questions.filter(question => question.isChecked === true);
+  // set: ({ get, set }) => {
+  //   const questions = get(myQuestionAtom);
+  //   const filterdQuestions = questions.filter(question => question.isClicked === true);
 
-    const updatedQuestions = filterdQuestions.map(question => ({
-      questionId: question.questionId,
-      questionContent: question.questionContent,
-      answerContent: '',
-    }));
+  //   const updatedQuestions = filterdQuestions.map(question => ({
+  //     questionId: question.questionId,
+  //     questionContent: question.questionContent,
+  //     answerContent: '',
+  //   }));
 
-    const updatedInterview = {
-      categoryName: get(selectedCategoryAtom),
-      questions: updatedQuestions,
-    };
+  //   const updatedInterview = {
+  //     categoryName: get(selectedCategoryAtom),
+  //     questions: updatedQuestions,
+  //   };
 
-    set(interviewAtom, updatedInterview);
-  },
+  //   set(interviewAtom, updatedInterview);
+  // },
 });

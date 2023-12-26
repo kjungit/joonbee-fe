@@ -2,11 +2,11 @@ import { atom } from 'recoil';
 import { CategoryName, SubcategoryName } from '@/types/question';
 
 export type MyQuestion = {
-  questionId: number;
-  categoryName: CategoryName;
-  subcategoryName: SubcategoryName;
+  questionId: string;
+  category: CategoryName;
+  subcategory: SubcategoryName;
   questionContent: string;
-  isChecked: boolean;
+  isClicked: boolean;
 };
 
 export const myQuestionAtom = atom<MyQuestion[]>({

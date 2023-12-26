@@ -16,16 +16,16 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 export default function QuestionChocieSetting() {
   const questions = useRecoilValue(myQuestionClickSelector);
-  const setInterview = useSetRecoilState(interviewResetSelector);
-  const [selected, setSelected] = useState<CategoryName>(questions[0]?.categoryName);
+  // const setInterview = useSetRecoilState(interviewResetSelector);
+  // const [selected, setSelected] = useState<CategoryName>(questions[0]?.categoryName);
 
-  const onSetCategory = () => {
-    return [...new Set(questions.map(question => question.categoryName))];
-  };
+  // const onSetCategory = () => {
+  //   return [...new Set(questions.map(question => question.categoryName))];
+  // };
 
-  const onDisabledButton = () => {
-    return !selected ? true : false;
-  };
+  // const onDisabledButton = () => {
+  //   return !selected ? true : false;
+  // };
 
   const onResetInterview = () => {
     //@ts-ignore
@@ -34,7 +34,7 @@ export default function QuestionChocieSetting() {
 
   return (
     <section className="w-[1024px] h-[600px] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] relative">
-      <h2 className="text-[32px] font-bold">면접 전 설정해주세요</h2>
+      {/* <h2 className="text-[32px] font-bold">면접 전 설정해주세요</h2>
       <div className="flex gap-5 items-center">
         <Dropdown color="white" selected={selected} onSelect={setSelected} data={onSetCategory()} />
         <p className="font-bold text-[20px]">전체 질문 카테고리를 선택해주세요</p>
@@ -68,7 +68,7 @@ export default function QuestionChocieSetting() {
           onClick={onResetInterview}>
           면접 시작하기
         </Button>
-      </Link>
+      </Link> */}
     </section>
   );
 }
