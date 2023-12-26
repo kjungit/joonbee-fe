@@ -1,17 +1,16 @@
-import { UserQuestionsResponseData, getUserQuestions } from '@/app/apis/services/cart';
 import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 import { CategoryName, SubcategoryName } from '@/types/question';
 import { useRecoilValue } from 'recoil';
 import useSWRInfinite from 'swr/infinite';
 import { useIntersectionObserver } from '../useInterSectionObserver';
 import { useEffect, useState } from 'react';
+import { QuestionResponse, getUserQuestions } from '@/app/apis/services/question';
 
 export default function useInfiniteUserQuestion(
   category: CategoryName,
   subcategory: SubcategoryName,
 ) {
-  const getKey = (page: number, previousPageData: UserQuestionsResponseData[]) => {
-
+  const getKey = (page: number, previousPageData: QuestionResponse[]) => {
     const newPage = page + 1;
     if (previousPageData && !previousPageData.length) {
       return null;
@@ -20,7 +19,7 @@ export default function useInfiniteUserQuestion(
     return `/api/cart/questions?page=${newPage}&category=${category}&subcategory=${newSubcategory}`;
   };
 
-  const { data, error, size, setSize, isValidating } = useSWRInfinite<UserQuestionsResponseData[]>(
+  const { data, error, size, setSize, isValidating } = useSWRInfinite<QuestionResponse[]>(
     getKey,
     url => getUserQuestions(url),
     {
@@ -28,7 +27,7 @@ export default function useInfiniteUserQuestion(
     },
   );
 
-  const newData = data ? ([] as UserQuestionsResponseData[]).concat(...data) : [];
+  const newData = data ? ([] as QuestionResponse[]).concat(...data) : [];
 
   const { setTarget } = useIntersectionObserver(setSize);
   return { newData, error, size, isValidating, setTarget, setSize };
