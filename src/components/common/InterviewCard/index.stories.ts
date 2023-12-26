@@ -13,7 +13,7 @@ type Story = StoryObj<typeof InterviewCard>;
 export const Primary: Story = {
   args: {
     props: {
-      id: '293x',
+      interviewId: '293x',
       categoryName: '프론트엔드',
       questions: [
         { questionId: 'xd22', questionContent: 'React의 장점은 무엇입니까?' },

@@ -40,7 +40,7 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
   };
 
   const onDisableSubmitButton = () => {
-    if (selectedCategory === 'All' || selectedSubcategory === '') {
+    if (selectedCategory === '' || selectedSubcategory === '세부 카테고리') {
       return true;
     }
 

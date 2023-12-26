@@ -3,6 +3,8 @@ import { Button } from '../Button';
 import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 import { CategoryName, SubcategoryName } from '@/types/question';
 import { useModal } from '@/hooks/useModal';
+import { Category, MainCategory } from '@/constants/category';
+
 type DropdownProps = {
   size?: 'xs' | 'sm' | 'md';
   data: (CategoryName | SubcategoryName)[];
@@ -31,7 +33,7 @@ const Dropdown = ({
     onToggle();
   };
   const showSelectedItem = () => {
-    return selected || title;
+    return Category[selected] || title;
   };
   const sizeStyles = {
     xs: {

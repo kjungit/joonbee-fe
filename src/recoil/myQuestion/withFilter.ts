@@ -9,12 +9,15 @@ export const myQuestionFilterSelector = selector<MyQuestion[]>({
     const subcategoryName = get(selectedSubcategoryAtom);
     const questions = get(myQuestionAtom);
 
-    if (categoryName === 'All' || categoryName === '') {
+    console.log('cat', categoryName);
+    console.log('sub', subcategoryName);
+
+    if (categoryName === '' || categoryName === '세부 카테고리') {
       return questions;
     }
 
     const filteredQuestions = questions.filter(question => {
-      if (subcategoryName === '') {
+      if (subcategoryName === '세부 카테고리') {
         return question.categoryName === categoryName;
       }
       return question.categoryName === categoryName && question.subcategoryName === subcategoryName;

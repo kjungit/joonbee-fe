@@ -9,7 +9,6 @@ const meta: Meta<typeof DetailQuestionCard> = {
 
 export default meta;
 type Story = StoryObj<typeof DetailQuestionCard>;
-
 export const Primary: Story = {
   args: {
     question: {
