@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
-type CardSize = 'md' | 'lg';
+type CardSize = 'sm' | 'md' | 'lg';
 
 interface CategorizedQuestionCardProps extends MyQuestion {
   size?: CardSize;
@@ -25,12 +25,13 @@ export const CategorizedQuestionCard = ({
 
   const [myQuestion, setMyQuestion] = useRecoilState(myQuestionClickSelector);
 
-  const baseStyles = `flex h-[54px] text-[18px] px-[10px] justify-between items-center font-bold shadow-md
+  const baseStyles = `flex px-[10px] justify-between items-center font-bold shadow-md
      rounded-[8px] bg-white cursor-pointer`;
 
   const sizeStyles = {
-    md: 'w-[900px] text-[18px]',
-    lg: 'w-[1100px] text-[20px] min-h-[54px]',
+    sm: 'w-full text-[14px] h-[42px]',
+    md: 'w-[900px] text-[18px] h-[54px]',
+    lg: 'w-[1100px] text-[20px] min-h-[54px] h-[54px]',
   };
 
   const textStyles = 'flex justify-center w-[190px]';

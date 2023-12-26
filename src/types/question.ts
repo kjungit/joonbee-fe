@@ -1,14 +1,12 @@
-export type CategoryName =
+export type CategoryName = '' | 'All' | 'fe' | 'be' | 'cs' | 'mobile' | 'ect' | 'language';
+export type SubcategoryName =
   | ''
   | 'fe'
   | 'be'
   | 'language'
-  | 'cs'
   | 'mobile'
   | 'etc'
-  | '세부 카테고리';
-export type SubcategoryName =
-  | '세부 카테고리'
+  | 'cs'
   | 'web'
   | 'network'
   | 'react'
@@ -17,7 +15,7 @@ export type SubcategoryName =
   | 'vue'
   | 'svelte'
   | 'db'
-  | 'spring_framework'
+  | 'spring'
   | 'nest'
   | 'node'
   | 'msa'

@@ -5,27 +5,36 @@ export type InputProps = {
   isDisabled?: boolean;
   inputValue: string;
   setInputValue: (value: string) => void;
+  size?: 'sm' | 'md';
 };
 
-export const Input = ({ isDisabled = false, inputValue, setInputValue }: InputProps) => {
+export const Input = ({
+  isDisabled = false,
+  inputValue,
+  setInputValue,
+  size = 'md',
+}: InputProps) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const baseStyles = `text-[18px]   ${isDisabled ? 'text-gray-disabled' : 'text-main-primary'}
-   px-5 font-bold shadow-md rounded-xl focus:border-4 focus:border-main-primary  border-4 border-gray-normal`;
+  const baseStyles = `flex text-5 items-center ${
+    isDisabled ? 'text-gray-disabled' : 'text-main-primary'
+  }
+   px-5 font-bold shadow-md rounded-xl focus:border-2 focus:border-main-primary  border-2 border-gray-normal`;
 
-  const sizeStyles = 'h-[60px] w-[570px] flex text-5 items-center';
+  const sizeStyles = {
+    md: 'h-[60px] w-[570px] text-[18px]',
+    sm: 'h-[44px] w-[400px] text-[14px]',
+  };
 
-  const buttonStyles = `
-  ${baseStyles} ${sizeStyles}
-  `;
+  const inputStyles = `${baseStyles} ${sizeStyles[size]}`;
 
   return (
     <input
       onChange={onChange}
       value={inputValue}
-      className={buttonStyles}
+      className={inputStyles}
       placeholder="질문을 작성해주세요."
       disabled={isDisabled}
     />
