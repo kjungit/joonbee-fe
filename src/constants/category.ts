@@ -76,7 +76,7 @@ export const Category: {
   web: '웹',
   network: '네트워크',
   react: '리액트',
-  next: 'NEXT.js',
+  nextjs: 'NEXT.js',
   'html/css': 'HTML/CSS',
   vue: 'VUE',
   svelte: 'SVELTE',
