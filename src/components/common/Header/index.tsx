@@ -1,5 +1,5 @@
 'use client';
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import Alarm from '../Alarm';
 import { Avatar } from '@/components/ui/Avartar';
 import { alarmData } from '@/constants/alarm';
@@ -12,38 +12,19 @@ import { postNickName } from '@/app/apis/services/auth';
 import { useRecoilState } from 'recoil';
 import { isTokenedState } from '@/recoil/isTokened/atoms';
 import useSWRMutation from 'swr/mutation';
-import { getUserInfo } from '@/app/apis/services/member';
 import { isRefreshStatus } from '@/recoil/isRefresh/atoms';
-import { AxiosError, AxiosResponse } from 'axios';
-import { Category } from '@/constants/category';
 import Logo from '@/components/ui/Logo';
-
-interface UserInfoProps {
-  id: string;
-  interviewCount: string;
-  nickName: string;
-  thumbnail: string;
-}
+import Link from 'next/link';
+import { useUserInfo } from '@/hooks/useUserInfo';
 
 const Header = () => {
-  const [isDefautData, setIsDefautData] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [nickName, setNickName] = useState('');
   const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
   const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
   const [isNickError, setIsError] = useState(false);
   const router = useRouter();
-  const { data: userInfo } = useSWR<AxiosResponse<UserInfoProps, AxiosError>>(
-    ['/auth/member/info'],
-    getUserInfo,
-    {
-      shouldRetryOnError: true,
-    },
-  );
-
-  useEffect(() => {
-    console.log(userInfo);
-  }, []);
+  const { userInfo } = useUserInfo();
 
   const { error: nickError, trigger } = useSWRMutation(
     '/auth/login/nick',
@@ -97,9 +78,9 @@ const Header = () => {
           <div className="flex gap-4">
             <Alarm data={data} />
             {userInfo ? (
-              <button>
+              <Link href="/my">
                 <Avatar size="md" thumbnail={userInfo.data.thumbnail} />
-              </button>
+              </Link>
             ) : (
               <button onClick={onClickLogin}>로그인</button>
             )}
