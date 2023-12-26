@@ -18,7 +18,7 @@ export const myQuestionFilterSelector = selector<MyQuestion[]>({
 
     const filteredQuestions = questions.filter(question => {
       if (subcategoryName === '세부 카테고리') {
-        return question.categoryName === categoryName;
+        return question.category === categoryName;
       }
       return question.category === categoryName && question.subcategory === subcategoryName;
     });
