@@ -3,8 +3,9 @@ import { BiLike, BiSolidLike } from 'react-icons/bi';
 import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
 import { HiOutlineBellAlert } from 'react-icons/hi2';
 import { IoMdClose } from 'react-icons/io';
+import { RiDeleteBin6Fill } from 'react-icons/ri';
 
-export type IconName = 'emptyLike' | 'copy' | 'filledLike' | 'alarm' | 'close';
+export type IconName = 'emptyLike' | 'copy' | 'filledLike' | 'alarm' | 'close' | 'delete';
 
 export type VariableIconProps = {
   name: IconName;
@@ -20,6 +21,7 @@ export const VariableIcon = ({ size = 24, name, onClick, style }: VariableIconPr
     copy: HiOutlineClipboardDocumentList,
     alarm: HiOutlineBellAlert,
     close: IoMdClose,
+    delete: RiDeleteBin6Fill,
   };
 
   const Icon = components[name];
