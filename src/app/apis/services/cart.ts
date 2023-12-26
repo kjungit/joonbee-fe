@@ -1,15 +1,19 @@
-import { AllCategory, CategoryName, QuestionCategory, SubcategoryName } from '@/types/question';
+import { CategoryName, QuestionCategory, SubcategoryName } from '@/types/question';
 import { instance } from '../axios';
 
 export type RandomQuestionsParams = QuestionCategory & {
   questionCount: number;
 };
 
-export type UserQuestionsParams = AllCategory & {
+export type UserQuestionsParams = {
+  category: CategoryName;
+  subcategory: SubcategoryName;
   page?: number;
 };
 
-export type QuestionData = AllCategory & {
+export type QuestionData = {
+  category: CategoryName;
+  subcategory: SubcategoryName;
   questionContent: string;
 };
 
