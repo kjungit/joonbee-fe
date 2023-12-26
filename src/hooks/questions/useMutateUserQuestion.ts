@@ -1,4 +1,4 @@
-import { postUserQuestion } from '@/app/apis/services/cart';
+import { postUserQuestion } from '@/app/apis/services/question';
 import { CategoryName, SubcategoryName } from '@/types/question';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
@@ -10,7 +10,7 @@ export default function useMutateUserQuestion(
   questionContent: string,
 ) {
   const { trigger, data } = useSWRMutation('/api/cart/question/save', () =>
-    postUserQuestion({ category, subcategory, questionContent }),
+    postUserQuestion( category, subcategory, questionContent ),
   );
 
   return { trigger, data };
