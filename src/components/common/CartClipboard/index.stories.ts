@@ -19,6 +19,6 @@ type Story = StoryObj<typeof CartClipboard>;
 
 export const Primary: Story = {
   args: {
-    color: 'white',
+    color: 'text-white',
   },
 };
