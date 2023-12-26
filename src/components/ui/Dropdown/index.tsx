@@ -4,6 +4,7 @@ import { Button } from '../Button';
 import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 import { CategoryName, SubcategoryName } from '@/types/question';
 import { useModal } from '@/hooks/useModal';
+import { Category, MainCategory } from '@/constants/category';
 
 type DropdownProps = {
   size?: 'sm' | 'md';
@@ -37,19 +38,19 @@ const Dropdown = ({
   };
 
   const showSelectedItem = () => {
-    return selected || title;
+    return Category[selected] || title;
   };
 
   const sizeStyles = {
     sm: {
       item: 'px-[14px] py-[8px] text-[14px]',
       section: 'w-[116px]',
-      list: 'top-[50px] h-[178px]',
+      list: 'top-[50px] max-h-[178px]',
     },
     md: {
       item: 'px-[22px] py-[12px] text-[20px]',
       section: 'w-[160px]',
-      list: 'top-[70px] h-[234px] w-[160px]',
+      list: 'top-[70px] max-h-[234px] w-[160px]',
     },
   };
 
@@ -65,19 +66,18 @@ const Dropdown = ({
       </Button>
       {isOpened && (
         <ul
-          className={`shadow-normal px-[8px] py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  bg-white absolute
+          className={`shadow-normal px-1 py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  bg-white absolute
           ${sizeStyles[size].list}`}>
-          {data.map(item => (
+          {data.map((item, index) => (
             <div key={item}>
               <li
-                className={`font-bold hover:bg-hover-grayLight hover:shadow-normal rounded-[8px] text-center
-                text-[#444] ${sizeStyles[size].item} ${
-                  item === selected ? 'bg-hover-grayLight shadow-noraml' : ''
-                }`}
+                key={item}
+                className={`cursor-pointer font-bold hover:bg-hover-grayLight hover:shadow-normal rounded-[8px] text-center
+                text-[#444] ${sizeStyles[size].item} `}
                 onClick={() => onSelectItem(item)}>
-                {item}
+                {Category[item]}
               </li>
-              <div className="border-b-2 border-gray-normal" />
+              {index !== data.length - 1 && <div className="border-b-2 border-gray-normal" />}
             </div>
           ))}
         </ul>
