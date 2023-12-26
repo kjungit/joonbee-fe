@@ -1,5 +1,5 @@
 'use client';
-import { UserQuestionsResponseData } from '@/app/apis/services/cart';
+import { QuestionResponse } from '@/app/apis/services/question';
 import { Icon } from '@/components/ui/Icon';
 import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
 import { usePathname } from 'next/navigation';
@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil';
 
 type CardSize = 'sm' | 'md' | 'lg';
 
-type CategorizedQuestionCardProps = UserQuestionsResponseData & {
+type CategorizedQuestionCardProps = QuestionResponse & {
   size?: CardSize;
   isClicked?: boolean;
   className?: string;
