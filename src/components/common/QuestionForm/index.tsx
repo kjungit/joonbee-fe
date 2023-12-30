@@ -12,9 +12,10 @@ import useMutateUserQuestion from '@/hooks/questions/useMutateUserQuestion';
 
 type QuestionForm = {
   type?: 'primary' | 'secondary';
+  callback: () => void;
 };
 
-const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
+const QuestionForm = ({ type = 'primary', callback }: QuestionForm) => {
   const selectedCategory = useRecoilValue(selectedCategoryAtom);
   const selectedSubcategory = useRecoilValue(selectedSubcategoryAtom);
   const [questionContent, setQuestionContent] = useState('');
@@ -32,6 +33,7 @@ const QuestionForm = ({ type = 'primary' }: QuestionForm) => {
   const onSubmitQuestion = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     postUserQuestion();
+    callback();
   };
 
   const onDisableSubmitButton = () => {
