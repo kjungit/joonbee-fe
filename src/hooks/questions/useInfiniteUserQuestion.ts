@@ -19,7 +19,7 @@ export default function useInfiniteUserQuestion(
     return `/api/cart/questions?page=${newPage}&category=${category}&subcategory=${newSubcategory}`;
   };
 
-  const { data, error, size, setSize, isValidating } = useSWRInfinite<QuestionResponse[]>(
+  const { data, error, size, setSize, isValidating, mutate } = useSWRInfinite<QuestionResponse[]>(
     getKey,
     url => getUserQuestions(url),
     {
@@ -30,5 +30,5 @@ export default function useInfiniteUserQuestion(
   const newData = data ? ([] as QuestionResponse[]).concat(...data) : [];
 
   const { setTarget } = useIntersectionObserver(setSize);
-  return { newData, error, size, isValidating, setTarget, setSize };
+  return { newData, error, size, isValidating, setTarget, setSize, mutate };
 }
