@@ -11,6 +11,7 @@ import { useRecoilValue } from 'recoil';
 
 import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 import useInfiniteUserQuestion from '@/hooks/questions/useInfiniteUserQuestion';
+import { useScrollToBottom } from '@/hooks/useScrollToBottm';
 
 export default function QuestionChoice() {
   const category = useRecoilValue(selectedCategoryAtom);
@@ -19,8 +20,15 @@ export default function QuestionChoice() {
   const {
     newData: myQuestions,
     setTarget,
-    setSize,
+    mutate,
   } = useInfiniteUserQuestion(category, subcategory);
+
+  const { endRef, scrollToBottom } = useScrollToBottom();
+
+  const handleSubmitQuestion = async () => {
+    await mutate();
+    // scrollToBottom();
+  };
 
   const disableBtn = () => {
     if (myQuestions?.length === 0) {
@@ -31,8 +39,7 @@ export default function QuestionChoice() {
 
   return (
     <>
-      <button onClick={() => setSize(prev => prev + 1)}>테스트</button>
-      <QuestionForm />
+      <QuestionForm callback={handleSubmitQuestion} />
       <div
         className={`overflow-y-scroll flex flex-col gap-2 items-center h-[360px] scroll-hide ${
           myQuestions?.length === 0 && 'justify-center'
@@ -49,7 +56,8 @@ export default function QuestionChoice() {
           />
         ))}
         {myQuestions?.length === 0 && <NoQuestionMessage />}
-        <div ref={setTarget} className="w-full h-[2px] shrink-0 bg-status-alert"></div>
+        <div ref={setTarget} className="w-full h-[1px] shrink-0"></div>
+        <div ref={endRef} className="w-full"></div>
       </div>
 
       <Link href="/interview/choice/setting">
