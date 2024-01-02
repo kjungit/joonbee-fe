@@ -23,11 +23,10 @@ export default function QuestionChoice() {
     mutate,
   } = useInfiniteUserQuestion(category, subcategory);
 
-  const { endRef, scrollToBottom } = useScrollToBottom();
+  console.log('que', myQuestions);
 
   const handleSubmitQuestion = async () => {
     await mutate();
-    // scrollToBottom();
   };
 
   const disableBtn = () => {
@@ -57,7 +56,6 @@ export default function QuestionChoice() {
         ))}
         {myQuestions?.length === 0 && <NoQuestionMessage />}
         <div ref={setTarget} className="w-full h-[1px] shrink-0"></div>
-        <div ref={endRef} className="w-full"></div>
       </div>
 
       <Link href="/interview/choice/setting">
