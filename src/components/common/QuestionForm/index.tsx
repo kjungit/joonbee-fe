@@ -30,9 +30,9 @@ const QuestionForm = ({ type = 'primary', callback }: QuestionForm) => {
     onDisableSubmitButton();
   }, [selectedCategory, questionContent, selectedSubcategory]);
 
-  const onSubmitQuestion = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    postUserQuestion();
+    await postUserQuestion();
     callback();
   };
 
