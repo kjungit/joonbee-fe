@@ -4,58 +4,47 @@ import ButtonTimeSetting from '@/components/common/ButtonTimeSetting';
 import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestionCard';
 import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
-import { interviewResetSelector } from '@/recoil/interviewQuestion/withReset';
+import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 
-import { myCategoryAddSelector } from '@/recoil/myQuestion/withAddCategory';
-import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
-import { selectedCategoryAtom } from '@/recoil/selectedCategory/atom';
-import { CategoryName } from '@/types/question';
+
+import { selectedChocieCategoryAtom } from '@/recoil/selectedCategory/atom';
 import Link from 'next/link';
-import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function QuestionChocieSetting() {
-  const questions = useRecoilValue(myQuestionClickSelector);
-  // const setInterview = useSetRecoilState(interviewResetSelector);
-  // const [selected, setSelected] = useState<CategoryName>(questions[0]?.categoryName);
+  const questions = useRecoilValue(myQuestionAtom);
 
-  // const onSetCategory = () => {
-  //   return [...new Set(questions.map(question => question.categoryName))];
-  // };
-
-  // const onDisabledButton = () => {
-  //   return !selected ? true : false;
-  // };
-
-  const onResetInterview = () => {
-    //@ts-ignore
-    setInterview(null);
-  };
+  const categories = [...new Set(questions.map(question => question.category))];
+  const [category, setCategory] = useRecoilState(selectedChocieCategoryAtom);
 
   return (
-    <section className="w-[1024px] h-[600px] flex flex-col gap-5 bg-background-lightgray px-[50px] py-[40px] rounded-[40px] relative">
-      {/* <h2 className="text-[32px] font-bold">면접 전 설정해주세요</h2>
-      <div className="flex gap-5 items-center">
-        <Dropdown color="white" selected={selected} onSelect={setSelected} data={onSetCategory()} />
-        <p className="font-bold text-[20px]">전체 질문 카테고리를 선택해주세요</p>
+    <>
+      <div className="flex gap-4 items-center">
+        <Dropdown
+          size="xs"
+          color="white"
+          selected={category}
+          onSelect={setCategory}
+          data={categories}
+        />
+        <p className="text-[#7D7D7D] mb-2">전체 질문 카테고리를 선택해주세요</p>
       </div>
       <div
-        className={`flex flex-col gap-5 scroll-hide overflow-y-scroll pb-2 items-center h-[60%] ${
+        className={`flex flex-col gap-2 scroll-hide overflow-y-scroll pb-2 items-center h-[280px] ${
           questions.length === 0 && 'justify-center'
         }`}>
-        {questions.map(question => (
+        {questions?.map(question => (
           <CategorizedQuestionCard
             questionId={question.questionId}
-            categoryName={question.categoryName}
-            subcategoryName={question.subcategoryName}
+            category={question.category}
+            subcategory={question.subcategory}
             questionContent={question.questionContent}
-            isChecked={question.isChecked}
             key={question.questionId}
-            size="lg"
+            size="sm"
           />
         ))}
       </div>
-      <div className="absolute bottom-40">
+      <div className="">
         <p className="text-[#7D7D7D] mb-2">* 개별 질문당 시간을 설정해주세요</p>
         <ButtonTimeSetting />
       </div>
@@ -63,12 +52,11 @@ export default function QuestionChocieSetting() {
         <Button
           color="blueSecondary"
           size="lg"
-          className="absolute bottom-9 right-[50px]"
-          disabled={onDisabledButton()}
-          onClick={onResetInterview}>
+          text="sm"
+          className="absolute bottom-9 right-[50px]">
           면접 시작하기
         </Button>
-      </Link> */}
-    </section>
+      </Link>
+    </>
   );
 }
