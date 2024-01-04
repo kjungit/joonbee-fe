@@ -2,12 +2,11 @@
 
 import RandomInterview from './RandomInterview';
 import ChocieInterview from './ChocieInterview';
+import { useRecoilValue } from 'recoil';
+import { interviewTypeAtom } from '@/recoil/interviewType/atom';
 
 export default function InterviewScreen() {
-  const { interviewTypeAtom: type } =
-    typeof window !== 'undefined'
-      ? JSON.parse(localStorage.getItem('interviewType') || 'null')
-      : null;
+  const type = useRecoilValue(interviewTypeAtom);
 
   return (
     <>
