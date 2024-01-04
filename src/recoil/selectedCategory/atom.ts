@@ -6,6 +6,11 @@ export const selectedCategoryAtom = atom<CategoryName>({
   default: '',
 });
 
+export const selectedChocieCategoryAtom = atom<CategoryName>({
+  key: 'electedChocieCategoryAtom',
+  default: '',
+});
+
 export const selectedSubcategoryAtom = atom<SubcategoryName>({
   key: 'selectedSubcategoryAtom',
   default: '세부 카테고리',
