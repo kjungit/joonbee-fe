@@ -11,9 +11,11 @@ import { useRecoilValue } from 'recoil';
 
 import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 import useInfiniteUserQuestion from '@/hooks/questions/useInfiniteUserQuestion';
-import { useScrollToBottom } from '@/hooks/useScrollToBottm';
 
 export default function QuestionChoice() {
+  const [clickCount, setClickCount] = useState(0);
+  const [clickQuestionIds, setClickQuestionIds] = useState<string[]>([]);
+
   const category = useRecoilValue(selectedCategoryAtom);
   const subcategory = useRecoilValue(selectedSubcategoryAtom);
 
@@ -23,17 +25,16 @@ export default function QuestionChoice() {
     mutate,
   } = useInfiniteUserQuestion(category, subcategory);
 
-  console.log('que', myQuestions);
-
   const handleSubmitQuestion = async () => {
     await mutate();
   };
 
   const disableBtn = () => {
-    if (myQuestions?.length === 0) {
-      return true;
-    }
-    return false;
+    return !clickCount;
+  };
+
+  const clickQuestion = (id: string): boolean => {
+    return clickQuestionIds.includes(id);
   };
 
   return (
@@ -49,7 +50,9 @@ export default function QuestionChoice() {
             category={question.category}
             subcategory={question.subcategory}
             questionContent={question.questionContent}
-            // isClicked={question.isClicked}
+            setClickCount={setClickCount}
+            setClickQuestionIds={setClickQuestionIds}
+            isClicked={clickQuestion(question.questionId)}
             key={question.questionId}
             size="sm"
           />
@@ -61,11 +64,11 @@ export default function QuestionChoice() {
       <Link href="/interview/choice/setting">
         <Button
           color="blueSecondary"
-          size="auto"
+          size="lg"
           text="sm"
           className="absolute bottom-8 right-8"
           disabled={disableBtn()}>
-          N개 선택된 질문 보기
+          {clickCount}개 선택된 질문 보기
         </Button>
       </Link>
     </>
