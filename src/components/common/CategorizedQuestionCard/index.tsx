@@ -1,7 +1,7 @@
 'use client';
 import { QuestionResponse } from '@/app/apis/services/question';
 import { Icon } from '@/components/ui/Icon';
-import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
+import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -12,6 +12,8 @@ type CategorizedQuestionCardProps = QuestionResponse & {
   size?: CardSize;
   isClicked?: boolean;
   className?: string;
+  setClickQuestionIds?: React.Dispatch<React.SetStateAction<string[]>>;
+  setClickCount?: (prevCount: (prevCount: number) => number) => void;
 };
 export const CategorizedQuestionCard = ({
   size = 'md',
@@ -19,10 +21,12 @@ export const CategorizedQuestionCard = ({
   subcategory,
   questionContent,
   questionId,
+  isClicked,
+  setClickQuestionIds,
+  setClickCount,
   className,
 }: CategorizedQuestionCardProps) => {
-  const [isClicked, isSetClicked] = useState(false);
-  const [myQuestion, setMyQuestion] = useRecoilState(myQuestionClickSelector);
+  const [myQuestion, setMyQuestion] = useRecoilState(myQuestionAtom);
   const pathname = usePathname();
 
   const baseStyles = `flex px-[10px] justify-between items-center font-bold shadow-md shrink-0
@@ -45,15 +49,28 @@ export const CategorizedQuestionCard = ({
 
   const onClickQuestion = () => {
     if (pathname === '/interview/choice') {
-      setMyQuestion([
-        {
-          category,
-          subcategory,
-          questionContent,
-          questionId,
-          isClicked: !isClicked,
-        },
-      ]);
+      setMyQuestion(prevMyQuestion => {
+        const clickMyQuestion = [
+          ...prevMyQuestion,
+          {
+            category,
+            subcategory,
+            questionContent,
+            questionId,
+          },
+        ];
+        return clickMyQuestion;
+      });
+
+      // 질문의 ID를 배열에 추가하거나 제거
+      if (setClickQuestionIds) {
+        setClickQuestionIds(prevIds =>
+          isClicked ? prevIds.filter(id => id !== questionId) : [...prevIds, questionId],
+        );
+      }
+
+      // 선택된 질문 개수 set
+      if (setClickCount) setClickCount(prevCount => (isClicked ? prevCount - 1 : prevCount + 1));
     }
   };
 
