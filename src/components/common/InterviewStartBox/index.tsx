@@ -10,7 +10,8 @@ export interface LinkBox extends React.HtmlHTMLAttributes<HTMLDivElement> {
   nickName?: string;
   category?: string;
   questionCount?: number;
-  questionMin?: number;
+  questionSec?: number;
+  onClick?: () => void;
 }
 
 export const InterviewStartBox = ({
@@ -18,27 +19,21 @@ export const InterviewStartBox = ({
   nickName = 'n******',
   category = '프론트엔드',
   questionCount = 3,
-  questionMin = 2,
+  questionSec = 2,
+  onClick,
 }: LinkBox) => {
-  const router = useRouter();
-
   const image = require(`/public/icons/${imgSrc}.png`);
 
-  const baseStyles = `font-bold flex items-center text-[30px] shadow-md`;
-  const buttonStyles = `${baseStyles} `;
-
-  const onNavigate = () => {
-    router.push('/interview/progress');
-  };
-
   return (
-    <div className="w-[564px] h-[580px] bg-gray-light border-2 border-gray-normal rounded-3xl flex flex-col justify-center items-center">
-      <Image src={image} width={172} height={172} alt={`${nickName}프로필`} />
-      <p className="font-bold mt-3">{nickName}</p>
-      <p className="mt-4 text-4xl font-bold">{category}</p>
-      <p className="mt-2 text-2xl font-bold">질문 {questionCount}개</p>
-      <p className="mt-5 text-2xl mb-10 font-bold">개별 질문 시간 {questionMin}분</p>
-      <Button size="2xl" text="lg" color="bluePrimary" onClick={onNavigate}>
+    <div className="w-[380px] px-5 py-7 bg-gray-light border-2 border-gray-normal rounded-2xl flex flex-col gap-5 justify-center items-center shadow-md">
+      <Image src={image} width={140} height={140} alt={`${nickName}프로필`} />
+      <p className="font-bold  text-[16px]">{nickName}</p>
+      <div className="flex flex-col items-center">
+        <p className="font-bold text-[28px]">{category}</p>
+        <p className="text-[20px] font-bold">질문 {questionCount}개</p>
+      </div>
+      <p className="text-[18px] font-bold">개별 질문 시간 {questionSec}초</p>
+      <Button size="xl" text="md" color="bluePrimary" onClick={onClick}>
         AI 면접 시작하기
       </Button>
     </div>
