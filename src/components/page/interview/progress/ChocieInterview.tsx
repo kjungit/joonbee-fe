@@ -12,8 +12,6 @@ export default function ChocieInterview() {
     answerContent: '',
   }));
 
-  console.log('Choice', transformedQuestion);
-
   return (
     <>
       <Questions questions={transformedQuestion} />
