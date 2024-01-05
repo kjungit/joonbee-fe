@@ -47,15 +47,14 @@ export default function InterviewCheck() {
 
   return (
     <>
-      <ul className="flex flex-col gap-4">
+      <ul className="flex flex-col gap-4 h-[410px] overflow-y-scroll scroll-hide">
         {questions.map((question, index) => (
-          <li key={question.questionId}>
             <DetailQuestionCard
               question={question.questionContent}
               questionCount={index + 1}
               onClick={() => handleClickQuestion(question, index)}
+              key={question.questionId}
             />
-          </li>
         ))}
       </ul>
       {isOpened && (
