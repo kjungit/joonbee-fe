@@ -1,9 +1,6 @@
-import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 import { CategoryName, SubcategoryName } from '@/types/question';
-import { useRecoilValue } from 'recoil';
 import useSWRInfinite from 'swr/infinite';
 import { useIntersectionObserver } from '../useInterSectionObserver';
-import { useEffect, useState } from 'react';
 import { QuestionResponse, getUserQuestions } from '@/app/apis/services/question';
 
 export default function useInfiniteUserQuestion(
