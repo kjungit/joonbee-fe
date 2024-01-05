@@ -1,9 +1,9 @@
-import { InterviewStartBox } from '@/components/common/InterviewStartBox';
+import InterviewStartContainer from '@/components/page/interview/start/InterviewStartContainer';
 
 const InterviewStartPage = () => {
   return (
     <div className="h-full flex items-center justify-center bg-main-primary">
-      <InterviewStartBox />
+      <InterviewStartContainer />
     </div>
   );
 };
