@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 
-
 import { selectedChocieCategoryAtom } from '@/recoil/selectedCategory/atom';
 import Link from 'next/link';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -30,7 +29,7 @@ export default function QuestionChocieSetting() {
         <p className="text-[#7D7D7D] mb-2">전체 질문 카테고리를 선택해주세요</p>
       </div>
       <div
-        className={`flex flex-col gap-2 scroll-hide overflow-y-scroll pb-2 items-center h-[280px] ${
+        className={`flex flex-col gap-2 scroll-hide overflow-y-scroll items-center h-[276px] ${
           questions.length === 0 && 'justify-center'
         }`}>
         {questions?.map(question => (
@@ -49,11 +48,7 @@ export default function QuestionChocieSetting() {
         <ButtonTimeSetting />
       </div>
       <Link href="/interview/permission">
-        <Button
-          color="blueSecondary"
-          size="lg"
-          text="sm"
-          className="absolute bottom-9 right-[50px]">
+        <Button color="blueSecondary" size="lg" text="sm" className="absolute bottom-8 right-8">
           면접 시작하기
         </Button>
       </Link>
