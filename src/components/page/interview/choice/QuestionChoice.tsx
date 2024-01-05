@@ -9,15 +9,18 @@ import NoQuestionMessage from '@/components/ui/NoQuestionMessage';
 import React, { useMemo, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
+import {
+  selectedSubmitCategoryAtom,
+  selectedSubmitSubcategoryAtom,
+} from '@/recoil/selectedCategory/atom';
 import useInfiniteUserQuestion from '@/hooks/questions/useInfiniteUserQuestion';
 
 export default function QuestionChoice() {
   const [clickCount, setClickCount] = useState(0);
   const [clickQuestionIds, setClickQuestionIds] = useState<string[]>([]);
 
-  const category = useRecoilValue(selectedCategoryAtom);
-  const subcategory = useRecoilValue(selectedSubcategoryAtom);
+  const category = useRecoilValue(selectedSubmitCategoryAtom);
+  const subcategory = useRecoilValue(selectedSubmitSubcategoryAtom);
 
   const {
     newData: myQuestions,
