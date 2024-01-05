@@ -6,17 +6,14 @@ import { RadiusButton } from '@/components/common/RadiusButton';
 
 import Webcam from '@/components/common/Webcam';
 import useVideo from '@/hooks/useVideo';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
 import DeviceSettinModal from '@/components/ui/Modal/DeviceSettingModal';
 import { useModal } from '@/hooks/useModal';
+import { interviewTypeAtom } from '@/recoil/interviewType/atom';
 
 export default function DeviceControl() {
-  const { interviewTypeAtom: type } =
-    typeof window !== 'undefined'
-      ? JSON.parse(localStorage.getItem('interviewType') || 'null')
-      : null;
-
+  const type = useRecoilValue(interviewTypeAtom);
   const [isPressedVideoBtn, setIsPressedVideoBtn] = useRecoilState(videoPermissionAtom);
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
   const { isOpened, onClose, onOpen } = useModal();
@@ -41,8 +38,6 @@ export default function DeviceControl() {
   };
 
   const onNavigate = () => {
-    if (type === 'chocie') return router.push('/interview/start');
-    if (type === 'random') return router.push('/interview/progress');
     router.push('/interview/start');
   };
 
