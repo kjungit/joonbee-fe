@@ -1,9 +1,9 @@
 'use client';
 import { QuestionResponse } from '@/app/apis/services/question';
 import { Icon } from '@/components/ui/Icon';
+import { MainCategory, SubCategory } from '@/constants/category';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 type CardSize = 'sm' | 'md' | 'lg';
@@ -77,9 +77,9 @@ export const CategorizedQuestionCard = ({
   return (
     <div className={cardStyles} onClick={onClickQuestion}>
       <div className="flex">
-        <div className={textStyles}>{category}</div>
+        <div className={textStyles}>{MainCategory[category]}</div>
         <div className="border-l-gray-normal border-l-2" />
-        <div className={textStyles}>{subcategory}</div>
+        <div className={textStyles}>{SubCategory[subcategory]}</div>
         <div className="border-l-gray-normal border-l-2" />
         <div className="ml-10">{questionContent}</div>
       </div>
