@@ -39,14 +39,14 @@ export const getQuestionList = async ({
  */
 export const getRandomQuestions = async (
   category: CategoryName,
-  subcategory: SubcategoryName[],
+  subcategory: SubcategoryName,
   questionCount: number,
 ) => {
-  const subcategories = [...subcategory];
+  // const subcategories = [...subcategory];
   const res = await instance().get('/api/question/gpt', {
     params: {
       category,
-      subcategory: subcategories,
+      subcategory,
       questionCount,
     },
   });
@@ -59,9 +59,7 @@ export const getRandomQuestions = async (
  */
 export const getUserQuestions = async (url: string) => {
   const res = await instance().get(url);
-
-  console.log('res', res.data.data.result);
-
+  // console.log('res', res.data.data.result);
   return res.data.data.result;
 };
 

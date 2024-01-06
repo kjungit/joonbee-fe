@@ -15,7 +15,6 @@ export default function InterviewCheck() {
   const questions = useRecoilValue(myInterviewAtom);
   const setQuestion = useSetRecoilState(myInterviewEditSelector);
   const { isOpened, onClose, onOpen } = useModal();
-  const { modalRef } = useModalOutsideClick(onClose);
   const [clickedQuestion, setClickedQuestion] = useState<MyInterview>();
   const [clickedCount, setClickedCount] = useState(0);
   const [newAnswer, setNewAnswer] = useState('');
@@ -43,19 +42,27 @@ export default function InterviewCheck() {
     ]);
     handleToggleMode();
     onClose();
+    setNewAnswer('');
   };
+
+  const handleClose = () => {
+    onClose();
+    setIsEditMode(false);
+    setNewAnswer('');
+  };
+
+  const { modalRef } = useModalOutsideClick(handleClose);
 
   return (
     <>
-      <ul className="flex flex-col gap-4">
+      <ul className="flex flex-col gap-4 h-[410px] overflow-y-scroll scroll-hide">
         {questions.map((question, index) => (
-          <li key={question.questionId}>
-            <DetailQuestionCard
-              question={question.questionContent}
-              questionCount={index + 1}
-              onClick={() => handleClickQuestion(question, index)}
-            />
-          </li>
+          <DetailQuestionCard
+            question={question.questionContent}
+            questionCount={index + 1}
+            onClick={() => handleClickQuestion(question, index)}
+            key={question.questionId}
+          />
         ))}
       </ul>
       {isOpened && (
@@ -86,7 +93,7 @@ export default function InterviewCheck() {
                     </Button>
                   )}
 
-                  <Button text="xs" size="auto" color="darkGray" onClick={onClose}>
+                  <Button text="xs" size="auto" color="darkGray" onClick={handleClose}>
                     닫기
                   </Button>
                 </div>

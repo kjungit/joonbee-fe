@@ -1,30 +1,32 @@
 'use client';
-import { QuestionResponse } from '@/app/apis/services/question';
+
 import { Icon } from '@/components/ui/Icon';
-import { myQuestionClickSelector } from '@/recoil/myQuestion/withClick';
-import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { MainCategory, SubCategory } from '@/constants/category';
+import { CategoryName, SubcategoryName } from '@/types/question';
 
 type CardSize = 'sm' | 'md' | 'lg';
 
-type CategorizedQuestionCardProps = QuestionResponse & {
+type CategorizedQuestionCardProps = {
+  category: CategoryName;
+  subcategory: SubcategoryName;
+  questionContent: string;
+  questionId?: string;
   size?: CardSize;
   isClicked?: boolean;
   className?: string;
+  onClick?: any;
 };
+
 export const CategorizedQuestionCard = ({
   size = 'md',
   category,
   subcategory,
-  questionContent,
   questionId,
+  questionContent,
+  isClicked,
+  onClick,
   className,
 }: CategorizedQuestionCardProps) => {
-  const [isClicked, isSetClicked] = useState(false);
-  const [myQuestion, setMyQuestion] = useRecoilState(myQuestionClickSelector);
-  const pathname = usePathname();
-
   const baseStyles = `flex px-[10px] justify-between items-center font-bold shadow-md shrink-0
      rounded-[8px] bg-white cursor-pointer ${className}`;
 
@@ -43,26 +45,12 @@ export const CategorizedQuestionCard = ({
   ${isClicked ? borderPositionStyles : 'border-white border-2'}
   `;
 
-  const onClickQuestion = () => {
-    if (pathname === '/interview/choice') {
-      setMyQuestion([
-        {
-          category,
-          subcategory,
-          questionContent,
-          questionId,
-          isClicked: !isClicked,
-        },
-      ]);
-    }
-  };
-
   return (
-    <div className={cardStyles} onClick={onClickQuestion}>
+    <div className={cardStyles} onClick={onClick}>
       <div className="flex">
-        <div className={textStyles}>{category}</div>
+        <div className={textStyles}>{MainCategory[category]}</div>
         <div className="border-l-gray-normal border-l-2" />
-        <div className={textStyles}>{subcategory}</div>
+        <div className={textStyles}>{SubCategory[subcategory]}</div>
         <div className="border-l-gray-normal border-l-2" />
         <div className="ml-10">{questionContent}</div>
       </div>
