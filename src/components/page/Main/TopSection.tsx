@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function TopSection() {
   return (
-    <section className=" px-5 w-full  max-w-[1024px] mainBg gap-5 flex flex-col items-center h-[480px] ">
+    <section className=" px-5 w-full  max-w-[1024px] mainBg flex flex-col items-center min-h-[480px] ">
       <div className=" w-full flex-grow items-center">
         <p className="z-10 w-full  pt-10 font-bold flex max-w-[1024px] text-lg ">AI 면접 서비스</p>
         <div className="flex w-full md:flex-row flex-col max-w-[1024px] items-center justify-center gap-4 md:gap-10  flex-grow">
@@ -39,7 +39,7 @@ export default function TopSection() {
           </div>
         </div>
       </div>
-      <h3 className="z-10 my-5 w-full font-bold text-2xl text-start max-w-[1024px] ">
+      <h3 className=" w-full font-bold text-2xl text-start max-w-[1024px] leading-10 ">
         다른 사람들은 어떤 질문으로 준비하고 있을까요?
       </h3>
     </section>
