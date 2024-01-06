@@ -23,6 +23,8 @@ export const Primary: Story = {
       likeCount: '5',
       thumbnail: '',
       memberId: '123',
+      nickname: '',
+      liked: false,
     },
   },
 };
