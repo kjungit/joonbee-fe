@@ -49,7 +49,7 @@ export default function InterviewCheck() {
     <>
       <ul className="flex flex-col gap-4">
         {questions.map((question, index) => (
-          <li key={question.questionId}>
+          <li key={question.questionId} className="cursor-pointer">
             <DetailQuestionCard
               question={question.questionContent}
               questionCount={index + 1}
