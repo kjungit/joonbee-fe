@@ -1,34 +1,32 @@
 'use client';
-import { QuestionResponse } from '@/app/apis/services/question';
+
 import { Icon } from '@/components/ui/Icon';
 import { MainCategory, SubCategory } from '@/constants/category';
-import { myQuestionAtom } from '@/recoil/myQuestion/atom';
-import { usePathname } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { CategoryName, SubcategoryName } from '@/types/question';
 
 type CardSize = 'sm' | 'md' | 'lg';
 
-type CategorizedQuestionCardProps = QuestionResponse & {
+type CategorizedQuestionCardProps = {
+  category: CategoryName;
+  subcategory: SubcategoryName;
+  questionContent: string;
+  questionId?: string;
   size?: CardSize;
   isClicked?: boolean;
   className?: string;
-  setClickQuestionIds?: React.Dispatch<React.SetStateAction<string[]>>;
-  setClickCount?: (prevCount: (prevCount: number) => number) => void;
+  onClick?: any;
 };
+
 export const CategorizedQuestionCard = ({
   size = 'md',
   category,
   subcategory,
-  questionContent,
   questionId,
+  questionContent,
   isClicked,
-  setClickQuestionIds,
-  setClickCount,
+  onClick,
   className,
 }: CategorizedQuestionCardProps) => {
-  const [myQuestion, setMyQuestion] = useRecoilState(myQuestionAtom);
-  const pathname = usePathname();
-
   const baseStyles = `flex px-[10px] justify-between items-center font-bold shadow-md shrink-0
      rounded-[8px] bg-white cursor-pointer ${className}`;
 
@@ -47,35 +45,8 @@ export const CategorizedQuestionCard = ({
   ${isClicked ? borderPositionStyles : 'border-white border-2'}
   `;
 
-  const onClickQuestion = () => {
-    if (pathname === '/interview/choice') {
-      setMyQuestion(prevMyQuestion => {
-        const clickMyQuestion = [
-          ...prevMyQuestion,
-          {
-            category,
-            subcategory,
-            questionContent,
-            questionId,
-          },
-        ];
-        return clickMyQuestion;
-      });
-
-      // 질문의 ID를 배열에 추가하거나 제거
-      if (setClickQuestionIds) {
-        setClickQuestionIds(prevIds =>
-          isClicked ? prevIds.filter(id => id !== questionId) : [...prevIds, questionId],
-        );
-      }
-
-      // 선택된 질문 개수 set
-      if (setClickCount) setClickCount(prevCount => (isClicked ? prevCount - 1 : prevCount + 1));
-    }
-  };
-
   return (
-    <div className={cardStyles} onClick={onClickQuestion}>
+    <div className={cardStyles} onClick={onClick}>
       <div className="flex">
         <div className={textStyles}>{MainCategory[category]}</div>
         <div className="border-l-gray-normal border-l-2" />
