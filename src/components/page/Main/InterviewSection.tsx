@@ -10,6 +10,9 @@ import React, { MouseEvent, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import DetailInterview from './DetailInterview';
 import SkeletonInterview from './SkeletonInterview';
+import Image from 'next/image';
+import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
+import { sortType } from '@/constants/apiState';
 
 export type QuestionItemType = {
   questionId: string;
@@ -19,41 +22,50 @@ export type QuestionItemType = {
 export interface InterviewItemType {
   interviewId: string;
   categoryName: string;
+  nickname: string;
   questions: QuestionItemType[];
   likeCount: string;
+  liked: boolean;
   thumbnail: string;
   memberId: string;
+  categorySelect?: CategoryName;
+  infMutate?: any;
+  current?: number;
 }
 
 export default function InterviewSection() {
   const [isOpen, setIsOpen] = useState(false);
+  const [current, setCurrent] = useState<number>(1);
+
   const [selectInterview, setSelectInterview] = useState<null | InterviewItemType>(null);
   const [categorySelect, setCategorySelect] = useState<CategoryName>('');
-  const [interviewData, setInterviewData] = useState(null);
   const router = useRouter();
 
   const { data, isLoading } = useSWR<InterviewItemType[]>(
-    ['/api/interview/all', categorySelect],
-    () => getInterview({ page: 1, category: categorySelect, sort: 'latest' }),
-    {
-      onSuccess: data => {
-        console.log(data);
-      },
-    },
+    ['/api/interview/all', categorySelect, current],
+    () =>
+      getInterview(
+        `/api/interview/all?page=1&category=${categorySelect}&sort=${sortType[current]}`,
+      ),
   );
 
+  const onClickCategory = (item: ItemProps) => {
+    setCurrent(item.id);
+  };
   const onClickOpen = (e: MouseEvent<HTMLDivElement | HTMLLIElement>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
+
   useEffect(() => {
-    console.log(selectInterview);
-  }, [data, selectInterview]);
+    const findInterview = data?.find(item => selectInterview?.interviewId === item.interviewId);
+    findInterview && setSelectInterview(findInterview);
+  }, [data]);
 
   return (
     <section className=" pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
       <div className="max-w-[1024px] w-full px-5">
-        <div>
+        <div className="flex justify-between w-full items-end">
           <Dropdown
             color="white"
             title="카테고리"
@@ -62,10 +74,18 @@ export default function InterviewSection() {
             data={['fe', 'be', 'cs', 'mobile', 'etc', 'language']}
             onSelect={setCategorySelect}
           />
+          <RadioButtonGroup
+            size="sm"
+            data={[
+              { id: 1, text: '최신순' },
+              { id: 2, text: '좋아요' },
+            ]}
+            onClickFunc={onClickCategory}
+          />
         </div>
         {isLoading && <SkeletonInterview />}
         <ul className="flex flex-wrap justify-between ">
-          {data &&
+          {data?.length ? (
             data.slice(0, 6).map(i => (
               <li
                 key={i.interviewId}
@@ -74,13 +94,24 @@ export default function InterviewSection() {
                   setSelectInterview(i);
                   onClickOpen(e);
                 }}>
-                <InterviewCard props={i} />
+                <InterviewCard props={{ ...i, categorySelect, current }} />
               </li>
-            ))}
+            ))
+          ) : (
+            <div className="w-full gap-4 flex justify-center items-center py-20 flex-col">
+              <Image src="/box.png" alt="emptybox" width={80} height={80} />
+              <div className="gap-2 flex flex-col items-center">
+                <p className="font-bold text-xl text-main-primary">
+                  선택하신 {categorySelect}에 등록된 질문이 없어요!
+                </p>
+                <p className="font-bold text-lg">다른 카테고리를 확인해보세요.</p>
+              </div>
+            </div>
+          )}
         </ul>
         <div className="flex justify-center my-12">
           <RadiusButton
-            text="md"
+            text="sm"
             color="dark"
             size="sm"
             onClick={() => {
@@ -93,7 +124,12 @@ export default function InterviewSection() {
           <ModalPortal>
             {selectInterview && (
               <div onClick={onClickOpen}>
-                <DetailInterview item={selectInterview} onClickClose={() => setIsOpen(false)} />
+                <DetailInterview
+                  current={current}
+                  categorySelect={categorySelect}
+                  item={selectInterview}
+                  onClickClose={() => setIsOpen(false)}
+                />
               </div>
             )}
           </ModalPortal>
