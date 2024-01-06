@@ -40,7 +40,7 @@ export default function SkeletonInterview() {
             <div className="h-[242px] px-[10px] py-[16px] flex flex-col items-center justify-between">
               <ul className="flex flex-col gap-2 w-full max-w-[330px]">
                 {item.questions.map((question: any) => (
-                  <QuestionCard key={question.id}></QuestionCard>
+                  <QuestionCard key={question.id} text=""></QuestionCard>
                 ))}
               </ul>
               <div></div>
