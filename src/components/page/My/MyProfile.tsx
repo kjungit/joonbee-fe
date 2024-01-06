@@ -1,12 +1,27 @@
 'use client';
 import { BetweenBox } from '@/components/common/BetweenBox';
 import { PolarChart } from '@/components/common/PolarChart';
+import { Button } from '@/components/ui/Button';
 import { useUserInfo } from '@/hooks/useUserInfo';
+import { isLoginedStatus } from '@/recoil/isLogined/atom';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
+import { Cookies } from 'react-cookie';
+import { useRecoilState } from 'recoil';
 
 export default function MyProfile() {
-  const { userInfo } = useUserInfo();
+  const { userInfo, userInfoMutate } = useUserInfo();
+  const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
+
+  const router = useRouter();
+  const cookies = new Cookies();
+  const onClickLogout = () => {
+    cookies.remove('joonbee-token');
+    router.replace('/');
+    setisLogined(false);
+  };
+
   if (!userInfo) return;
   return (
     <div className="h-full bg-white w-[280px] p-6  rounded-2xl flex flex-col items-center">
@@ -27,6 +42,11 @@ export default function MyProfile() {
       <div className="border-b-2 border-gray-light w-[80%] my-4"></div>
       <p className="text-xl font-bold pb-2 w-full">내 면접 질문 통계</p>
       <PolarChart data={userInfo.data.categoryInfo} />
+      <div className="justify-end  flex w-full">
+        <Button size="2xs" text="xs" color="red" onClick={onClickLogout}>
+          로그아웃
+        </Button>
+      </div>
     </div>
   );
 }
