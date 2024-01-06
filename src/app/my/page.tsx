@@ -1,38 +1,41 @@
 'use client';
-import { BetweenBox } from '@/components/common/BetweenBox';
-import { DetailAnswerCard } from '@/components/common/DetailAnswerCard';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
 import MyProfile from '@/components/page/My/MyProfile';
 import { Button } from '@/components/ui/Button';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useSWR from 'swr';
-import { getCategoryInterview, getLikeCategoryInterview } from '../apis/services/member';
 import { MyInterviewCard } from '@/components/common/MyInterviewCard';
-
-interface DataProps {
-  categoryName: string;
-  questionCount: number;
-  interviewId: number;
-}
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import useSWRMutation from 'swr/mutation';
+import { deleteInterview } from '../apis/services/interview';
+import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
 
 export default function MyPage() {
   const [current, setCurrent] = useState<Number>(1);
-  const [currentData, setCurrentData] = useState<DataProps[]>();
+  const [category, setCategory] = useState<'interview' | 'liked' | null>('interview');
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
   const onClickCategory = (item: ItemProps) => {
-    console.log(item);
-    setCurrent(item.id);
+    router.push(
+      pathname + '?' + createQueryString('category', item.id === 1 ? 'interview' : 'liked'),
+    );
   };
-  const { data: myData } = useSWR<DataProps[]>('api/member/category', () =>
-    getCategoryInterview(1),
-  );
-  const { data: likeData } = useSWR<DataProps[]>('api/member/category/like', () =>
-    getLikeCategoryInterview(1),
-  );
+
+  const { newData, setTarget, setSize } = useInfiniteMyInterview(category);
 
   useEffect(() => {
-    setCurrentData(myData);
-    console.log(myData);
-  }, []);
+    setCategory(searchParams.get('category') as 'interview' | 'liked' | null);
+  }, [newData]);
 
   return (
     <div className="bg-main-primary w-full h-full flex justify-center items-center">
@@ -54,26 +57,13 @@ export default function MyPage() {
             />
             <ul className="flex flex-wrap w-full mt-4 gap-4 max-h-[400px] overflow-y-scroll py-2">
               {current === 1 &&
-                myData &&
-                myData.map(i => (
+                newData &&
+                newData.map(i => (
                   <MyInterviewCard
                     key={i.interviewId}
                     categoryName={i.categoryName}
                     interviewId={i.interviewId}
                     questionCount={i.questionCount}
-                    onDelete={() => {}}
-                    onClick={() => {}}
-                  />
-                ))}{' '}
-              {current === 2 &&
-                likeData &&
-                likeData.map(i => (
-                  <MyInterviewCard
-                    key={i.interviewId}
-                    categoryName={i.categoryName}
-                    interviewId={i.interviewId}
-                    questionCount={i.questionCount}
-                    onDelete={() => {}}
                     onClick={() => {}}
                   />
                 ))}
