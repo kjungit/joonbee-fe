@@ -1,6 +1,7 @@
 'use client';
 
 import useVideo from '@/hooks/useVideo';
+import { interviewTypeAtom } from '@/recoil/interviewType/atom';
 import { interviewVideoUrlAtom } from '@/recoil/interviewVideoUrl/atom';
 import { myInterviewAtom } from '@/recoil/myInterview/atom';
 import {
@@ -11,6 +12,8 @@ import { useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 
 export default function InterviewResult() {
+  // 인터뷰 타입
+  const interviewType = useRecoilValue(interviewTypeAtom);
   // 선택 면접일 때 카테고리
   const chocieCategory = useRecoilValue(selectedChocieCategoryAtom);
   // 랜점 면접일 때 카테고리
