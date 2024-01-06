@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { CartClipboard } from '../CartClipboard';
+import { QustionItem } from '@/types/question';
 
 type CardSize = 'sm' | 'md' | 'lg';
 type CardColor = 'white' | 'gray' | 'navy';
@@ -8,21 +9,19 @@ type CardColor = 'white' | 'gray' | 'navy';
 export interface QuestionCardProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: CardSize;
   color?: CardColor;
-  btnColor?: 'text-black' | 'text-white';
-  isCopy?: boolean;
+  text: string;
 }
 
 export const QuestionCard = ({
   color = 'white',
   size = 'sm',
   children,
-  btnColor = 'text-black',
-  isCopy = false,
+  text,
 }: QuestionCardProps) => {
   const baseStyles = 'flex items-center  font-bold px-5 shadow-md rounded-lg justify-between';
 
   const sizeStyles = {
-    sm: 'h-[42px] max-w-[290px] w-full text-[14px]',
+    sm: 'h-[42px] max-w-[290px] w-full text-[14px] text-start ',
     md: 'h-[52px] w-full lg:max-w-[480px] max-w-[1000px] text-xs',
     lg: 'h-[68px] w-[540px] text-[16px]',
   };
@@ -37,8 +36,8 @@ export const QuestionCard = ({
 
   return (
     <div className={buttonStyles}>
-      <p className="text-ellipsis break-words  overflow-hidden ">{children}</p>
-      {isCopy && <CartClipboard onClick={() => {}} color={btnColor} />}
+      <p className="text-ellipsis break-words overflow-hidden whitespace-nowrap">{text}</p>
+      {children}
     </div>
   );
 };
