@@ -7,17 +7,20 @@ import QuestionForm from '@/components/common/QuestionForm';
 import { Button } from '@/components/ui/Button';
 import NoQuestionMessage from '@/components/ui/NoQuestionMessage';
 import React, { useMemo, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import {
   selectedSubmitCategoryAtom,
   selectedSubmitSubcategoryAtom,
 } from '@/recoil/selectedCategory/atom';
 import useInfiniteUserQuestion from '@/hooks/questions/useInfiniteUserQuestion';
+import { myQuestionAtom } from '@/recoil/myQuestion/atom';
+import { QuestionResponse } from '@/app/apis/services/question';
 
 export default function QuestionChoice() {
   const [clickCount, setClickCount] = useState(0);
   const [clickQuestionIds, setClickQuestionIds] = useState<string[]>([]);
+  const [myQuestion, setMyQuestion] = useRecoilState(myQuestionAtom);
 
   const category = useRecoilValue(selectedSubmitCategoryAtom);
   const subcategory = useRecoilValue(selectedSubmitSubcategoryAtom);
@@ -40,6 +43,37 @@ export default function QuestionChoice() {
     return clickQuestionIds.includes(id);
   };
 
+  const onClickQuestion = (question: QuestionResponse) => {
+    const { category, subcategory, questionContent, questionId } = question;
+    setMyQuestion(prevMyQuestion => {
+      const clickMyQuestion = [
+        ...prevMyQuestion,
+        {
+          category,
+          subcategory,
+          questionContent,
+          questionId,
+        },
+      ];
+      return clickMyQuestion;
+    });
+
+    // 질문의 ID를 배열에 추가하거나 제거
+    if (setClickQuestionIds) {
+      setClickQuestionIds(prevIds =>
+        clickQuestion(question.questionId)
+          ? prevIds.filter(id => id !== questionId)
+          : [...prevIds, questionId],
+      );
+    }
+
+    // 선택된 질문 개수 set
+    if (setClickCount)
+      setClickCount(prevCount =>
+        clickQuestion(question.questionId) ? prevCount - 1 : prevCount + 1,
+      );
+  };
+
   return (
     <>
       <QuestionForm callback={handleSubmitQuestion} />
@@ -49,12 +83,10 @@ export default function QuestionChoice() {
         }`}>
         {myQuestions?.map(question => (
           <CategorizedQuestionCard
-            questionId={question.questionId}
             category={question.category}
             subcategory={question.subcategory}
             questionContent={question.questionContent}
-            setClickCount={setClickCount}
-            setClickQuestionIds={setClickQuestionIds}
+            onClick={() => onClickQuestion(question)}
             isClicked={clickQuestion(question.questionId)}
             key={question.questionId}
             size="sm"
