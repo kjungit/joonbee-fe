@@ -1,22 +1,31 @@
-import { useEffect } from 'react';
+import {
+  selectedChocieCategoryAtom,
+  selectedRandomCategoryAtom,
+} from '@/recoil/selectedCategory/atom';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
-const useBeforeUnload = (shouldPreventUnload: boolean, message?: string) => {
+export default function useBeforeUnload() {
+  const chocieCategory = useRecoilValue(selectedChocieCategoryAtom);
+  const randomCategory = useRecoilValue(selectedRandomCategoryAtom);
+
+  const router = useRouter();
+
+  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+    event.preventDefault();
+    event.returnValue = '';
+  };
+
   useEffect(() => {
-    const abortController = new AbortController();
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
-    if (shouldPreventUnload)
-      window.addEventListener(
-        'beforeunload',
-        ev => {
-          ev.preventDefault();
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
-          return (ev.returnValue = message ?? '');
-        },
-        { capture: true, signal: abortController.signal },
-      );
-
-    return () => abortController.abort();
-  }, [shouldPreventUnload, message]);
-};
-
-export default useBeforeUnload;
+  useEffect(() => {
+    if (!chocieCategory && !randomCategory) router.push('/interview');
+  }, [chocieCategory, randomCategory]);
+}
