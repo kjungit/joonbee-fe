@@ -4,27 +4,29 @@ import { Button } from '@/components/ui/Button';
 import { Category } from '@/constants/category';
 import { Icon } from '@/components/ui/Icon';
 import { VariableIcon } from '@/components/ui/VariableIcon';
+import useSWRMutation from 'swr/mutation';
+import { deleteInterview } from '@/app/apis/services/interview';
 
 export interface DetailAnswerCardProps {
   categoryName: string;
   interviewId: number;
   questionCount: number;
   onClick: () => void;
-  onDelete: () => void;
 }
 
 export const MyInterviewCard = ({
   categoryName,
-  interviewId,
   questionCount,
+  interviewId,
   onClick,
-  onDelete,
 }: DetailAnswerCardProps) => {
+  const { trigger } = useSWRMutation('member/interview/delete', () => deleteInterview(interviewId));
+
   return (
     <div className="border-l-main-primary border-l-[12px] h-[140px] w-full max-w-[290px] shadow-md rounded-xl flex flex-col justify-between px-5 py-4">
       <div className=" flex justify-between items-center">
         <p className="text-2xl font-bold">{Category[categoryName]}</p>
-        <button>
+        <button onClick={() => trigger()}>
           <VariableIcon name="delete" size={20} />
         </button>
       </div>
