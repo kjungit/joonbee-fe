@@ -14,7 +14,7 @@ export type SubcategoryName =
   | 'react'
   | 'html/css'
   | 'nextjs'
-  | 'vue'
+  | 'vuejs'
   | 'svelte'
   | 'db'
   | 'spring_framework'
