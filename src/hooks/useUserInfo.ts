@@ -1,5 +1,8 @@
 import { getUserInfo } from '@/app/apis/services/member';
+import { isLoginedStatus } from '@/recoil/isLogined/atom';
 import { AxiosError, AxiosResponse } from 'axios';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import useSWR from 'swr';
 export interface UserInfoProps {
   id: string;
@@ -16,12 +19,16 @@ export type CategoryInfoProps = {
 };
 
 export const useUserInfo = () => {
-  const { data: userInfo } = useSWR<AxiosResponse<UserInfoProps, AxiosError>>(
-    ['/auth/member/info'],
-    getUserInfo,
-    {
-      shouldRetryOnError: false,
+  const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
+
+  const { data: userInfo, mutate: userInfoMutate } = useSWR<
+    AxiosResponse<UserInfoProps, AxiosError>
+  >(['/auth/member/info'], getUserInfo, {
+    revalidateOnMount: true,
+    onSuccess: () => {
+      setisLogined(true);
     },
-  );
-  return { userInfo };
+  });
+
+  return { userInfo, userInfoMutate };
 };

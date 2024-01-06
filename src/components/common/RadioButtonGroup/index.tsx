@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export type ItemProps = {
   id: number;
@@ -20,6 +20,12 @@ export const RadioButtonGroup = ({ data, size = 'md', onClickFunc }: RadioButton
     md: 'w-[110px] h-[60px]',
     lg: 'w-[300px] h-[60px]',
   };
+
+  useEffect(() => {
+    setCheckedRadio(1);
+    console.log(checkedRadio);
+  }, []);
+
   return (
     <div className="flex gap-4">
       {data.map(item => (

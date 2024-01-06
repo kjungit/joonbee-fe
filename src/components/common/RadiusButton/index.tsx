@@ -41,7 +41,7 @@ export const RadiusButton = ({
 
   const sizeStyles = {
     xs: 'p-3',
-    sm: 'w-[250px] h-[88px]',
+    sm: 'w-[200px] h-[70px]',
     md: 'w-[590px] h-[80px]',
   };
 

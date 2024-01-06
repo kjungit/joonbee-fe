@@ -1,5 +1,5 @@
 'use client';
-import React, { MouseEvent, useState } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 import Alarm from '../Alarm';
 import { Avatar } from '@/components/ui/Avartar';
 import { alarmData } from '@/constants/alarm';
@@ -7,21 +7,22 @@ import ModalPortal from '@/components/ui/ModalPortal';
 import { LoginBox } from '../LoginBox';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
-import useSWR from 'swr';
 import { postNickName } from '@/app/apis/services/auth';
 import { useRecoilState } from 'recoil';
 import { isTokenedState } from '@/recoil/isTokened/atoms';
 import useSWRMutation from 'swr/mutation';
-import { isRefreshStatus } from '@/recoil/isRefresh/atoms';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
 import { useUserInfo } from '@/hooks/useUserInfo';
+import { isRefreshStatus } from '@/recoil/isRefresh/atoms';
+import { isLoginedStatus } from '@/recoil/isLogined/atom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [nickName, setNickName] = useState('');
   const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
   const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
+  const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
   const [isNickError, setIsError] = useState(false);
   const router = useRouter();
   const { userInfo } = useUserInfo();
@@ -30,7 +31,7 @@ const Header = () => {
     '/auth/login/nick',
     () => postNickName({ id: isTokened.id, nickName }),
     {
-      onSuccess: data => {
+      onSuccess: () => {
         setIsTokened({
           ...isTokened,
           isLogined: false,
@@ -75,11 +76,11 @@ const Header = () => {
               <h2 className="text-blue-secondary text-[24px] font-bold">JOONBEE</h2>
             </div>
           </button>
-          <div className="flex gap-4">
+          <div className="flex gap-4 ">
             <Alarm data={data} />
-            {userInfo ? (
-              <Link href="/my">
-                <Avatar size="md" thumbnail={userInfo.data.thumbnail} />
+            {isLogined ? (
+              <Link href="/my?category=interview">
+                {userInfo && <Avatar size="md" thumbnail={userInfo.data.thumbnail} />}
               </Link>
             ) : (
               <button onClick={onClickLogin}>로그인</button>

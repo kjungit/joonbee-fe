@@ -27,7 +27,9 @@ export default function SkeletonQuestion() {
           key={item.id}
           size="md"
           color={COLOR_NUMBER.includes(index + 1) ? 'gray' : 'navy'}
-          btnColor={COLOR_NUMBER.includes(index + 1) ? 'text-black' : 'text-white'}></QuestionCard>
+          text=""
+          // btnColor={COLOR_NUMBER.includes(index + 1) ? 'text-black' : 'text-white'}
+        ></QuestionCard>
       ))}
     </ul>
   );

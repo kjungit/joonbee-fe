@@ -26,7 +26,7 @@ export const Primary: Story = {
   args: {
     size: `sm`,
     color: 'white',
-    children: 'react에 대해서 설명해주세요.',
+    text: 'react에 대해서 설명해주세요.',
   },
 };
 
@@ -34,7 +34,7 @@ export const Secondary: Story = {
   args: {
     size: `md`,
     color: 'gray',
-    children: 'react에 대해서 설명해주세요.',
+    text: 'react에 대해서 설명해주세요.',
   },
 };
 
@@ -42,6 +42,6 @@ export const Normal: Story = {
   args: {
     size: `lg`,
     color: 'white',
-    children: 'react에 대해서 설명해주세요.',
+    text: 'react에 대해서 설명해주세요.',
   },
 };

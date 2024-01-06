@@ -2,6 +2,7 @@
 import React, { MouseEvent } from 'react';
 import Logo from '@/components/ui/Logo';
 import { SocialLoginButton } from '../SocialLoginButton';
+import { useUserInfo } from '@/hooks/useUserInfo';
 
 export const REDIRECT_URI = 'http://localhost:3000/oauth';
 const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;

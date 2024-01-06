@@ -9,6 +9,12 @@ import { CategoryName, QustionItem, SubcategoryName } from '@/types/question';
 import { questionCategory } from '@/constants/category';
 import ReactPaginate from 'react-paginate';
 import SkeletonQuestion from './SkeletonQuestion';
+import { CartClipboard } from '@/components/common/CartClipboard';
+import useSWRMutation from 'swr/mutation';
+import { postCartsave } from '@/app/apis/services/member';
+interface PaginationEvent {
+  selected: number;
+}
 
 export const COLOR_NUMBER = [2, 3, 6, 7, 10, 11, 14, 15];
 export default function QuestionSection() {
@@ -31,10 +37,6 @@ export default function QuestionSection() {
   );
 
   useEffect(() => {
-    console.log(data);
-  }, []);
-
-  useEffect(() => {
     if (mainSelectCategory === '') {
       setIsDisabled(true);
       setSubSelectCategory('');
@@ -49,11 +51,12 @@ export default function QuestionSection() {
     setSelectPage(0);
   }, [mainSelectCategory]);
 
-  interface PaginationEvent {
-    selected: number;
-  }
   const handlePageClick = (event: PaginationEvent) => {
     setSelectPage(event.selected + 1);
+  };
+
+  const onClickCart = (item: QustionItem) => {
+    const { subcategoryName, questionContent } = item;
   };
 
   return (
@@ -87,9 +90,12 @@ export default function QuestionSection() {
                 key={item.questionId}
                 size="md"
                 color={COLOR_NUMBER.includes(index + 1) ? 'gray' : 'navy'}
-                isCopy
-                btnColor={COLOR_NUMBER.includes(index + 1) ? 'text-black' : 'text-white'}>
-                {item.questionContent}
+                text={item.questionContent}>
+                <CartClipboard
+                  categoryName={mainSelectCategory}
+                  item={item}
+                  color={`${COLOR_NUMBER.includes(index + 1) ? 'text-black' : 'text-white'}`}
+                />
               </QuestionCard>
             ))}
         </ul>

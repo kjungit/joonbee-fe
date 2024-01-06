@@ -184,7 +184,7 @@ export default function Questions({ questions }: QuestionsProps) {
           </div>
         </div>
         <div className="flex flex-col gap-5">
-          <QuestionCard size="lg">{currentQuestion?.questionContent}</QuestionCard>
+          <QuestionCard size="lg" text={currentQuestion?.questionContent} />
           <TextArea
             inputValue={transcript}
             setInputValue={setTranscript}
