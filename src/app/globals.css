@@ -11,10 +11,13 @@
     appearance: none;
   }
 
-  input:focus,
-  textarea:focus {
+  input:focus {
     outline: none;
     box-shadow: none;
+  }
+
+  textarea:focus {
+    outline: none;
   }
 }
 
@@ -56,7 +59,7 @@
     background-size: cover;
     width: 80px;
     height: 80px;
-    bottom: 30px;
+    bottom: 20px;
     right: 20px;
     opacity: 0.5;
   }

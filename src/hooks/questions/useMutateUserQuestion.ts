@@ -9,8 +9,9 @@ export default function useMutateUserQuestion(
   subcategory: SubcategoryName,
   questionContent: string,
 ) {
-  const { trigger, data } = useSWRMutation('/api/cart/question/save', () =>
-    postUserQuestion( category, subcategory, questionContent ),
+  const { trigger, data } = useSWRMutation(
+    '/api/cart/question/save',
+    () => postUserQuestion(category, subcategory, questionContent),
   );
 
   return { trigger, data };

@@ -3,15 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { questionCategory } from '@/constants/category';
 import { CategoryName, SubcategoryName } from '@/types/question';
 import { useRecoilState } from 'recoil';
-import { selectedCategoryAtom, selectedSubcategoryAtom } from '@/recoil/selectedCategory/atom';
 import { selectedSubcategoryListAtom } from '@/recoil/selectedSubcategoryList/atom';
 type DropdownCategoryProps = {
   color?: 'white' | 'darkNavy';
   size?: 'xs' | 'sm' | 'md';
+  selectedCategory: CategoryName;
+  selectedSubcategory: SubcategoryName;
+  setSelectedCategory: (category: CategoryName) => void;
+  setSelectedSubcategory: (subcategory: SubcategoryName) => void;
 };
-export default function DropdownCategory({ color = 'white', size = 'sm' }: DropdownCategoryProps) {
-  const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryAtom);
-  const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(selectedSubcategoryAtom);
+export default function DropdownCategory({
+  color = 'white',
+  size = 'sm',
+  selectedCategory,
+  selectedSubcategory,
+  setSelectedCategory,
+  setSelectedSubcategory,
+}: DropdownCategoryProps) {
+  // const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryAtom);
+  // const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(selectedSubcategoryAtom);
   const [selectedSubcategories, setSelectedSubcategories] = useRecoilState(
     selectedSubcategoryListAtom,
   );

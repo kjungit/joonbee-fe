@@ -9,9 +9,6 @@ export const myQuestionFilterSelector = selector<MyQuestion[]>({
     const subcategoryName = get(selectedSubcategoryAtom);
     const questions = get(myQuestionAtom);
 
-    console.log('cat', categoryName);
-    console.log('sub', subcategoryName);
-
     if (categoryName === '' || categoryName === '세부 카테고리') {
       return questions;
     }

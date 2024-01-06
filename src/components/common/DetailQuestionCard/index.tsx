@@ -13,7 +13,7 @@ export const DetailQuestionCard = ({
   onClick,
 }: DetailQuestionCardProps) => {
   const baseStyles =
-    'flex h-[48px] text-[18px] text-main-primary px-[10px] items-center font-bold shadow-md rounded-xl ';
+    'flex h-[48px] text-[18px] text-main-primary px-[10px] items-center font-bold shadow-md rounded-xl cursor-pointer';
   const textStyles = 'flex justify-center ';
 
   return (

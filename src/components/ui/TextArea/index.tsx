@@ -17,7 +17,7 @@ export const TextArea = ({
   size = 'md',
   isVoice = false,
 }: TextareaProps) => {
-  const baseStyles = `text-[16px] border-4 border-gray-normal ${
+  const baseStyles = `text-[16px]  border-gray-normal ${
     isDisabled ? 'text-gray-disabled' : 'text-main-primary'
   } p-5 font-bold shadow-md rounded-xl`;
 
@@ -25,7 +25,7 @@ export const TextArea = ({
     md: 'h-[360px] w-[440px] text-4',
     auto: 'w-full h-full',
   };
-  const TextAreaStyles = `
+  const textAreaStyles = `
   ${baseStyles} ${sizeStyles[size]} 
   `;
 
@@ -36,13 +36,13 @@ export const TextArea = ({
   };
 
   return (
-    <div className="relative h-full">
+    <div className="relative">
       <textarea
         readOnly={isRead}
         minLength={10}
         rows={10}
         cols={20}
-        className={TextAreaStyles}
+        className={textAreaStyles}
         placeholder="질문을 작성해주세요."
         disabled={isDisabled}
         value={inputValue}

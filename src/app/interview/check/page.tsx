@@ -10,7 +10,7 @@ const InterviewCheckPage = () => {
         <h2 className="font-bold text-[20px]">답변 확인하기</h2>
         <InterviewCheck />
         <Link href="/interview/result">
-          <Button size="xs" text="sm" className="absolute bottom-8 right-8">
+          <Button color="blueSecondary" size="lg" text="sm" className="absolute bottom-8 right-8">
             다음
           </Button>
         </Link>

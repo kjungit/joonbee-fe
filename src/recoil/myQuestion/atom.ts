@@ -6,7 +6,6 @@ export type MyQuestion = {
   category: CategoryName;
   subcategory: SubcategoryName;
   questionContent: string;
-  isClicked: boolean;
 };
 
 export const myQuestionAtom = atom<MyQuestion[]>({
