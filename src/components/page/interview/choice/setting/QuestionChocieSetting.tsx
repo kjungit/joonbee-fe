@@ -16,6 +16,10 @@ export default function QuestionChocieSetting() {
   const categories = [...new Set(questions.map(question => question.category))];
   const [category, setCategory] = useRecoilState(selectedChocieCategoryAtom);
 
+  const disableBtn = () => {
+    return !category;
+  };
+
   return (
     <>
       <div className="flex gap-4 items-center">
@@ -34,7 +38,6 @@ export default function QuestionChocieSetting() {
         }`}>
         {questions?.map(question => (
           <CategorizedQuestionCard
-            questionId={question.questionId}
             category={question.category}
             subcategory={question.subcategory}
             questionContent={question.questionContent}
@@ -48,7 +51,12 @@ export default function QuestionChocieSetting() {
         <ButtonTimeSetting />
       </div>
       <Link href="/interview/permission">
-        <Button color="blueSecondary" size="lg" text="sm" className="absolute bottom-8 right-8">
+        <Button
+          color="blueSecondary"
+          size="lg"
+          text="sm"
+          className="absolute bottom-8 right-8"
+          disabled={disableBtn()}>
           면접 시작하기
         </Button>
       </Link>
