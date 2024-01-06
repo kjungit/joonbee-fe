@@ -27,25 +27,32 @@ export const postInterviewLike = async (interviewId: string) => {
   }
 };
 
-export const getCategoryInterview = async (page: number) => {
+export const getMyCategoryInterview = async (url: string) => {
   try {
-    const res = await instance().get(`api/member/category`, {
-      params: {
-        page,
-      },
-    });
+    const res = await instance().get(url);
     console.log(res);
     return res.data.data.result;
   } catch (error) {}
 };
 
-export const getLikeCategoryInterview = async (page: number) => {
+export type PostCartProps = {
+  categoryName: string;
+  subcategoryName: string;
+  questionContent: string;
+};
+
+export const postCartsave = async ({
+  categoryName,
+  subcategoryName,
+  questionContent,
+}: PostCartProps) => {
   try {
-    const res = await instance().get(`api/member/category/like`, {
-      params: {
-        page,
-      },
+    const res = await instance().post(`api/member/question/save`, {
+      categoryName,
+      subcategoryName,
+      questionContent,
     });
-    return res.data.data.result;
+    console.log(res);
+    return res;
   } catch (error) {}
 };
