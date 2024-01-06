@@ -8,9 +8,11 @@ export type ButtonColor =
   | 'blueNormal'
   | 'blueTertiary'
   | 'darkGray'
-  | 'gray';
+  | 'gray'
+  | 'red';
 type ButtonSize =
   | 'auto'
+  | '2xs'
   | 'xs'
   | 'sm'
   | 'md'
@@ -50,6 +52,7 @@ export const Button = ({
   const baseStyles = 'rounded-[8px] font-bold  shadow-md';
   const sizeStyles = {
     auto: 'px-3 py-2 min-w-[116px]',
+    '2xs': 'w-20 h-7',
     xs: 'w-[80px] h-[40px]',
     sm: 'w-[100px] h-[40px]',
     md: 'min-w-[150px] h-[60px]',
@@ -81,6 +84,7 @@ export const Button = ({
     white: 'bg-white hover:bg-gray-light text-main-primary',
     darkGray: 'bg-gray-dark  text-white hover:bg-black',
     gray: 'bg-gray-normal hover:bg-gray-dark text-white',
+    red: 'bg-status-alert text-white hover:bg-[#b32d2d]',
   };
   const buttonStyles = `${baseStyles} ${textStyles[text]} ${sizeStyles[size]} ${className}  ${
     disabled ? 'bg-gray-disabled cursor-not-allowed ' : colorStyles[color]
