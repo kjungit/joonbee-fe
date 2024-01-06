@@ -8,19 +8,28 @@ import Webcam from '@/components/common/Webcam';
 import useVideo from '@/hooks/useVideo';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
-import DeviceSettinModal from '@/components/ui/Modal/DeviceSettingModal';
 import { useModal } from '@/hooks/useModal';
-import { interviewTypeAtom } from '@/recoil/interviewType/atom';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
+import AlertModal from '@/components/ui/Modal/AlertModal';
 
 export default function DeviceControl() {
-  const type = useRecoilValue(interviewTypeAtom);
   const [isPressedVideoBtn, setIsPressedVideoBtn] = useRecoilState(videoPermissionAtom);
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
-  const { isOpened, onClose, onOpen } = useModal();
-
-  const { videoRef, onStartVideo } = useVideo();
+  const {
+    isOpened: DeviceModalIsOpened,
+    onClose: DeviceModalClose,
+    onOpen: DeviceModalOpen,
+  } = useModal();
+  const {
+    isOpened: AlertModalIsOpened,
+    onClose: AlertModalClose,
+    onOpen: AlertModalOpen,
+  } = useModal();
 
   const router = useRouter();
+
+
+  const { videoRef, onStartVideo } = useVideo();
 
   const onToggleVideo = async () => {
     setIsPressedVideoBtn(prev => !prev);
@@ -33,7 +42,7 @@ export default function DeviceControl() {
       });
       setAudioStream(stream);
     } catch {
-      onOpen();
+      DeviceModalOpen();
     }
   };
 
@@ -44,6 +53,9 @@ export default function DeviceControl() {
   const isDisableNextBtn = () => {
     return !audioStream || !audioStream.active;
   };
+
+  useBeforeUnload();
+
 
   return (
     <div className="h-full flex flex-col justify-center items-center">
@@ -75,7 +87,20 @@ export default function DeviceControl() {
           </RadiusButton>
         </div>
       </div>
-      <DeviceSettinModal isOpened={isOpened} onClose={onClose} />
+      <AlertModal
+        title="장치"
+        body="없다"
+        isOpened={DeviceModalIsOpened}
+        onClose={DeviceModalClose}
+      />
+      {AlertModalIsOpened && (
+        <AlertModal
+          title="페이지"
+          body="이동"
+          isOpened={AlertModalIsOpened}
+          onClose={AlertModalClose}
+        />
+      )}
     </div>
   );
 }
