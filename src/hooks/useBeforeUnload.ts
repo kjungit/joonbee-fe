@@ -1,14 +1,11 @@
-import {
-  selectedChocieCategoryAtom,
-  selectedRandomCategoryAtom,
-} from '@/recoil/selectedCategory/atom';
+import { interviewTypeAtom } from '@/recoil/interviewType/atom';
+
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 export default function useBeforeUnload() {
-  const chocieCategory = useRecoilValue(selectedChocieCategoryAtom);
-  const randomCategory = useRecoilValue(selectedRandomCategoryAtom);
+  const interviewType = useRecoilValue(interviewTypeAtom);
 
   const router = useRouter();
 
@@ -26,6 +23,6 @@ export default function useBeforeUnload() {
   }, []);
 
   useEffect(() => {
-    if (!chocieCategory && !randomCategory) router.push('/interview');
-  }, [chocieCategory, randomCategory]);
+    if (!interviewType) router.push('/interview');
+  }, []);
 }
