@@ -3,8 +3,10 @@
 import { InterviewStartBox } from '@/components/common/InterviewStartBox';
 import InterviewLoading from '@/components/ui/InterviewLoading';
 import { Category } from '@/constants/category';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { interviewTimeAtom, questionCountAtom } from '@/recoil/interviewSetting/atoms';
 import { interviewTypeAtom } from '@/recoil/interviewType/atom';
+import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 import {
   selectedChocieCategoryAtom,
   selectedRandomCategoryAtom,
@@ -21,7 +23,7 @@ export default function InterviewStartContainer() {
   const choiceCategory = useRecoilValue(selectedChocieCategoryAtom);
   const category = type === 'random' ? randomCategory : choiceCategory;
   const questionSec = useRecoilValue(interviewTimeAtom);
-  const questionCount = useRecoilValue(questionCountAtom);
+  const questions = useRecoilValue(myQuestionAtom);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,13 +38,15 @@ export default function InterviewStartContainer() {
     setIsPressedBtn(true);
   };
 
+  useBeforeUnload();
+
   return (
     <>
       {!isPressedBtn ? (
         <InterviewStartBox
           onClick={onNavigate}
           category={Category[category]}
-          questionCount={questionCount}
+          questionCount={questions.length}
           questionSec={questionSec}
         />
       ) : (
