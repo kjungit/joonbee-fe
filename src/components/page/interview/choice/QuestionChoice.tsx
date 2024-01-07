@@ -16,14 +16,20 @@ import {
 import useInfiniteUserQuestion from '@/hooks/questions/useInfiniteUserQuestion';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 import { QuestionResponse } from '@/app/apis/services/question';
+import AlertModal from '@/components/ui/Modal/AlertModal';
+import { useModal } from '@/hooks/useModal';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 
 export default function QuestionChoice() {
+  useBeforeUnload();
   const [clickCount, setClickCount] = useState(0);
   const [clickQuestionIds, setClickQuestionIds] = useState<string[]>([]);
   const [myQuestion, setMyQuestion] = useRecoilState(myQuestionAtom);
 
   const category = useRecoilValue(selectedSubmitCategoryAtom);
   const subcategory = useRecoilValue(selectedSubmitSubcategoryAtom);
+
+  const { isOpened, onClose, onOpen } = useModal();
 
   const {
     newData: myQuestions,
@@ -46,32 +52,46 @@ export default function QuestionChoice() {
   const onClickQuestion = (question: QuestionResponse) => {
     const { category, subcategory, questionContent, questionId } = question;
     setMyQuestion(prevMyQuestion => {
-      const clickMyQuestion = [
-        ...prevMyQuestion,
-        {
-          category,
-          subcategory,
-          questionContent,
-          questionId,
-        },
-      ];
-      return clickMyQuestion;
+      const existingQuestion = prevMyQuestion.find(q => q.questionId === questionId);
+
+      if (existingQuestion) {
+        const updatedMyQuestion = prevMyQuestion.filter(q => q.questionId !== questionId);
+        return updatedMyQuestion;
+      } else {
+        const updatedMyQuestion = [
+          ...prevMyQuestion,
+          {
+            category,
+            subcategory,
+            questionContent,
+            questionId,
+          },
+        ];
+        return updatedMyQuestion;
+      }
     });
 
     // 질문의 ID를 배열에 추가하거나 제거
-    if (setClickQuestionIds) {
-      setClickQuestionIds(prevIds =>
-        clickQuestion(question.questionId)
-          ? prevIds.filter(id => id !== questionId)
-          : [...prevIds, questionId],
-      );
-    }
+    setClickQuestionIds(prevIds => {
+      const newIds = clickQuestion(question.questionId)
+        ? prevIds.filter(id => id !== questionId)
+        : [...prevIds, questionId];
+
+      if (newIds.length > 10) {
+        return prevIds;
+      }
+      return newIds;
+    });
 
     // 선택된 질문 개수 set
-    if (setClickCount)
-      setClickCount(prevCount =>
-        clickQuestion(question.questionId) ? prevCount - 1 : prevCount + 1,
-      );
+    setClickCount(prevCount => {
+      const newCount = clickQuestion(question.questionId) ? prevCount - 1 : prevCount + 1;
+      if (newCount > 10) {
+        onOpen();
+        return prevCount;
+      }
+      return newCount;
+    });
   };
 
   return (
@@ -106,6 +126,15 @@ export default function QuestionChoice() {
           {clickCount}개 선택된 질문 보기
         </Button>
       </Link>
+
+      {isOpened && (
+        <AlertModal
+          title="알림"
+          body="질문은 최대 10개 까지 선택할 수 있습니다."
+          isOpened={isOpened}
+          onClose={onClose}
+        />
+      )}
     </>
   );
 }
