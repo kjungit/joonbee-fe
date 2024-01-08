@@ -1,5 +1,5 @@
 const ModalBody = ({ children }: { children: React.ReactNode }) => (
-  <div className="py-4 px-2 text-[14px]">{children}</div>
+  <div className="py-4 px-2 text-[14px] whitespace-pre-line">{children}</div>
 );
 
 type ModalBodyComponentType = typeof ModalBody extends (
