@@ -54,6 +54,12 @@ export type QuestionCategory = {
 export type QustionItem = {
   questionId: string;
   categoryId: number;
+  categoryName: CategoryName;
   questionContent: string;
-  subcategoryName: string;
+  subcategoryName: SubcategoryName;
+};
+
+export type QuestionType = {
+  result: QustionItem[];
+  total: number;
 };
