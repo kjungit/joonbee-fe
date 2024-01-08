@@ -39,7 +39,7 @@ export default function Modal({ children, onClose, isOpened = false }: AlertModa
           createPortal(
             <div className="fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
               <div
-                className="relative px-4 py-3 rounded-[8px] w-[360px] h-[160px] shadow-normal bg-white"
+                className="relative px-4 py-3 rounded-[8px] w-[360px] min-h-[160px] shadow-normal bg-white"
                 ref={modalRef}>
                 <div className="flex items-center justify-between">
                   {title}
@@ -47,10 +47,10 @@ export default function Modal({ children, onClose, isOpened = false }: AlertModa
                 </div>
                 <div className="border border-gray-normal"></div>
                 {body}
-                {(confirmButton || closeButton) && (
+                {confirmButton && (
                   <div className="flex gap-5 justify-end">
-                    {closeButton}
                     {confirmButton}
+                    {closeButton}
                   </div>
                 )}
               </div>
