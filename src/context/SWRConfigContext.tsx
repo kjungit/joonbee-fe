@@ -25,7 +25,8 @@ export default function SWRConfigContext({ children }: Props) {
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
-        onError: error => {
+        onError: (error: any) => {
+          console.log(error);
           if (error.response.status === 402) trigger();
         },
       }}>
