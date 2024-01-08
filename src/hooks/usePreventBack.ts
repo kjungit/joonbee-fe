@@ -1,23 +1,34 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { useModal } from './useModal';
 
 export default function usePreventBack() {
+  const { isOpened, onClose, onOpen } = useModal();
+
   const router = useRouter();
+
+  const handleBeforePopState = (e: PopStateEvent) => {
+    e.preventDefault();
+    onOpen();
+  };
+
+  const handleConfirm = () => {
+    router.push('/interview');
+  };
+
+  const handleClose = () => {
+    history.pushState(null, document.title, location.href);
+    onClose();
+  };
 
   useEffect(() => {
     history.pushState(null, document.title, location.href);
-    const handleBeforePopState = (e: PopStateEvent) => {
-      e.preventDefault();
-      const isConfirmed = confirm('뒤로가시겠습니까?');
-      if (isConfirmed) {
-        router.back();
-      }
-    };
-
     window.addEventListener('popstate', handleBeforePopState);
 
     return () => {
       window.removeEventListener('popstate', handleBeforePopState);
     };
-  }, [router]);
+  }, []);
+
+  return { isOpened, handleClose, handleConfirm };
 }
