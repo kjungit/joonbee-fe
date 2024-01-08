@@ -11,6 +11,7 @@ import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
 import { useModal } from '@/hooks/useModal';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import AlertModal from '@/components/ui/Modal/AlertModal';
+import PreventBackModal from '@/components/common/PreventBackModal';
 
 export default function DeviceControl() {
   const [isPressedVideoBtn, setIsPressedVideoBtn] = useRecoilState(videoPermissionAtom);
@@ -84,6 +85,7 @@ export default function DeviceControl() {
           onClose={onClose}
         />
       )}
+      <PreventBackModal />
     </div>
   );
 }

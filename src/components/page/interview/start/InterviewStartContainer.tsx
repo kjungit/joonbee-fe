@@ -1,6 +1,7 @@
 'use client';
 
 import { InterviewStartBox } from '@/components/common/InterviewStartBox';
+import PreventBackModal from '@/components/common/PreventBackModal';
 import InterviewLoading from '@/components/ui/InterviewLoading';
 import { Category } from '@/constants/category';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
@@ -57,6 +58,7 @@ export default function InterviewStartContainer() {
           <h2 className="text-white font-bold text-[20px]">면접을 준비중입니다.</h2>
         </div>
       )}
+      <PreventBackModal />
     </>
   );
 }

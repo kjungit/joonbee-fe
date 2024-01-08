@@ -2,8 +2,10 @@
 
 import ButtonTimeSetting from '@/components/common/ButtonTimeSetting';
 import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestionCard';
+import PreventBackModal from '@/components/common/PreventBackModal';
 import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
+import AlertModal from '@/components/ui/Modal/AlertModal';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import usePreventBack from '@/hooks/usePreventBack';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
@@ -14,7 +16,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function QuestionChocieSetting() {
   const questions = useRecoilValue(myQuestionAtom);
-
   const categories = [...new Set(questions.map(question => question.category))];
   const [category, setCategory] = useRecoilState(selectedChocieCategoryAtom);
 
@@ -23,7 +24,6 @@ export default function QuestionChocieSetting() {
   };
 
   useBeforeUnload();
-  usePreventBack();
 
   return (
     <>
@@ -65,6 +65,7 @@ export default function QuestionChocieSetting() {
           면접 시작하기
         </Button>
       </Link>
+      <PreventBackModal />
     </>
   );
 }

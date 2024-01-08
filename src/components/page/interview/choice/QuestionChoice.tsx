@@ -19,6 +19,7 @@ import { QuestionResponse } from '@/app/apis/services/question';
 import AlertModal from '@/components/ui/Modal/AlertModal';
 import { useModal } from '@/hooks/useModal';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
+import PreventBackModal from '@/components/common/PreventBackModal';
 
 export default function QuestionChoice() {
   useBeforeUnload();
@@ -135,6 +136,7 @@ export default function QuestionChoice() {
           onClose={onClose}
         />
       )}
+      <PreventBackModal />
     </>
   );
 }
