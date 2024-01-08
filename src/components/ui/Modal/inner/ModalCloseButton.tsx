@@ -7,7 +7,7 @@ const ModalCloseButton = ({
   children: React.ReactNode;
   onClick: () => void;
 }) => (
-  <Button size="xs" color="white" text="sm" onClick={onClick}>
+  <Button size="xs" color="white" text="xs" onClick={onClick}>
     {children}
   </Button>
 );

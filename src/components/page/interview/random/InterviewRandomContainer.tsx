@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import QuestionSettingButton from './QuestionSettingButton';
 import { useRouter } from 'next/navigation';
 import InterviewLoading from '@/components/ui/InterviewLoading';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
+import PreventBackModal from '@/components/common/PreventBackModal';
 
 export default function InterviewRandomContainer() {
   const [isPressedBtn, setIsPressedBtn] = useState<boolean>(false);
@@ -22,6 +24,8 @@ export default function InterviewRandomContainer() {
     setIsPressedBtn(true);
   };
 
+  useBeforeUnload();
+
   return (
     <>
       {!isPressedBtn ? (
@@ -35,6 +39,7 @@ export default function InterviewRandomContainer() {
           <h2 className="text-white font-bold text-[20px]">랜덤 면접 질문을 준비중입니다!</h2>
         </div>
       )}
+      <PreventBackModal />
     </>
   );
 }
