@@ -13,6 +13,8 @@ import SkeletonInterview from './SkeletonInterview';
 import Image from 'next/image';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
 import { sortType } from '@/constants/apiState';
+import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
+import useInterviewAll from '@/hooks/main/useInterviewAll';
 
 export type QuestionItemType = {
   questionId: string;
@@ -20,7 +22,7 @@ export type QuestionItemType = {
 };
 
 export interface InterviewItemType {
-  interviewId: string;
+  interviewId: number;
   categoryName: string;
   nickname: string;
   questions: QuestionItemType[];
@@ -29,7 +31,6 @@ export interface InterviewItemType {
   thumbnail: string;
   memberId: string;
   categorySelect?: CategoryName;
-  infMutate?: any;
   current?: number;
 }
 
@@ -41,13 +42,7 @@ export default function InterviewSection() {
   const [categorySelect, setCategorySelect] = useState<CategoryName>('');
   const router = useRouter();
 
-  const { data, isLoading } = useSWR<InterviewItemType[]>(
-    ['/api/interview/all', categorySelect, current],
-    () =>
-      getInterview(
-        `/api/interview/all?page=1&category=${categorySelect}&sort=${sortType[current]}`,
-      ),
-  );
+  const { data, isLoading } = useInterviewAll(categorySelect, current);
 
   const onClickCategory = (item: ItemProps) => {
     setCurrent(item.id);
@@ -75,6 +70,8 @@ export default function InterviewSection() {
             onSelect={setCategorySelect}
           />
           <RadioButtonGroup
+            defaultId={1}
+            groupName="main-category"
             size="sm"
             data={[
               { id: 1, text: '최신순' },
