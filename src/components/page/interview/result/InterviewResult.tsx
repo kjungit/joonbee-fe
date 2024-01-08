@@ -1,6 +1,7 @@
 'use client';
 
-import useVideo from '@/hooks/useVideo';
+import PreventBackModal from '@/components/common/PreventBackModal';
+import { Button } from '@/components/ui/Button';
 import { interviewTypeAtom } from '@/recoil/interviewType/atom';
 import { interviewVideoUrlAtom } from '@/recoil/interviewVideoUrl/atom';
 import { myInterviewAtom } from '@/recoil/myInterview/atom';
@@ -8,8 +9,10 @@ import {
   selectedChocieCategoryAtom,
   selectedRandomCategoryAtom,
 } from '@/recoil/selectedCategory/atom';
-import { useRef } from 'react';
 import { useRecoilValue } from 'recoil';
+import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
+import { useModal } from '@/hooks/useModal';
+import InterviewVideoModal from './InterviewVideoModal';
 
 export default function InterviewResult() {
   // 인터뷰 타입
@@ -18,29 +21,17 @@ export default function InterviewResult() {
   const chocieCategory = useRecoilValue(selectedChocieCategoryAtom);
   // 랜점 면접일 때 카테고리
   const randomCategory = useRecoilValue(selectedRandomCategoryAtom);
-  const interview = useRecoilValue(myInterviewAtom);
-  const videoUrl = useRecoilValue(interviewVideoUrlAtom);
+  const isVideo = useRecoilValue(videoPermissionAtom);
 
-  const { onDownload } = useVideo();
-
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  const videoPlay = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-    }
-  };
-
-  console.log('내가 본 면접', interview);
-
+  const { isOpened, onClose, onOpen } = useModal();
   return (
     <>
-      <button onClick={() => onDownload(videoUrl)}>영상 다운로드</button>
-      <button onClick={videoPlay}>영상 재생</button>
-      <video width="320" height="240" controls ref={videoRef}>
-        <source src={videoUrl} type="video/webm" />
-        브라우저가 비디오를 지원하지 않습니다.
-      </video>
+      <Button color="blueSecondary" size="lg" text="sm" disabled={!isVideo} onClick={onOpen}>
+        면접 영상 확인하기
+      </Button>
+
+      {isOpened && <InterviewVideoModal onClose={onClose} />}
+      <PreventBackModal />
     </>
   );
 }
