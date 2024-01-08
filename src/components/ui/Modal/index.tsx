@@ -27,7 +27,7 @@ export default function Modal({ children, onClose, isOpened = false }: AlertModa
     return null;
   }
 
-  const titles = getInnerComponents(children, modalTitleComponentType);
+  const title = getInnerComponents(children, modalTitleComponentType);
   const body = getInnerComponents(children, modalBodyComponentType);
   const closeButton = getInnerComponents(children, modalCloseButtonComponentType);
   const confirmButton = getInnerComponents(children, modalConfirmButtonComponentType);
@@ -37,23 +37,22 @@ export default function Modal({ children, onClose, isOpened = false }: AlertModa
       <>
         {isOpened &&
           createPortal(
-            <div className="fixed top-0 left-0 w-full h-full z-10 ">
-              <div className="z-20 h-full flex justify-center items-center opacity-100">
-                <div
-                  className="relative px-5 py-3 rounded-[8px] w-[360px] shadow-normal bg-white"
-                  ref={modalRef}>
-                  <div className="absolute right-4">
-                    <VariableIcon onClick={onClose} name="close" />
-                  </div>
-                  {titles}
-                  {body}
-                  {(confirmButton || closeButton) && (
-                    <div className="flex gap-5 justify-end">
-                      {closeButton}
-                      {confirmButton}
-                    </div>
-                  )}
+            <div className="fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
+              <div
+                className="relative px-4 py-3 rounded-[8px] w-[360px] h-[160px] shadow-normal bg-white"
+                ref={modalRef}>
+                <div className="flex items-center justify-between">
+                  {title}
+                  <VariableIcon onClick={onClose} name="close" />
                 </div>
+                <div className="border border-gray-normal"></div>
+                {body}
+                {(confirmButton || closeButton) && (
+                  <div className="flex gap-5 justify-end">
+                    {closeButton}
+                    {confirmButton}
+                  </div>
+                )}
               </div>
             </div>,
             modalPortalDiv,

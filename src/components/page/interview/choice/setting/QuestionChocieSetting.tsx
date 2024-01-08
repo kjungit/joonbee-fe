@@ -4,6 +4,8 @@ import ButtonTimeSetting from '@/components/common/ButtonTimeSetting';
 import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestionCard';
 import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
+import usePreventBack from '@/hooks/usePreventBack';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 
 import { selectedChocieCategoryAtom } from '@/recoil/selectedCategory/atom';
@@ -19,6 +21,9 @@ export default function QuestionChocieSetting() {
   const disableBtn = () => {
     return !category;
   };
+
+  useBeforeUnload();
+  usePreventBack();
 
   return (
     <>

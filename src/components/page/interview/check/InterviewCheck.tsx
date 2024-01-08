@@ -4,6 +4,7 @@ import { DetailQuestionCard } from '@/components/common/DetailQuestionCard';
 import { Button } from '@/components/ui/Button';
 import ModalPortal from '@/components/ui/ModalPortal';
 import { TextArea } from '@/components/ui/TextArea';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { useModal } from '@/hooks/useModal';
 import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 import { MyInterview, myInterviewAtom } from '@/recoil/myInterview/atom';
@@ -30,6 +31,7 @@ export default function InterviewCheck() {
 
   const handleToggleMode = () => {
     setIsEditMode(prev => !prev);
+    setNewAnswer(clickedQuestion!.answerContent);
   };
 
   const handleSubmitAnswer = () => {
@@ -52,6 +54,7 @@ export default function InterviewCheck() {
   };
 
   const { modalRef } = useModalOutsideClick(handleClose);
+  useBeforeUnload();
 
   return (
     <>

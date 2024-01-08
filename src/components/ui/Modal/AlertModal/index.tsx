@@ -13,7 +13,6 @@ export default function AlertModal({ isOpened, onClose, title, body }: AlertModa
     <Modal isOpened={isOpened} onClose={onClose}>
       <Modal.Title>{title}</Modal.Title>
       <Modal.Body>{body}</Modal.Body>
-      <Modal.CloseButton onClick={onClose}>취소</Modal.CloseButton>
     </Modal>
   );
 }
