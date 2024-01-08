@@ -7,6 +7,7 @@ import Webcam from '@/components/common/Webcam';
 import { Button } from '@/components/ui/Button';
 import { TextArea } from '@/components/ui/TextArea';
 import useSpeechToText from '@/hooks/useSpeechToText';
+import useTimer from '@/hooks/useTimer';
 import useVideo from '@/hooks/useVideo';
 
 import { interviewTimeAtom } from '@/recoil/interviewSetting/atoms';
@@ -17,7 +18,7 @@ import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
 import { TimerState } from '@/types';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 type QuestionsProps = {
   questions: MyInterview[];
@@ -47,23 +48,26 @@ export default function Questions({ questions }: QuestionsProps) {
   const [btnText, setBtnText] = useState(TimerStateText.READY.btn);
   const [helpText, setHelpText] = useState(TimerStateText.READY.help);
   const setMyInterview = useSetRecoilState(myInterviewAddSelector);
-  const time = useRecoilValue(interviewTimeAtom);
+  const time = 5;
+  //useRecoilValue(interviewTimeAtom);
 
   const isAllowedVideo = useRecoilValue(videoPermissionAtom);
 
-  // const [setVideoUrl, videoUrl] = useRecoilState(interviewVideoUrlAtom);
-  const { videoRef, onStartVideo, onStartRecord, onStopRecord, onToggleRecord, recordedMediaUrl } =
-    useVideo();
+  const { videoRef, onStartVideo, onStartRecord, onStopRecord, onToggleRecord } = useVideo();
   const { onStartListening, onStopListening, transcript, setTranscript } = useSpeechToText();
+  const { remainingTime } = useTimer(time, timerState, setTimerState);
+
   const [countdown, setCountdown] = useState(5);
 
   const router = useRouter();
 
   useEffect(() => {
-    onSetCountdown();
-  }, [countdown]);
+    onSetButtonText();
 
-  useEffect(() => {
+    // 음성인식 중 버튼을 누르지 않았을 때 핸들링
+    if (remainingTime === 0 && countdown === 5 && timerState === 'DONE') onClickProgressButton();
+
+    // 첫 번째 문제 진행중일 때 부터 녹화 시작
     if (timerState === 'PROGRESS') {
       if (currentCount === 1) {
         onStartRecord();
@@ -88,14 +92,18 @@ export default function Questions({ questions }: QuestionsProps) {
     };
   }, [timerState, countdown]);
 
-  const onSetCountdown = () => {
+  const onSetButtonText = () => {
     if (timerState === 'DONE') {
       setBtnText(
         currentCount === questionsCount
           ? `면접결과 확인하기 ${countdown}`
           : `${TimerStateText.DONE.btn} ${countdown}`,
       );
-      setHelpText(TimerStateText.DONE.help);
+      setHelpText(
+        currentCount === questionsCount
+          ? '면접이 끝났습니다. 잠시만 기다려주세요.'
+          : TimerStateText.DONE.help,
+      );
     }
 
     if (timerState === 'READY') {
@@ -104,10 +112,19 @@ export default function Questions({ questions }: QuestionsProps) {
     }
   };
 
+  const onClickReadyButton = () => {
+    setBtnText(TimerStateText.PROGRESS.btn);
+    setHelpText(TimerStateText.PROGRESS.help);
+    setTimerState('PROGRESS');
+    if (isAllowedVideo) {
+      onToggleRecord();
+    }
+    onStartListening();
+  };
+
   const onClickDoneButton = () => {
     setTimerState('READY');
     setCountdown(5);
-
     setTranscript('');
 
     if (currentCount < questionsCount) {
@@ -144,15 +161,11 @@ export default function Questions({ questions }: QuestionsProps) {
   };
 
   const onClickButton = () => {
+    console.log('timerState', timerState);
+
     switch (timerState) {
       case 'READY':
-        setBtnText(TimerStateText.PROGRESS.btn);
-        setHelpText(TimerStateText.PROGRESS.help);
-        setTimerState('PROGRESS');
-        if (isAllowedVideo) {
-          onToggleRecord();
-        }
-        onStartListening();
+        onClickReadyButton();
         break;
 
       case 'PROGRESS':
@@ -180,7 +193,7 @@ export default function Questions({ questions }: QuestionsProps) {
         <div className="flex flex-col gap-5 ">
           <Webcam isPermitVideo={isAllowedVideo} videoRef={videoRef} onStartVideo={onStartVideo} />
           <div className="flex justify-center">
-            <Timer timerState={timerState} setTimerState={setTimerState} time={time} />
+            <Timer timerState={timerState} remainingTime={remainingTime} time={time} />
           </div>
         </div>
         <div className="flex flex-col gap-5">

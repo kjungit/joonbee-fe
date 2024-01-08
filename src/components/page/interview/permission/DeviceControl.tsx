@@ -11,23 +11,14 @@ import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
 import { useModal } from '@/hooks/useModal';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import AlertModal from '@/components/ui/Modal/AlertModal';
+import PreventBackModal from '@/components/common/PreventBackModal';
 
 export default function DeviceControl() {
   const [isPressedVideoBtn, setIsPressedVideoBtn] = useRecoilState(videoPermissionAtom);
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
-  const {
-    isOpened: DeviceModalIsOpened,
-    onClose: DeviceModalClose,
-    onOpen: DeviceModalOpen,
-  } = useModal();
-  const {
-    isOpened: AlertModalIsOpened,
-    onClose: AlertModalClose,
-    onOpen: AlertModalOpen,
-  } = useModal();
+  const { isOpened, onClose, onOpen } = useModal();
 
   const router = useRouter();
-
 
   const { videoRef, onStartVideo } = useVideo();
 
@@ -42,7 +33,7 @@ export default function DeviceControl() {
       });
       setAudioStream(stream);
     } catch {
-      DeviceModalOpen();
+      onOpen();
     }
   };
 
@@ -55,7 +46,6 @@ export default function DeviceControl() {
   };
 
   useBeforeUnload();
-
 
   return (
     <div className="h-full flex flex-col justify-center items-center">
@@ -87,20 +77,15 @@ export default function DeviceControl() {
           </RadiusButton>
         </div>
       </div>
-      <AlertModal
-        title="장치"
-        body="없다"
-        isOpened={DeviceModalIsOpened}
-        onClose={DeviceModalClose}
-      />
-      {AlertModalIsOpened && (
+      {isOpened && (
         <AlertModal
-          title="페이지"
-          body="이동"
-          isOpened={AlertModalIsOpened}
-          onClose={AlertModalClose}
+          title="알림"
+          body="마이크를 연결해 주세요."
+          isOpened={isOpened}
+          onClose={onClose}
         />
       )}
+      <PreventBackModal />
     </div>
   );
 }

@@ -7,13 +7,10 @@ import React from 'react';
 type TimerProps = {
   time?: number;
   timerState: TimerState;
-  setTimerState: (state: TimerState) => void;
+  remainingTime: number;
 };
 
-const Timer = ({ time = 10, timerState, setTimerState }: TimerProps) => {
-  const baseStyles = `w-[174px] h-[174px] rounded-full relative flex justify-center items-center`;
-
-  const { remainingTime } = useTimer(time, timerState, setTimerState);
+const Timer = ({ time = 60, timerState, remainingTime }: TimerProps) => {
 
   return (
     <div className="w-[180px] h-[180px] relative">
