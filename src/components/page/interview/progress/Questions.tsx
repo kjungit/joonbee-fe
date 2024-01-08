@@ -99,7 +99,11 @@ export default function Questions({ questions }: QuestionsProps) {
           ? `면접결과 확인하기 ${countdown}`
           : `${TimerStateText.DONE.btn} ${countdown}`,
       );
-      setHelpText(TimerStateText.DONE.help);
+      setHelpText(
+        currentCount === questionsCount
+          ? '면접이 끝났습니다. 잠시만 기다려주세요.'
+          : TimerStateText.DONE.help,
+      );
     }
 
     if (timerState === 'READY') {
