@@ -10,37 +10,49 @@ export interface RadioButtonGroupProps {
   data: ItemProps[];
   size: 'sm' | 'md' | 'lg';
   onClickFunc: (param: ItemProps) => void;
+  groupName: string;
+  defaultId: number;
+  color?: 'navy' | 'blue';
 }
 
-export const RadioButtonGroup = ({ data, size = 'md', onClickFunc }: RadioButtonGroupProps) => {
-  const [checkedRadio, setCheckedRadio] = useState(data[0].id);
+export const RadioButtonGroup = ({
+  data,
+  size = 'md',
+  onClickFunc,
+  groupName,
+  defaultId,
+  color = 'navy',
+}: RadioButtonGroupProps) => {
+  const [checkedRadio, setCheckedRadio] = useState(defaultId);
 
   const sizeStyles = {
-    sm: 'w-[100px] h-[40px]',
-    md: 'w-[110px] h-[60px]',
+    sm: 'w-[100px] h-[40px] text-lg',
+    md: 'w-[130px] h-[60px] text-2xl',
     lg: 'w-[300px] h-[60px]',
   };
 
-  useEffect(() => {
-    setCheckedRadio(1);
-    console.log(checkedRadio);
-  }, []);
+  const colorStyles = {
+    navy: 'peer-checked:bg-main-primary peer-checked:text-white bg-white text-main-primary',
+    blue: 'peer-checked:bg-blue-primary peer-checked:text-white bg-white text-main-primary',
+  };
 
   return (
     <div className="flex gap-4">
       {data.map(item => (
         <div key={item.id}>
-          <label htmlFor={`default-radio-${item.id}`} className="block">
+          <label htmlFor={`${groupName}-${item.id}`} className="block">
             <input
-              id={`default-radio-${item.id}`}
+              id={`${groupName}-${item.id}`}
               type="radio"
-              value={'i.text'}
-              name="default-radio"
+              value={item.text}
+              name={groupName} // 여기서 groupName을 name 속성으로 사용
               className="w-4 h-4 hidden peer"
               checked={checkedRadio === item.id}
             />
             <div
-              className={`peer-checked:bg-main-primary peer-checked:text-white bg-white text-main-primary   shadow-md flex items-center justify-center font-bold text-lg rounded-lg ${
+              className={` ${
+                colorStyles[color]
+              }  shadow-md flex items-center justify-center font-bold rounded-lg ${
                 checkedRadio === item.id
               } ${sizeStyles[size]}`}
               onClick={() => {
