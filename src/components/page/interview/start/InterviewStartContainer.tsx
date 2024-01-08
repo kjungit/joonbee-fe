@@ -17,13 +17,15 @@ import { useRecoilValue } from 'recoil';
 
 export default function InterviewStartContainer() {
   const [isPressedBtn, setIsPressedBtn] = useState<boolean>(false);
-  const type = useRecoilValue(interviewTypeAtom);
+  const interviewtype = useRecoilValue(interviewTypeAtom);
 
   const randomCategory = useRecoilValue(selectedRandomCategoryAtom);
   const choiceCategory = useRecoilValue(selectedChocieCategoryAtom);
-  const category = type === 'random' ? randomCategory : choiceCategory;
+  const category = interviewtype === 'random' ? randomCategory : choiceCategory;
   const questionSec = useRecoilValue(interviewTimeAtom);
-  const questions = useRecoilValue(myQuestionAtom);
+  const choiceQuestion = useRecoilValue(myQuestionAtom);
+  const randomQuestion = useRecoilValue(questionCountAtom);
+  const questionCount = interviewtype === 'random' ? randomQuestion : choiceQuestion.length;
   const router = useRouter();
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function InterviewStartContainer() {
         <InterviewStartBox
           onClick={onNavigate}
           category={Category[category]}
-          questionCount={questions.length}
+          questionCount={questionCount}
           questionSec={questionSec}
         />
       ) : (
