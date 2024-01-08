@@ -17,6 +17,7 @@ type ButtonSize =
   | 'sm'
   | 'md'
   | '2md'
+  | '3md'
   | 'lg'
   | '2lg'
   | 'xl'
@@ -57,6 +58,7 @@ export const Button = ({
     sm: 'w-[100px] h-[40px]',
     md: 'min-w-[150px] h-[60px]',
     '2md': 'w-[180px] h-[60px]',
+    '3md': 'w-[180px] h-[50px]',
     lg: 'w-[220px] h-[50px]',
     '2lg': 'w-[292px] min-h-[58px]',
     xl: 'w-[290px] h-[50px]',
