@@ -10,10 +10,12 @@ import { InterviewItemType } from '@/components/page/Main/InterviewSection';
 import useSWRMutation from 'swr/mutation';
 import { postInterviewLike } from '@/app/apis/services/member';
 import { useSWRConfig } from 'swr';
+import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
+import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
+import useInterviewAll from '@/hooks/main/useInterviewAll';
 
 const InterviewCard = ({ props }: { props: InterviewItemType }) => {
   const {
-    infMutate,
     categoryName,
     nickname,
     thumbnail,
@@ -22,15 +24,21 @@ const InterviewCard = ({ props }: { props: InterviewItemType }) => {
     liked,
     questions,
     interviewId,
-    categorySelect,
-    current,
+    categorySelect = '세부 카테고리',
+    current = 1,
   } = props;
   const [isFocus, setIsFocus] = useState(false);
   const { mutate } = useSWRConfig();
+  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
+  const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
+  const { interviewAllMutate } = useInterviewAll(categorySelect, current);
+
   const { trigger } = useSWRMutation('api/member/like', () => postInterviewLike(interviewId), {
     onSuccess: () => {
       mutate(['/api/interview/all', categorySelect, current]);
-      infMutate();
+      interviewMutate();
+      myInterviewMutate();
+      interviewAllMutate();
     },
   });
 
