@@ -1,41 +1,36 @@
 'use client';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
 import MyProfile from '@/components/page/My/MyProfile';
-import { Button } from '@/components/ui/Button';
-import React, { useCallback, useEffect, useState } from 'react';
-import useSWR from 'swr';
-import { MyInterviewCard } from '@/components/common/MyInterviewCard';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import useSWRMutation from 'swr/mutation';
-import { deleteInterview } from '../apis/services/interview';
-import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
+import React, { useCallback } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import InterviewComponent from '@/components/page/My/InterviewComponent';
+
+import QuestionComponent from '@/components/page/My/QuestionComponent';
 
 export default function MyPage() {
-  const [current, setCurrent] = useState<Number>(1);
-  const [category, setCategory] = useState<'interview' | 'liked' | null>('interview');
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const router = useRouter();
   const createQueryString = useCallback(
-    (name: string, value: string) => {
+    (name: string, value: string, option: boolean) => {
       const params = new URLSearchParams(searchParams);
       params.set(name, value);
-
+      option && params.delete('sort');
+      !option && params.append('sort', 'my_interview');
       return params.toString();
     },
     [searchParams],
   );
   const onClickCategory = (item: ItemProps) => {
     router.push(
-      pathname + '?' + createQueryString('category', item.id === 1 ? 'interview' : 'liked'),
+      'my' +
+        '?' +
+        createQueryString(
+          'category',
+          item.id === 1 ? 'interview' : 'question',
+          searchParams.get('category') === 'interview' ? true : false,
+        ),
     );
   };
-
-  const { newData, setTarget, setSize } = useInfiniteMyInterview(category);
-
-  useEffect(() => {
-    setCategory(searchParams.get('category') as 'interview' | 'liked' | null);
-  }, [newData]);
 
   return (
     <div className="bg-main-primary w-full h-full flex justify-center items-center">
@@ -43,31 +38,24 @@ export default function MyPage() {
         <MyProfile />
         <div className="flex flex-col w-full  justify-between gap-6 ">
           <div className="flex gap-6 w-full">
-            <Button size="md">면접 관리</Button>
-            <Button size="md">질문 관리</Button>
-          </div>
-          <div className="bg-white w-full rounded-2xl p-6 h-full ">
             <RadioButtonGroup
-              size="sm"
+              groupName="main-category"
+              size="md"
+              color="blue"
               data={[
-                { id: 1, text: '내 면접' },
-                { id: 2, text: '좋아요' },
+                { id: 1, text: '면접 관리' },
+                { id: 2, text: '질문 관리' },
               ]}
               onClickFunc={onClickCategory}
+              defaultId={searchParams.get('category') === 'interview' ? 1 : 2}
             />
-            <ul className="flex flex-wrap w-full mt-4 gap-4 max-h-[400px] overflow-y-scroll py-2">
-              {current === 1 &&
-                newData &&
-                newData.map(i => (
-                  <MyInterviewCard
-                    key={i.interviewId}
-                    categoryName={i.categoryName}
-                    interviewId={i.interviewId}
-                    questionCount={i.questionCount}
-                    onClick={() => {}}
-                  />
-                ))}
-            </ul>
+          </div>
+          <div className="bg-white w-full rounded-2xl p-6 h-full ">
+            {searchParams.get('category') === 'interview' ? (
+              <InterviewComponent />
+            ) : (
+              <QuestionComponent />
+            )}
           </div>
         </div>
       </div>
