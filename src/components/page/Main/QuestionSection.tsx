@@ -5,7 +5,7 @@ import { QuestionCard } from '@/components/common/QuestionCard';
 import SlideSection from './SlideSection';
 import useSWR from 'swr';
 import { getQuestionList } from '@/app/apis/services/question';
-import { CategoryName, QustionItem, SubcategoryName } from '@/types/question';
+import { CategoryName, QuestionType, QustionItem, SubcategoryName } from '@/types/question';
 import { questionCategory } from '@/constants/category';
 import ReactPaginate from 'react-paginate';
 import SkeletonQuestion from './SkeletonQuestion';
@@ -25,7 +25,7 @@ export default function QuestionSection() {
   const categoryNames = questionCategory.map(item => item.category);
   const [subCategoryNames, setSubCategoryNames] = useState<SubcategoryName[]>([]);
 
-  const { data, isLoading } = useSWR<QustionItem[]>(
+  const { data, isLoading } = useSWR<QuestionType>(
     ['/api/question/all', selectPage, mainSelectCategory, subSelectCategory],
     () =>
       getQuestionList({
@@ -47,7 +47,6 @@ export default function QuestionSection() {
     setSubCategoryNames(
       questionCategory.find(item => item.category === mainSelectCategory)?.subcategory || [],
     );
-
     setSelectPage(0);
   }, [mainSelectCategory]);
 
@@ -55,9 +54,9 @@ export default function QuestionSection() {
     setSelectPage(event.selected + 1);
   };
 
-  const onClickCart = (item: QustionItem) => {
-    const { subcategoryName, questionContent } = item;
-  };
+  useEffect(() => {
+    console.log(data?.total);
+  }, []);
 
   return (
     <section className="flex flex-col items-center bg-blue-light pb-[200px] ">
@@ -85,14 +84,13 @@ export default function QuestionSection() {
         {isLoading && <SkeletonQuestion />}
         <ul className="flex flex-wrap gap-4 justify-between mt-10">
           {data &&
-            data.map((item, index) => (
+            data.result.map((item, index) => (
               <QuestionCard
                 key={item.questionId}
                 size="md"
                 color={COLOR_NUMBER.includes(index + 1) ? 'gray' : 'navy'}
                 text={item.questionContent}>
                 <CartClipboard
-                  categoryName={mainSelectCategory}
                   item={item}
                   color={`${COLOR_NUMBER.includes(index + 1) ? 'text-black' : 'text-white'}`}
                 />
@@ -100,18 +98,20 @@ export default function QuestionSection() {
             ))}
         </ul>
         <div className="flex justify-center mt-14">
-          <ReactPaginate
-            className="flex pagination gap-4"
-            nextLabel=">"
-            onPageChange={handlePageClick}
-            pageCount={10}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={2}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            initialPage={0}
-            pageLabelBuilder={page => page}
-          />
+          {data && (
+            <ReactPaginate
+              className="flex pagination gap-4"
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageCount={Math.ceil(data?.total / 16)}
+              pageRangeDisplayed={2}
+              marginPagesDisplayed={2}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              initialPage={0}
+              pageLabelBuilder={page => page}
+            />
+          )}
         </div>
       </div>
     </section>
