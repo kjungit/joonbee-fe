@@ -21,11 +21,11 @@ export const Input = ({
   const baseStyles = `flex text-5 items-center ${
     isDisabled ? 'text-gray-disabled' : 'text-main-primary'
   }
-   px-5 font-bold shadow-md rounded-xl focus:border-2 focus:border-main-primary  border-2 border-gray-normal`;
+   px-5 font-bold shadow-md rounded-lg focus:border-main-primary border-4 border-white`;
 
   const sizeStyles = {
-    md: 'h-[60px] w-[570px] text-[18px]',
-    sm: 'h-[44px] w-[400px] text-[14px]',
+    md: 'h-[60px] w-full text-[18px]',
+    sm: 'h-[50px] w-full text-[18px]',
   };
 
   const inputStyles = `${baseStyles} ${sizeStyles[size]}`;
