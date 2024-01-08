@@ -16,7 +16,7 @@ export const getInterviewDetail = async (id: number) => {
   } catch (error) {}
 };
 
-export const postInterviewLike = async (interviewId: string) => {
+export const postInterviewLike = async (interviewId: number) => {
   try {
     const res = await instance().post(`api/member/like`, {
       interviewId,
@@ -47,7 +47,7 @@ export const postCartsave = async ({
   questionContent,
 }: PostCartProps) => {
   try {
-    const res = await instance().post(`api/member/question/save`, {
+    const res = await instance().post(`api/cart/question/save`, {
       categoryName,
       subcategoryName,
       questionContent,
@@ -55,4 +55,24 @@ export const postCartsave = async ({
     console.log(res);
     return res;
   } catch (error) {}
+};
+
+export const deleteInterview = async (id: number) => {
+  const res = await instance().delete('/api/member/interview/delete', {
+    params: {
+      id,
+    },
+  });
+
+  return res.data;
+};
+
+export const deleteQuestion = async (url: string, { arg }: { arg: string }) => {
+  const res = await instance().delete(url, {
+    params: {
+      arg,
+    },
+  });
+
+  return res.data;
 };
