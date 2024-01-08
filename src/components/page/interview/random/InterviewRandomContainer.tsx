@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import QuestionSettingButton from './QuestionSettingButton';
 import { useRouter } from 'next/navigation';
 import InterviewLoading from '@/components/ui/InterviewLoading';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 
 export default function InterviewRandomContainer() {
   const [isPressedBtn, setIsPressedBtn] = useState<boolean>(false);
@@ -21,6 +22,8 @@ export default function InterviewRandomContainer() {
   const onClick = () => {
     setIsPressedBtn(true);
   };
+
+  useBeforeUnload();
 
   return (
     <>
