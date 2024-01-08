@@ -70,7 +70,7 @@ export const deleteInterview = async (id: number) => {
 export const deleteQuestion = async (url: string, { arg }: { arg: string }) => {
   const res = await instance().delete(url, {
     params: {
-      arg,
+      id: arg,
     },
   });
 
