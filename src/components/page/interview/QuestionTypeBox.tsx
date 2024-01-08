@@ -1,11 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LinkBox } from '@/components/common/LinkBox';
 import { IconName } from '@/components/ui/Icon';
-import { useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import Image from 'next/image';
 import { interviewTypeAtom } from '@/recoil/interviewType/atom';
+import { interviewVideoUrlAtom } from '@/recoil/interviewVideoUrl/atom';
+import { myInterviewAtom } from '@/recoil/myInterview/atom';
+import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 
 const LINK_INFO = [
   {
@@ -36,10 +39,19 @@ const LINK_INFO = [
 
 export default function QuestionTypeBox() {
   const setInterviewType = useSetRecoilState(interviewTypeAtom);
+  const resetInterviewVideoUrl = useResetRecoilState(interviewVideoUrlAtom);
+  const resetMyInterview = useResetRecoilState(myInterviewAtom);
+  const resetMyQuestion = useResetRecoilState(myQuestionAtom);
 
   const handleClickBox = (type: string) => {
     setInterviewType(type);
   };
+
+  useEffect(() => {
+    resetInterviewVideoUrl();
+    resetMyInterview();
+    resetMyQuestion();
+  }, []);
 
   return (
     <>
