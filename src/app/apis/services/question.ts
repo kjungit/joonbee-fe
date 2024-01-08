@@ -27,7 +27,7 @@ export const getQuestionList = async ({
         subcategory,
       },
     });
-    return res.data.data.result;
+    return res.data.data;
   } catch (error: any) {
     console.log(error);
     throw error;
