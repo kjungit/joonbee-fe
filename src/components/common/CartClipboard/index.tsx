@@ -4,7 +4,6 @@ import { VariableIcon } from '@/components/ui/VariableIcon';
 import ModalPortal from '@/components/ui/ModalPortal';
 import { QustionItem } from '@/types/question';
 import useMutateUserQuestion from '@/hooks/questions/useMutateUserQuestion';
-import useInfiniteUserQuestion from '@/hooks/questions/useInfiniteUserQuestion';
 
 type CardColor = 'text-black' | 'text-white';
 
