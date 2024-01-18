@@ -14,8 +14,15 @@ import {
 } from '@/recoil/selectedCategory/atom';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { TypeAnimation } from 'react-type-animation';
 import { useRecoilValue } from 'recoil';
 
+const sequence = [
+  '면접 결과를 제출하기 전 답변을 수정할 수 있어요!',
+  1000,
+  '면접 시간이 지나도 수정할 기회가 있어요!',
+  1000,
+];
 export default function InterviewStartContainer() {
   const [isPressedBtn, setIsPressedBtn] = useState<boolean>(false);
   const interviewtype = useRecoilValue(interviewTypeAtom);
@@ -53,9 +60,15 @@ export default function InterviewStartContainer() {
           questionSec={questionSec}
         />
       ) : (
-        <div className="flex flex-col items-center gap-5">
+        <div className="flex flex-col items-center gap-5 justify-center h-full">
           <InterviewLoading interviewType="chocie" />
           <h2 className="text-white font-bold text-[20px]">면접을 준비중입니다.</h2>
+          <TypeAnimation
+            sequence={sequence}
+            speed={20}
+            className="text-white font-bold text-3xl"
+            repeat={Infinity}
+          />
         </div>
       )}
       <PreventBackModal />
