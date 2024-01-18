@@ -49,26 +49,26 @@ const QuestionForm = ({ type = 'primary', callback }: QuestionForm) => {
   };
 
   const typeStyles = {
-    primary: 'flex gap-5',
+    primary: 'flex gap-5 flex-col md:flex-row',
     secondary: 'flex-col space-y-2 ',
   };
 
   return (
     <form className={typeStyles[type]} onSubmit={onSubmitQuestion}>
       <DropdownCategory
-        size="xs"
+        size="sm"
         selectedCategory={selectedCategory}
         selectedSubcategory={selectedSubcategory}
         setSelectedCategory={setSelectedCategory}
         setSelectedSubcategory={setSelectedSubcategory}
       />
-      <div className="flex gap-5 ">
+      <div className="flex gap-5 w-full">
         <Input inputValue={questionContent} setInputValue={setQuestionContent} size="sm" />
         <Button
           type="submit"
           color="darkNavy"
-          size="dropdown-xs"
-          text="xs"
+          size="dropdown-sm"
+          text="sm"
           disabled={onDisableSubmitButton()}>
           등록하기
         </Button>

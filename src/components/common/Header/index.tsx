@@ -79,7 +79,7 @@ const Header = () => {
           <div className="flex gap-4 ">
             <Alarm data={data} />
             {isLogined ? (
-              <Link href="/my?category=interview">
+              <Link href="/my?category=interview&sort=my_interview">
                 {userInfo && <Avatar size="md" thumbnail={userInfo.data.thumbnail} />}
               </Link>
             ) : (

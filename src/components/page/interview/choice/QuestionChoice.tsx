@@ -96,10 +96,11 @@ export default function QuestionChoice() {
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-5 w-full h-full bg-background-lightgray p-8 rounded-2xl relative">
+      <h2 className="text-[20px] font-bold">질문을 준비해주세요</h2>
       <QuestionForm callback={handleSubmitQuestion} />
-      <div
-        className={`overflow-y-scroll flex flex-col gap-2 items-center h-[360px] scroll-hide ${
+      <ul
+        className={`overflow-y-scroll flex flex-col gap-2 items-center h-[360px]  ${
           myQuestions?.length === 0 && 'justify-center'
         }`}>
         {myQuestions?.map(question => (
@@ -115,7 +116,7 @@ export default function QuestionChoice() {
         ))}
         {myQuestions?.length === 0 && <NoQuestionMessage />}
         <div ref={setTarget} className="w-full h-[1px] shrink-0"></div>
-      </div>
+      </ul>
 
       <Link href="/interview/choice/setting">
         <Button
@@ -137,6 +138,6 @@ export default function QuestionChoice() {
         />
       )}
       <PreventBackModal />
-    </>
+    </div>
   );
 }

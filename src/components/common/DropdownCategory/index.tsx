@@ -35,6 +35,7 @@ export default function DropdownCategory({
       questionCategory.find(item => item.category === selectedCategory)?.subcategory || [],
     );
   }, [selectedCategory]);
+
   useEffect(() => {
     setSelectedSubcategory('세부 카테고리');
   }, [selectedCategory]);
@@ -53,7 +54,7 @@ export default function DropdownCategory({
     <div className="flex gap-5 relative z-10">
       <Dropdown
         size={size}
-        title=""
+        title="카테고리"
         data={categoryNames}
         selected={selectedCategory}
         onSelect={handleCategorySelect}

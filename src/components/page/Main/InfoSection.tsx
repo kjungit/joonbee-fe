@@ -109,10 +109,10 @@ const data = [
 export default function InfoSection() {
   return (
     <section className="bg-background-bluegray w-full pb-20 flex flex-col items-center ">
-      <h2 className="mt-14 mb-4  text-main-primary text-center text-3xl font-bold">
+      <h2 className="mt-14 mb-4 text-main-primary text-center text-3xl font-bold">
         JOONBEE에 대해서 궁금해요!
       </h2>
-      <ul className="flex flex-wrap justify-between w-[1024px] gap-6 mt-12">
+      <ul className="flex flex-wrap justify-between w-full max-w-[1024px] gap-6 mt-12 p-5">
         {data.map(item => (
           <ToggleInfo key={item.id} title={item.title} explanation={item.explanation} />
         ))}

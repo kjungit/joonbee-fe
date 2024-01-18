@@ -29,12 +29,12 @@ export default function InterviewRandomContainer() {
   return (
     <>
       {!isPressedBtn ? (
-        <section className="w-[1024px] h-[600px] flex flex-col gap-5 bg-background-lightgray p-8 rounded-[40px] relative">
-          <h2 className="text-[20px] font-bold">랜덤 질문을 준비해주세요</h2>
+        <div className="flex flex-col gap-5 w-full h-full bg-background-lightgray p-8 rounded-2xl relative">
+          <h2 className="text-[20px] font-bold">🎲 랜덤 질문을 준비해주세요</h2>
           <QuestionSettingButton onClick={onClick} />
-        </section>
+        </div>
       ) : (
-        <div className="flex flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-5 justify-center h-full">
           <InterviewLoading interviewType="random" />
           <h2 className="text-white font-bold text-[20px]">랜덤 면접 질문을 준비중입니다!</h2>
         </div>

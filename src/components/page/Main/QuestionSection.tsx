@@ -5,13 +5,15 @@ import { QuestionCard } from '@/components/common/QuestionCard';
 import SlideSection from './SlideSection';
 import useSWR from 'swr';
 import { getQuestionList } from '@/app/apis/services/question';
-import { CategoryName, QustionItem, SubcategoryName } from '@/types/question';
+import { CategoryName, QuestionType, QustionItem, SubcategoryName } from '@/types/question';
 import { questionCategory } from '@/constants/category';
 import ReactPaginate from 'react-paginate';
 import SkeletonQuestion from './SkeletonQuestion';
 import { CartClipboard } from '@/components/common/CartClipboard';
 import useSWRMutation from 'swr/mutation';
 import { postCartsave } from '@/app/apis/services/member';
+import ModalPortal from '@/components/ui/ModalPortal';
+import Image from 'next/image';
 interface PaginationEvent {
   selected: number;
 }
@@ -24,8 +26,9 @@ export default function QuestionSection() {
   const [isDisabled, setIsDisabled] = useState(false);
   const categoryNames = questionCategory.map(item => item.category);
   const [subCategoryNames, setSubCategoryNames] = useState<SubcategoryName[]>([]);
-
-  const { data, isLoading } = useSWR<QustionItem[]>(
+  const [isHover, setIsHover] = useState(false);
+  const [hoverContent, setHoverContent] = useState('');
+  const { data, isLoading } = useSWR<QuestionType>(
     ['/api/question/all', selectPage, mainSelectCategory, subSelectCategory],
     () =>
       getQuestionList({
@@ -47,7 +50,6 @@ export default function QuestionSection() {
     setSubCategoryNames(
       questionCategory.find(item => item.category === mainSelectCategory)?.subcategory || [],
     );
-
     setSelectPage(0);
   }, [mainSelectCategory]);
 
@@ -55,65 +57,99 @@ export default function QuestionSection() {
     setSelectPage(event.selected + 1);
   };
 
-  const onClickCart = (item: QustionItem) => {
-    const { subcategoryName, questionContent } = item;
-  };
+  useEffect(() => {
+    console.log(data?.total);
+  }, []);
 
   return (
-    <section className="flex flex-col items-center bg-blue-light pb-[200px] ">
+    <section id="question" className="flex flex-col items-center bg-blue-light pb-[200px] ">
       <h3 className="mt-14 mb-4  text-main-primary text-center text-2xl font-bold">
         여러 언어의 질문을 찾아보세요.
       </h3>
       <SlideSection />
 
       <div className="max-w-[1024px] w-full mt-14 p-5">
-        <div className="flex gap-6">
-          <Dropdown
-            data={categoryNames}
-            selected={mainSelectCategory}
-            onSelect={setMainSelectCategory}
-            color="white"
-          />
-          <Dropdown
-            data={subCategoryNames}
-            selected={subSelectCategory === '' ? '세부 카테고리' : subSelectCategory}
-            onSelect={setSubSelectCategory}
-            title="세부 카테고리"
-            isDisabled={isDisabled}
-          />
+        <div className="flex justify-between">
+          <div className="flex gap-6 items-end">
+            <Dropdown
+              data={categoryNames}
+              selected={mainSelectCategory}
+              onSelect={setMainSelectCategory}
+              color="white"
+            />
+            <Dropdown
+              data={subCategoryNames}
+              selected={subSelectCategory === '' ? '세부 카테고리' : subSelectCategory}
+              onSelect={setSubSelectCategory}
+              title="세부 카테고리"
+              isDisabled={isDisabled}
+            />
+          </div>
+          {/* <div className="flex items-end gap-2">
+            <Image
+              className="w-[30px] h-[30px]"
+              width={30}
+              height={30}
+              src="/icons/emoji/zoom.png"
+              alt="zoom"
+            />
+            <p className="font-bold text-main-primary text-sm">
+              ... 표시의 질문은 질문 위에 커서를 놓아보세요!
+            </p>
+          </div> */}
         </div>
         {isLoading && <SkeletonQuestion />}
         <ul className="flex flex-wrap gap-4 justify-between mt-10">
           {data &&
-            data.map((item, index) => (
-              <QuestionCard
+            data.result.map((item, index) => (
+              <button
                 key={item.questionId}
-                size="md"
-                color={COLOR_NUMBER.includes(index + 1) ? 'gray' : 'navy'}
-                text={item.questionContent}>
-                <CartClipboard
-                  categoryName={mainSelectCategory}
-                  item={item}
-                  color={`${COLOR_NUMBER.includes(index + 1) ? 'text-black' : 'text-white'}`}
-                />
-              </QuestionCard>
+                className="w-full lg:max-w-[480px]  h-full"
+                onMouseOver={() => {
+                  setIsHover(true), setHoverContent(item.questionContent);
+                }}
+                onMouseOut={() => {
+                  setIsHover(false);
+                }}>
+                <QuestionCard
+                  size="md"
+                  color={COLOR_NUMBER.includes(index + 1) ? 'gray' : 'navy'}
+                  text={item.questionContent}>
+                  <CartClipboard
+                    item={item}
+                    color={`${COLOR_NUMBER.includes(index + 1) ? 'text-black' : 'text-white'}`}
+                  />
+                </QuestionCard>
+              </button>
             ))}
         </ul>
         <div className="flex justify-center mt-14">
-          <ReactPaginate
-            className="flex pagination gap-4"
-            nextLabel=">"
-            onPageChange={handlePageClick}
-            pageCount={10}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={2}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            initialPage={0}
-            pageLabelBuilder={page => page}
-          />
+          {data && (
+            <ReactPaginate
+              className="flex pagination gap-4"
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageCount={Math.ceil(data?.total / 16)}
+              pageRangeDisplayed={2}
+              marginPagesDisplayed={2}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              initialPage={0}
+              pageLabelBuilder={page => page}
+            />
+          )}
         </div>
       </div>
+
+      {isHover && (
+        <ModalPortal>
+          <div className="fixed -translate-x-1/2 left-1/2 top-3/4">
+            <div className="p-2 font-bold border-main-primary border-4 w-full min-w-[200px] max-w-[600px] rounded-lg items-center justify-center flex text-lg h-[100px]  bg-white opacity-90 text-main-primary">
+              {hoverContent}
+            </div>
+          </div>
+        </ModalPortal>
+      )}
     </section>
   );
 }

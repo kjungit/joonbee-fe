@@ -10,30 +10,30 @@ import { postInterviewLike } from '@/app/apis/services/member';
 import { useSWRConfig } from 'swr';
 import { CategoryName } from '@/types/question';
 import { Category } from '@/constants/category';
+import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
 
 export default function DetailInterview({
   item,
   onClickClose,
-  categorySelect,
-  current,
-  infMutate,
+  categorySelect = '',
+  current = 1,
 }: {
   current?: number;
   item: InterviewItemType;
   onClickClose: () => void;
   categorySelect?: CategoryName;
-  infMutate?: any;
 }) {
   const { interviewId, categoryName, questions, likeCount, thumbnail, memberId, nickname } = item;
   const onClickOpen = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
   const { mutate } = useSWRConfig();
+  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
 
-  const { trigger } = useSWRMutation('api/member/like', id => postInterviewLike(interviewId), {
+  const { trigger } = useSWRMutation('api/member/like', () => postInterviewLike(interviewId), {
     onSuccess: () => {
       mutate(['/api/interview/all', categorySelect, current]);
-      infMutate();
+      interviewMutate();
     },
   });
 
@@ -64,7 +64,7 @@ export default function DetailInterview({
           </div>
           <div className="flex gap-2 items-center">
             <button onClick={onClickLike} className="p-1 ">
-              <VariableIcon name="emptyLike" />
+              {item.liked ? <VariableIcon name="filledLike" /> : <VariableIcon name="emptyLike" />}
             </button>
             <p className="font-bold text-[16px] w-4">{likeCount}</p>
           </div>

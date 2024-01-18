@@ -42,9 +42,9 @@ export default function QuestionSettingButton({ onClick }: QuestionSettingButton
         <h3 className="text-[16px] font-bold">면접 카테고리를 선택해주세요</h3>
       </div>
       <div className="flex gap-5">
-        <Button color="darkNavy" text="xs" size="setting">
+        <div className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
           질문 카테고리
-        </Button>
+        </div>
         {/* {uniqueSubcategories.map(subcategory => (
           <Button color="white" key={subcategory} size="auto" text="xs" className="relative">
             <p className="inline-block">{subcategory}</p>
@@ -57,7 +57,7 @@ export default function QuestionSettingButton({ onClick }: QuestionSettingButton
           </Button>
         ))} */}
         <DropdownCategory
-          size="xs"
+          size="sm"
           selectedCategory={selectedCategory}
           selectedSubcategory={selectedSubcategory}
           setSelectedCategory={setSelectedCategory}
@@ -65,9 +65,9 @@ export default function QuestionSettingButton({ onClick }: QuestionSettingButton
         />
       </div>
       <div className="flex gap-5">
-        <Button color="darkNavy" text="xs" size="setting">
+        <div className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
           질문 수
-        </Button>
+        </div>
         {buttonValues.map(value => (
           <Button
             color={`${questionCount === value ? 'darkNavy' : 'white'}`}
@@ -82,7 +82,7 @@ export default function QuestionSettingButton({ onClick }: QuestionSettingButton
       <ButtonTimeSetting />
       <Button
         color="blueSecondary"
-        size="auto"
+        size="lg"
         text="sm"
         onClick={onClick}
         disabled={disableBtn()}

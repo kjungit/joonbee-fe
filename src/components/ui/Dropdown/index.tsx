@@ -44,9 +44,9 @@ const Dropdown = ({
     },
     sm: {
       item: 'px-[14px] py-[8px] text-[14px] ',
-      section: 'min-w-[116px]',
-      button: 'h-[48px] min-w-[116px]',
-      ul: 'top-[50px] h-[178px] w-full',
+      section: 'min-w-[116px] h-full',
+      button: 'h-[50px] min-w-[140px]',
+      ul: 'top-[50px] h-auto  max-h-[180px] w-full',
     },
     md: {
       item: 'px-[22px] py-[12px] text-[20px]',
@@ -68,10 +68,10 @@ const Dropdown = ({
       </Button>
       {isOpened && (
         <ul
-          className={`shadow-normal px-[8px] py-[6px] rounded-[8px] overflow-y-scroll scroll-hide  bg-white absolute
+          className={`shadow-normal px-[8px] py-[6px] top-[60px] rounded-[8px] overflow-y-auto bg-white absolute
           ${sizeStyles[size].ul}`}>
           {data.map((item, index) => (
-            <li key={item}>
+            <li key={item} className="cursor-pointer">
               <div
                 className={`font-bold hover:bg-hover-grayLight hover:shadow-normal rounded-[8px] text-center
                 text-[#444] ellipsis ${sizeStyles[size].item} ${

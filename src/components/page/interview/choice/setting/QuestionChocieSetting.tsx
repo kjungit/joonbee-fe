@@ -5,9 +5,7 @@ import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestion
 import PreventBackModal from '@/components/common/PreventBackModal';
 import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
-import AlertModal from '@/components/ui/Modal/AlertModal';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
-import usePreventBack from '@/hooks/usePreventBack';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 
 import { selectedChocieCategoryAtom } from '@/recoil/selectedCategory/atom';
@@ -26,33 +24,37 @@ export default function QuestionChocieSetting() {
   useBeforeUnload();
 
   return (
-    <>
-      <div className="flex gap-4 items-center">
-        <Dropdown
-          size="xs"
-          color="white"
-          selected={category}
-          onSelect={setCategory}
-          data={categories}
-        />
-        <p className="text-[#7D7D7D] mb-2">전체 질문 카테고리를 선택해주세요</p>
-      </div>
-      <div
-        className={`flex flex-col gap-2 scroll-hide overflow-y-scroll items-center h-[276px] ${
-          questions.length === 0 && 'justify-center'
-        }`}>
-        {questions?.map(question => (
-          <CategorizedQuestionCard
-            category={question.category}
-            subcategory={question.subcategory}
-            questionContent={question.questionContent}
-            key={question.questionId}
+    <div className="flex flex-col gap-5 w-full h-full bg-background-lightgray p-8 rounded-2xl relative">
+      <h2 className="text-[20px] font-bold">면접 전 설정해주세요</h2>
+      <div className="flex flex-col gap-10">
+        <div className="flex gap-4 items-end">
+          <Dropdown
             size="sm"
+            color="white"
+            selected={category}
+            onSelect={setCategory}
+            data={categories}
           />
-        ))}
+          <p className="text-[#7D7D7D] mb-2 font-bold">전체 질문 카테고리를 선택해주세요</p>
+        </div>
+        <div
+          className={`flex flex-col gap-2 overflow-y-auto items-center h-[276px] ${
+            questions.length === 0 && 'justify-center'
+          }`}>
+          {questions?.map(question => (
+            <CategorizedQuestionCard
+              category={question.category}
+              subcategory={question.subcategory}
+              questionContent={question.questionContent}
+              key={question.questionId}
+              size="sm"
+            />
+          ))}
+        </div>
       </div>
-      <div className="">
-        <p className="text-[#7D7D7D] mb-2">* 개별 질문당 시간을 설정해주세요</p>
+
+      <div className="flex flex-col gap-2 ">
+        <p className="text-[#7D7D7D] font-bold">* 개별 질문당 시간을 설정해주세요</p>
         <ButtonTimeSetting />
       </div>
       <Link href="/interview/permission">
@@ -66,6 +68,6 @@ export default function QuestionChocieSetting() {
         </Button>
       </Link>
       <PreventBackModal />
-    </>
+    </div>
   );
 }

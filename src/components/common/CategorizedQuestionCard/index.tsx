@@ -31,12 +31,12 @@ export const CategorizedQuestionCard = ({
      rounded-[8px] bg-white cursor-pointer ${className}`;
 
   const sizeStyles = {
-    sm: 'w-full text-[14px] h-[46px]',
+    sm: 'w-full text-[14px] min-h-[46px] ',
     md: 'w-full text-[18px] h-[54px]',
     lg: 'w-[1100px] text-[20px] min-h-[54px] h-[54px]',
   };
 
-  const textStyles = 'flex justify-center w-[190px]';
+  const textStyles = 'flex justify-center items-center min-w-[140px]';
 
   const borderPositionStyles = 'border-main-primary border-2';
   const cardStyles = `
@@ -52,9 +52,11 @@ export const CategorizedQuestionCard = ({
         <div className="border-l-gray-normal border-l-2" />
         <div className={textStyles}>{SubCategory[subcategory]}</div>
         <div className="border-l-gray-normal border-l-2" />
-        <div className="ml-10">{questionContent}</div>
+        <div className="px-4">{questionContent}</div>
       </div>
-      {isClicked && <Icon name="check" />}
+      <div className="w-10">
+        <div className="w-6 h-6">{isClicked && <Icon name="check" />}</div>
+      </div>
     </div>
   );
 };
