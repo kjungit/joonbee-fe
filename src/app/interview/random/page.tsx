@@ -1,9 +1,10 @@
 import InterviewRandomContainer from '@/components/page/interview/random/InterviewRandomContainer';
+import ContentLayout from '@/components/ui/layouts/ContentLayout';
 
 export default function RandomPage() {
   return (
-    <div className="h-full flex justify-center items-center bg-main-primary">
+    <ContentLayout>
       <InterviewRandomContainer />
-    </div>
+    </ContentLayout>
   );
 }
