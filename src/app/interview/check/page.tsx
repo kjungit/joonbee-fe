@@ -1,7 +1,7 @@
 'use client';
 import InterviewCheck from '@/components/page/interview/check/InterviewCheck';
 import { Button } from '@/components/ui/Button';
-import ContentLayout from '@/components/ui/layouts/ContentLayout';
+import ContentLayout from '@/components/common/layouts/ContentLayout';
 import Link from 'next/link';
 import React from 'react';
 import { TypeAnimation } from 'react-type-animation';
