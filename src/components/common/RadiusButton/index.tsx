@@ -3,7 +3,7 @@
 import React from 'react';
 
 type ButtonColor = 'dark' | 'light' | 'blue';
-type ButtonText = 'xs' | 'sm' | 'md';
+type ButtonText = 'xs' | 'xs2' | 'sm' | 'md';
 type ButtonSize = 'xs' | 'sm' | 'md';
 
 export interface RadiusButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -35,6 +35,7 @@ export const RadiusButton = ({
 
   const textStyles = {
     xs: 'text-[14px]',
+    xs2: 'text-[16px]',
     sm: 'text-[20px]',
     md: 'text-[30px]',
   };
