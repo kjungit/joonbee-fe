@@ -57,7 +57,7 @@ const InterviewCard = ({ props }: { props: InterviewItemType }) => {
       onMouseOut={() => setIsFocus(false)}
       className={`${
         isFocus && 'border-main-primary border-4 rounded-[20px]'
-      } max-w-[330px] w-full flex-grow h-[392px] shadow-normal rounded-[20px] border-4 border-gray-normal`}>
+      } md:max-w-[320px] w-full flex-grow h-[392px] shadow-normal rounded-[20px] border-4 border-gray-normal`}>
       <div className="bg-[#252A32] h-[70px] p-[24px] shadow-normal rounded-t-[16px]">
         <h2 className="text-white text-[16px] font-bold">{Category[categoryName]}</h2>
       </div>
