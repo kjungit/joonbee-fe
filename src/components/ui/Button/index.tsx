@@ -67,7 +67,7 @@ export const Button = ({
     '4xl': 'w-[440px] h-[60px]',
     setting: 'min-w-[116px] h-[50px]',
     'dropdown-xs': 'min-w-[110px] h-[44px] px-3 py-2',
-    'dropdown-sm': 'min-w-[114px] h-[44px] px-3 py-2',
+    'dropdown-sm': 'min-w-[140px] h-[50px] px-3 py-2',
     'dropdown-md': 'min-w-[160px] h-[60px] px-3 py-2',
   };
   const textStyles = {
