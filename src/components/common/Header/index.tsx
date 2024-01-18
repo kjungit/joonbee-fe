@@ -5,7 +5,6 @@ import { Avatar } from '@/components/ui/Avartar';
 import { alarmData } from '@/constants/alarm';
 import ModalPortal from '@/components/ui/ModalPortal';
 import { LoginBox } from '../LoginBox';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { postNickName } from '@/app/apis/services/auth';
 import { useRecoilState } from 'recoil';
@@ -24,7 +23,6 @@ const Header = () => {
   const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
   const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
   const [isNickError, setIsError] = useState(false);
-  const router = useRouter();
   const { userInfo } = useUserInfo();
 
   const { error: nickError, trigger } = useSWRMutation(
@@ -70,12 +68,12 @@ const Header = () => {
     <>
       <header className="w-screen z-50 h-[60px] shadow-sm flex justify-center items-center bg-white">
         <div className="max-w-[1024px] p-5  w-full flex justify-between items-center">
-          <button onClick={() => router.push('/')}>
+          <Link href="/">
             <div className="flex gap-3 items-center">
               <Logo />
               <h2 className="text-blue-secondary text-[24px] font-bold">JOONBEE</h2>
             </div>
-          </button>
+          </Link>
           <div className="flex gap-4 ">
             <Alarm data={data} />
             {isLogined ? (
