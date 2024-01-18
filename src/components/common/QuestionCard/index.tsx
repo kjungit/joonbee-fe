@@ -1,7 +1,5 @@
 'use client';
 import React from 'react';
-import { CartClipboard } from '../CartClipboard';
-import { QustionItem } from '@/types/question';
 
 type CardSize = 'sm' | 'md' | 'lg';
 type CardColor = 'white' | 'gray' | 'navy';
@@ -22,8 +20,8 @@ export const QuestionCard = ({
 
   const sizeStyles = {
     sm: 'h-[42px] max-w-[290px] w-full text-[14px] text-start ',
-    md: 'h-[52px] w-full lg:max-w-[480px] max-w-[1000px] text-xs',
-    lg: 'h-[68px] w-[540px] text-[16px]',
+    md: 'h-[52px] w-full max-w-[400px]  text-xs',
+    lg: 'h-[68px] w-full max-w-[500px] text-[16px]',
   };
 
   const colorStyles = {

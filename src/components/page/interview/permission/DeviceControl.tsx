@@ -12,7 +12,15 @@ import { useModal } from '@/hooks/useModal';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import AlertModal from '@/components/ui/Modal/AlertModal';
 import PreventBackModal from '@/components/common/PreventBackModal';
-
+import { TypeAnimation } from 'react-type-animation';
+const sequence = [
+  '마이크, 카메라 권한을 확인해주세요!',
+  1000,
+  '마이크 권한만으로도 면접은 가능해요!',
+  1000,
+  '마이크 권한만으로는 나의 면접 모습은 볼 수 없어요!',
+  1000,
+];
 export default function DeviceControl() {
   const [isPressedVideoBtn, setIsPressedVideoBtn] = useRecoilState(videoPermissionAtom);
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
@@ -48,8 +56,8 @@ export default function DeviceControl() {
   useBeforeUnload();
 
   return (
-    <div className="h-full flex flex-col justify-center items-center">
-      <div className="bg-gray-light p-4 shadow-md rounded-lg">
+    <div className="h-full flex flex-col justify-center items-center gap-4">
+      <div className="bg-gray-light p-4 shadow-md rounded-2xl">
         <Webcam
           isPermitVideo={isPressedVideoBtn}
           size="md"
@@ -59,23 +67,31 @@ export default function DeviceControl() {
         />
         <div className="flex gap-5 justify-between w-[584px]">
           <div className="flex gap-5">
-            <RadiusButton color="light" text="xs" size="xs" onClick={onStartAudio}>
+            <RadiusButton color="light" text="sm" size="sm" onClick={onStartAudio}>
               마이크 권한 설정
             </RadiusButton>
-            <RadiusButton color="light" text="xs" size="xs" onClick={onToggleVideo}>
+            <RadiusButton color="light" text="sm" size="sm" onClick={onToggleVideo}>
               카메라 권한 설정
             </RadiusButton>
           </div>
           <RadiusButton
             color="blue"
-            text="xs"
-            size="xs"
+            text="sm"
+            size="sm"
             className="w-[120px]"
             onClick={onNavigate}
             disabled={isDisableNextBtn()}>
             다음
           </RadiusButton>
         </div>
+      </div>
+      <div className="text-white flex flex-col gap-3 items-center font-bold">
+        <TypeAnimation
+          sequence={sequence}
+          speed={20}
+          className="text-white font-bold text-3xl"
+          repeat={Infinity}
+        />
       </div>
       {isOpened && (
         <AlertModal

@@ -2,7 +2,6 @@
 import { InterviewItemType } from '@/components/page/Main/InterviewSection';
 import { CategoryName } from '@/types/question';
 import React, { MouseEvent, useEffect, useState } from 'react';
-import { getInterview } from '../apis/services/interview';
 import SkeletonInterview from '@/components/page/Main/SkeletonInterview';
 import Dropdown from '@/components/ui/Dropdown';
 import InterviewCard from '@/components/common/InterviewCard';
@@ -10,9 +9,7 @@ import Image from 'next/image';
 import ModalPortal from '@/components/ui/ModalPortal';
 import DetailInterview from '@/components/page/Main/DetailInterview';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
-import { sortType } from '@/constants/apiState';
-import useSWRInfinite from 'swr/infinite';
-import { useIntersectionObserver } from '@/hooks/useInterSectionObserver';
+import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
 
 export default function QuestionsPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,33 +20,17 @@ export default function QuestionsPage() {
     setCurrent(item.id);
   };
 
-  const getKey = (page: number, previousPageData: InterviewItemType[]) => {
-    const newPage = page + 1;
-    if (previousPageData && !previousPageData.length) {
-      return null;
-    }
-    return `/api/interview/all?page=${newPage}&category=${categorySelect}&sort=${sortType[current]}`;
-  };
-
-  const {
-    data,
-    isLoading,
-    setSize,
-    mutate: infMutate,
-  } = useSWRInfinite<InterviewItemType[]>(getKey, url => getInterview(url));
-  const { setTarget } = useIntersectionObserver(setSize);
+  const { newData, isLoading, setTarget } = useInfiniteInterview(categorySelect, current);
 
   const onClickOpen = (e: MouseEvent<HTMLDivElement | HTMLLIElement>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
-  const newData = data ? ([] as InterviewItemType[]).concat(...data) : [];
-
   useEffect(() => {
     const findInterview = newData?.find(item => selectInterview?.interviewId === item.interviewId);
     findInterview && setSelectInterview(findInterview);
-  }, [data]);
+  }, [newData]);
 
   return (
     <div className="bg-gray-light min-h-full w-full flex justify-center py-10">
@@ -64,6 +45,8 @@ export default function QuestionsPage() {
             onSelect={setCategorySelect}
           />
           <RadioButtonGroup
+            defaultId={1}
+            groupName="question-category"
             size="sm"
             data={[
               { id: 1, text: '최신순' },
@@ -83,7 +66,7 @@ export default function QuestionsPage() {
                   setSelectInterview(i);
                   onClickOpen(e);
                 }}>
-                <InterviewCard props={{ ...i, infMutate }} />
+                <InterviewCard props={i} />
               </li>
             ))
           ) : (
@@ -104,16 +87,12 @@ export default function QuestionsPage() {
           <ModalPortal>
             {selectInterview && (
               <div onClick={onClickOpen}>
-                <DetailInterview
-                  item={selectInterview}
-                  infMutate={infMutate}
-                  onClickClose={() => setIsOpen(false)}
-                />
+                <DetailInterview item={selectInterview} onClickClose={() => setIsOpen(false)} />
               </div>
             )}
           </ModalPortal>
         )}
-      </div>{' '}
+      </div>
     </div>
   );
 }

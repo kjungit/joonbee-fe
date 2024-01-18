@@ -27,10 +27,10 @@ const Webcam = ({ isPermitVideo, size = 'sm', className, videoRef, onStartVideo 
     <video
       autoPlay
       ref={videoRef}
-      className={`object-cover shadow-md rounded-xl  ${sizeStyles[size]} ${className}`}
+      className={`object-cover shadow-md rounded-2xl  ${sizeStyles[size]} ${className}`}
     />
   ) : (
-    <div className={`bg-black shadow-md rounded-xl ${sizeStyles[size]} ${className}`}></div>
+    <div className={`bg-black shadow-md rounded-2xl ${sizeStyles[size]} ${className}`}></div>
   );
 };
 

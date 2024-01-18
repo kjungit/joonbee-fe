@@ -59,7 +59,7 @@ export default function InterviewCheck() {
 
   return (
     <>
-      <ul className="flex flex-col gap-4 h-[410px] overflow-y-scroll scroll-hide">
+      <ul className="flex flex-col gap-4 h-[450px] overflow-y-auto p-2 ">
         {questions.map((question, index) => (
           <DetailQuestionCard
             question={question.questionContent}
@@ -77,33 +77,31 @@ export default function InterviewCheck() {
               className="w-[874px] h-[500px] rounded-xl bg-white shadow-md relative p-5">
               <div className="flex justify-between items-end pb-3 border-b-2 border-gray-light mb-5">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-gray-dark text-[18px] font-bold mr-5">질문 {clickedCount}</h2>
-                  <p className="text-[16px] text-gray-dark font-bold">
+                  <h2 className="text-gray-dark text-[18px] min-w-[54px] font-bold mr-5">
+                    질문 {clickedCount}
+                  </h2>
+                  <p className="text-[16px] text-gray-dark font-bold pr-4">
                     {clickedQuestion?.questionContent}
                   </p>
                 </div>
                 <div className="flex gap-2">
                   {isEditmode ? (
-                    <Button
-                      text="xs"
-                      size="auto"
-                      color="blueSecondary"
-                      onClick={handleSubmitAnswer}>
+                    <Button text="xs" size="xs" color="blueSecondary" onClick={handleSubmitAnswer}>
                       변경
                     </Button>
                   ) : (
-                    <Button text="xs" size="auto" color="blueSecondary" onClick={handleToggleMode}>
+                    <Button text="xs" size="xs" color="blueSecondary" onClick={handleToggleMode}>
                       수정
                     </Button>
                   )}
 
-                  <Button text="xs" size="auto" color="darkGray" onClick={handleClose}>
+                  <Button text="xs" size="xs" color="darkGray" onClick={handleClose}>
                     닫기
                   </Button>
                 </div>
               </div>
               <h2 className="text-gray-dark text-[18px] font-bold mb-5">답변</h2>
-              <div className="h-[300px] bg-gray-normal opacity-60 shadow-md rounded-xl p-5">
+              <div className="h-auto bg-gray-normal opacity-60 shadow-md rounded-xl p-5">
                 {isEditmode ? (
                   <TextArea
                     size="auto"
@@ -112,7 +110,7 @@ export default function InterviewCheck() {
                     setInputValue={setNewAnswer}
                   />
                 ) : (
-                  <p className="text-gray-dark text-[16px] font-bold">
+                  <p className="text-main-primary text-[16px] font-bold">
                     {clickedQuestion?.answerContent}
                   </p>
                 )}

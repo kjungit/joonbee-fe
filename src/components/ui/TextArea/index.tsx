@@ -23,7 +23,7 @@ export const TextArea = ({
 
   const sizeStyles = {
     md: 'h-[360px] w-[440px] text-4',
-    auto: 'w-full h-full',
+    auto: 'w-full h-auto',
   };
   const textAreaStyles = `
   ${baseStyles} ${sizeStyles[size]} 

@@ -17,6 +17,7 @@ type ButtonSize =
   | 'sm'
   | 'md'
   | '2md'
+  | '3md'
   | 'lg'
   | '2lg'
   | 'xl'
@@ -57,6 +58,7 @@ export const Button = ({
     sm: 'w-[100px] h-[40px]',
     md: 'min-w-[150px] h-[60px]',
     '2md': 'w-[180px] h-[60px]',
+    '3md': 'w-[180px] h-[50px]',
     lg: 'w-[220px] h-[50px]',
     '2lg': 'w-[292px] min-h-[58px]',
     xl: 'w-[290px] h-[50px]',
@@ -65,7 +67,7 @@ export const Button = ({
     '4xl': 'w-[440px] h-[60px]',
     setting: 'min-w-[116px] h-[50px]',
     'dropdown-xs': 'min-w-[110px] h-[44px] px-3 py-2',
-    'dropdown-sm': 'min-w-[114px] h-[44px] px-3 py-2',
+    'dropdown-sm': 'min-w-[140px] h-[50px] px-3 py-2',
     'dropdown-md': 'min-w-[160px] h-[60px] px-3 py-2',
   };
   const textStyles = {

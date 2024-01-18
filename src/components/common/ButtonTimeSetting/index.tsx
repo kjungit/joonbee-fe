@@ -9,10 +9,10 @@ export default function ButtonTimeSetting() {
     setClickedTime(time);
   };
   return (
-    <div className="flex gap-5">
-      <Button color="darkNavy" text="xs" size="auto">
+    <div className="flex gap-5 ">
+      <div className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
         질문 시간 설정
-      </Button>
+      </div>
       <Button
         color={`${clickedTime === 60 ? 'darkNavy' : 'white'}`}
         size="setting"

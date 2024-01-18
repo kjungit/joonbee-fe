@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-type CardSize = 'sm' | 'md' | 'lg' | 'xl';
+type CardSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type CardColor = 'white' | 'gray';
 type FontSize = 'md' | 'lg';
 type BorderPosition = 'left' | 'bottom';
@@ -10,6 +10,7 @@ export interface LineQuestrionCardProps extends React.HTMLAttributes<HTMLDivElem
   size?: CardSize;
   color?: CardColor;
   fontSize?: FontSize;
+  text: string;
   borderPosition?: BorderPosition;
 }
 
@@ -18,11 +19,14 @@ export const LineQuestrionCard = ({
   size = 'sm',
   fontSize = 'md',
   borderPosition = 'left',
+  text,
   children,
 }: LineQuestrionCardProps) => {
-  const baseStyles = 'flex p-6 items-center text-ellipsis font-bold shadow-md rounded-xl';
+  const baseStyles =
+    'flex p-6 items-center justify-between text-ellipsis font-bold shadow-md rounded-xl';
 
   const sizeStyles = {
+    xs: 'h-[50px] w-full max-w-[630px]',
     sm: 'h-[54px] w-[740px]',
     md: 'min-h-[104px] w-[584px]',
     lg: ' w-[1040px]',
@@ -54,7 +58,8 @@ export const LineQuestrionCard = ({
 
   return (
     <div className={buttonStyles}>
-      <p>{children}</p>
+      <p className="text-ellipsis break-words overflow-hidden whitespace-nowrap">{text}</p>
+      {children}
     </div>
   );
 };

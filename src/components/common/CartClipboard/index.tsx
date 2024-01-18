@@ -2,35 +2,25 @@
 import React, { useEffect, useState } from 'react';
 import { VariableIcon } from '@/components/ui/VariableIcon';
 import ModalPortal from '@/components/ui/ModalPortal';
-import { PostCartProps, postCartsave } from '@/app/apis/services/member';
-import { CategoryName, QustionItem } from '@/types/question';
-import useSWRMutation from 'swr/mutation';
+import { QustionItem } from '@/types/question';
+import useMutateUserQuestion from '@/hooks/questions/useMutateUserQuestion';
 
 type CardColor = 'text-black' | 'text-white';
 
 export interface CartClipboardProps extends React.HTMLAttributes<HTMLDivElement> {
   item: QustionItem;
-  categoryName: CategoryName;
   color?: CardColor;
 }
 
-export const CartClipboard = ({ color = 'text-white', item, categoryName }: CartClipboardProps) => {
-  const { subcategoryName, questionContent } = item;
+export const CartClipboard = ({ color = 'text-white', item }: CartClipboardProps) => {
+  const { categoryName, subcategoryName, questionContent } = item;
   const [isOpen, setIsOpen] = useState(false);
 
-  const { trigger } = useSWRMutation(
-    'api/cart/question/save',
-    item =>
-      postCartsave({
-        categoryName,
-        subcategoryName,
-        questionContent,
-      }),
-    {
-      onSuccess: () => {
-        setIsOpen(true);
-      },
-    },
+  const { trigger: postUserQuestion } = useMutateUserQuestion(
+    categoryName,
+    subcategoryName,
+    questionContent,
+    setIsOpen,
   );
 
   useEffect(() => {
@@ -49,7 +39,7 @@ export const CartClipboard = ({ color = 'text-white', item, categoryName }: Cart
         <VariableIcon
           name="copy"
           onClick={() => {
-            trigger();
+            postUserQuestion();
           }}
           className={color}
         />

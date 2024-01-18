@@ -4,10 +4,10 @@ import React from 'react';
 
 export default function TopSection() {
   return (
-    <section className=" px-5 w-full  max-w-[1024px] mainBg flex flex-col items-center min-h-[480px] ">
+    <section className=" px-5 w-full max-w-[1024px] mainBg flex flex-col items-center min-h-[480px] ">
       <div className=" w-full flex-grow items-center">
         <p className="z-10 w-full  pt-10 font-bold flex max-w-[1024px] text-lg ">AI 면접 서비스</p>
-        <div className="flex w-full md:flex-row flex-col max-w-[1024px] items-center justify-center gap-4 md:gap-10  flex-grow">
+        <div className="flex w-full h-full max-h-[340px] md:flex-row flex-col max-w-[1024px] items-center justify-center gap-4 md:gap-10  flex-grow">
           <LinkBox size="md" color="navy" title="AI면접 시작하기" propsLink="/interview">
             <Image
               src="/icons/ai_white.png"
@@ -17,7 +17,7 @@ export default function TopSection() {
               className="w-20 lg:w-28"
             />
           </LinkBox>
-          <div className="flex flex-row md:flex-col gap-4 md:gap-10 w-full items-center flex-grow">
+          <div className="flex flex-row md:flex-col gap-4 md:gap-10 w-full justify-between  flex-grow">
             <LinkBox size="sm" title="나의 질문 관리하기" propsLink="/my">
               <Image
                 src="/icons/service.png"

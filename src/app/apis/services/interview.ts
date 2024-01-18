@@ -1,3 +1,7 @@
+import {
+  InteviewSaveData,
+  ResQuestionsProps,
+} from '@/components/page/interview/result/InterviewResultContainer';
 import { instance } from '../axios';
 
 export const getInterview = async (url: string) => {
@@ -5,12 +9,11 @@ export const getInterview = async (url: string) => {
   return res.data.data.result;
 };
 
-export const deleteInterview = async (id: number) => {
-  const res = await instance().delete('/api/member/interview/delete', {
-    params: {
-      id,
-    },
+export const saveInterview = async (data: InteviewSaveData | undefined) => {
+  const res = await instance().post('/api/member/interview/save', {
+    gptOpinion: data?.gptOpinion,
+    categoryName: data?.categoryName,
+    questions: data?.questions,
   });
-
-  return res.data;
+  return res;
 };

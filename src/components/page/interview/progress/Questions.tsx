@@ -194,18 +194,20 @@ export default function Questions({ questions }: QuestionsProps) {
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-5 w-full h-full bg-background-lightgray p-8 rounded-2xl relative">
       <InterviewBar questions={questions} currentCount={currentCount} />
-      <h2 className="font-bold text-[20px]">질문 {currentCount}</h2>
-      <div className="flex justify-between min-w-[860px]">
+      <h2 className="font-bold text-3xl">질문 {currentCount}</h2>
+      <div className="flex justify-between w-full gap-4">
         <div className="flex flex-col gap-5 ">
           <Webcam isPermitVideo={isAllowedVideo} videoRef={videoRef} onStartVideo={onStartVideo} />
           <div className="flex justify-center">
             <Timer timerState={timerState} remainingTime={remainingTime} time={time} />
           </div>
         </div>
-        <div className="flex flex-col gap-5">
-          <QuestionCard size="lg" text={currentQuestion?.questionContent} />
+        <div className="flex flex-col w-full gap-5">
+          <div className="flex items-center  font-bold px-5 shadow-md rounded-lg justify-between h-[68px] w-full max-w-[500px] text-[16px] bg-white text-main-primary">
+            {currentQuestion?.questionContent}
+          </div>
           <TextArea
             inputValue={transcript}
             setInputValue={setTranscript}
@@ -225,11 +227,10 @@ export default function Questions({ questions }: QuestionsProps) {
           isOpened={isSupportedBrowser}
           onClose={onNavigate}
           title="알림"
-          body=
-          {`현재 사용하고 계신 브라우저는 필요한 기능을 지원하지 않습니다.
+          body={`현재 사용하고 계신 브라우저는 필요한 기능을 지원하지 않습니다.
             다른 브라우저를 사용해주세요.`}
         />
       )}
-    </>
+    </div>
   );
 }
