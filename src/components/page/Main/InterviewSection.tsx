@@ -81,12 +81,12 @@ export default function InterviewSection() {
           />
         </div>
         {isLoading && <SkeletonInterview />}
-        <ul className="flex flex-wrap justify-between ">
+        <ul className="md:flex md:flex-wrap justify-between w-full">
           {data?.length ? (
             data.slice(0, 6).map(i => (
               <li
                 key={i.interviewId}
-                className="mt-8 w-full max-w-[320px]"
+                className="mt-8 w-full  md:max-w-[320px] "
                 onClick={e => {
                   setSelectInterview(i);
                   onClickOpen(e);
