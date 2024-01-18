@@ -27,13 +27,13 @@ export const LinkBox = ({
   subTitle,
   children,
 }: LinkBox) => {
-  const baseStyles = `lg:text-xl md:text-lg xs:text-sm  w-full  font-bold flex items-center p-7 md:p-10 shadow-md  flex-grow mb-6 ${
+  const baseStyles = `lg:text-xl md:text-lg xs:text-sm  w-full  font-bold flex items-center p-7 md:p-10 shadow-md  flex-grow ${
     size === 'lg' ? 'rounded-2xl ' : 'rounded-xl'
   }`;
 
   const sizeStyles = {
-    sm: 'justify-between h-[140px] max-w-[500px]',
-    md: 'justify-between h-[140px] md:h-[312px] max-w-[800px] ',
+    sm: 'justify-between h-[150px] max-w-[500px]',
+    md: 'justify-between h-full max-w-[800px] ',
     lg: 'justify-center lg:h-[480px] md:h-[420px] xs:h-[380px] flex-col-reverse',
   };
 
@@ -46,14 +46,16 @@ export const LinkBox = ({
 
   return (
     <Link href={propsLink} className={LinkBoxStyles}>
-      {size === 'lg' && (
-        <div className="lg:text-lg md:text-base mt-6 text-[#717171] text-sm">
-          <p>{subTitle?.first}</p>
-          <p>{subTitle?.second}</p>
-          <p>{subTitle?.third}</p>
-        </div>
-      )}
-      <div className={`${size === 'lg' && 'mt-10'}`}>{title}</div>
+      <div className="flex gap-4 flex-col-reverse">
+        {size === 'lg' && (
+          <div className="lg:text-lg md:text-base text-[#717171] text-sm">
+            <p className="text-sm">{subTitle?.first}</p>
+            <p className="text-sm">{subTitle?.second}</p>
+            <p className="text-sm">{subTitle?.third}</p>
+          </div>
+        )}
+        <div className={`${size === 'lg' && 'mt-10'}`}>{title}</div>
+      </div>
       {children}
     </Link>
   );
