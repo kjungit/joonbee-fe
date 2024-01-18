@@ -11,13 +11,12 @@ type TimerProps = {
 };
 
 const Timer = ({ time = 60, timerState, remainingTime }: TimerProps) => {
-
   return (
-    <div className="w-[180px] h-[180px] relative">
+    <div className="w-[180px] h-[180px] relative border-2 rounded-full border-blue-primary">
       {timerState === 'PROGRESS' && (
-        <svg className="circle">
+        <svg className="circle ">
           <circle
-            className="border"
+            className="border "
             style={{
               stroke: '#4374F3',
               strokeWidth: '8',
