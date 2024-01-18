@@ -19,12 +19,14 @@ type Story = StoryObj<typeof DropdownCategory>;
 export const Primary: Story = {
   args: {
     color: 'white',
+    setSelectedSubcategory: () => {},
   },
 };
 
 export const Secondary: Story = {
   args: {
     color: 'darkNavy',
+    setSelectedSubcategory: () => {},
   },
 };
 
