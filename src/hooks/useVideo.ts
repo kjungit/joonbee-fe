@@ -33,8 +33,6 @@ const useVideo = () => {
 
   const onStartRecord = () => {
     if (!videoStream || !audioStream) {
-      console.log(videoStream);
-      console.log(audioStream);
       console.log('비디오나 오디오 스트림이 없습니다.');
       return;
     }
@@ -43,7 +41,7 @@ const useVideo = () => {
     const mediaData: Blob[] = [];
 
     const recorder = new MediaRecorder(combined, {
-      mimeType: 'video/webm; codecs=vp9',
+      mimeType: 'video/webm; codecs=vp8,opus',
     });
     setMediaRecorder(recorder);
 

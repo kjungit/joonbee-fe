@@ -1,12 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useModal } from './useModal';
+import { useRouter } from 'next/navigation';
 
 const useSpeechToText = () => {
   const [transcript, setTranscript] = useState('');
   const [speechRecognition, setSpeechRecognition] = useState<SpeechRecognition | null>(null);
+  const { isOpened: isSupportedBrowser, onClose, onOpen } = useModal();
+
+  const router = useRouter();
+
+  const onNavigate = () => {
+    onClose();
+    router.push('/interview');
+  };
 
   const onStartListening = () => {
     console.log('onStartListening');
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      onOpen();
+      return;
+    }
+
     const recognition = new SpeechRecognition();
     setSpeechRecognition(recognition);
     recognition.interimResults = true;
@@ -30,7 +46,14 @@ const useSpeechToText = () => {
     }
   };
 
-  return { transcript, setTranscript, onStartListening, onStopListening };
+  return {
+    transcript,
+    setTranscript,
+    onStartListening,
+    onStopListening,
+    isSupportedBrowser,
+    onNavigate,
+  };
 };
 
 export default useSpeechToText;

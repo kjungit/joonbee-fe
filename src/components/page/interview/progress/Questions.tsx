@@ -5,6 +5,7 @@ import { QuestionCard } from '@/components/common/QuestionCard';
 import Timer from '@/components/common/Timer';
 import Webcam from '@/components/common/Webcam';
 import { Button } from '@/components/ui/Button';
+import AlertModal from '@/components/ui/Modal/AlertModal';
 import { TextArea } from '@/components/ui/TextArea';
 import useSpeechToText from '@/hooks/useSpeechToText';
 import useTimer from '@/hooks/useTimer';
@@ -54,7 +55,14 @@ export default function Questions({ questions }: QuestionsProps) {
   const isAllowedVideo = useRecoilValue(videoPermissionAtom);
 
   const { videoRef, onStartVideo, onStartRecord, onStopRecord, onToggleRecord } = useVideo();
-  const { onStartListening, onStopListening, transcript, setTranscript } = useSpeechToText();
+  const {
+    onStartListening,
+    onStopListening,
+    transcript,
+    setTranscript,
+    isSupportedBrowser,
+    onNavigate,
+  } = useSpeechToText();
   const { remainingTime } = useTimer(time, timerState, setTimerState);
 
   const [countdown, setCountdown] = useState(5);
@@ -212,6 +220,16 @@ export default function Questions({ questions }: QuestionsProps) {
           </div>
         </div>
       </div>
+      {isSupportedBrowser && (
+        <AlertModal
+          isOpened={isSupportedBrowser}
+          onClose={onNavigate}
+          title="알림"
+          body=
+          {`현재 사용하고 계신 브라우저는 필요한 기능을 지원하지 않습니다.
+            다른 브라우저를 사용해주세요.`}
+        />
+      )}
     </>
   );
 }
