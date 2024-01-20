@@ -59,7 +59,7 @@ export default function InterviewCheck() {
 
   return (
     <>
-      <ul className="flex flex-col gap-4 h-[450px] overflow-y-auto p-2 ">
+      <ul className="flex flex-col gap-4 h-[380px] overflow-y-auto p-2 ">
         {questions.map((question, index) => (
           <DetailQuestionCard
             question={question.questionContent}

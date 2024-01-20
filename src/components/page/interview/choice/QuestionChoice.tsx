@@ -100,7 +100,7 @@ export default function QuestionChoice() {
       <h2 className="text-[20px] font-bold">질문을 준비해주세요</h2>
       <QuestionForm callback={handleSubmitQuestion} />
       <ul
-        className={`overflow-y-scroll flex flex-col gap-2 items-center h-[360px]  ${
+        className={`overflow-y-scroll flex flex-col gap-2 items-center h-[320px]  ${
           myQuestions?.length === 0 && 'justify-center'
         }`}>
         {myQuestions?.map(question => (
