@@ -19,7 +19,7 @@ const Webcam = ({ isPermitVideo, size = 'sm', className, videoRef, onStartVideo 
   }, [isPermitVideo]);
 
   const sizeStyles = {
-    sm: 'w-[400px] h-[280px]',
+    sm: 'w-[400px] h-[220px]',
     md: 'w-[584px] h-[374px]',
   };
 
