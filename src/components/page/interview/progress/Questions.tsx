@@ -49,8 +49,7 @@ export default function Questions({ questions }: QuestionsProps) {
   const [btnText, setBtnText] = useState(TimerStateText.READY.btn);
   const [helpText, setHelpText] = useState(TimerStateText.READY.help);
   const setMyInterview = useSetRecoilState(myInterviewAddSelector);
-  const time = 5;
-  //useRecoilValue(interviewTimeAtom);
+  const time = useRecoilValue(interviewTimeAtom);
 
   const isAllowedVideo = useRecoilValue(videoPermissionAtom);
 
@@ -131,7 +130,7 @@ export default function Questions({ questions }: QuestionsProps) {
   };
 
   const onClickDoneButton = () => {
-    setTimerState('READY');
+    if (currentCount === questionsCount) setTimerState('READY');
     setCountdown(5);
     setTranscript('');
 
@@ -205,7 +204,7 @@ export default function Questions({ questions }: QuestionsProps) {
           </div>
         </div>
         <div className="flex flex-col w-full gap-5">
-          <div className="flex items-center  font-bold px-5 shadow-md rounded-lg justify-between h-[68px] w-full max-w-[500px] text-[16px] bg-white text-main-primary">
+          <div className="flex items-center  font-bold px-5 shadow-md rounded-lg justify-between h-[68px] w-full text-[16px] bg-white text-main-primary">
             {currentQuestion?.questionContent}
           </div>
           <TextArea
@@ -215,7 +214,7 @@ export default function Questions({ questions }: QuestionsProps) {
             size="auto"
           />
           <div className="flex gap-5 justify-between">
-            <p className="text-[12px] font-bold text-blue-normal max-w-[260px]">{helpText}</p>
+            <p className="text-[12px] font-bold text-blue-normal max-w-[290px]">{helpText}</p>
             <Button size="lg" text="sm" onClick={onClickButton}>
               {btnText}
             </Button>
