@@ -130,7 +130,7 @@ export default function Questions({ questions }: QuestionsProps) {
   };
 
   const onClickDoneButton = () => {
-    if (currentCount === questionsCount) setTimerState('READY');
+    setTimerState('READY');
     setCountdown(5);
     setTranscript('');
 
