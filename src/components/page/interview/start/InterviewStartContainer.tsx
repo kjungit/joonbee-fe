@@ -2,6 +2,7 @@
 
 import { InterviewStartBox } from '@/components/common/InterviewStartBox';
 import PreventBackModal from '@/components/common/PreventBackModal';
+import PreventTabletModal from '@/components/common/PreventTabletModal';
 import InterviewLoading from '@/components/ui/InterviewLoading';
 import { Category } from '@/constants/category';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
@@ -72,6 +73,7 @@ export default function InterviewStartContainer() {
         </div>
       )}
       <PreventBackModal />
+      <PreventTabletModal />
     </>
   );
 }

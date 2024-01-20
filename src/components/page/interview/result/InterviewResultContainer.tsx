@@ -24,6 +24,7 @@ import ModalPortal from '@/components/ui/ModalPortal';
 import DetailInterview from './DetailInterview';
 import { saveInterview } from '@/app/apis/services/interview';
 import { useRouter } from 'next/navigation';
+import PreventTabletModal from '@/components/common/PreventTabletModal';
 
 const sequence = [
   'JOONBEE에서 면접을 볼 수 있는 언어는 Typescript',
@@ -252,6 +253,7 @@ export default function InterviewResultContainer() {
 
           {isOpened && <InterviewVideoModal onClose={onClose} />}
           <PreventBackModal />
+          <PreventTabletModal />
         </div>
       )}
     </>

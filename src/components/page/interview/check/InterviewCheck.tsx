@@ -2,6 +2,7 @@
 
 import { DetailQuestionCard } from '@/components/common/DetailQuestionCard';
 import PreventBackModal from '@/components/common/PreventBackModal';
+import PreventTabletModal from '@/components/common/PreventTabletModal';
 import { Button } from '@/components/ui/Button';
 import ModalPortal from '@/components/ui/ModalPortal';
 import { TextArea } from '@/components/ui/TextArea';
@@ -120,6 +121,7 @@ export default function InterviewCheck() {
         </ModalPortal>
       )}
       <PreventBackModal />
+      <PreventTabletModal/>
     </>
   );
 }

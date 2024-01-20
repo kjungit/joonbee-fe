@@ -3,6 +3,7 @@
 import ButtonTimeSetting from '@/components/common/ButtonTimeSetting';
 import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestionCard';
 import PreventBackModal from '@/components/common/PreventBackModal';
+import PreventTabletModal from '@/components/common/PreventTabletModal';
 import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
@@ -68,6 +69,7 @@ export default function QuestionChocieSetting() {
         </Button>
       </Link>
       <PreventBackModal />
+      <PreventTabletModal />
     </div>
   );
 }
