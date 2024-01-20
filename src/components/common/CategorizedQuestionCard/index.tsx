@@ -27,7 +27,7 @@ export const CategorizedQuestionCard = ({
   onClick,
   className,
 }: CategorizedQuestionCardProps) => {
-  const baseStyles = `flex px-[10px] justify-between items-center font-bold shadow-md shrink-0
+  const baseStyles = `flex px-[10px] justify-between items-center font-bold shadow-md shrink-0 relative z-0
      rounded-[8px] bg-white cursor-pointer ${className}`;
 
   const sizeStyles = {
@@ -52,11 +52,9 @@ export const CategorizedQuestionCard = ({
         <div className="border-l-gray-normal border-l-2" />
         <div className={textStyles}>{SubCategory[subcategory]}</div>
         <div className="border-l-gray-normal border-l-2" />
-        <div className="px-4">{questionContent}</div>
+        <div className="pr-10 pl-4">{questionContent}</div>
       </div>
-      <div className="w-10">
-        <div className="w-6 h-6">{isClicked && <Icon name="check" />}</div>
-      </div>
+      <div className="w-6 h-6 absolute right-4">{isClicked && <Icon name="check" />}</div>
     </div>
   );
 };
