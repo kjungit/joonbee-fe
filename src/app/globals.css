@@ -19,6 +19,19 @@
   textarea:focus {
     outline: none;
   }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    padding: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #cacaca;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 }
 
 @layer components {
