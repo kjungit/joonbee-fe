@@ -7,7 +7,7 @@ import ModalPortal from '@/components/ui/ModalPortal';
 import { CategoryName } from '@/types/question';
 import { useRouter } from 'next/navigation';
 import React, { MouseEvent, useEffect, useState } from 'react';
-import useSWR from 'swr';
+import useSWR, { KeyedMutator } from 'swr';
 import DetailInterview from './DetailInterview';
 import SkeletonInterview from './SkeletonInterview';
 import Image from 'next/image';
@@ -15,6 +15,7 @@ import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGrou
 import { sortType } from '@/constants/apiState';
 import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
 import useInterviewAll from '@/hooks/main/useInterviewAll';
+import { SWRMutationHook } from 'swr/mutation';
 
 export type QuestionItemType = {
   questionId: string;
@@ -32,6 +33,7 @@ export interface InterviewItemType {
   memberId: string;
   categorySelect?: CategoryName;
   current?: number;
+  interviewMutate?: any;
 }
 
 export default function InterviewSection() {
@@ -42,7 +44,7 @@ export default function InterviewSection() {
   const [categorySelect, setCategorySelect] = useState<CategoryName>('');
   const router = useRouter();
 
-  const { data, isLoading } = useInterviewAll(categorySelect, current);
+  const { data, isLoading, interviewAllMutate } = useInterviewAll(categorySelect, current);
 
   const onClickCategory = (item: ItemProps) => {
     setCurrent(item.id);
@@ -122,6 +124,7 @@ export default function InterviewSection() {
             {selectInterview && (
               <div onClick={onClickOpen}>
                 <DetailInterview
+                  interviewMutate={interviewAllMutate}
                   current={current}
                   categorySelect={categorySelect}
                   item={selectInterview}
