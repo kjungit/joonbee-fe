@@ -10,7 +10,6 @@ import { InterviewItemType } from '@/components/page/Main/InterviewSection';
 import useSWRMutation from 'swr/mutation';
 import { postInterviewLike } from '@/app/apis/services/member';
 import { useSWRConfig } from 'swr';
-import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
 import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
 import useInterviewAll from '@/hooks/main/useInterviewAll';
 
@@ -20,7 +19,7 @@ const InterviewCard = ({ props }: { props: InterviewItemType }) => {
     nickname,
     thumbnail,
     likeCount,
-    memberId,
+    interviewMutate,
     liked,
     questions,
     interviewId,
@@ -28,8 +27,8 @@ const InterviewCard = ({ props }: { props: InterviewItemType }) => {
     current = 1,
   } = props;
   const [isFocus, setIsFocus] = useState(false);
+  const [isLikeCooldown, setIsLikeCooldown] = useState(false);
   const { mutate } = useSWRConfig();
-  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
   const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
   const { interviewAllMutate } = useInterviewAll(categorySelect, current);
 
@@ -44,12 +43,16 @@ const InterviewCard = ({ props }: { props: InterviewItemType }) => {
 
   const onClickLike = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    trigger();
-  };
 
-  useEffect(() => {
-    console.log(liked);
-  }, []);
+    if (!isLikeCooldown) {
+      setIsLikeCooldown(true);
+      trigger();
+
+      setTimeout(() => {
+        setIsLikeCooldown(false);
+      }, 1200);
+    }
+  };
 
   return (
     <button
