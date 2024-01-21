@@ -7,7 +7,7 @@ interface SelectQuestionProps extends ResQuestionsProps {
   index: number;
 }
 
-export default function DetailInterview({
+export default function DetailQuestionInterview({
   selectQuestion,
   setIsOpenSelect,
 }: {
@@ -20,7 +20,7 @@ export default function DetailInterview({
         onClick={e => {
           e.stopPropagation();
         }}
-        className="bg-white border-4  border-main-primary gap-8 flex flex-col max-w-[800px] p-6 w-full  rounded-2xl">
+        className="bg-white border-4 z-45 border-main-primary gap-8 flex flex-col max-w-[800px] p-6 w-full  rounded-2xl">
         <div className="flex justify-between items-center gap-4">
           <div className="w-full flex items-center font-bold border-gray-primary border-b-2 pb-2 gap-4">
             <h2 className="text-3xl w-24">질문 {selectQuestion.index}</h2>
