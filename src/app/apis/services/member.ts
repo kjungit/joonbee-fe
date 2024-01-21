@@ -1,4 +1,6 @@
+import { FetcherResponse } from 'swr/_internal';
 import { instance } from '../axios';
+import { DetailData, QuestionData } from '@/components/page/My/InterviewComponent';
 
 export const getUserInfo = async () => {
   try {
@@ -10,10 +12,34 @@ export const getUserInfo = async () => {
   }
 };
 
-export const getInterviewDetail = async (id: number) => {
+export const getInterviewDetail = async (id: number): Promise<DetailData> => {
   try {
-    const res = await instance().get(`api/member/interview/detail`);
-  } catch (error) {}
+    const res = await instance().get(`api/member/interview/detail`, {
+      params: {
+        interId: id,
+      },
+    });
+    return res.data.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getInterviewQuestionDetail = async (
+  selectInterviewId: number,
+  selectQuestionId: number,
+): Promise<QuestionData> => {
+  try {
+    const res = await instance().get(`api/member/interview/question/detail`, {
+      params: {
+        interviewId: selectInterviewId,
+        questionId: selectQuestionId,
+      },
+    });
+    return res.data.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const postInterviewLike = async (interviewId: number) => {
