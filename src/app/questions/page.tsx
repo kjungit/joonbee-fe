@@ -20,7 +20,10 @@ export default function QuestionsPage() {
     setCurrent(item.id);
   };
 
-  const { newData, isLoading, setTarget } = useInfiniteInterview(categorySelect, current);
+  const { newData, isLoading, setTarget, interviewMutate } = useInfiniteInterview(
+    categorySelect,
+    current,
+  );
 
   const onClickOpen = (e: MouseEvent<HTMLDivElement | HTMLLIElement>) => {
     e.stopPropagation();
@@ -66,7 +69,7 @@ export default function QuestionsPage() {
                   setSelectInterview(i);
                   onClickOpen(e);
                 }}>
-                <InterviewCard props={i} />
+                <InterviewCard props={{ ...i, interviewMutate }} />
               </li>
             ))
           ) : (
@@ -87,7 +90,11 @@ export default function QuestionsPage() {
           <ModalPortal>
             {selectInterview && (
               <div onClick={onClickOpen}>
-                <DetailInterview item={selectInterview} onClickClose={() => setIsOpen(false)} />
+                <DetailInterview
+                  interviewMutate={interviewMutate}
+                  item={selectInterview}
+                  onClickClose={() => setIsOpen(false)}
+                />
               </div>
             )}
           </ModalPortal>
