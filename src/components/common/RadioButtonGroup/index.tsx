@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 export type ItemProps = {
   id: number;
@@ -45,14 +45,14 @@ export const RadioButtonGroup = ({
               id={`${groupName}-${item.id}`}
               type="radio"
               value={item.text}
-              name={groupName} // 여기서 groupName을 name 속성으로 사용
+              name={groupName}
               className="w-4 h-4 hidden peer"
               checked={checkedRadio === item.id}
             />
             <div
               className={` ${
                 colorStyles[color]
-              }  shadow-md flex items-center justify-center font-bold rounded-lg ${
+              } cursor-pointer shadow-md flex items-center justify-center font-bold rounded-lg ${
                 checkedRadio === item.id
               } ${sizeStyles[size]}`}
               onClick={() => {
