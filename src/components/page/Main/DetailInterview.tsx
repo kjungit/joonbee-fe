@@ -10,25 +10,25 @@ import { postInterviewLike } from '@/app/apis/services/member';
 import { useSWRConfig } from 'swr';
 import { CategoryName } from '@/types/question';
 import { Category } from '@/constants/category';
-import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
 
 export default function DetailInterview({
   item,
   onClickClose,
   categorySelect = '',
   current = 1,
+  interviewMutate,
 }: {
   current?: number;
   item: InterviewItemType;
   onClickClose: () => void;
   categorySelect?: CategoryName;
+  interviewMutate: any;
 }) {
   const { interviewId, categoryName, questions, likeCount, thumbnail, memberId, nickname } = item;
   const onClickOpen = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
   const { mutate } = useSWRConfig();
-  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
 
   const { trigger } = useSWRMutation('api/member/like', () => postInterviewLike(interviewId), {
     onSuccess: () => {
