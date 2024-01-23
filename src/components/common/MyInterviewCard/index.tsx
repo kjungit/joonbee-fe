@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { Category } from '@/constants/category';
 import { VariableIcon } from '@/components/ui/VariableIcon';
 import useSWRMutation from 'swr/mutation';
-import { deleteInterview, getInterviewDetail, postInterviewLike } from '@/app/apis/services/member';
+import { deleteInterview, postInterviewLike } from '@/app/apis/services/member';
 
 export interface DetailAnswerCardProps {
   categoryName: string;
