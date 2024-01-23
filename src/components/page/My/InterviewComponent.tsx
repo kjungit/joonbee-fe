@@ -1,5 +1,9 @@
 'use client';
-import { getInterviewDetail, getInterviewQuestionDetail } from '@/app/apis/services/member';
+import {
+  getInterviewDetail,
+  getInterviewLikeDetail,
+  getInterviewQuestionDetail,
+} from '@/app/apis/services/member';
 import { DetailQuestionCard } from '@/components/common/DetailQuestionCard';
 import { MyInterviewCard } from '@/components/common/MyInterviewCard';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
@@ -13,6 +17,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 import DetailQuestionInterview from '../interview/result/DetailQuestionInterview';
 import InterviewResultCom from './InterviewResultCom';
+import { Avatar } from '@/components/ui/Avartar';
 
 type QuestionContent = {
   questionContent: string;
@@ -34,7 +39,8 @@ export interface QuestionData {
 
 export default function InterviewComponent() {
   const [isMount, setIsMount] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isInterviewOpen, setIsInterviewOpen] = useState(false);
+  const [isLikeOpen, setIsLikeOpen] = useState(false);
   const [isQuestionOpen, setIsQuestionOpen] = useState(false);
   const [selectInterviewId, setSelectInterviewId] = useState(0);
   const [selectQuestionId, setSelectQuestionId] = useState(0);
@@ -59,6 +65,13 @@ export default function InterviewComponent() {
     },
   );
 
+  const { trigger: interviewLikeTrigger, data: detailLikeData } = useSWRMutation<
+    DetailData,
+    AxiosError
+  >(['api/interview/detail', selectInterviewId], () => getInterviewLikeDetail(selectInterviewId), {
+    onSuccess: () => {},
+  });
+
   const { trigger: detailQuestionTrigger } = useSWRMutation<QuestionData, AxiosError>(
     ['api/member/interview/question/detail', selectInterviewId, selectQuestionId],
     () => getInterviewQuestionDetail(selectInterviewId, selectQuestionId),
@@ -80,7 +93,11 @@ export default function InterviewComponent() {
   // 면접 클릭 시 해당 면접 요청
   useEffect(() => {
     if (isMount) {
-      interviewTrigger();
+      if (categorySort === 'liked') {
+        interviewLikeTrigger();
+      } else {
+        interviewTrigger();
+      }
     }
   }, [selectInterviewId]);
 
@@ -106,7 +123,11 @@ export default function InterviewComponent() {
   };
   const onClickDetailOpen = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsOpen(false);
+    if (categorySort === 'liked') {
+      setIsLikeOpen(false);
+    } else {
+      setIsInterviewOpen(false);
+    }
   };
   const onClickDetailQuestionOpen = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -143,14 +164,18 @@ export default function InterviewComponent() {
                 setSelectInterviewId(i.interviewId);
               }}
               onClick={() => {
-                setIsOpen(true);
+                if (categorySort === 'liked') {
+                  setIsLikeOpen(true);
+                } else {
+                  setIsInterviewOpen(true);
+                }
                 setSelectInterviewId(i.interviewId);
               }}
             />
           ))}
         <div ref={setTarget}></div>
       </ul>
-      {isOpen && (
+      {isInterviewOpen && (
         <div
           onClick={onClickDetailOpen}
           className="fixed z-40 -translate-x-1/2 p-7 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
@@ -168,8 +193,8 @@ export default function InterviewComponent() {
             <div className="flex flex-col gap-4">
               <InterviewResultCom gptOpinion={detailData?.gptOpinion}>
                 <ul className="pb-4 flex flex-col gap-4 h-[240px] overflow-auto">
-                  {detailData &&
-                    detailData.questionContents?.map((item, idx) => (
+                  {detailLikeData &&
+                    detailLikeData.questionContents?.map((item, idx) => (
                       <DetailQuestionCard
                         key={item.questionId}
                         question={item.questionContent}
@@ -190,6 +215,50 @@ export default function InterviewComponent() {
           </div>
         </div>
       )}
+      {/* {isLikeOpen && (
+        <div
+          onClick={onClickDetailOpen}
+          className="fixed z-40 -translate-x-1/2 p-7 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
+          <div
+            onClick={e => {
+              e.stopPropagation();
+            }}
+            className="bg-white border-4  border-main-primary gap-2 flex flex-col max-w-[800px] p-6 w-full  rounded-2xl">
+            <div className="flex justify-between items-center ">
+          <h3 className="font-bold text-2xl pl-2">{Category[categoryName]}</h3>
+          <Button size="xs" color="darkGray" text="sm" onClick={onClickClose}>
+            닫기
+          </Button>
+        </div>
+        <div className="flex justify-between items-center border-gray-normal px-2  py-[12px]">
+          <div className="flex gap-2 items-center">
+            <Avatar size="lg" thumbnail={thumbnail} onClick={() => {}} />
+            <p className="font-bold text-[16px]">by {maskNickname(nickname)}</p>
+          </div>
+          <div className="flex gap-2 items-center">
+            <button onClick={onClickLike} className="p-1 ">
+              {item.liked ? <VariableIcon name="filledLike" /> : <VariableIcon name="emptyLike" />}
+            </button>
+            <p className="font-bold text-[16px] w-4">{likeCount}</p>
+          </div>
+        </div>
+        <ul className=" gap-4 flex flex-col max-h-[220px] overflow-y-auto p-2">
+          {questions.map((question, index) => (
+            <DetailQuestionCard
+              question={question.questionContent}
+              questionCount={index + 1}
+              key={question.questionId}
+            />
+          ))}
+        </ul>
+        <div className="flex justify-end">
+          <Button size="lg" text="sm">
+            면접 시작하기
+          </Button>
+        </div>
+          </div>
+        </div>
+      )} */}
       {isQuestionOpen && (
         <div onClick={onClickDetailQuestionOpen}>
           <DetailQuestionInterview
