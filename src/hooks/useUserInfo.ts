@@ -1,6 +1,6 @@
 import { getUserInfo } from '@/app/apis/services/member';
 import { isLoginedStatus } from '@/recoil/isLogined/atom';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useRecoilState } from 'recoil';
 import useSWR, { preload } from 'swr';
 export interface UserInfoProps {
@@ -16,7 +16,11 @@ export type CategoryInfoProps = {
   categoryCount: number;
   categoryName: string;
 };
-
+interface AxiosError<Data = any, Error = any> {
+  response?: AxiosResponse;
+  request?: AxiosRequestConfig;
+  retryCount: number;
+}
 export const useUserInfo = () => {
   const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
 
@@ -24,9 +28,11 @@ export const useUserInfo = () => {
     '/auth/member/info',
     getUserInfo,
     {
-      revalidateOnMount: true,
       onSuccess: () => {
         setisLogined(true);
+      },
+      onErrorRetry: ({ retryCount }) => {
+        if (retryCount >= 3) return;
       },
     },
   );
