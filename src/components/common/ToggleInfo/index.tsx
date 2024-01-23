@@ -10,7 +10,7 @@ export const ToggleInfo = ({ title, explanation }: ToggleInfoProps) => {
   const [isClick, setIsClick] = useState(false);
 
   const baseStyles = `w-full lg:max-w-[480px] flex-col cursor-pointer bg-white justify-center flex border-b-main-primary border-b-[12px] font-bold shadow-md py-6 px-10  rounded-xl ${
-    isClick ? 'h-auto' : 'h-[110px]'
+    isClick ? 'h-fit' : 'h-[110px]'
   }`;
 
   return (
