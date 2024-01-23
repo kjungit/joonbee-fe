@@ -5,7 +5,7 @@ import { DetailData, QuestionData } from '@/components/page/My/InterviewComponen
 export const getUserInfo = async () => {
   try {
     const res = await instance().get(`api/member/info`);
-    return res.data;
+    return res.data.data;
   } catch (error: any) {
     console.log(error);
     throw error;
@@ -15,6 +15,19 @@ export const getUserInfo = async () => {
 export const getInterviewDetail = async (id: number): Promise<DetailData> => {
   try {
     const res = await instance().get(`api/member/interview/detail`, {
+      params: {
+        interId: id,
+      },
+    });
+    return res.data.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getInterviewLikeDetail = async (id: number): Promise<DetailData> => {
+  try {
+    const res = await instance().get(`api/interview/detail`, {
       params: {
         interId: id,
       },
@@ -56,7 +69,6 @@ export const postInterviewLike = async (interviewId: number) => {
 export const getMyCategoryInterview = async (url: string) => {
   try {
     const res = await instance().get(url);
-    console.log(res);
     return res.data.data.result;
   } catch (error) {}
 };
