@@ -114,7 +114,12 @@ export default function QuestionSection() {
                 <QuestionCard
                   size="md"
                   color={COLOR_NUMBER.includes(index + 1) ? 'gray' : 'navy'}
-                  text={item.questionContent}></QuestionCard>
+                  text={item.questionContent}>
+                  <CartClipboard
+                    item={item}
+                    color={`${COLOR_NUMBER.includes(index + 1) ? 'text-black' : 'text-white'}`}
+                  />
+                </QuestionCard>
               </button>
             ))}
         </ul>
