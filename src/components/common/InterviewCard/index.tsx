@@ -1,5 +1,5 @@
 'use client';
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import { maskNickname } from '@/utils/format';
 import { Button } from '@/components/ui/Button';
 import { Avatar } from '@/components/ui/Avartar';
@@ -7,12 +7,7 @@ import { VariableIcon } from '@/components/ui/VariableIcon';
 import { QuestionCard } from '../QuestionCard';
 import { Category } from '@/constants/category';
 import { InterviewItemType } from '@/components/page/Main/InterviewSection';
-import useSWRMutation from 'swr/mutation';
-import { postInterviewLike } from '@/app/apis/services/member';
-import { useSWRConfig } from 'swr';
-import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
-import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
-import useInterviewAll from '@/hooks/main/useInterviewAll';
+import { useLikeMutation } from '@/hooks/useLikeMutation';
 
 const InterviewCard = ({ props }: { props: InterviewItemType }) => {
   const {
@@ -20,36 +15,28 @@ const InterviewCard = ({ props }: { props: InterviewItemType }) => {
     nickname,
     thumbnail,
     likeCount,
-    memberId,
     liked,
     questions,
     interviewId,
-    categorySelect = '세부 카테고리',
+    categorySelect = '',
     current = 1,
   } = props;
   const [isFocus, setIsFocus] = useState(false);
-  const { mutate } = useSWRConfig();
-  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
-  const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
-  const { interviewAllMutate } = useInterviewAll(categorySelect, current);
+  const [isLikeCooldown, setIsLikeCooldown] = useState(false);
 
-  const { trigger } = useSWRMutation('api/member/like', () => postInterviewLike(interviewId), {
-    onSuccess: () => {
-      mutate(['/api/interview/all', categorySelect, current]);
-      interviewMutate();
-      myInterviewMutate();
-      interviewAllMutate();
-    },
-  });
-
+  const { likeTrigger } = useLikeMutation(interviewId, categorySelect, current);
   const onClickLike = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    trigger();
-  };
 
-  useEffect(() => {
-    console.log(liked);
-  }, []);
+    if (!isLikeCooldown) {
+      setIsLikeCooldown(true);
+      likeTrigger();
+
+      setTimeout(() => {
+        setIsLikeCooldown(false);
+      }, 1200);
+    }
+  };
 
   return (
     <button

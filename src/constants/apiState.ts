@@ -1,6 +1,6 @@
 export const sortType: {
-  [key: string]: 'latest' | 'like';
+  [key: number]: 'latest' | 'like';
 } = {
-  '1': 'latest',
-  '2': 'like',
+  1: 'latest',
+  2: 'like',
 };

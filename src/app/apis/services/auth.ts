@@ -24,6 +24,24 @@ export const kakaoLogin = async (code: string) => {
     throw errorCode;
   }
 };
+export const naverLogin = async (code: string) => {
+  try {
+    const res = await instance().get(`/auth/naver/callback?code=${code}`);
+    return res;
+  } catch (error: any) {
+    const errorCode = error.response.data;
+    throw errorCode;
+  }
+};
+export const googleLogin = async (code: string) => {
+  try {
+    const res = await instance().get(`/auth/google/callback?code=${code}`);
+    return res;
+  } catch (error: any) {
+    const errorCode = error.response.data;
+    throw errorCode;
+  }
+};
 
 type PostNickNameProps = {
   id: string;

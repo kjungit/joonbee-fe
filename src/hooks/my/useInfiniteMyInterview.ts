@@ -1,6 +1,7 @@
 import useSWRInfinite from 'swr/infinite';
 import { useIntersectionObserver } from '../useInterSectionObserver';
 import { getMyCategoryInterview } from '@/app/apis/services/member';
+import { preload } from 'swr';
 
 export interface MyInterviewProps {
   categoryName: string;
@@ -9,7 +10,7 @@ export interface MyInterviewProps {
 }
 export default function useInfiniteMyInterview(category: 'my_interview' | 'liked' | null) {
   if (category === null) category = 'my_interview';
-  const getKey = (page: number, previousPageData: MyInterviewProps[]) => {
+  const getKey = (page: number = 1, previousPageData: MyInterviewProps[]) => {
     const newPage = page + 1;
     if (previousPageData && !previousPageData.length) {
       return null;
@@ -24,12 +25,15 @@ export default function useInfiniteMyInterview(category: 'my_interview' | 'liked
     setSize,
     isValidating,
     mutate: myInterviewMutate,
+    isLoading: myInterviewLoading,
   } = useSWRInfinite<MyInterviewProps[]>(getKey, url => getMyCategoryInterview(url), {
     revalidateAll: true,
   });
 
   const newData = data ? ([] as MyInterviewProps[]).concat(...data) : [];
 
+  preload(getKey, getMyCategoryInterview);
+
   const { setTarget } = useIntersectionObserver(setSize);
-  return { newData, isValidating, setTarget, setSize, myInterviewMutate };
+  return { newData, isValidating, setTarget, setSize, myInterviewMutate, myInterviewLoading };
 }

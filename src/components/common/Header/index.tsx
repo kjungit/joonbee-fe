@@ -23,8 +23,15 @@ const Header = () => {
   const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
   const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
   const [isNickError, setIsError] = useState(false);
-  const { userInfo } = useUserInfo();
+  const { userInfo, userInfoMutate } = useUserInfo();
+  const [user, setUser] = useState(null);
 
+  const eventSource = new EventSource('/auth/login/events');
+
+  eventSource.addEventListener('message', (data: any) => {
+    const event = JSON.parse(data);
+    setUser(event.user);
+  });
   const { error: nickError, trigger } = useSWRMutation(
     '/auth/login/nick',
     () => postNickName({ id: isTokened.id, nickName }),
@@ -34,6 +41,7 @@ const Header = () => {
           ...isTokened,
           isLogined: false,
         });
+        userInfoMutate();
       },
       onError: error => {
         setIsError(true);
@@ -64,6 +72,17 @@ const Header = () => {
     setIsRefresh(false);
   };
 
+  useEffect(() => {
+    if (userInfo?.nickName === '') {
+      console.log('asdfasdf');
+      setIsTokened({
+        ...isTokened,
+        id: userInfo.id,
+        isLogined: true,
+      });
+    }
+  }, [userInfo]);
+
   return (
     <>
       <header className="w-screen z-50 h-[60px] shadow-sm flex justify-center items-center bg-white">
@@ -78,7 +97,7 @@ const Header = () => {
             <Alarm data={data} />
             {isLogined ? (
               <Link href="/my?category=interview&sort=my_interview">
-                {userInfo && <Avatar size="md" thumbnail={userInfo.data.thumbnail} />}
+                {userInfo && <Avatar size="md" thumbnail={userInfo.thumbnail} />}
               </Link>
             ) : (
               <button onClick={onClickLogin}>로그인</button>

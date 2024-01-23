@@ -1,5 +1,4 @@
 'use client';
-import { getInterview } from '@/app/apis/services/interview';
 import InterviewCard from '@/components/common/InterviewCard';
 import { RadiusButton } from '@/components/common/RadiusButton';
 import Dropdown from '@/components/ui/Dropdown';
@@ -7,13 +6,10 @@ import ModalPortal from '@/components/ui/ModalPortal';
 import { CategoryName } from '@/types/question';
 import { useRouter } from 'next/navigation';
 import React, { MouseEvent, useEffect, useState } from 'react';
-import useSWR from 'swr';
 import DetailInterview from './DetailInterview';
 import SkeletonInterview from './SkeletonInterview';
 import Image from 'next/image';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
-import { sortType } from '@/constants/apiState';
-import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
 import useInterviewAll from '@/hooks/main/useInterviewAll';
 
 export type QuestionItemType = {

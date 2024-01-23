@@ -1,3 +1,4 @@
+'use client';
 import { DetailQuestionCard } from '@/components/common/DetailQuestionCard';
 import { Avatar } from '@/components/ui/Avartar';
 import { Button } from '@/components/ui/Button';
@@ -5,12 +6,9 @@ import { VariableIcon } from '@/components/ui/VariableIcon';
 import React, { MouseEvent, useEffect } from 'react';
 import { InterviewItemType } from './InterviewSection';
 import { maskNickname } from '@/utils/format';
-import useSWRMutation from 'swr/mutation';
-import { postInterviewLike } from '@/app/apis/services/member';
-import { useSWRConfig } from 'swr';
 import { CategoryName } from '@/types/question';
 import { Category } from '@/constants/category';
-import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
+import { useLikeMutation } from '@/hooks/useLikeMutation';
 
 export default function DetailInterview({
   item,
@@ -27,24 +25,13 @@ export default function DetailInterview({
   const onClickOpen = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
-  const { mutate } = useSWRConfig();
-  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
 
-  const { trigger } = useSWRMutation('api/member/like', () => postInterviewLike(interviewId), {
-    onSuccess: () => {
-      mutate(['/api/interview/all', categorySelect, current]);
-      interviewMutate();
-    },
-  });
+  const { likeTrigger } = useLikeMutation(interviewId, categorySelect, current);
 
   const onClickLike = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    trigger();
+    likeTrigger();
   };
-
-  useEffect(() => {
-    console.log(likeCount);
-  }, [likeCount]);
 
   return (
     <div className="fixed z-40 -translate-x-1/2 p-7 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">

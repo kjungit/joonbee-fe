@@ -19,7 +19,9 @@ export default function QuestionsPage() {
   const onClickCategory = (item: ItemProps) => {
     setCurrent(item.id);
   };
-
+  useEffect(() => {
+    console.log(current);
+  }, [current]);
   const { newData, isLoading, setTarget } = useInfiniteInterview(categorySelect, current);
 
   const onClickOpen = (e: MouseEvent<HTMLDivElement | HTMLLIElement>) => {
@@ -58,15 +60,15 @@ export default function QuestionsPage() {
         {isLoading && <SkeletonInterview />}
         <ul className="flex flex-wrap justify-between ">
           {newData?.length ? (
-            newData.map(i => (
+            newData.map(item => (
               <li
-                key={i.interviewId}
+                key={item.interviewId}
                 className="mt-8 w-full max-w-[320px]"
                 onClick={e => {
-                  setSelectInterview(i);
+                  setSelectInterview(item);
                   onClickOpen(e);
                 }}>
-                <InterviewCard props={i} />
+                <InterviewCard props={{ ...item, current }} />
               </li>
             ))
           ) : (

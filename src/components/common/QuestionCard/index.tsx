@@ -16,11 +16,11 @@ export const QuestionCard = ({
   children,
   text,
 }: QuestionCardProps) => {
-  const baseStyles = 'flex items-center  font-bold px-5 shadow-md rounded-lg justify-between';
+  const baseStyles = 'flex items-center font-bold px-5 shadow-md rounded-lg justify-between';
 
   const sizeStyles = {
     sm: 'h-[42px] max-w-[290px] w-full text-[14px] text-start ',
-    md: 'h-[52px] w-full max-w-[400px]  text-xs',
+    md: 'h-[52px] w-full lg:max-w-[480px] text-xs',
     lg: 'h-[68px] w-full max-w-[500px] text-[16px]',
   };
 
@@ -34,7 +34,9 @@ export const QuestionCard = ({
 
   return (
     <div className={buttonStyles}>
-      <p className="text-ellipsis break-words overflow-hidden whitespace-nowrap">{text}</p>
+      <p className="lg:text-ellipsis lg:break-words lg:overflow-hidden lg:whitespace-nowrap">
+        {text}
+      </p>
       {children}
     </div>
   );
