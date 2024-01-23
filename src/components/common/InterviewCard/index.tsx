@@ -1,5 +1,5 @@
 'use client';
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import { maskNickname } from '@/utils/format';
 import { Button } from '@/components/ui/Button';
 import { Avatar } from '@/components/ui/Avartar';
@@ -7,11 +7,7 @@ import { VariableIcon } from '@/components/ui/VariableIcon';
 import { QuestionCard } from '../QuestionCard';
 import { Category } from '@/constants/category';
 import { InterviewItemType } from '@/components/page/Main/InterviewSection';
-import useSWRMutation from 'swr/mutation';
-import { postInterviewLike } from '@/app/apis/services/member';
-import { useSWRConfig } from 'swr';
-import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
-import useInterviewAll from '@/hooks/main/useInterviewAll';
+import { useLikeMutation } from '@/hooks/useLikeMutation';
 
 const InterviewCard = ({ props }: { props: InterviewItemType }) => {
   const {
@@ -19,34 +15,22 @@ const InterviewCard = ({ props }: { props: InterviewItemType }) => {
     nickname,
     thumbnail,
     likeCount,
-    interviewMutate,
     liked,
     questions,
     interviewId,
-    categorySelect = '세부 카테고리',
+    categorySelect = '',
     current = 1,
   } = props;
   const [isFocus, setIsFocus] = useState(false);
   const [isLikeCooldown, setIsLikeCooldown] = useState(false);
-  const { mutate } = useSWRConfig();
-  const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
-  const { interviewAllMutate } = useInterviewAll(categorySelect, current);
 
-  const { trigger } = useSWRMutation('api/member/like', () => postInterviewLike(interviewId), {
-    onSuccess: () => {
-      mutate(['/api/interview/all', categorySelect, current]);
-      interviewMutate();
-      myInterviewMutate();
-      interviewAllMutate();
-    },
-  });
-
+  const { likeTrigger } = useLikeMutation(interviewId, categorySelect, current);
   const onClickLike = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
     if (!isLikeCooldown) {
       setIsLikeCooldown(true);
-      trigger();
+      likeTrigger();
 
       setTimeout(() => {
         setIsLikeCooldown(false);
