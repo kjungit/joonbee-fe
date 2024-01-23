@@ -19,11 +19,10 @@ export default function QuestionsPage() {
   const onClickCategory = (item: ItemProps) => {
     setCurrent(item.id);
   };
-
-  const { newData, isLoading, setTarget, interviewMutate } = useInfiniteInterview(
-    categorySelect,
-    current,
-  );
+  useEffect(() => {
+    console.log(current);
+  }, [current]);
+  const { newData, isLoading, setTarget } = useInfiniteInterview(categorySelect, current);
 
   const onClickOpen = (e: MouseEvent<HTMLDivElement | HTMLLIElement>) => {
     e.stopPropagation();
@@ -61,15 +60,15 @@ export default function QuestionsPage() {
         {isLoading && <SkeletonInterview />}
         <ul className="flex flex-wrap justify-between ">
           {newData?.length ? (
-            newData.map(i => (
+            newData.map(item => (
               <li
-                key={i.interviewId}
+                key={item.interviewId}
                 className="mt-8 w-full max-w-[320px]"
                 onClick={e => {
-                  setSelectInterview(i);
+                  setSelectInterview(item);
                   onClickOpen(e);
                 }}>
-                <InterviewCard props={{ ...i, interviewMutate }} />
+                <InterviewCard props={{ ...item, current }} />
               </li>
             ))
           ) : (
@@ -90,11 +89,7 @@ export default function QuestionsPage() {
           <ModalPortal>
             {selectInterview && (
               <div onClick={onClickOpen}>
-                <DetailInterview
-                  interviewMutate={interviewMutate}
-                  item={selectInterview}
-                  onClickClose={() => setIsOpen(false)}
-                />
+                <DetailInterview item={selectInterview} onClickClose={() => setIsOpen(false)} />
               </div>
             )}
           </ModalPortal>
