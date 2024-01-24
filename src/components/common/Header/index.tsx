@@ -26,12 +26,12 @@ const Header = () => {
   const { userInfo, userInfoMutate } = useUserInfo();
   const [user, setUser] = useState(null);
 
-  const eventSource = new EventSource('/auth/login/events');
+  // const eventSource = new EventSource('/auth/login/events');
 
-  eventSource.addEventListener('message', (data: any) => {
-    const event = JSON.parse(data);
-    setUser(event.user);
-  });
+  // eventSource.addEventListener('message', (data: any) => {
+  //   const event = JSON.parse(data);
+  //   setUser(event.user);
+  // });
   const { error: nickError, trigger } = useSWRMutation(
     '/auth/login/nick',
     () => postNickName({ id: isTokened.id, nickName }),
