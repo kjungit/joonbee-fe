@@ -15,7 +15,7 @@ const GOOGLE_AUTH_URL =
   'https://accounts.google.com/o/oauth2/auth?' +
   `client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_KEY}&` +
   `redirect_uri=${GOOGLE_REDIRECT_URI}&` +
-  'response_type=token&' +
+  'response_type=code&' +
   'scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
 export const LoginBox = () => {
   const onClickOpen = (e: MouseEvent<HTMLDivElement>) => {
@@ -25,7 +25,7 @@ export const LoginBox = () => {
   return (
     <div
       onClick={onClickOpen}
-      className="fixed z-40  -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-[390px] h-[550px] rounded-[50px] bg-white shadow-md flex items-center justify-center">
+      className="fixed z-40 border-main-primary border-4 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-[390px] h-[550px] rounded-[50px] bg-white shadow-md flex items-center justify-center">
       <div className="flex items-center flex-col">
         <Logo size={'lg'} />
         <p className="text-[30px] mt-7 mb-10 font-bold text-blue-secondary">JOONBEE 하세요.</p>
