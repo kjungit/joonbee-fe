@@ -32,8 +32,6 @@ export default function useInfiniteMyInterview(category: 'my_interview' | 'liked
 
   const newData = data ? ([] as MyInterviewProps[]).concat(...data) : [];
 
-  preload(getKey, getMyCategoryInterview);
-
   const { setTarget } = useIntersectionObserver(setSize);
   return { newData, isValidating, setTarget, setSize, myInterviewMutate, myInterviewLoading };
 }
