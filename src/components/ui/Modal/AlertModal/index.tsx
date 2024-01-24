@@ -6,7 +6,7 @@ type AlertModalProps = {
   onClose: () => void;
   title: string;
   body: string;
-  onConfirm?: () => void;
+  onConfirm?: (e?: MouseEvent) => void;
 };
 
 export default function AlertModal({ isOpened, onClose, title, body, onConfirm }: AlertModalProps) {

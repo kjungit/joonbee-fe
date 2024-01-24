@@ -24,7 +24,7 @@ export default function MyProfile() {
 
   if (!userInfo) return;
   return (
-    <div className="h-full bg-white w-[280px] p-6  rounded-2xl flex flex-col items-center">
+    <div className="h-full bg-white w-[280px] p-6 rounded-2xl flex flex-col items-center">
       <h3 className="text-xl font-bold w-full mb-4">프로필</h3>
       <Image
         src={userInfo?.thumbnail}
@@ -42,7 +42,7 @@ export default function MyProfile() {
       <div className="border-b-2 border-gray-light w-[80%] my-4"></div>
       <p className="text-xl font-bold pb-2 w-full">내 면접 질문 통계</p>
       <PolarChart data={userInfo.categoryInfo} />
-      <div className="justify-end  flex w-full">
+      <div className="justify-end flex w-full">
         <Button size="2xs" text="xs" color="red" onClick={onClickLogout}>
           로그아웃
         </Button>
