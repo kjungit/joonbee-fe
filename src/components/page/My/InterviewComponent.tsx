@@ -150,7 +150,7 @@ export default function InterviewComponent() {
         onClickFunc={onClickSort}
         defaultId={searchParams.get('sort') === 'my_interview' ? 1 : 2}
       />
-      <ul className="flex flex-wrap w-full mt-4 gap-4 max-h-[450px] overflow-y-scroll py-2">
+      <ul className="flex flex-wrap mt-4 gap-4 max-h-[450px] overflow-y-scroll py-2">
         {newData &&
           newData.map(i => (
             <MyInterviewCard
