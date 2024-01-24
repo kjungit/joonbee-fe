@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import useSWR from 'swr';
-import { googleLogin, kakaoLogin } from '../../apis/services/auth';
+import { googleLogin } from '../../apis/services/auth';
 import { useRecoilState } from 'recoil';
 import { isTokenedState } from '@/recoil/isTokened/atoms';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -19,7 +19,7 @@ export default function OauthPage() {
   const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
   const { userInfoMutate } = useUserInfo();
 
-  const { data, error } = useSWR('/auth/google', () => googleLogin(accessToken), {
+  const { data, error } = useSWR('/auth/google', () => googleLogin(AUTHORIZATION_CODE), {
     onSuccess: () => {
       router.push('/');
       setisLogined(true);
