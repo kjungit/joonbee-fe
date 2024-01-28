@@ -20,11 +20,11 @@ import PreventBackModal from '@/components/common/PreventBackModal';
 import { AxiosError } from 'axios';
 import Image from 'next/image';
 import { DetailQuestionCard } from '@/components/common/DetailQuestionCard';
-import ModalPortal from '@/components/ui/ModalPortal';
-import DetailInterview from './DetailInterview';
+import DetailQuestionInterview from './DetailQuestionInterview';
 import { saveInterview } from '@/app/apis/services/interview';
 import { useRouter } from 'next/navigation';
 import PreventTabletModal from '@/components/common/PreventTabletModal';
+import InterviewResultCom from '../../My/InterviewResultCom';
 
 const sequence = [
   'JOONBEE에서 면접을 볼 수 있는 언어는 Typescript',
@@ -138,7 +138,7 @@ export default function InterviewResultContainer() {
 
   useEffect(() => {
     const reqData = {
-      userName: userInfo?.data.nickName || '',
+      userName: userInfo?.nickName || '',
       categoryName: chocieCategory || randomCategory,
       questions: resetMyInterview,
     };
@@ -190,7 +190,7 @@ export default function InterviewResultContainer() {
         <div className="flex flex-col gap-5 w-full h-full bg-background-lightgray p-8 rounded-2xl relative">
           <div className="flex w-full justify-between items-center min-h-[50px]">
             <h2 className="text-[20px] font-bold">면접 결과</h2>
-            {true && (
+            {isVideo && (
               <Button
                 color="blueSecondary"
                 size="lg"
@@ -202,32 +202,22 @@ export default function InterviewResultContainer() {
             )}
           </div>
           <div className="flex flex-col gap-4">
-            <div className="flex gap-2 items-center">
-              <Image width={30} height={30} src="/icons/emoji/smile.png" alt="smile" />
-              <h3 className="font-bold">전체적인 면접에 대한 느낌이에요.</h3>
-            </div>
-            <div className="p-4 text-md h-[150px] overflow-auto bg-white rounded-2xl font-bold shadow-md break-words">
-              {data?.gptOpinion}
-            </div>
-            <div className="flex gap-2 items-center">
-              <Image width={30} height={30} src="/icons/emoji/laugh.png" alt="laugh" />
-              <h3 className="font-bold">개별 질문 정리</h3>
-            </div>
-            <ul className="pb-4 flex flex-col gap-4 h-[240px] overflow-auto">
-              {mutateData &&
-                mutateData.questions?.map((item, index) => (
-                  <DetailQuestionCard
-                    key={item.questionId}
-                    question={item.questionContent}
-                    questionCount={index + 1}
-                    onClick={() => {
-                      setSelectQuestion({ ...item, index: index + 1 });
-                      setIsOpenSelect(true);
-                      console.log('ddd');
-                    }}
-                  />
-                ))}
-            </ul>
+            <InterviewResultCom gptOpinion={data?.gptOpinion}>
+              <ul className="pb-4 flex flex-col gap-4 h-[240px] overflow-auto">
+                {mutateData &&
+                  mutateData.questions?.map((item, index) => (
+                    <DetailQuestionCard
+                      key={item.questionId}
+                      question={item.questionContent}
+                      questionCount={index + 1}
+                      onClick={() => {
+                        setSelectQuestion({ ...item, index: index + 1 });
+                        setIsOpenSelect(true);
+                      }}
+                    />
+                  ))}
+              </ul>
+            </InterviewResultCom>
             <div className="flex gap-4 justify-end">
               <Button
                 text="sm"
@@ -247,7 +237,10 @@ export default function InterviewResultContainer() {
           </div>
           {isOpenSelect && (
             <div onClick={onClickOpen}>
-              <DetailInterview selectQuestion={selectQuestion} setIsOpenSelect={setIsOpenSelect} />
+              <DetailQuestionInterview
+                selectQuestion={selectQuestion}
+                setIsOpenSelect={setIsOpenSelect}
+              />
             </div>
           )}
 
@@ -259,22 +252,3 @@ export default function InterviewResultContainer() {
     </>
   );
 }
-
-const resA = {
-  gptOpinion: 'asdasdasd',
-  questions: [
-    { id: 1, commentrary: '11213' },
-    { id: 2, commentrary: '11213' },
-    { id: 3, commentrary: '11213' },
-    { id: 4, commentrary: '11213' },
-  ],
-};
-
-const resB = {
-  questions: [
-    { id: 1, questionContent: '2323' },
-    { id: 2, questionContent: '2323' },
-    { id: 3, questionContent: '2323' },
-    { id: 4, questionContent: '2323' },
-  ],
-};

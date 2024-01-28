@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect } from 'react';
 import useSWR from 'swr';
-import { kakaoLogin } from '../apis/services/auth';
+import { kakaoLogin } from '../../apis/services/auth';
 import { useRecoilState } from 'recoil';
 import { isTokenedState } from '@/recoil/isTokened/atoms';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { isLoginedStatus } from '@/recoil/isLogined/atom';
 import { useUserInfo } from '@/hooks/useUserInfo';

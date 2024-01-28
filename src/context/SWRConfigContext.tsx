@@ -14,6 +14,7 @@ export default function SWRConfigContext({ children }: Props) {
   const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
 
   const { trigger } = useSWRMutation('/auth/login/refresh', getRefresh, {
+    onSuccess: () => {},
     onError: error => {
       setIsRefresh(true);
     },
@@ -27,7 +28,7 @@ export default function SWRConfigContext({ children }: Props) {
         revalidateOnReconnect: false,
         onError: (error: any) => {
           console.log(error);
-          if (error.response.status === 402) trigger();
+          if (error.response.status === 401) trigger();
         },
       }}>
       {children}

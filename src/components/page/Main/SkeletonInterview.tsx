@@ -1,31 +1,17 @@
-import InterviewCard from '@/components/common/InterviewCard';
 import { QuestionCard } from '@/components/common/QuestionCard';
-import { Button } from '@/components/ui/Button';
 import React from 'react';
 
 const skeletonData = Array.from({ length: 6 }, (_, index) => ({
   id: (index + 1).toString(),
   categoryName: '',
-  questions: Array.from({ length: 3 }, () => ({
-    questionId: '',
+  questions: Array.from({ length: 3 }, (_, idx) => ({
+    questionId: (idx + 1).toString(),
     questionContent: '',
   })),
   likeCount: '',
   thumbnail: '',
   memberId: '',
 }));
-
-const skeletonDataI = {
-  id: '0',
-  categoryName: '',
-  questions: [
-    { questionId: '', questionContent: '' },
-    { questionId: '', questionContent: '' },
-  ],
-  likeCount: '',
-  thumbnail: '',
-  memberId: '',
-};
 
 export default function SkeletonInterview() {
   return (
@@ -38,8 +24,8 @@ export default function SkeletonInterview() {
               <h2 className="text-white text-[16px] font-bold"></h2>
             </div>
             <div className="h-[242px] px-[10px] py-[16px] flex flex-col items-center justify-between">
-              <ul className="flex flex-col gap-2 w-full max-w-[330px]">
-                {item.questions.map((question: any) => (
+              <ul className="flex flex-col gap-2 w-full">
+                {item.questions.map((question: any, index) => (
                   <QuestionCard key={question.id} text=""></QuestionCard>
                 ))}
               </ul>

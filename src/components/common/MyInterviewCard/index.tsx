@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Category } from '@/constants/category';
-import { Icon } from '@/components/ui/Icon';
 import { VariableIcon } from '@/components/ui/VariableIcon';
 import useSWRMutation from 'swr/mutation';
 import { deleteInterview, postInterviewLike } from '@/app/apis/services/member';
@@ -11,12 +10,14 @@ export interface DetailAnswerCardProps {
   categoryName: string;
   interviewId: number;
   questionCount: number;
+  onHover: () => void;
   onClick: () => void;
   mutate?: any;
   selectInterview: 'my_interview' | 'liked';
 }
 
 export const MyInterviewCard = ({
+  onHover,
   categoryName,
   questionCount,
   interviewId,
@@ -48,6 +49,7 @@ export const MyInterviewCard = ({
 
   return (
     <li
+      onMouseOver={onHover}
       className={`w-full max-w-[290px] ${
         isFocus ? 'border-main-primary border-4 rounded-[20px]' : ' border-4 border-white'
       } `}>
@@ -60,7 +62,11 @@ export const MyInterviewCard = ({
         </div>
         <div className="flex justify-between items-center">
           <p className="text-lg font-bold">질문 수 {questionCount}개</p>
-          <div onMouseOver={() => setIsFocus(true)} onMouseOut={() => setIsFocus(false)}>
+          <div
+            onMouseOver={() => {
+              setIsFocus(true);
+            }}
+            onMouseOut={() => setIsFocus(false)}>
             <Button text="sm" size="sm" color="darkNavy" onClick={onClick}>
               자세히보기
             </Button>
