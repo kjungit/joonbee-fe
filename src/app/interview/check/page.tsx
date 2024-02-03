@@ -3,10 +3,12 @@ import InterviewCheck from '@/components/page/interview/check/InterviewCheck';
 import { Button } from '@/components/ui/Button';
 import ContentLayout from '@/components/common/layouts/ContentLayout';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 
 const InterviewCheckPage = () => {
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
   return (
     <ContentLayout>
       <div className="flex flex-col gap-5 w-full h-full bg-background-lightgray p-8 rounded-2xl relative">
@@ -28,9 +30,14 @@ const InterviewCheckPage = () => {
             repeat={Infinity}
           />
         </div>
-        <InterviewCheck />
+        <InterviewCheck disableBtn={setIsDisabled} />
         <Link href="/interview/result">
-          <Button color="blueSecondary" size="lg" text="sm" className="absolute bottom-8 right-8">
+          <Button
+            color="blueSecondary"
+            size="lg"
+            text="sm"
+            className="absolute bottom-8 right-8"
+            disabled={isDisabled}>
             면접 결과 보기
           </Button>
         </Link>
