@@ -10,7 +10,7 @@ import { interviewTimeAtom, questionCountAtom } from '@/recoil/interviewSetting/
 import { interviewTypeAtom } from '@/recoil/interviewType/atom';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 import {
-  selectedChocieCategoryAtom,
+  selectedChoiceCategoryAtom,
   selectedRandomCategoryAtom,
 } from '@/recoil/selectedCategory/atom';
 import { useRouter } from 'next/navigation';
@@ -29,7 +29,7 @@ export default function InterviewStartContainer() {
   const interviewtype = useRecoilValue(interviewTypeAtom);
 
   const randomCategory = useRecoilValue(selectedRandomCategoryAtom);
-  const choiceCategory = useRecoilValue(selectedChocieCategoryAtom);
+  const choiceCategory = useRecoilValue(selectedChoiceCategoryAtom);
   const category = interviewtype === 'random' ? randomCategory : choiceCategory;
   const questionSec = useRecoilValue(interviewTimeAtom);
   const choiceQuestion = useRecoilValue(myQuestionAtom);
@@ -62,7 +62,7 @@ export default function InterviewStartContainer() {
         />
       ) : (
         <div className="flex flex-col items-center gap-5 justify-center h-full">
-          <InterviewLoading interviewType="chocie" />
+          <InterviewLoading interviewType="choice" />
           <h2 className="text-white font-bold text-[20px]">면접을 준비중입니다.</h2>
           <TypeAnimation
             sequence={sequence}

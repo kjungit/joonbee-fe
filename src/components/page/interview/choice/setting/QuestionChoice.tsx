@@ -9,14 +9,14 @@ import Dropdown from '@/components/ui/Dropdown';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 
-import { selectedChocieCategoryAtom } from '@/recoil/selectedCategory/atom';
+import { selectedChoiceCategoryAtom } from '@/recoil/selectedCategory/atom';
 import Link from 'next/link';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-export default function QuestionChocieSetting() {
+export default function QuestionChoiceSetting() {
   const questions = useRecoilValue(myQuestionAtom);
   const categories = [...new Set(questions.map(question => question.category))];
-  const [category, setCategory] = useRecoilState(selectedChocieCategoryAtom);
+  const [category, setCategory] = useRecoilState(selectedChoiceCategoryAtom);
 
   const disableBtn = () => {
     return !category;

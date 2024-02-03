@@ -1,7 +1,7 @@
 'use client';
 
 import RandomInterview from './RandomInterview';
-import ChocieInterview from './ChocieInterview';
+import ChocieInterview from './ChoiceInterview';
 import { useRecoilValue } from 'recoil';
 import { interviewTypeAtom } from '@/recoil/interviewType/atom';
 import useBeforeUnload from '@/hooks/useBeforeUnload';

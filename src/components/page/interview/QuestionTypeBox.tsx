@@ -9,7 +9,7 @@ import { interviewTypeAtom } from '@/recoil/interviewType/atom';
 import { interviewVideoUrlAtom } from '@/recoil/interviewVideoUrl/atom';
 import { myInterviewAtom } from '@/recoil/myInterview/atom';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
-import { selectedChocieCategoryAtom } from '@/recoil/selectedCategory/atom';
+import { selectedChoiceCategoryAtom } from '@/recoil/selectedCategory/atom';
 
 const LINK_INFO = [
   {
@@ -43,7 +43,7 @@ export default function QuestionTypeBox() {
   const resetInterviewVideoUrl = useResetRecoilState(interviewVideoUrlAtom);
   const resetMyInterview = useResetRecoilState(myInterviewAtom);
   const resetMyQuestion = useResetRecoilState(myQuestionAtom);
-  const resetChoiceCategory = useResetRecoilState(selectedChocieCategoryAtom);
+  const resetChoiceCategory = useResetRecoilState(selectedChoiceCategoryAtom);
 
   const handleClickBox = (type: string) => {
     setInterviewType(type);

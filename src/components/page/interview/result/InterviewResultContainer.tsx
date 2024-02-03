@@ -9,7 +9,7 @@ import { OpenAiContent, postOpenAi } from '@/app/apis/services/openAi';
 import { useRecoilValue } from 'recoil';
 import { myInterviewAtom } from '@/recoil/myInterview/atom';
 import {
-  selectedChocieCategoryAtom,
+  selectedChoiceCategoryAtom,
   selectedRandomCategoryAtom,
 } from '@/recoil/selectedCategory/atom';
 import { videoPermissionAtom } from '@/recoil/videoPermission/atom';
@@ -81,7 +81,7 @@ export interface InteviewSaveData {
 
 export default function InterviewResultContainer() {
   const resetMyInterview = useRecoilValue(myInterviewAtom);
-  const chocieCategory = useRecoilValue(selectedChocieCategoryAtom);
+  const choiceCategory = useRecoilValue(selectedChoiceCategoryAtom);
   const randomCategory = useRecoilValue(selectedRandomCategoryAtom);
   const [isLoaded, setIsLoaded] = useState(false);
   const isVideo = useRecoilValue(videoPermissionAtom);
@@ -139,7 +139,7 @@ export default function InterviewResultContainer() {
   useEffect(() => {
     const reqData = {
       userName: userInfo?.nickName || '',
-      categoryName: chocieCategory || randomCategory,
+      categoryName: choiceCategory || randomCategory,
       questions: resetMyInterview,
     };
     setRequestData(reqData);
@@ -156,7 +156,7 @@ export default function InterviewResultContainer() {
   useEffect(() => {
     const res = {
       gptOpinion: data?.gptOpinion || '',
-      categoryName: chocieCategory || randomCategory,
+      categoryName: choiceCategory || randomCategory,
       questions: data?.questions.map(itemA => {
         const findIdData = resetMyInterview.find(itemB => itemB.questionId === itemA.questionId);
         return {
@@ -176,7 +176,7 @@ export default function InterviewResultContainer() {
     <>
       {isMutating ? (
         <div className="flex flex-col items-center gap-5 justify-center h-full">
-          <InterviewLoading interviewType="chocie" />
+          <InterviewLoading interviewType="choice" />
           <h2 className="text-white font-bold text-xl">{percent}%</h2>
           <p className="text-white text-[20px] font-bold">면접 결과를 JOONBEE 중이에요!</p>
           <TypeAnimation

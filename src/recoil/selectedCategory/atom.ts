@@ -11,8 +11,8 @@ export const selectedSubcategoryAtom = atom<SubcategoryName>({
   default: '세부 카테고리',
 });
 
-export const selectedChocieCategoryAtom = atom<CategoryName>({
-  key: 'selectedChocieCategoryAtom',
+export const selectedChoiceCategoryAtom = atom<CategoryName>({
+  key: 'selectedChoiceCategoryAtom',
   default: '',
 });
 

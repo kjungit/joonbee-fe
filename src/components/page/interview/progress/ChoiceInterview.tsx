@@ -3,7 +3,7 @@ import Questions from './Questions';
 import { useRecoilValue } from 'recoil';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 
-export default function ChocieInterview() {
+export default function ChoiceInterview() {
   const questions = useRecoilValue(myQuestionAtom);
 
   const transformedQuestion = questions.map(question => ({
