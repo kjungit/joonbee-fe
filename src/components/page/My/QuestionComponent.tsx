@@ -48,6 +48,7 @@ export default function QuestionComponent() {
     e.preventDefault();
     console.log('sdf');
     await postUserQuestion();
+    mutate();
   };
   useEffect(() => {
     if (mainSelectCategory === '') {
