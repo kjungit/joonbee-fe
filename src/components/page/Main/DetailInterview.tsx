@@ -1,4 +1,3 @@
-'use client';
 import { DetailQuestionCard } from '@/components/common/DetailQuestionCard';
 import { Avatar } from '@/components/ui/Avartar';
 import { Button } from '@/components/ui/Button';
@@ -6,9 +5,17 @@ import { VariableIcon } from '@/components/ui/VariableIcon';
 import React, { MouseEvent, useEffect } from 'react';
 import { InterviewItemType } from './InterviewSection';
 import { maskNickname } from '@/utils/format';
-import { CategoryName } from '@/types/question';
+import useSWRMutation from 'swr/mutation';
+import { postInterviewLike } from '@/app/apis/services/member';
+import { useSWRConfig } from 'swr';
+import { CategoryName, SubcategoryName } from '@/types/question';
 import { Category } from '@/constants/category';
-import { useLikeMutation } from '@/hooks/useLikeMutation';
+import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
+import { useRouter } from 'next/navigation';
+import { interviewTypeAtom } from '@/recoil/interviewType/atom';
+import { useSetRecoilState } from 'recoil';
+import { selectedChoiceCategoryAtom } from '@/recoil/selectedCategory/atom';
+import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 
 export default function DetailInterview({
   item,
@@ -25,12 +32,43 @@ export default function DetailInterview({
   const onClickOpen = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
+  const { mutate } = useSWRConfig();
+  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
+  const router = useRouter();
 
-  const { likeTrigger } = useLikeMutation(interviewId, categorySelect, current);
+  const setInterviewType = useSetRecoilState(interviewTypeAtom);
+  const setCategory = useSetRecoilState(selectedChoiceCategoryAtom);
+  const setMyQuestion = useSetRecoilState(myQuestionAtom);
+
+  setCategory(categoryName);
+  setInterviewType('choice');
+  console.log(item);
+  setMyQuestion(prevMyQuestion => {
+    const newQuestion = questions.map(q => {
+      return {
+        questionId: q.questionId,
+        category: categoryName,
+        subcategory: '세부 카테고리' as SubcategoryName,
+        questionContent: q.questionContent,
+      };
+    });
+    return [...prevMyQuestion, ...newQuestion];
+  });
+
+  const { trigger } = useSWRMutation('api/member/like', () => postInterviewLike(interviewId), {
+    onSuccess: () => {
+      mutate(['/api/interview/all', categorySelect, current]);
+      interviewMutate();
+    },
+  });
 
   const onClickLike = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    likeTrigger();
+    trigger();
+  };
+
+  const onStartInterview = () => {
+    router.push('/interview/start');
   };
 
   return (
@@ -66,7 +104,7 @@ export default function DetailInterview({
           ))}
         </ul>
         <div className="flex justify-end">
-          <Button size="lg" text="sm">
+          <Button size="lg" text="sm" onClick={onStartInterview}>
             면접 시작하기
           </Button>
         </div>
