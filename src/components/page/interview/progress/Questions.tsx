@@ -130,17 +130,18 @@ export default function Questions({ questions }: QuestionsProps) {
   };
 
   const onClickDoneButton = () => {
-    setTimerState('READY');
-    setCountdown(5);
-    setTranscript('');
-
     if (currentCount < questionsCount) {
       setCurrentQuestion(questions[currentCount]);
       setCurrentCount(prev => prev + 1);
     } else {
       onStopRecord();
       router.push('/interview/check');
+      return;
     }
+
+    setTimerState('READY');
+    setCountdown(5);
+    setTranscript('');
   };
 
   const onClickProgressButton = () => {

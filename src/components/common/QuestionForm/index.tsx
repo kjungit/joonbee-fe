@@ -21,7 +21,6 @@ const QuestionForm = ({ type = 'primary', callback }: QuestionForm) => {
   const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(
     selectedSubmitSubcategoryAtom,
   );
-
   const [questionContent, setQuestionContent] = useState('');
 
   const { trigger: postUserQuestion } = useMutateUserQuestion(
@@ -37,6 +36,7 @@ const QuestionForm = ({ type = 'primary', callback }: QuestionForm) => {
   const onSubmitQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await postUserQuestion();
+    setQuestionContent('');
     callback();
   };
 
@@ -61,6 +61,7 @@ const QuestionForm = ({ type = 'primary', callback }: QuestionForm) => {
         selectedSubcategory={selectedSubcategory}
         setSelectedCategory={setSelectedCategory}
         setSelectedSubcategory={setSelectedSubcategory}
+        callback={callback}
       />
       <div className="flex gap-5 w-full">
         <Input inputValue={questionContent} setInputValue={setQuestionContent} size="sm" />
