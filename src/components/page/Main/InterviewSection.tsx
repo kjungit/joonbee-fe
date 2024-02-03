@@ -19,7 +19,7 @@ export type QuestionItemType = {
 
 export interface InterviewItemType {
   interviewId: number;
-  categoryName: string;
+  categoryName: CategoryName;
   nickname: string;
   questions: QuestionItemType[];
   likeCount: string;
