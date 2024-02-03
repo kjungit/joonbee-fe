@@ -11,6 +11,7 @@ type DropdownCategoryProps = {
   selectedSubcategory: SubcategoryName;
   setSelectedCategory: (category: CategoryName) => void;
   setSelectedSubcategory: (subcategory: SubcategoryName) => void;
+  callback?: () => void;
 };
 export default function DropdownCategory({
   color = 'white',
@@ -19,6 +20,7 @@ export default function DropdownCategory({
   selectedSubcategory,
   setSelectedCategory,
   setSelectedSubcategory,
+  callback,
 }: DropdownCategoryProps) {
   // const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryAtom);
   // const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(selectedSubcategoryAtom);
@@ -38,14 +40,15 @@ export default function DropdownCategory({
 
   useEffect(() => {
     setSelectedSubcategory('세부 카테고리');
-  }, [selectedCategory]);
-  //카테고리 바뀔 시 서브카테고리 배열 초기화
-  useEffect(() => {
     setSelectedSubcategories([]);
+
+    if (callback) callback();
   }, [selectedCategory]);
+
   const handleCategorySelect: (item: CategoryName) => void = item => {
     setSelectedCategory(item);
   };
+
   const handleSubCategorySelect: (item: SubcategoryName) => void = item => {
     setSelectedSubcategory(item);
     setSelectedSubcategories(prev => [...prev, item]);
