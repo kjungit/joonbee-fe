@@ -5,15 +5,20 @@ type DetailQuestionCardProps = {
   question: string;
   questionCount: number;
   onClick?: () => void;
+  isBorderAlert?: boolean;
 };
 
 export const DetailQuestionCard = ({
   question,
   questionCount,
   onClick,
+  isBorderAlert,
 }: DetailQuestionCardProps) => {
-  const baseStyles =
-    'xs:justify-normal justify-center flex min-h-[48px] text-[18px] bg-white text-main-primary px-[10px] items-center font-bold shadow-md rounded-xl cursor-pointer border-4 border-white  hover:border-4 hover:border-main-primary';
+
+  const baseStyles = `xs:justify-normal justify-center flex min-h-[48px] text-[18px] bg-white
+     text-main-primary px-[10px] items-center font-bold shadow-md rounded-xl
+    cursor-pointer border-4 hover:border-4 hover:border-main-primary
+    ${isBorderAlert ? 'border-status-alert' : 'border-white'}`;
 
   return (
     <div className={baseStyles} onClick={onClick}>
