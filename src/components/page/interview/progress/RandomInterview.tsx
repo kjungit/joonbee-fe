@@ -2,11 +2,9 @@
 
 import { questionCountAtom } from '@/recoil/interviewSetting/atoms';
 import {
-  selectedCategoryAtom,
   selectedRandomCategoryAtom,
   selectedRandomSubcategoryAtom,
 } from '@/recoil/selectedCategory/atom';
-import { selectedSubcategoryListAtom } from '@/recoil/selectedSubcategoryList/atom';
 import { useRecoilValue } from 'recoil';
 import useSWR from 'swr';
 import Questions from './Questions';

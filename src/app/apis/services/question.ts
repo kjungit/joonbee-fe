@@ -71,7 +71,6 @@ export const postUserQuestion = async (
   subcategory: SubcategoryName,
   questionContent: string,
 ) => {
-  console.log('api 호출');
   const res = await instance().post('/api/cart/question/save', {
     categoryName: category,
     subcategoryName: subcategory,
