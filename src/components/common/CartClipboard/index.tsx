@@ -4,6 +4,11 @@ import { VariableIcon } from '@/components/ui/VariableIcon';
 import ModalPortal from '@/components/ui/ModalPortal';
 import { QustionItem } from '@/types/question';
 import useMutateUserQuestion from '@/hooks/questions/useMutateUserQuestion';
+import { postUserQuestion } from '@/app/apis/services/question';
+import useSWRMutation from 'swr/mutation';
+import { useRecoilState } from 'recoil';
+import { isTokenStatus } from '@/recoil/isToken/atoms';
+import ModalAlert from '../ModalAlert';
 
 type CardColor = 'text-black' | 'text-white';
 
@@ -13,14 +18,25 @@ export interface CartClipboardProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 export const CartClipboard = ({ color = 'text-white', item }: CartClipboardProps) => {
-  const { categoryName, subcategoryName, questionContent } = item;
+  const { questionId, subcategoryName } = item;
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoginError, setIsLoginError] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  const { trigger: postUserQuestion } = useMutateUserQuestion(
-    categoryName,
-    subcategoryName,
-    questionContent,
-    setIsOpen,
+  const { trigger, data } = useSWRMutation(
+    '/api/cart/question/save',
+    () => postUserQuestion(questionId, subcategoryName),
+    {
+      onSuccess: () => {},
+      onError: error => {
+        if (error.response.status === 401) {
+          setIsLoginError(true);
+        }
+        if (error.response.status === 400) {
+          setIsError(true);
+        }
+      },
+    },
   );
 
   useEffect(() => {
@@ -39,7 +55,7 @@ export const CartClipboard = ({ color = 'text-white', item }: CartClipboardProps
         <VariableIcon
           name="copy"
           onClick={() => {
-            postUserQuestion();
+            trigger();
           }}
           className={color}
         />
@@ -52,6 +68,20 @@ export const CartClipboard = ({ color = 'text-white', item }: CartClipboardProps
             </div>
           </div>
         </ModalPortal>
+      )}
+      {isLoginError && (
+        <ModalAlert
+          title="로그인이 필요합니다."
+          subTitle="로그인 후 좋아요를 할 수 있어요!"
+          onClose={() => setIsError(false)}
+        />
+      )}
+      {isError && (
+        <ModalAlert
+          title="장바구니에 담겨있는 질문이에요."
+          subTitle="나의 질문 페이지를 확인해보세요!"
+          onClose={() => setIsError(false)}
+        />
       )}
     </>
   );
