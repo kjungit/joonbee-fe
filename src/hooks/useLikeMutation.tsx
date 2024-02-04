@@ -24,12 +24,9 @@ export const useLikeMutation = (
         interviewMutate();
         myInterviewMutate();
         interviewAllMutate();
-        setIsLikeError(false);
       },
-      onError: error => {
-        if (error.response.status === 401) {
-          setIsLikeError(true);
-        }
+      onError: () => {
+        setIsLikeError(true);
       },
     },
   );
