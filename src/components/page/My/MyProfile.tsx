@@ -59,7 +59,7 @@ export default function MyProfile() {
             <VariableIcon name="edit" size={20} />
           </button>
         </div>
-        <p className="text-sm ">{userInfo?.email}</p>
+        <p className="text-sm ">{userInfo?.email && userInfo?.email}</p>
       </div>
       <div className="border-b-2 border-gray-light w-[80%] my-4"></div>
       <div className="flex flex-col gap-4 w-full">
