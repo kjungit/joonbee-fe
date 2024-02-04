@@ -66,15 +66,22 @@ export const getUserQuestions = async (url: string) => {
 /**
  * 사용자 질문 등록 api
  */
-export const postUserQuestion = async (
-  category: CategoryName,
-  subcategory: SubcategoryName,
+
+export const postSaveQuestion = async (
+  subcategoryName: SubcategoryName,
   questionContent: string,
 ) => {
   const res = await instance().post('/api/cart/question/save', {
-    categoryName: category,
-    subcategoryName: subcategory,
+    subcategoryName,
     questionContent,
+  });
+  return res.data.data.result;
+};
+
+export const postUserQuestion = async (questionId: number, subcategoryName: SubcategoryName) => {
+  const res = await instance().post('/api/cart/question/save/main', {
+    questionId,
+    subcategoryName,
   });
 
   return res.data.data.result;

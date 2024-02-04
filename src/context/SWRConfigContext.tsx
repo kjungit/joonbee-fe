@@ -1,5 +1,6 @@
 'use client';
 import { getRefresh } from '@/app/apis/services/auth';
+import useRefreshToken from '@/hooks/useRefreshToken';
 import { isRefreshStatus } from '@/recoil/isRefresh/atoms';
 import React from 'react';
 import { useRecoilState } from 'recoil';
@@ -11,24 +12,17 @@ type Props = {
 };
 
 export default function SWRConfigContext({ children }: Props) {
-  const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
-
-  const { trigger } = useSWRMutation('/auth/login/refresh', getRefresh, {
-    onSuccess: () => {},
-    onError: error => {
-      setIsRefresh(true);
-    },
-  });
-
+  const { refreshTrigger } = useRefreshToken();
   return (
     <SWRConfig
       value={{
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
-        onError: (error: any) => {
-          console.log(error);
-          if (error.response.status === 401) trigger();
+        onError: error => {
+          console.log('SWRConfig', error.response.status);
+          if (error.response.status === 403) refreshTrigger();
+          if (error.response.status === 402) refreshTrigger();
         },
       }}>
       {children}

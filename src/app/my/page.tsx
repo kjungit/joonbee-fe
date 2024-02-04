@@ -4,8 +4,8 @@ import MyProfile from '@/components/page/My/MyProfile';
 import React, { useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import InterviewComponent from '@/components/page/My/InterviewComponent';
-
 import QuestionComponent from '@/components/page/My/QuestionComponent';
+import ContentLayout from '@/components/common/layouts/ContentLayout';
 
 export default function MyPage() {
   const searchParams = useSearchParams();
@@ -33,8 +33,8 @@ export default function MyPage() {
   };
 
   return (
-    <div className="bg-main-primary w-full h-full flex justify-center items-center">
-      <div className="flex gap-6 max-w-[1024px] w-full px-5">
+    <ContentLayout>
+      <div className="flex gap-6">
         <MyProfile />
         <div className="flex flex-col w-full  justify-between gap-6 ">
           <div className="flex gap-6 w-full">
@@ -50,7 +50,7 @@ export default function MyPage() {
               defaultId={searchParams.get('category') === 'interview' ? 1 : 2}
             />
           </div>
-          <div className="bg-white w-full rounded-2xl p-6 h-full ">
+          <div className="bg-white min-w-[700px] rounded-2xl p-6 h-full ">
             {searchParams.get('category') === 'interview' ? (
               <InterviewComponent />
             ) : (
@@ -59,6 +59,6 @@ export default function MyPage() {
           </div>
         </div>
       </div>
-    </div>
+    </ContentLayout>
   );
 }

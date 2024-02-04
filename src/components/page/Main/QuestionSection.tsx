@@ -5,15 +5,12 @@ import { QuestionCard } from '@/components/common/QuestionCard';
 import SlideSection from './SlideSection';
 import useSWR from 'swr';
 import { getQuestionList } from '@/app/apis/services/question';
-import { CategoryName, QuestionType, QustionItem, SubcategoryName } from '@/types/question';
+import { CategoryName, QuestionType, SubcategoryName } from '@/types/question';
 import { questionCategory } from '@/constants/category';
 import ReactPaginate from 'react-paginate';
 import SkeletonQuestion from './SkeletonQuestion';
 import { CartClipboard } from '@/components/common/CartClipboard';
-import useSWRMutation from 'swr/mutation';
-import { postCartsave } from '@/app/apis/services/member';
 import ModalPortal from '@/components/ui/ModalPortal';
-import Image from 'next/image';
 interface PaginationEvent {
   selected: number;
 }
@@ -36,7 +33,6 @@ export default function QuestionSection() {
         category: mainSelectCategory,
         subcategory: subSelectCategory,
       }),
-    { suspense: true },
   );
 
   useEffect(() => {
@@ -76,6 +72,7 @@ export default function QuestionSection() {
               selected={mainSelectCategory}
               onSelect={setMainSelectCategory}
               color="white"
+              size="md"
             />
             <Dropdown
               data={subCategoryNames}
@@ -83,6 +80,7 @@ export default function QuestionSection() {
               onSelect={setSubSelectCategory}
               title="세부 카테고리"
               isDisabled={isDisabled}
+              size="md"
             />
           </div>
           {/* <div className="flex items-end gap-2">
@@ -109,7 +107,9 @@ export default function QuestionSection() {
                   setIsHover(true), setHoverContent(item.questionContent);
                 }}
                 onMouseOut={() => {
-                  setIsHover(false);
+                  if (!isHover || !document.querySelector('.ModalPortal')) {
+                    setIsHover(false);
+                  }
                 }}>
                 <QuestionCard
                   size="md"
@@ -143,7 +143,7 @@ export default function QuestionSection() {
 
       {isHover && (
         <ModalPortal>
-          <div className="fixed -translate-x-1/2 left-1/2 top-3/4">
+          <div className="fixed -translate-x-1/2 left-1/2 top-[85%]">
             <div className="p-2 font-bold border-main-primary border-4 w-full min-w-[200px] max-w-[600px] rounded-lg items-center justify-center flex text-lg h-[100px]  bg-white opacity-90 text-main-primary">
               {hoverContent}
             </div>

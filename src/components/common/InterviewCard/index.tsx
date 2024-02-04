@@ -9,6 +9,7 @@ import { Category } from '@/constants/category';
 import { InterviewItemType } from '@/components/page/Main/InterviewSection';
 import { useLikeMutation } from '@/hooks/useLikeMutation';
 import AlertModal from '@/components/ui/Modal/AlertModal';
+import ModalAlert from '../ModalAlert';
 
 const InterviewCard = ({ props }: { props: InterviewItemType }) => {
   const {
@@ -81,15 +82,10 @@ const InterviewCard = ({ props }: { props: InterviewItemType }) => {
         </div>
       </button>
       {isLikeError && (
-        <AlertModal
-          isOpened={isLikeError}
-          onClose={() => setIsLikeError(false)}
+        <ModalAlert
           title="로그인이 필요합니다."
-          body={`로그인 후 좋아요를 할 수 있어요!`}
-          onConfirm={e => {
-            e?.stopPropagation();
-            setIsLikeError(false);
-          }}
+          subTitle="로그인 후 좋아요를 할 수 있어요!"
+          onClose={() => setIsLikeError(false)}
         />
       )}
     </>

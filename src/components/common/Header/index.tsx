@@ -1,10 +1,7 @@
 'use client';
-import React, { MouseEvent, useEffect, useState } from 'react';
-import Alarm from '../Alarm';
+import React, { useEffect, useState } from 'react';
 import { Avatar } from '@/components/ui/Avartar';
-import { alarmData } from '@/constants/alarm';
 import ModalPortal from '@/components/ui/ModalPortal';
-import { LoginBox } from '../LoginBox';
 import { Button } from '@/components/ui/Button';
 import { postNickName } from '@/app/apis/services/auth';
 import { useRecoilState } from 'recoil';
@@ -13,25 +10,18 @@ import useSWRMutation from 'swr/mutation';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
 import { useUserInfo } from '@/hooks/useUserInfo';
-import { isRefreshStatus } from '@/recoil/isRefresh/atoms';
-import { isLoginedStatus } from '@/recoil/isLogined/atom';
+import ModalAlert from '../ModalAlert';
+import { isTokenStatus } from '@/recoil/isToken/atoms';
+import { isSameStatus } from '@/recoil/isSame/atoms';
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [nickName, setNickName] = useState('');
   const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
-  const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
-  const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
+  const [isToken, setIsToken] = useRecoilState(isTokenStatus);
+  const [isSame, setIsSame] = useRecoilState(isSameStatus);
   const [isNickError, setIsError] = useState(false);
-  const { userInfo, userInfoMutate } = useUserInfo();
-  const [user, setUser] = useState(null);
+  const { isLogined, userInfo, userInfoMutate } = useUserInfo();
 
-  // const eventSource = new EventSource('/auth/login/events');
-
-  // eventSource.addEventListener('message', (data: any) => {
-  //   const event = JSON.parse(data);
-  //   setUser(event.user);
-  // });
   const { error: nickError, trigger } = useSWRMutation(
     '/auth/login/nick',
     () => postNickName({ id: isTokened.id, nickName }),
@@ -50,17 +40,6 @@ const Header = () => {
     },
   );
 
-  const data = alarmData;
-
-  const onClickLogin = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const onClickOpen = (e: MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    setIsOpen(!isOpen);
-  };
-
   const onChangeNinkName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value);
   };
@@ -69,23 +48,22 @@ const Header = () => {
   };
 
   const onClickReLogin = async () => {
-    setIsRefresh(false);
+    setIsToken(false);
   };
 
   useEffect(() => {
     if (userInfo?.nickName === '') {
-      console.log('asdfasdf');
       setIsTokened({
         ...isTokened,
         id: userInfo.id,
         isLogined: true,
       });
     }
-  }, [userInfo]);
+  }, [userInfo, isLogined]);
 
   return (
     <>
-      <header className="w-screen z-50 h-[60px] shadow-sm flex justify-center items-center bg-white">
+      <header className="w-screen sticky top-0 z-50 h-[60px] shadow-sm flex justify-center items-center bg-white">
         <div className="max-w-[1024px] p-5  w-full flex justify-between items-center">
           <Link href="/">
             <div className="flex gap-3 items-center">
@@ -94,26 +72,18 @@ const Header = () => {
             </div>
           </Link>
           <div className="flex gap-4 ">
-            <Alarm data={data} />
+            {/* <Alarm data={data} /> */}
             {isLogined ? (
               <Link href="/my?category=interview&sort=my_interview">
                 {userInfo && <Avatar size="md" thumbnail={userInfo.thumbnail} />}
               </Link>
             ) : (
-              <button onClick={onClickLogin}>로그인</button>
+              <Link href="/login">로그인</Link>
             )}
           </div>
         </div>
       </header>
-      {isOpen && (
-        <ModalPortal>
-          <div
-            onClick={onClickOpen}
-            className="fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
-            <LoginBox />
-          </div>
-        </ModalPortal>
-      )}
+
       {isTokened.isLogined && (
         <ModalPortal>
           <div className="fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
@@ -144,25 +114,19 @@ const Header = () => {
           </div>
         </ModalPortal>
       )}
-      {isRefresh && (
-        <ModalPortal>
-          <div className="fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
-            <div className="w-[390px] h-[380px] flex items-center justify-center rounded-[50px] bg-white shadow-md">
-              <div className="flex flex-col gap-[26px] items-center justify-center p-[30px]">
-                <Logo size={'md'} />
-                <div className="flex flex-col items-center">
-                  <h3 className="text-[#4149A6] text-2xl font-bold">로그인을 다시 해주세요.</h3>
-                  <p className="text-status-alert font-bold">사용자 정보를 확인할 수 없어요.</p>
-                </div>
-                <div className="flex flex-col gap-2 relative">
-                  <Button size="2lg" onClick={onClickReLogin}>
-                    확인
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ModalPortal>
+      {isToken && (
+        <ModalAlert
+          title="로그인이 필요합니다."
+          subTitle="로그인 후 질문을 저장해보세요!"
+          onClose={onClickReLogin}
+        />
+      )}
+      {isSame && (
+        <ModalAlert
+          title="중복된 질문입니다."
+          subTitle="현재 장바구니에 같은 질문이 있어요!"
+          onClose={() => setIsSame(false)}
+        />
       )}
     </>
   );

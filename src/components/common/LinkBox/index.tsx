@@ -32,7 +32,7 @@ export const LinkBox = ({
   }`;
 
   const sizeStyles = {
-    sm: 'justify-between h-[150px] max-w-[500px]',
+    sm: 'justify-between max-h-[150px] max-w-[500px]',
     md: 'justify-between h-full max-w-[800px] ',
     lg: 'justify-center lg:h-[480px] md:h-[420px] xs:h-[380px] flex-col-reverse',
   };

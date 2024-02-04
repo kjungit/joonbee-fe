@@ -19,7 +19,7 @@ export const QuestionCard = ({
   const baseStyles = 'flex items-center font-bold px-5 shadow-md rounded-lg justify-between';
 
   const sizeStyles = {
-    sm: 'h-[42px] w-full text-[14px] text-start ',
+    sm: 'h-[42px] w-full text-[16px] text-start ',
     md: 'h-[52px] w-full lg:max-w-[480px] text-xs',
     lg: 'h-[68px] w-full max-w-[500px] text-[16px]',
   };

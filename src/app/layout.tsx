@@ -7,6 +7,8 @@ import { Noto_Sans_KR } from 'next/font/google';
 
 import Header from '../components/common/Header';
 import SWRConfigContext from '@/context/SWRConfigContext';
+import Footer from '@/components/common/Footer';
+import CommonLayout from '@/layouts/common/CommonLayout';
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -26,9 +28,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <RecoilRootProvider>
           <SWRConfigContext>
             <RouteChangesProvider>
-              <Header />
-              <main className="h-[calc(100vh-64px)] ">{children}</main>
-            </RouteChangesProvider>{' '}
+              <CommonLayout>
+                <Header />
+                <main>{children}</main>
+              </CommonLayout>
+            </RouteChangesProvider>
           </SWRConfigContext>
         </RecoilRootProvider>
         <div id="portal"></div>

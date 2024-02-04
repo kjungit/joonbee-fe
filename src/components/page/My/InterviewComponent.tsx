@@ -69,7 +69,9 @@ export default function InterviewComponent() {
     DetailData,
     AxiosError
   >(['api/interview/detail', selectInterviewId], () => getInterviewLikeDetail(selectInterviewId), {
-    onSuccess: () => {},
+    onSuccess: data => {
+      console.log(data);
+    },
   });
 
   const { trigger: detailQuestionTrigger } = useSWRMutation<QuestionData, AxiosError>(
