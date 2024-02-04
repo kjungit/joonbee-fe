@@ -13,7 +13,7 @@ export default function OauthPage() {
   const searchParams = useSearchParams();
   const AUTHORIZATION_CODE: string = searchParams.get('code') as string;
   const router = useRouter();
-  const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
+  const [isNick, setIsNick] = useRecoilState(isTokenedState);
   const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
   const { userInfoMutate } = useUserInfo();
 
@@ -28,8 +28,7 @@ export default function OauthPage() {
     return () => {
       router.push('/');
       if (error) {
-        setIsTokened({
-          ...isTokened,
+        setIsNick({
           id: error.data,
           isLogined: true,
         });
