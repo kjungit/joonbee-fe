@@ -33,7 +33,6 @@ export default function QuestionSection() {
         category: mainSelectCategory,
         subcategory: subSelectCategory,
       }),
-    { suspense: true },
   );
 
   useEffect(() => {
