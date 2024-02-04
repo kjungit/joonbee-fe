@@ -1,6 +1,7 @@
 import { FetcherResponse } from 'swr/_internal';
 import { instance } from '../axios';
 import { DetailData, QuestionData } from '@/components/page/My/InterviewComponent';
+import { AxiosError } from 'axios';
 
 export const getUserInfo = async () => {
   try {
@@ -8,7 +9,7 @@ export const getUserInfo = async () => {
     return res.data.data;
   } catch (error: any) {
     console.log(error);
-    throw error;
+    throw error.response.status;
   }
 };
 
@@ -61,7 +62,7 @@ export const postInterviewLike = async (interviewId: number) => {
       interviewId,
     });
     return res;
-  } catch (error) {
+  } catch (error: any) {
     throw error;
   }
 };
