@@ -1,6 +1,7 @@
 import { getUserInfo } from '@/app/apis/services/member';
 import { isLoginedStatus } from '@/recoil/isLogined/atom';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import useSWR, { preload } from 'swr';
 export interface UserInfoProps {
@@ -28,16 +29,11 @@ export const useUserInfo = () => {
     '/auth/member/info',
     getUserInfo,
     {
-      onSuccess: () => {
+      onSuccess: data => {
         setisLogined(true);
-      },
-      onErrorRetry: ({ retryCount }) => {
-        if (retryCount >= 3) return;
       },
     },
   );
 
-  preload('/auth/member/info', getUserInfo);
-
-  return { userInfo, userInfoMutate };
+  return { userInfo, userInfoMutate, isLogined };
 };
