@@ -37,7 +37,7 @@ export const RadioButtonGroup = ({
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 h-auto">
       {data.map(item => (
         <div key={item.id}>
           <label htmlFor={`${groupName}-${item.id}`} className="block">

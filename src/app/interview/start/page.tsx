@@ -1,10 +1,11 @@
+import ContentLayout from '@/components/common/layouts/ContentLayout';
 import InterviewStartContainer from '@/components/page/interview/start/InterviewStartContainer';
 
 const InterviewStartPage = () => {
   return (
-    <div className="h-full flex items-center justify-center bg-main-primary">
+    <ContentLayout>
       <InterviewStartContainer />
-    </div>
+    </ContentLayout>
   );
 };
 

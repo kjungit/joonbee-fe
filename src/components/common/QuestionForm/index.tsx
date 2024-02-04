@@ -24,11 +24,7 @@ const QuestionForm = ({ type = 'primary', callback }: QuestionForm) => {
 
   const [questionContent, setQuestionContent] = useState('');
 
-  const { trigger: postUserQuestion } = useMutateUserQuestion(
-    selectedCategory,
-    selectedSubcategory,
-    questionContent,
-  );
+  const { trigger: postUserQuestion } = useMutateUserQuestion(selectedSubcategory, questionContent);
 
   useEffect(() => {
     onDisableSubmitButton();

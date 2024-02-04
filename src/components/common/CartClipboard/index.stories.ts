@@ -21,7 +21,7 @@ export const Primary: Story = {
   args: {
     color: 'text-white',
     item: {
-      questionId: '123',
+      questionId: 123,
       categoryId: 12,
       categoryName: 'fe',
       questionContent: 'test',

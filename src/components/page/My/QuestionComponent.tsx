@@ -1,6 +1,5 @@
 import { deleteQuestion } from '@/app/apis/services/member';
 import { LineQuestrionCard } from '@/components/common/LineQuestionCard';
-import QuestionForm from '@/components/common/QuestionForm';
 import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
 import { Input } from '@/components/ui/Input';
@@ -26,11 +25,9 @@ export default function QuestionComponent() {
     setTarget,
     mutate,
   } = useInfiniteUserQuestion(mainSelectCategory, subSelectCategory);
-  const { trigger: postUserQuestion } = useMutateUserQuestion(
-    mainSelectCategory,
-    subSelectCategory,
-    question,
-  );
+
+  const { trigger: postUserQuestion } = useMutateUserQuestion(subSelectCategory, question);
+
   const { trigger: deleteTrigger } = useSWRMutation('api/member/cart/delete', deleteQuestion, {
     onSuccess: () => {
       mutate();
@@ -46,13 +43,12 @@ export default function QuestionComponent() {
   };
   const onSubmitQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('sdf');
     await postUserQuestion();
   };
   useEffect(() => {
+    setSubSelectCategory('세부 카테고리');
     if (mainSelectCategory === '') {
       setIsDisabled(true);
-      setSubSelectCategory('세부 카테고리');
     } else {
       setIsDisabled(false);
     }

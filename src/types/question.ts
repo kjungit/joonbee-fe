@@ -52,7 +52,7 @@ export type QuestionCategory = {
 };
 
 export type QustionItem = {
-  questionId: string;
+  questionId: number;
   categoryId: number;
   categoryName: CategoryName;
   questionContent: string;
