@@ -1,4 +1,5 @@
 'use client';
+import { getLogout } from '@/app/apis/services/auth';
 import { BetweenBox } from '@/components/common/BetweenBox';
 import { PolarChart } from '@/components/common/PolarChart';
 import { Button } from '@/components/ui/Button';
@@ -9,22 +10,26 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Cookies } from 'react-cookie';
 import { useRecoilState } from 'recoil';
+import useSWR from 'swr';
+import useSWRMutation from 'swr/mutation';
 
 export default function MyProfile() {
   const { userInfo, userInfoMutate } = useUserInfo();
   const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
 
+  const { trigger } = useSWRMutation('/logout', getLogout);
+
   const router = useRouter();
   const cookies = new Cookies();
   const onClickLogout = () => {
-    cookies.remove('joonbee-token');
+    trigger();
     router.replace('/');
     setisLogined(false);
   };
 
   if (!userInfo) return;
   return (
-    <div className="h-full bg-white w-[280px] p-6 rounded-2xl flex flex-col items-center">
+    <div className="h-auto bg-white w-[280px] p-6 rounded-2xl flex flex-col items-center">
       <h3 className="text-xl font-bold w-full mb-4">프로필</h3>
       <Image
         src={userInfo?.thumbnail}
