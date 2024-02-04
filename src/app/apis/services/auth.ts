@@ -57,3 +57,7 @@ export const postNickName = async ({ id, nickName }: PostNickNameProps) => {
     throw errorCode;
   }
 };
+
+export const getLogout = async () => {
+  const res = await instance().get('/auth/login/logout');
+};
