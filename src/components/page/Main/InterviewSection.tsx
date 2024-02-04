@@ -54,7 +54,7 @@ export default function InterviewSection() {
   }, [data]);
 
   return (
-    <section className=" pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
+    <section className="pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
       <div className="max-w-[1024px] w-full px-5">
         <div className="flex justify-between w-full items-end">
           <Dropdown
