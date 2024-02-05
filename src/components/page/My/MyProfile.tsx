@@ -1,26 +1,33 @@
 'use client';
 import { getLogout } from '@/app/apis/services/auth';
 import { BetweenBox } from '@/components/common/BetweenBox';
+import NickEditModal from '@/components/common/NickEditModal';
 import { PolarChart } from '@/components/common/PolarChart';
 import { Button } from '@/components/ui/Button';
+import ModalPortal from '@/components/ui/ModalPortal';
+import { VariableIcon } from '@/components/ui/VariableIcon';
+import useNickMutation from '@/hooks/useNickMutation';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import { isLoginedStatus } from '@/recoil/isLogined/atom';
+import { isTokenedState } from '@/recoil/isTokened/atoms';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { Cookies } from 'react-cookie';
 import { useRecoilState } from 'recoil';
-import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
 
 export default function MyProfile() {
   const { userInfo, userInfoMutate } = useUserInfo();
+  const [nickName, setNickName] = useState('');
   const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
+  const [isEdit, setIsEdit] = useState(false);
+  const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
 
   const { trigger } = useSWRMutation('/logout', getLogout);
 
   const router = useRouter();
-  const cookies = new Cookies();
+
   const onClickLogout = () => {
     trigger();
     router.replace('/');
@@ -34,11 +41,26 @@ export default function MyProfile() {
       <Image
         src={userInfo?.thumbnail}
         alt={userInfo.nickName}
-        width={100}
-        height={100}
+        width={80}
+        height={80}
         className="rounded-full"
       />
-      <p className="mt-4 text-xl font-bold">{userInfo?.nickName}</p>
+      <div className="mt-4 flex flex-col items-center">
+        <div className="flex gap-1">
+          <p className=" text-xl font-bold">{userInfo?.nickName}</p>
+          <button
+            onClick={() => {
+              setIsTokened({
+                ...isTokened,
+                id: userInfo.id,
+                isLogined: true,
+              });
+            }}>
+            <VariableIcon name="edit" size={20} />
+          </button>
+        </div>
+        <p className="text-sm ">{userInfo?.email && userInfo?.email}</p>
+      </div>
       <div className="border-b-2 border-gray-light w-[80%] my-4"></div>
       <div className="flex flex-col gap-4 w-full">
         <BetweenBox first="면접 수" second={userInfo?.interviewCount} />
