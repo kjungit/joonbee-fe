@@ -20,7 +20,6 @@ export default function SWRConfigContext({ children }: Props) {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
         onError: error => {
-          console.log(error.response.status);
           if (error.response.status === 403) refreshTrigger();
           if (error.response.status === 402) refreshTrigger();
         },
