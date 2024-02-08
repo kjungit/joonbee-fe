@@ -2,14 +2,14 @@
 import { InterviewItemType } from '@/components/page/Main/InterviewSection';
 import { CategoryName } from '@/types/question';
 import React, { MouseEvent, useEffect, useState } from 'react';
-import SkeletonInterview from '@/components/page/Main/SkeletonInterview';
 import Dropdown from '@/components/ui/Dropdown';
-import InterviewCard from '@/components/common/InterviewCard';
-import Image from 'next/image';
 import ModalPortal from '@/components/ui/ModalPortal';
 import DetailInterview from '@/components/page/Main/DetailInterview';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
-// import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
+import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
+import SkeletonInterview from '@/components/page/Main/SkeletonInterview';
+import Image from 'next/image';
+import InterviewCard from '@/components/common/InterviewCard';
 
 export default function QuestionsPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,20 +19,18 @@ export default function QuestionsPage() {
   const onClickCategory = (item: ItemProps) => {
     setCurrent(item.id);
   };
-  useEffect(() => {
-    console.log(current);
-  }, [current]);
-  // const { newData, isLoading, setTarget } = useInfiniteInterview(categorySelect, current);
+
+  const { newData, isLoading, setTarget } = useInfiniteInterview(categorySelect, current);
 
   const onClickOpen = (e: MouseEvent<HTMLDivElement | HTMLLIElement>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
-  // useEffect(() => {
-  //   const findInterview = newData?.find(item => selectInterview?.interviewId === item.interviewId);
-  //   findInterview && setSelectInterview(findInterview);
-  // }, [newData]);
+  useEffect(() => {
+    const findInterview = newData?.find(item => selectInterview?.interviewId === item.interviewId);
+    findInterview && setSelectInterview(findInterview);
+  }, [newData]);
 
   return (
     <div className="bg-gray-light min-h-full w-full flex justify-center py-10">
@@ -57,7 +55,7 @@ export default function QuestionsPage() {
             onClickFunc={onClickCategory}
           />
         </div>
-        {/* {isLoading && <SkeletonInterview />}
+        {isLoading && <SkeletonInterview />}
         <ul className="flex flex-wrap justify-between ">
           {newData?.length ? (
             newData.map(item => (
@@ -83,7 +81,7 @@ export default function QuestionsPage() {
             </div>
           )}
         </ul>
-        <div ref={setTarget}></div> */}
+        <div ref={setTarget}></div>
 
         {isOpen && (
           <ModalPortal>

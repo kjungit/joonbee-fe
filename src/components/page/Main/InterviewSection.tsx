@@ -11,6 +11,10 @@ import SkeletonInterview from './SkeletonInterview';
 import Image from 'next/image';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
 import useInterviewAll from '@/hooks/main/useInterviewAll';
+import useSWR from 'swr';
+import { getInterview } from '@/app/apis/services/interview';
+import { sortType } from '@/constants/apiState';
+import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
 
 export type QuestionItemType = {
   questionId: string;
@@ -38,7 +42,19 @@ export default function InterviewSection() {
   const [categorySelect, setCategorySelect] = useState<CategoryName>('');
   const router = useRouter();
 
-  // const { data, isLoading } = useInterviewAll(categorySelect, current);
+  // const {
+  //   data,
+  //   isLoading,
+  //   mutate: interviewAllMutate,
+  // } = useSWR<InterviewItemType[]>(
+  //   ['/api/interview/all', categorySelect, current],
+  //   () => getInterview({ categorySelect, current: sortType[current] }),
+  //   {
+  //     revalidateIfStale: false,
+  //   },
+  // );
+
+  const { newData, isLoading, setTarget } = useInfiniteInterview(categorySelect, current);
 
   const onClickCategory = (item: ItemProps) => {
     setCurrent(item.id);
@@ -48,10 +64,14 @@ export default function InterviewSection() {
     setIsOpen(!isOpen);
   };
 
-  // useEffect(() => {
-  //   const findInterview = data?.find(item => selectInterview?.interviewId === item.interviewId);
-  //   findInterview && setSelectInterview(findInterview);
-  // }, [data]);
+  useEffect(() => {
+    const findInterview = newData?.find(item => selectInterview?.interviewId === item.interviewId);
+    findInterview && setSelectInterview(findInterview);
+  }, [newData]);
+
+  useEffect(() => {
+    console.log(categorySelect);
+  }, [categorySelect]);
 
   return (
     <section className="pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
@@ -76,10 +96,10 @@ export default function InterviewSection() {
             onClickFunc={onClickCategory}
           />
         </div>
-        {/* {isLoading && <SkeletonInterview />} */}
-        {/* <ul className="md:flex md:flex-wrap justify-between w-full">
-          {data?.length ? (
-            data.slice(0, 6).map(i => (
+        {isLoading && <SkeletonInterview />}
+        <ul className="md:flex md:flex-wrap justify-between w-full">
+          {newData && newData?.length ? (
+            newData.slice(0, 6).map(i => (
               <li
                 key={i.interviewId}
                 className="mt-8 w-full  md:max-w-[320px] "
@@ -101,7 +121,7 @@ export default function InterviewSection() {
               </div>
             </div>
           )}
-        </ul> */}
+        </ul>
         <div className="flex justify-center my-12">
           <RadiusButton
             text="sm"

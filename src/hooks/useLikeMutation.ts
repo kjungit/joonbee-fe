@@ -4,7 +4,6 @@ import { CategoryName } from '@/types/question';
 import useSWRMutation from 'swr/mutation';
 import useInfiniteMyInterview from './my/useInfiniteMyInterview';
 import useInterviewAll from './main/useInterviewAll';
-import useInfiniteInterview from './interview/useInfiniteInterview';
 import { useState } from 'react';
 
 export const useLikeMutation = (
@@ -13,17 +12,15 @@ export const useLikeMutation = (
   current: number,
 ) => {
   // const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
-  // const { interviewAllMutate } = useInterviewAll(categorySelect, current);
-  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
+  // const { interviewMutate } = useInfiniteInterview(categorySelect, current);
   const [isLikeError, setIsLikeError] = useState(false);
   const { trigger: likeTrigger } = useSWRMutation(
     ['api/member/like', interviewId, current],
     () => postInterviewLike(interviewId),
     {
       onSuccess: () => {
-        interviewMutate();
+        // interviewMutate();
         // myInterviewMutate();
-        // interviewAllMutate();
       },
       onError: () => {
         setIsLikeError(true);
