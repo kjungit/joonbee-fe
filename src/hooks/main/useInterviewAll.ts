@@ -8,12 +8,13 @@ export default function useInterviewAll(categorySelect: CategoryName, current: n
     data,
     isLoading,
     mutate: interviewAllMutate,
-  } = useSWR<InterviewItemType[]>(['/api/interview/all', categorySelect, current], () =>
-    getInterview(`/api/interview/all?page=1&category=${categorySelect}&sort=${sortType[current]}`),
+  } = useSWR<InterviewItemType[]>(
+    categorySelect ? ['/api/interview/all', categorySelect, current] : null,
+    () =>
+      getInterview(
+        `/api/interview/all?page=1&category=${categorySelect}&sort=${sortType[current]}`,
+      ),
   );
 
-  preload(['/api/interview/all', categorySelect, current], () =>
-    getInterview(`/api/interview/all?page=1&category=${categorySelect}&sort=${sortType[current]}`),
-  );
   return { data, isLoading, interviewAllMutate };
 }

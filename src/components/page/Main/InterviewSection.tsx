@@ -38,7 +38,7 @@ export default function InterviewSection() {
   const [categorySelect, setCategorySelect] = useState<CategoryName>('');
   const router = useRouter();
 
-  // const { data, isLoading } = useInterviewAll(categorySelect, current);
+  const { data, isLoading } = useInterviewAll(categorySelect, current);
 
   const onClickCategory = (item: ItemProps) => {
     setCurrent(item.id);
@@ -48,10 +48,14 @@ export default function InterviewSection() {
     setIsOpen(!isOpen);
   };
 
-  // useEffect(() => {
-  //   const findInterview = data?.find(item => selectInterview?.interviewId === item.interviewId);
-  //   findInterview && setSelectInterview(findInterview);
-  // }, [data]);
+  useEffect(() => {
+    const findInterview = data?.find(item => selectInterview?.interviewId === item.interviewId);
+    findInterview && setSelectInterview(findInterview);
+  }, [data]);
+
+  useEffect(() => {
+    console.log(data);
+  }, []);
 
   return (
     <section className="pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
@@ -76,9 +80,9 @@ export default function InterviewSection() {
             onClickFunc={onClickCategory}
           />
         </div>
-        {/* {isLoading && <SkeletonInterview />} */}
-        {/* <ul className="md:flex md:flex-wrap justify-between w-full">
-          {data?.length ? (
+        {isLoading && <SkeletonInterview />}
+        <ul className="md:flex md:flex-wrap justify-between w-full">
+          {data && data?.length ? (
             data.slice(0, 6).map(i => (
               <li
                 key={i.interviewId}
@@ -101,7 +105,7 @@ export default function InterviewSection() {
               </div>
             </div>
           )}
-        </ul> */}
+        </ul>
         <div className="flex justify-center my-12">
           <RadiusButton
             text="sm"
