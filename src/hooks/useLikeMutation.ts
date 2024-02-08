@@ -14,14 +14,14 @@ export const useLikeMutation = (
 ) => {
   // const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
   // const { interviewAllMutate } = useInterviewAll(categorySelect, current);
-  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
+  // const { interviewMutate } = useInfiniteInterview(categorySelect, current);
   const [isLikeError, setIsLikeError] = useState(false);
   const { trigger: likeTrigger } = useSWRMutation(
     ['api/member/like', interviewId, current],
     () => postInterviewLike(interviewId),
     {
       onSuccess: () => {
-        interviewMutate();
+        // interviewMutate();
         // myInterviewMutate();
         // interviewAllMutate();
       },
