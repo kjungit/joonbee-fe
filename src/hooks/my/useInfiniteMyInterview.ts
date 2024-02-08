@@ -1,6 +1,6 @@
 import useSWRInfinite from 'swr/infinite';
 import { useIntersectionObserver } from '../useInterSectionObserver';
-import { getMyCategoryInterview } from '@/app/apis/services/member';
+import { getInfiniteData } from '@/app/apis/services/member';
 import { preload } from 'swr';
 
 export interface MyInterviewProps {
@@ -26,7 +26,7 @@ export default function useInfiniteMyInterview(category: 'my_interview' | 'liked
     isValidating,
     mutate: myInterviewMutate,
     isLoading: myInterviewLoading,
-  } = useSWRInfinite<MyInterviewProps[]>(getKey, url => getMyCategoryInterview(url), {
+  } = useSWRInfinite<MyInterviewProps[]>(getKey, url => getInfiniteData(url), {
     revalidateAll: true,
   });
 

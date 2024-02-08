@@ -3,7 +3,7 @@ import { useIntersectionObserver } from '../useInterSectionObserver';
 import { InterviewItemType } from '@/components/page/Main/InterviewSection';
 import { CategoryName } from '@/types/question';
 import { sortType } from '@/constants/apiState';
-import { getInterview } from '@/app/apis/services/interview';
+import { getInfiniteData } from '@/app/apis/services/member';
 
 export interface MyInterviewProps {
   categoryName: string;
@@ -24,7 +24,7 @@ export default function useInfiniteInterview(categorySelect: CategoryName, curre
     isLoading,
     setSize,
     mutate: interviewMutate,
-  } = useSWRInfinite<InterviewItemType[]>(getKey, url => getInterview(url));
+  } = useSWRInfinite<InterviewItemType[]>(getKey, url => getInfiniteData(url));
 
   const newData = data ? ([] as InterviewItemType[]).concat(...data) : [];
 

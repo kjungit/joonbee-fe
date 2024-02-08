@@ -9,7 +9,7 @@ export default function useInterviewAll(categorySelect: CategoryName, current: n
     isLoading,
     mutate: interviewAllMutate,
   } = useSWR<InterviewItemType[]>(['/api/interview/all', categorySelect, current], () =>
-    getInterview(`/api/interview/all?page=1&category=${categorySelect}&sort=${sortType[current]}`),
+    getInterview({ categorySelect, current: sortType[current] }),
   );
 
   return { data, isLoading, interviewAllMutate };
