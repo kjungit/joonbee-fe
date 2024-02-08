@@ -12,8 +12,8 @@ export const useLikeMutation = (
   categorySelect: CategoryName,
   current: number,
 ) => {
-  const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
-  // const { interviewAllMutate } = useInterviewAll(categorySelect, current);
+  // const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
+  const { interviewAllMutate } = useInterviewAll(categorySelect, current);
   const { interviewMutate } = useInfiniteInterview(categorySelect, current);
   const [isLikeError, setIsLikeError] = useState(false);
   const { trigger: likeTrigger } = useSWRMutation(
@@ -22,8 +22,8 @@ export const useLikeMutation = (
     {
       onSuccess: () => {
         interviewMutate();
-        myInterviewMutate();
-        // interviewAllMutate();
+        // myInterviewMutate();
+        interviewAllMutate();
       },
       onError: () => {
         setIsLikeError(true);
