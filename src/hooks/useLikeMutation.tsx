@@ -12,7 +12,7 @@ export const useLikeMutation = (
   categorySelect: CategoryName,
   current: number,
 ) => {
-  const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
+  // const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
   // const { interviewAllMutate } = useInterviewAll(categorySelect, current);
   const { interviewMutate } = useInfiniteInterview(categorySelect, current);
   const [isLikeError, setIsLikeError] = useState(false);
@@ -22,7 +22,7 @@ export const useLikeMutation = (
     {
       onSuccess: () => {
         interviewMutate();
-        myInterviewMutate();
+        // myInterviewMutate();
         // interviewAllMutate();
       },
       onError: () => {
