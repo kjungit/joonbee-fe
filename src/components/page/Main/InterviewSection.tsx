@@ -55,7 +55,7 @@ export default function InterviewSection() {
 
   useEffect(() => {
     console.log(data);
-  }, []);
+  }, [data]);
 
   return (
     <section className="pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
