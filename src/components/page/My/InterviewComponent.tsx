@@ -38,6 +38,7 @@ export interface QuestionData {
 }
 
 export default function InterviewComponent() {
+  const [current, setCurrent] = useState(1);
   const [isMount, setIsMount] = useState(false);
   const [isInterviewOpen, setIsInterviewOpen] = useState(false);
   const [isLikeOpen, setIsLikeOpen] = useState(false);
@@ -60,9 +61,6 @@ export default function InterviewComponent() {
   const { trigger: interviewTrigger, data: detailData } = useSWRMutation<DetailData, AxiosError>(
     ['api/member/interview/detail', selectInterviewId],
     () => getInterviewDetail(selectInterviewId),
-    {
-      onSuccess: () => {},
-    },
   );
 
   const { trigger: interviewLikeTrigger, data: detailLikeData } = useSWRMutation<
@@ -79,7 +77,6 @@ export default function InterviewComponent() {
     () => getInterviewQuestionDetail(selectInterviewId, selectQuestionId),
     {
       onSuccess: data => {
-        setIsQuestionOpen(true);
         setSelectQuestion({
           index: selectQuestion.index,
           ...data,
@@ -121,6 +118,7 @@ export default function InterviewComponent() {
   );
 
   const onClickSort = (item: ItemProps) => {
+    setCurrent(item.id);
     router.push('my' + '?' + createQueryString('sort', item.id === 1 ? 'my_interview' : 'liked'));
   };
   const onClickDetailOpen = (e: React.MouseEvent) => {
@@ -156,6 +154,8 @@ export default function InterviewComponent() {
         {newData &&
           newData.map(i => (
             <MyInterviewCard
+              current={current}
+              categorySelect=""
               selectInterview={searchParams.get('sort') as 'my_interview' | 'liked'}
               mutate={myInterviewMutate}
               key={i.interviewId}
@@ -195,19 +195,21 @@ export default function InterviewComponent() {
             <div className="flex flex-col gap-4">
               <InterviewResultCom gptOpinion={detailData?.gptOpinion}>
                 <ul className="pb-4 flex flex-col gap-4 h-[240px] overflow-auto">
-                  {detailLikeData &&
-                    detailLikeData.questionContents?.map((item, idx) => (
+                  {detailData &&
+                    detailData.questionContents?.map((item, idx) => (
                       <DetailQuestionCard
                         key={item.questionId}
                         question={item.questionContent}
                         questionCount={idx + 1}
                         onClick={() => {
-                          setSelectQuestionId(item.questionId);
                           setSelectQuestion({
                             ...selectQuestion,
                             index: idx + 1,
                           });
                           setIsQuestionOpen(true);
+                        }}
+                        onHover={() => {
+                          setSelectQuestionId(item.questionId);
                         }}
                       />
                     ))}
