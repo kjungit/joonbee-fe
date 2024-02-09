@@ -5,6 +5,9 @@ import { Category } from '@/constants/category';
 import { VariableIcon } from '@/components/ui/VariableIcon';
 import useSWRMutation from 'swr/mutation';
 import { deleteInterview, postInterviewLike } from '@/app/apis/services/member';
+import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
+import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
+import { CategoryName } from '@/types/question';
 
 export interface DetailAnswerCardProps {
   categoryName: string;
@@ -14,6 +17,8 @@ export interface DetailAnswerCardProps {
   onClick: () => void;
   mutate?: any;
   selectInterview: 'my_interview' | 'liked';
+  current: number;
+  categorySelect: CategoryName;
 }
 
 export const MyInterviewCard = ({
@@ -24,9 +29,12 @@ export const MyInterviewCard = ({
   onClick,
   mutate,
   selectInterview,
+  current,
+  categorySelect,
 }: DetailAnswerCardProps) => {
   const [isFocus, setIsFocus] = useState(false);
-
+  const { myInterviewMutate } = useInfiniteMyInterview(current === 1 ? 'my_interview' : 'liked');
+  const { interviewMutate } = useInfiniteInterview(categorySelect, current);
   const { trigger: deleteTrigger } = useSWRMutation(
     'api/member/interview/delete',
     () => deleteInterview(interviewId),
@@ -43,6 +51,8 @@ export const MyInterviewCard = ({
     {
       onSuccess: () => {
         mutate();
+        myInterviewMutate();
+        interviewMutate();
       },
     },
   );
