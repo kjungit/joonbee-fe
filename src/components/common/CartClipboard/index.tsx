@@ -72,13 +72,13 @@ export const CartClipboard = ({ color = 'text-white', item }: CartClipboardProps
       {isLoginError && (
         <ModalAlert
           title="로그인이 필요합니다."
-          subTitle="로그인 후 좋아요를 할 수 있어요!"
-          onClose={() => setIsError(false)}
+          subTitle="로그인 후 나의 질문에 추가할 수 있어요!"
+          onClose={() => setIsLoginError(false)}
         />
       )}
       {isError && (
         <ModalAlert
-          title="장바구니에 담겨있는 질문이에요."
+          title="나의질문에 담겨있는 질문이에요."
           subTitle="나의 질문 페이지를 확인해보세요!"
           onClose={() => setIsError(false)}
         />
