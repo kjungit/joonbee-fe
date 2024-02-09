@@ -15,6 +15,7 @@ import useSWR from 'swr';
 import { getInterview } from '@/app/apis/services/interview';
 import { sortType } from '@/constants/apiState';
 import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
+import { MainCategory } from '@/constants/category';
 
 export type QuestionItemType = {
   questionId: string;
@@ -42,19 +43,7 @@ export default function InterviewSection() {
   const [categorySelect, setCategorySelect] = useState<CategoryName>('');
   const router = useRouter();
 
-  // const {
-  //   data,
-  //   isLoading,
-  //   mutate: interviewAllMutate,
-  // } = useSWR<InterviewItemType[]>(
-  //   ['/api/interview/all', categorySelect, current],
-  //   () => getInterview({ categorySelect, current: sortType[current] }),
-  //   {
-  //     revalidateIfStale: false,
-  //   },
-  // );
-
-  const { newData, isLoading, setTarget } = useInfiniteInterview(categorySelect, current);
+  const { newData, isLoading } = useInfiniteInterview(categorySelect, current);
 
   const onClickCategory = (item: ItemProps) => {
     setCurrent(item.id);
@@ -70,9 +59,8 @@ export default function InterviewSection() {
   }, [newData]);
 
   useEffect(() => {
-    console.log(categorySelect);
-  }, [categorySelect]);
-
+    console.log(newData?.length);
+  }, []);
   return (
     <section className="pt-8 flex flex-col bg-gray-light w-full items-center border-b-2 border-b-gray-primary ">
       <div className="max-w-[1024px] w-full px-5">
@@ -98,7 +86,7 @@ export default function InterviewSection() {
         </div>
         {isLoading && <SkeletonInterview />}
         <ul className="md:flex md:flex-wrap justify-between w-full">
-          {newData && newData?.length ? (
+          {newData?.length !== 0 ? (
             newData.slice(0, 6).map(i => (
               <li
                 key={i.interviewId}
@@ -115,7 +103,7 @@ export default function InterviewSection() {
               <Image src="/box.png" alt="emptybox" width={80} height={80} />
               <div className="gap-2 flex flex-col items-center">
                 <p className="font-bold text-xl text-main-primary">
-                  선택하신 {categorySelect}에 등록된 질문이 없어요!
+                  선택하신 {MainCategory[categorySelect]}에 등록된 질문이 없어요!
                 </p>
                 <p className="font-bold text-lg">다른 카테고리를 확인해보세요.</p>
               </div>

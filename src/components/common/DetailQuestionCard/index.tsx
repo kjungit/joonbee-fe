@@ -6,9 +6,11 @@ type DetailQuestionCardProps = {
   questionCount: number;
   onClick?: () => void;
   isBorderAlert?: boolean;
+  onHover?: () => void;
 };
 
 export const DetailQuestionCard = ({
+  onHover,
   question,
   questionCount,
   onClick,
@@ -21,7 +23,7 @@ export const DetailQuestionCard = ({
     ${isBorderAlert ? 'border-status-alert' : 'border-white'}`;
 
   return (
-    <div className={baseStyles} onClick={onClick}>
+    <div className={baseStyles} onClick={onClick} onMouseOver={onHover}>
       <div className={`flex justify-center text-[16px] min-w-[100px] w-full max-w-[150px]`}>
         질문 {questionCount}
       </div>
