@@ -2,9 +2,10 @@ import useSWRInfinite from 'swr/infinite';
 import { useIntersectionObserver } from '../useInterSectionObserver';
 import { getInfiniteData } from '@/app/apis/services/member';
 import { preload } from 'swr';
+import { CategoryName } from '@/types/question';
 
 export interface MyInterviewProps {
-  categoryName: string;
+  categoryName: CategoryName;
   questionCount: number;
   interviewId: number;
 }
