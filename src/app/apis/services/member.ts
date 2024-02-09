@@ -8,8 +8,7 @@ export const getUserInfo = async () => {
     const res = await instance().get(`api/member/info`);
     return res.data.data;
   } catch (error: any) {
-    console.log(error);
-    throw error.response.status;
+    throw error;
   }
 };
 
