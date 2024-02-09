@@ -2,6 +2,7 @@
 
 import { DetailQuestionCard } from '@/components/common/DetailQuestionCard';
 import PreventBackModal from '@/components/common/PreventBackModal';
+import PreventTabletModal from '@/components/common/PreventTabletModal';
 import { Button } from '@/components/ui/Button';
 import ModalPortal from '@/components/ui/ModalPortal';
 import { TextArea } from '@/components/ui/TextArea';
@@ -10,10 +11,14 @@ import { useModal } from '@/hooks/useModal';
 import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 import { MyInterview, myInterviewAtom } from '@/recoil/myInterview/atom';
 import { myInterviewEditSelector } from '@/recoil/myInterview/withEdit';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-export default function InterviewCheck() {
+type interviewCheckProps = {
+  disableBtn: (disabled: boolean) => void;
+};
+
+export default function InterviewCheck({ disableBtn }: interviewCheckProps) {
   const questions = useRecoilValue(myInterviewAtom);
   const setQuestion = useSetRecoilState(myInterviewEditSelector);
   const { isOpened, onClose, onOpen } = useModal();
@@ -54,20 +59,33 @@ export default function InterviewCheck() {
     setNewAnswer('');
   };
 
+  useEffect(() => {
+    const isAnyBorderAlert = questions.some(question => !question.answerContent);
+    if (isAnyBorderAlert) {
+      disableBtn(true);
+    } else {
+      disableBtn(false);
+    }
+  }, [questions, disableBtn]);
+
   const { modalRef } = useModalOutsideClick(handleClose);
   useBeforeUnload();
 
   return (
     <>
-      <ul className="flex flex-col gap-4 h-[450px] overflow-y-auto p-2 ">
-        {questions.map((question, index) => (
-          <DetailQuestionCard
-            question={question.questionContent}
-            questionCount={index + 1}
-            onClick={() => handleClickQuestion(question, index)}
-            key={question.questionId}
-          />
-        ))}
+      <ul className="flex flex-col gap-4 h-[380px] overflow-y-auto p-2 ">
+        {questions.map((question, index) => {
+          const isBorderAlert = !question.answerContent;
+          return (
+            <DetailQuestionCard
+              question={question.questionContent}
+              questionCount={index + 1}
+              onClick={() => handleClickQuestion(question, index)}
+              isBorderAlert={isBorderAlert}
+              key={question.questionId}
+            />
+          );
+        })}
       </ul>
       {isOpened && (
         <ModalPortal>
@@ -120,6 +138,7 @@ export default function InterviewCheck() {
         </ModalPortal>
       )}
       <PreventBackModal />
+      <PreventTabletModal />
     </>
   );
 }

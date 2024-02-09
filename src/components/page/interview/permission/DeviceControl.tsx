@@ -13,6 +13,7 @@ import useBeforeUnload from '@/hooks/useBeforeUnload';
 import AlertModal from '@/components/ui/Modal/AlertModal';
 import PreventBackModal from '@/components/common/PreventBackModal';
 import { TypeAnimation } from 'react-type-animation';
+import PreventTabletModal from '@/components/common/PreventTabletModal';
 const sequence = [
   '마이크, 카메라 권한을 확인해주세요!',
   1000,
@@ -53,6 +54,16 @@ export default function DeviceControl() {
     return !audioStream || !audioStream.active;
   };
 
+  const onChangeAudioBtnColor = () => {
+    if (!audioStream) return 'light';
+    return audioStream.active ? 'blue' : 'light';
+  };
+
+  const onChangeVideoBtnColor = () => {
+    console.log(isPressedVideoBtn);
+    return isPressedVideoBtn ? 'blue' : 'light';
+  };
+
   useBeforeUnload();
 
   return (
@@ -67,10 +78,18 @@ export default function DeviceControl() {
         />
         <div className="flex gap-5 justify-between w-[584px]">
           <div className="flex gap-5">
-            <RadiusButton color="light" text="sm" size="sm" onClick={onStartAudio}>
+            <RadiusButton
+              color={onChangeAudioBtnColor()}
+              text="sm"
+              size="sm"
+              onClick={onStartAudio}>
               마이크 권한 설정
             </RadiusButton>
-            <RadiusButton color="light" text="sm" size="sm" onClick={onToggleVideo}>
+            <RadiusButton
+              color={onChangeVideoBtnColor()}
+              text="sm"
+              size="sm"
+              onClick={onToggleVideo}>
               카메라 권한 설정
             </RadiusButton>
           </div>
@@ -102,6 +121,8 @@ export default function DeviceControl() {
         />
       )}
       <PreventBackModal />
+      <PreventTabletModal/>
+
     </div>
   );
 }

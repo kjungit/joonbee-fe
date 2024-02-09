@@ -2,6 +2,7 @@
 import ButtonTimeSetting from '@/components/common/ButtonTimeSetting';
 import DropdownCategory from '@/components/common/DropdownCategory';
 import { Button } from '@/components/ui/Button';
+import Dropdown from '@/components/ui/Dropdown';
 
 import { questionCountAtom } from '@/recoil/interviewSetting/atoms';
 import {
@@ -9,6 +10,7 @@ import {
   selectedRandomSubcategoryAtom,
 } from '@/recoil/selectedCategory/atom';
 import { selectedSubcategoryListAtom } from '@/recoil/selectedSubcategoryList/atom';
+import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 type QuestionSettingButtonProps = {
@@ -19,16 +21,14 @@ export default function QuestionSettingButton({ onClick }: QuestionSettingButton
   const [questionCount, setQuestionCount] = useRecoilState(questionCountAtom);
   const [subcategories, setSubcategories] = useRecoilState(selectedSubcategoryListAtom);
   const [selectedCategory, setSelectedCategory] = useRecoilState(selectedRandomCategoryAtom);
-  const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(
-    selectedRandomSubcategoryAtom,
-  );
+  const [selectedSubcategory, setSelectedSubcategory] = useState('');
 
   const buttonValues = [2, 4, 6, 8, 10];
   const handleClickQuestionCount = (value: number) => {
     setQuestionCount(value);
   };
   const disableBtn = () => {
-    return subcategories.length === 0;
+    return !selectedCategory;
   };
 
   // 카테고리 여러개 선택
@@ -56,12 +56,20 @@ export default function QuestionSettingButton({ onClick }: QuestionSettingButton
             />
           </Button>
         ))} */}
-        <DropdownCategory
+        {/* <DropdownCategory
           size="sm"
           selectedCategory={selectedCategory}
           selectedSubcategory={selectedSubcategory}
           setSelectedCategory={setSelectedCategory}
           setSelectedSubcategory={setSelectedSubcategory}
+        /> */}
+        <Dropdown
+          color="white"
+          title="카테고리"
+          size="sm"
+          selected={selectedCategory}
+          data={['fe', 'be', 'cs', 'mobile', 'etc', 'language']}
+          onSelect={setSelectedCategory}
         />
       </div>
       <div className="flex gap-5">

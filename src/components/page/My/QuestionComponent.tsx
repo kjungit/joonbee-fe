@@ -44,6 +44,7 @@ export default function QuestionComponent() {
   const onSubmitQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await postUserQuestion();
+    mutate();
   };
   useEffect(() => {
     setSubSelectCategory('세부 카테고리');

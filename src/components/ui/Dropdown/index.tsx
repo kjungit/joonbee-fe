@@ -68,7 +68,7 @@ const Dropdown = ({
       </Button>
       {isOpened && (
         <ul
-          className={`shadow-normal px-[8px] py-[6px] top-[60px] rounded-[8px] overflow-y-auto bg-white absolute
+          className={`shadow-normal px-[8px] py-[6px] top-[60px] rounded-[8px] overflow-y-auto bg-white absolute z-10
           ${sizeStyles[size].ul}`}>
           {data.map((item, index) => (
             <li key={item} className="cursor-pointer">

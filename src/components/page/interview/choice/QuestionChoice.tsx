@@ -20,6 +20,7 @@ import AlertModal from '@/components/ui/Modal/AlertModal';
 import { useModal } from '@/hooks/useModal';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import PreventBackModal from '@/components/common/PreventBackModal';
+import PreventTabletModal from '@/components/common/PreventTabletModal';
 
 export default function QuestionChoice() {
   useBeforeUnload();
@@ -99,8 +100,11 @@ export default function QuestionChoice() {
     <div className="flex flex-col gap-5 w-full h-full bg-background-lightgray p-8 rounded-2xl relative">
       <h2 className="text-[20px] font-bold">질문을 준비해주세요</h2>
       <QuestionForm callback={handleSubmitQuestion} />
+      <p className="items-end flex justify-end text-sm text-status-alert font-bold">
+        카테고리를 선택하고 질문을 등록해주세요.
+      </p>
       <ul
-        className={`overflow-y-scroll flex flex-col gap-2 items-center h-[360px]  ${
+        className={`overflow-y-scroll flex flex-col gap-2 items-center h-[270px]  ${
           myQuestions?.length === 0 && 'justify-center'
         }`}>
         {myQuestions?.map(question => (
@@ -138,6 +142,7 @@ export default function QuestionChoice() {
         />
       )}
       <PreventBackModal />
+      <PreventTabletModal />
     </div>
   );
 }

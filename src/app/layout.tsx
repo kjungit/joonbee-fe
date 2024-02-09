@@ -3,13 +3,16 @@ import { RouteChangesProvider } from 'nextjs-router-events';
 
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Noto_Sans_KR } from 'next/font/google';
+
 import Header from '../components/common/Header';
 import SWRConfigContext from '@/context/SWRConfigContext';
 import Footer from '@/components/common/Footer';
 import CommonLayout from '@/layouts/common/CommonLayout';
 
-const inter = Inter({ subsets: ['latin'] });
+const notoSansKr = Noto_Sans_KR({
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'JOONBEE',
@@ -21,7 +24,7 @@ export const dynamic = 'force-dynamic';
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <body className={inter.className} id="potal">
+      <body className={notoSansKr.className} id="potal">
         <RecoilRootProvider>
           <SWRConfigContext>
             <RouteChangesProvider>

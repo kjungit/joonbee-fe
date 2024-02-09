@@ -3,19 +3,20 @@
 import ButtonTimeSetting from '@/components/common/ButtonTimeSetting';
 import { CategorizedQuestionCard } from '@/components/common/CategorizedQuestionCard';
 import PreventBackModal from '@/components/common/PreventBackModal';
+import PreventTabletModal from '@/components/common/PreventTabletModal';
 import { Button } from '@/components/ui/Button';
 import Dropdown from '@/components/ui/Dropdown';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 
-import { selectedChocieCategoryAtom } from '@/recoil/selectedCategory/atom';
+import { selectedChoiceCategoryAtom } from '@/recoil/selectedCategory/atom';
 import Link from 'next/link';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-export default function QuestionChocieSetting() {
+export default function QuestionChoiceSetting() {
   const questions = useRecoilValue(myQuestionAtom);
   const categories = [...new Set(questions.map(question => question.category))];
-  const [category, setCategory] = useRecoilState(selectedChocieCategoryAtom);
+  const [category, setCategory] = useRecoilState(selectedChoiceCategoryAtom);
 
   const disableBtn = () => {
     return !category;
@@ -26,7 +27,7 @@ export default function QuestionChocieSetting() {
   return (
     <div className="flex flex-col gap-5 w-full h-full bg-background-lightgray p-8 rounded-2xl relative">
       <h2 className="text-[20px] font-bold">면접 전 설정해주세요</h2>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-6">
         <div className="flex gap-4 items-end">
           <Dropdown
             size="sm"
@@ -38,7 +39,7 @@ export default function QuestionChocieSetting() {
           <p className="text-[#7D7D7D] mb-2 font-bold">전체 질문 카테고리를 선택해주세요</p>
         </div>
         <div
-          className={`flex flex-col gap-2 overflow-y-auto items-center h-[276px] ${
+          className={`flex flex-col gap-2 overflow-y-auto items-center h-[220px] ${
             questions.length === 0 && 'justify-center'
           }`}>
           {questions?.map(question => (
@@ -68,6 +69,7 @@ export default function QuestionChocieSetting() {
         </Button>
       </Link>
       <PreventBackModal />
+      <PreventTabletModal />
     </div>
   );
 }

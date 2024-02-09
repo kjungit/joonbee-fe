@@ -7,7 +7,7 @@ const ModalConfirmButton = ({
   children: React.ReactNode;
   onClick?: () => void;
 }) => (
-  <Button size="xs" color="bluePrimary" text="xs" onClick={onClick}>
+  <Button size="auto" color="bluePrimary" text="xs" onClick={onClick}>
     {children}
   </Button>
 );

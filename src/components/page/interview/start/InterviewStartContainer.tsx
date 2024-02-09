@@ -2,14 +2,16 @@
 
 import { InterviewStartBox } from '@/components/common/InterviewStartBox';
 import PreventBackModal from '@/components/common/PreventBackModal';
+import PreventTabletModal from '@/components/common/PreventTabletModal';
 import InterviewLoading from '@/components/ui/InterviewLoading';
 import { Category } from '@/constants/category';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
+import { useMe } from '@/hooks/useLogined';
 import { interviewTimeAtom, questionCountAtom } from '@/recoil/interviewSetting/atoms';
 import { interviewTypeAtom } from '@/recoil/interviewType/atom';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
 import {
-  selectedChocieCategoryAtom,
+  selectedChoiceCategoryAtom,
   selectedRandomCategoryAtom,
 } from '@/recoil/selectedCategory/atom';
 import { useRouter } from 'next/navigation';
@@ -28,13 +30,15 @@ export default function InterviewStartContainer() {
   const interviewtype = useRecoilValue(interviewTypeAtom);
 
   const randomCategory = useRecoilValue(selectedRandomCategoryAtom);
-  const choiceCategory = useRecoilValue(selectedChocieCategoryAtom);
+  const choiceCategory = useRecoilValue(selectedChoiceCategoryAtom);
   const category = interviewtype === 'random' ? randomCategory : choiceCategory;
   const questionSec = useRecoilValue(interviewTimeAtom);
   const choiceQuestion = useRecoilValue(myQuestionAtom);
   const randomQuestion = useRecoilValue(questionCountAtom);
   const questionCount = interviewtype === 'random' ? randomQuestion : choiceQuestion.length;
   const router = useRouter();
+
+  const { userInfo } = useMe();
 
   useEffect(() => {
     if (isPressedBtn) {
@@ -58,10 +62,11 @@ export default function InterviewStartContainer() {
           category={Category[category]}
           questionCount={questionCount}
           questionSec={questionSec}
+          nickName={userInfo.nickName}
         />
       ) : (
         <div className="flex flex-col items-center gap-5 justify-center h-full">
-          <InterviewLoading interviewType="chocie" />
+          <InterviewLoading interviewType="choice" />
           <h2 className="text-white font-bold text-[20px]">면접을 준비중입니다.</h2>
           <TypeAnimation
             sequence={sequence}
@@ -72,6 +77,7 @@ export default function InterviewStartContainer() {
         </div>
       )}
       <PreventBackModal />
+      <PreventTabletModal />
     </>
   );
 }

@@ -39,10 +39,11 @@ export const getQuestionList = async ({
  */
 export const getRandomQuestions = async (
   category: CategoryName,
-  subcategory: SubcategoryName,
+  subcategory: string,
   questionCount: number,
 ) => {
   // const subcategories = [...subcategory];
+
   const res = await instance().get('/api/question/gpt', {
     params: {
       category,

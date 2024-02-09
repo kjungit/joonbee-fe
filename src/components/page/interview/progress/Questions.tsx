@@ -5,6 +5,7 @@ import { QuestionCard } from '@/components/common/QuestionCard';
 import Timer from '@/components/common/Timer';
 import Webcam from '@/components/common/Webcam';
 import { Button } from '@/components/ui/Button';
+import AlertModal from '@/components/ui/Modal/AlertModal';
 import { TextArea } from '@/components/ui/TextArea';
 import useSpeechToText from '@/hooks/useSpeechToText';
 import useTimer from '@/hooks/useTimer';
@@ -48,13 +49,19 @@ export default function Questions({ questions }: QuestionsProps) {
   const [btnText, setBtnText] = useState(TimerStateText.READY.btn);
   const [helpText, setHelpText] = useState(TimerStateText.READY.help);
   const setMyInterview = useSetRecoilState(myInterviewAddSelector);
-  const time = 5;
-  //useRecoilValue(interviewTimeAtom);
+  const time = useRecoilValue(interviewTimeAtom);
 
   const isAllowedVideo = useRecoilValue(videoPermissionAtom);
 
   const { videoRef, onStartVideo, onStartRecord, onStopRecord, onToggleRecord } = useVideo();
-  const { onStartListening, onStopListening, transcript, setTranscript } = useSpeechToText();
+  const {
+    onStartListening,
+    onStopListening,
+    transcript,
+    setTranscript,
+    isSupportedBrowser,
+    onNavigate,
+  } = useSpeechToText();
   const { remainingTime } = useTimer(time, timerState, setTimerState);
 
   const [countdown, setCountdown] = useState(5);
@@ -123,17 +130,18 @@ export default function Questions({ questions }: QuestionsProps) {
   };
 
   const onClickDoneButton = () => {
-    setTimerState('READY');
-    setCountdown(5);
-    setTranscript('');
-
     if (currentCount < questionsCount) {
       setCurrentQuestion(questions[currentCount]);
       setCurrentCount(prev => prev + 1);
     } else {
       onStopRecord();
       router.push('/interview/check');
+      return;
     }
+
+    setTimerState('READY');
+    setCountdown(5);
+    setTranscript('');
   };
 
   const onClickProgressButton = () => {
@@ -197,7 +205,7 @@ export default function Questions({ questions }: QuestionsProps) {
           </div>
         </div>
         <div className="flex flex-col w-full gap-5">
-          <div className="flex items-center  font-bold px-5 shadow-md rounded-lg justify-between h-[68px] w-full max-w-[500px] text-[16px] bg-white text-main-primary">
+          <div className="flex items-center  font-bold px-5 shadow-md rounded-lg justify-between h-[68px] w-full text-[16px] bg-white text-main-primary">
             {currentQuestion?.questionContent}
           </div>
           <TextArea
@@ -207,13 +215,22 @@ export default function Questions({ questions }: QuestionsProps) {
             size="auto"
           />
           <div className="flex gap-5 justify-between">
-            <p className="text-[12px] font-bold text-blue-normal max-w-[260px]">{helpText}</p>
+            <p className="text-[12px] font-bold text-blue-normal max-w-[290px]">{helpText}</p>
             <Button size="lg" text="sm" onClick={onClickButton}>
               {btnText}
             </Button>
           </div>
         </div>
       </div>
+      {isSupportedBrowser && (
+        <AlertModal
+          isOpened={isSupportedBrowser}
+          onClose={onNavigate}
+          title="알림"
+          body={`현재 사용하고 계신 브라우저는 필요한 기능을 지원하지 않습니다.
+            다른 브라우저를 사용해주세요.`}
+        />
+      )}
     </div>
   );
 }
