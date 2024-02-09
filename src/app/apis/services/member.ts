@@ -67,7 +67,7 @@ export const postInterviewLike = async (interviewId: number) => {
   }
 };
 
-export const getMyCategoryInterview = async (url: string) => {
+export const getInfiniteData = async (url: string) => {
   try {
     const res = await instance().get(url);
     return res.data.data.result;

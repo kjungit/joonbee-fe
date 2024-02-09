@@ -2,14 +2,14 @@
 import { InterviewItemType } from '@/components/page/Main/InterviewSection';
 import { CategoryName } from '@/types/question';
 import React, { MouseEvent, useEffect, useState } from 'react';
-import SkeletonInterview from '@/components/page/Main/SkeletonInterview';
 import Dropdown from '@/components/ui/Dropdown';
-import InterviewCard from '@/components/common/InterviewCard';
-import Image from 'next/image';
 import ModalPortal from '@/components/ui/ModalPortal';
 import DetailInterview from '@/components/page/Main/DetailInterview';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
 import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
+import SkeletonInterview from '@/components/page/Main/SkeletonInterview';
+import Image from 'next/image';
+import InterviewCard from '@/components/common/InterviewCard';
 
 export default function QuestionsPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,9 +19,7 @@ export default function QuestionsPage() {
   const onClickCategory = (item: ItemProps) => {
     setCurrent(item.id);
   };
-  useEffect(() => {
-    console.log(current);
-  }, [current]);
+
   const { newData, isLoading, setTarget } = useInfiniteInterview(categorySelect, current);
 
   const onClickOpen = (e: MouseEvent<HTMLDivElement | HTMLLIElement>) => {

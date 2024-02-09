@@ -6,6 +6,9 @@ import { SocialLoginButton } from '../SocialLoginButton';
 const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth/kakao';
 const NAVER_REDIRECT_URI = 'http://localhost:3000/oauth/naver';
 const GOOGLE_REDIRECT_URI = 'http://localhost:3000/oauth/google';
+// const KAKAO_REDIRECT_URI = 'https://www.joonbee.co.kr/oauth/kakao';
+// const NAVER_REDIRECT_URI = 'https://www.joonbee.co.kr/oauth/naver';
+// const GOOGLE_REDIRECT_URI = 'https://www.joonbee.co.kr/oauth/google';
 const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
   process.env.NEXT_PUBLIC_NAVER_CLIENT_KEY

@@ -7,6 +7,7 @@ import useSWR, { preload } from 'swr';
 export interface UserInfoProps {
   id: string;
   interviewCount: string;
+  email: string | undefined;
   nickName: string;
   thumbnail: string;
   questionCount: string;

@@ -79,10 +79,14 @@ export const postSaveQuestion = async (
 };
 
 export const postUserQuestion = async (questionId: number, subcategoryName: SubcategoryName) => {
-  const res = await instance().post('/api/cart/question/save/main', {
-    questionId,
-    subcategoryName,
-  });
+  try {
+    const res = await instance().post('/api/cart/question/save/main', {
+      questionId,
+      subcategoryName,
+    });
 
-  return res.data.data.result;
+    return res.data.data.result;
+  } catch (error: any) {
+    throw error;
+  }
 };
