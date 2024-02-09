@@ -5,9 +5,19 @@ import ContentLayout from '@/components/common/layouts/ContentLayout';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
+import { useModal } from '@/hooks/useModal';
+import { useRouter } from 'next/navigation';
+import Modal from '@/components/ui/Modal';
 
 const InterviewCheckPage = () => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const { isOpened, onClose, onOpen } = useModal();
+
+  const router = useRouter();
+
+  const onConfirm = () => {
+    router.push('/interview/result');
+  };
 
   return (
     <ContentLayout>
@@ -31,17 +41,24 @@ const InterviewCheckPage = () => {
           />
         </div>
         <InterviewCheck disableBtn={setIsDisabled} />
-        <Link href="/interview/result">
-          <Button
-            color="blueSecondary"
-            size="lg"
-            text="sm"
-            className="absolute bottom-8 right-8"
-            disabled={isDisabled}>
-            면접 결과 보기
-          </Button>
-        </Link>
+        <Button
+          color="blueSecondary"
+          size="lg"
+          text="sm"
+          className="absolute bottom-8 right-8"
+          onClick={onOpen}
+          disabled={isDisabled}>
+          면접 결과 보기
+        </Button>
       </div>
+      {isOpened && (
+        <Modal isOpened={isOpened} onClose={onClose}>
+          <Modal.Title>알림</Modal.Title>
+          <Modal.Body>답변을 모두 확인하셨을까요? 답변을 최대한 작성해주세요.</Modal.Body>
+          <Modal.CloseButton onClick={onClose}>다시 확인하기</Modal.CloseButton>
+          <Modal.ConfirmButton onClick={onConfirm}>결과보기</Modal.ConfirmButton>
+        </Modal>
+      )}
     </ContentLayout>
   );
 };

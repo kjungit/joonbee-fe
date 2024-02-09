@@ -6,6 +6,7 @@ import PreventTabletModal from '@/components/common/PreventTabletModal';
 import InterviewLoading from '@/components/ui/InterviewLoading';
 import { Category } from '@/constants/category';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
+import { useMe } from '@/hooks/useLogined';
 import { interviewTimeAtom, questionCountAtom } from '@/recoil/interviewSetting/atoms';
 import { interviewTypeAtom } from '@/recoil/interviewType/atom';
 import { myQuestionAtom } from '@/recoil/myQuestion/atom';
@@ -37,6 +38,8 @@ export default function InterviewStartContainer() {
   const questionCount = interviewtype === 'random' ? randomQuestion : choiceQuestion.length;
   const router = useRouter();
 
+  const { userInfo } = useMe();
+
   useEffect(() => {
     if (isPressedBtn) {
       setTimeout(() => {
@@ -59,6 +62,7 @@ export default function InterviewStartContainer() {
           category={Category[category]}
           questionCount={questionCount}
           questionSec={questionSec}
+          nickName={userInfo.nickName}
         />
       ) : (
         <div className="flex flex-col items-center gap-5 justify-center h-full">

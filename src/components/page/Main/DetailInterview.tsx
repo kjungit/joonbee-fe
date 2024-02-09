@@ -52,7 +52,7 @@ export default function DetailInterview({
         questionContent: q.questionContent,
       };
     });
-    return [...prevMyQuestion, ...newQuestion];
+    return [...newQuestion];
   });
 
   const { trigger } = useSWRMutation('api/member/like', () => postInterviewLike(interviewId), {
