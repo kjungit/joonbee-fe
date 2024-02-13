@@ -20,8 +20,7 @@ export const kakaoLogin = async (code: string) => {
     const res = await instance().get(`/auth/kakao/callback?code=${code}`);
     return res;
   } catch (error: any) {
-    const errorCode = error.response.data;
-    throw errorCode;
+    throw error;
   }
 };
 export const naverLogin = async (code: string) => {
@@ -29,8 +28,7 @@ export const naverLogin = async (code: string) => {
     const res = await instance().get(`/auth/naver/callback?code=${code}`);
     return res;
   } catch (error: any) {
-    const errorCode = error.response.data;
-    throw errorCode;
+    throw error;
   }
 };
 export const googleLogin = async (code: string) => {
@@ -38,8 +36,7 @@ export const googleLogin = async (code: string) => {
     const res = await instance().get(`/auth/google/callback?code=${code}`);
     return res;
   } catch (error: any) {
-    const errorCode = error.response.data;
-    throw errorCode;
+    throw error;
   }
 };
 
