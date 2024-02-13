@@ -8,16 +8,13 @@ import { DetailQuestionCard } from '@/components/common/DetailQuestionCard';
 import { MyInterviewCard } from '@/components/common/MyInterviewCard';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
 import { Button } from '@/components/ui/Button';
-import ModalPortal from '@/components/ui/ModalPortal';
 import useInfiniteMyInterview from '@/hooks/my/useInfiniteMyInterview';
 import { AxiosError } from 'axios';
-import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 import DetailQuestionInterview from '../interview/result/DetailQuestionInterview';
 import InterviewResultCom from './InterviewResultCom';
-import { Avatar } from '@/components/ui/Avartar';
 
 type QuestionContent = {
   questionContent: string;
