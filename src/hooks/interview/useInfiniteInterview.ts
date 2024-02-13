@@ -29,11 +29,7 @@ export default function useInfiniteInterview(categorySelect: CategoryName, curre
     isLoading,
     setSize,
     mutate: interviewMutate,
-  } = useSWRInfinite<InterviewItemType[]>(getKey, url => getInfiniteData(url), {
-    onError: error => {
-      console.log(error);
-    },
-  });
+  } = useSWRInfinite<InterviewItemType[]>(getKey, url => getInfiniteData(url), {});
 
   const newData = data ? ([] as InterviewItemType[]).concat(...data) : [];
 
