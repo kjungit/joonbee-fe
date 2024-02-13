@@ -1,13 +1,13 @@
-import { getRefresh } from '@/app/apis/services/auth';
-import { isRefreshStatus } from '@/recoil/isRefresh/atoms';
-import { useRecoilState } from 'recoil';
+import { getLogout, getRefresh } from '@/app/apis/services/auth';
 import useSWRMutation from 'swr/mutation';
 
 export default function useRefreshToken() {
-  const [isRefresh, setIsRefresh] = useRecoilState(isRefreshStatus);
+  const { trigger: logoutTrigger } = useSWRMutation('/logout', getLogout);
 
   const { trigger: refreshTrigger } = useSWRMutation('/auth/login/refresh', getRefresh, {
-    onSuccess: () => {},
+    onError: () => {
+      logoutTrigger();
+    },
   });
   return { refreshTrigger };
 }
