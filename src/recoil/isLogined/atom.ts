@@ -3,5 +3,5 @@ import { atom } from 'recoil';
 
 export const isLoginedStatus = atom({
   key: 'isLoginedStatus',
-  default: false,
+  default: typeof sessionStorage !== 'undefined' && sessionStorage.getItem('isLogined') === 'true',
 });
