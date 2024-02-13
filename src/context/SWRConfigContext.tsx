@@ -1,9 +1,7 @@
 'use client';
-import { getLogout, getRefresh } from '@/app/apis/services/auth';
+import { getLogout } from '@/app/apis/services/auth';
 import useRefreshToken from '@/hooks/useRefreshToken';
-import { isRefreshStatus } from '@/recoil/isRefresh/atoms';
 import React from 'react';
-import { useRecoilState } from 'recoil';
 import { SWRConfig } from 'swr';
 import useSWRMutation from 'swr/mutation';
 
@@ -27,8 +25,9 @@ export default function SWRConfigContext({ children }: Props) {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
         onError: error => {
-          if (error.response.status === 403) logoutTrigger();
-          if (error.response.status === 402) refreshTrigger();
+          console.log(error);
+          if (error === 403) logoutTrigger();
+          if (error === 402) refreshTrigger();
         },
       }}>
       {children}
