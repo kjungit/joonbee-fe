@@ -70,7 +70,9 @@ export const getInfiniteData = async (url: string) => {
   try {
     const res = await instance().get(url);
     return res.data.data.result;
-  } catch (error) {}
+  } catch (error: any) {
+    throw error.response.status;
+  }
 };
 
 export type PostCartProps = {
