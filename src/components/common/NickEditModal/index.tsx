@@ -4,17 +4,11 @@ import React from 'react';
 
 type Props = {
   isDuplicate: boolean;
-  isNickError: boolean;
   onChangeNinkName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickNickName: () => void;
 };
 
-export default function NickEditModal({
-  isDuplicate,
-  isNickError,
-  onChangeNinkName,
-  onClickNickName,
-}: Props) {
+export default function NickEditModal({ isDuplicate, onChangeNinkName, onClickNickName }: Props) {
   return (
     <div className="fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
       <div className="w-[390px]  h-[380px] rounded-[50px] bg-white shadow-md">
@@ -30,7 +24,7 @@ export default function NickEditModal({
                 <input
                   onChange={onChangeNinkName}
                   className={`w-[292px] h-[54px] border-2 border-white px-6 rounded-xl text-xl font-bold
-                ${isNickError && 'border-2 border-[red]'}`}
+                ${isDuplicate && 'border-2 border-[red]'}`}
                   type="text"
                 />
               </div>

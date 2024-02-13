@@ -1,35 +1,31 @@
 import { postNickName } from '@/app/apis/services/auth';
-import { isTokenedState } from '@/recoil/isTokened/atoms';
-import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
 import useSWRMutation from 'swr/mutation';
 import { useUserInfo } from './useUserInfo';
+import { isNickNameStatus } from '@/recoil/isNickNameStatus/atoms';
+import { useRecoilState } from 'recoil';
 
 type Props = {
+  userId: string;
   nickName: string;
 };
 
-export default function useNickMutation({ nickName }: Props) {
-  const [isNickError, setIsNickError] = useState(false);
-  const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
+export default function useNickMutation({ userId, nickName }: Props) {
+  const [nickNameStatus, setNickNameStatus] = useRecoilState(isNickNameStatus);
+
   const { userInfoMutate } = useUserInfo();
 
   const { error: isDuplicate, trigger: nickTrigger } = useSWRMutation(
     '/auth/login/nick',
-    () => postNickName({ id: isTokened.id, nickName }),
+    () => postNickName({ id: userId, nickName }),
     {
       onSuccess: () => {
-        setIsTokened({
-          ...isTokened,
-          isLogined: false,
-        });
         userInfoMutate();
+        setNickNameStatus({
+          ...nickNameStatus,
+          isNickStatus: false,
+        });
       },
-      onError: () => {
-        setIsNickError(true);
-      },
-      revalidate: false,
     },
   );
-  return { isNickError, isDuplicate, nickTrigger };
+  return { isDuplicate, nickTrigger };
 }

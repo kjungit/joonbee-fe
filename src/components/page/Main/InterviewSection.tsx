@@ -10,10 +10,6 @@ import DetailInterview from './DetailInterview';
 import SkeletonInterview from './SkeletonInterview';
 import Image from 'next/image';
 import { ItemProps, RadioButtonGroup } from '@/components/common/RadioButtonGroup';
-import useInterviewAll from '@/hooks/main/useInterviewAll';
-import useSWR from 'swr';
-import { getInterview } from '@/app/apis/services/interview';
-import { sortType } from '@/constants/apiState';
 import useInfiniteInterview from '@/hooks/interview/useInfiniteInterview';
 import { MainCategory } from '@/constants/category';
 
@@ -86,7 +82,7 @@ export default function InterviewSection() {
         </div>
         {isLoading && <SkeletonInterview />}
         <ul className="md:flex md:flex-wrap justify-between w-full">
-          {newData?.length !== 0 ? (
+          {newData && newData.length !== 0 ? (
             newData.slice(0, 6).map(i => (
               <li
                 key={i.interviewId}

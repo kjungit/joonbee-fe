@@ -1,37 +1,35 @@
 'use client';
 import { getLogout } from '@/app/apis/services/auth';
 import { BetweenBox } from '@/components/common/BetweenBox';
-import NickEditModal from '@/components/common/NickEditModal';
 import { PolarChart } from '@/components/common/PolarChart';
 import { Button } from '@/components/ui/Button';
-import ModalPortal from '@/components/ui/ModalPortal';
 import { VariableIcon } from '@/components/ui/VariableIcon';
-import useNickMutation from '@/hooks/useNickMutation';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import { isLoginedStatus } from '@/recoil/isLogined/atom';
-import { isTokenedState } from '@/recoil/isTokened/atoms';
+import { isNickNameStatus } from '@/recoil/isNickNameStatus/atoms';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
-import { Cookies } from 'react-cookie';
+import React from 'react';
 import { useRecoilState } from 'recoil';
 import useSWRMutation from 'swr/mutation';
 
 export default function MyProfile() {
   const { userInfo, userInfoMutate } = useUserInfo();
-  const [nickName, setNickName] = useState('');
   const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
-  const [isEdit, setIsEdit] = useState(false);
-  const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
+  const [nickNameStatus, setNickNameStatus] = useRecoilState(isNickNameStatus);
 
-  const { trigger } = useSWRMutation('/logout', getLogout);
+  const { trigger } = useSWRMutation('/logout', getLogout, {
+    onSuccess: () => {
+      setisLogined(false);
+      sessionStorage.setItem('isLogined', 'false');
+      router.replace('/');
+    },
+  });
 
   const router = useRouter();
 
   const onClickLogout = () => {
     trigger();
-    router.replace('/');
-    setisLogined(false);
   };
 
   if (!userInfo) return;
@@ -50,10 +48,10 @@ export default function MyProfile() {
           <p className=" text-xl font-bold">{userInfo?.nickName}</p>
           <button
             onClick={() => {
-              setIsTokened({
-                ...isTokened,
+              setNickNameStatus({
+                ...nickNameStatus,
                 id: userInfo.id,
-                isLogined: true,
+                isNickStatus: true,
               });
             }}>
             <VariableIcon name="edit" size={20} />

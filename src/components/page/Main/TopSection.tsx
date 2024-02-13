@@ -1,13 +1,12 @@
 'use client';
 import { LinkBox } from '@/components/common/LinkBox';
-import { useUserInfo } from '@/hooks/useUserInfo';
+import { isLoginedStatus } from '@/recoil/isLogined/atom';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
-import { Cookies } from 'react-cookie';
+import React from 'react';
+import { useRecoilState } from 'recoil';
 
 export default function TopSection() {
-  const { isLogined, userInfo, userInfoMutate } = useUserInfo();
+  const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
 
   return (
     <section className=" px-5 w-full max-w-[1024px] mainBg flex flex-col items-center min-h-[480px] ">

@@ -1,29 +1,30 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Avatar } from '@/components/ui/Avartar';
 import ModalPortal from '@/components/ui/ModalPortal';
-import { Button } from '@/components/ui/Button';
-import { postNickName } from '@/app/apis/services/auth';
 import { useRecoilState } from 'recoil';
-import { isTokenedState } from '@/recoil/isTokened/atoms';
-import useSWRMutation from 'swr/mutation';
+import { isNickNameStatus } from '@/recoil/isNickNameStatus/atoms';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import ModalAlert from '../ModalAlert';
-import { isTokenStatus } from '@/recoil/isToken/atoms';
 import { isSameStatus } from '@/recoil/isSame/atoms';
 import NickEditModal from '../NickEditModal';
 import useNickMutation from '@/hooks/useNickMutation';
+import { isLoginedStatus } from '@/recoil/isLogined/atom';
+import { isTokenStatus } from '@/recoil/isToken/atoms';
 
 const Header = () => {
   const [nickName, setNickName] = useState('');
-  const [isTokened, setIsTokened] = useRecoilState(isTokenedState);
+  const [nickNameStatus, setNickNameStatus] = useRecoilState(isNickNameStatus);
   const [isToken, setIsToken] = useRecoilState(isTokenStatus);
   const [isSame, setIsSame] = useRecoilState(isSameStatus);
-  const { isLogined, userInfo } = useUserInfo();
-
-  const { isNickError, isDuplicate, nickTrigger } = useNickMutation({ nickName });
+  const { userInfo } = useUserInfo();
+  const { isDuplicate, nickTrigger } = useNickMutation({
+    userId: nickNameStatus.id,
+    nickName,
+  });
+  const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
 
   const onChangeNinkName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value);
@@ -31,20 +32,6 @@ const Header = () => {
   const onClickNickName = async () => {
     nickTrigger();
   };
-
-  const onClickReLogin = async () => {
-    setIsToken(false);
-  };
-
-  useEffect(() => {
-    if (userInfo?.nickName === '') {
-      setIsTokened({
-        ...isTokened,
-        id: userInfo.id,
-        isLogined: true,
-      });
-    }
-  }, [userInfo, isLogined]);
 
   return (
     <>
@@ -58,7 +45,7 @@ const Header = () => {
           </Link>
           <div className="flex gap-4 ">
             {/* <Alarm data={data} /> */}
-            {userInfo ? (
+            {isLogined ? (
               <Link href="/my?category=interview&sort=my_interview">
                 {userInfo && <Avatar size="md" thumbnail={userInfo.thumbnail} />}
               </Link>
@@ -69,11 +56,10 @@ const Header = () => {
         </div>
       </header>
 
-      {isTokened.isLogined && (
+      {nickNameStatus.isNickStatus && (
         <ModalPortal>
           <NickEditModal
             isDuplicate={isDuplicate}
-            isNickError={isNickError}
             onChangeNinkName={onChangeNinkName}
             onClickNickName={onClickNickName}
           />
@@ -83,7 +69,7 @@ const Header = () => {
         <ModalAlert
           title="로그인이 필요합니다."
           subTitle="로그인 후 질문을 저장해보세요!"
-          onClose={onClickReLogin}
+          onClose={() => setIsToken(false)}
         />
       )}
       {isSame && (
