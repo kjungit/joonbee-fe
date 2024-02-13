@@ -1,7 +1,7 @@
 import { postNickName } from '@/app/apis/services/auth';
 import useSWRMutation from 'swr/mutation';
 import { useUserInfo } from './useUserInfo';
-import { isNickNameStatus } from '@/recoil/isTokened/atoms';
+import { isNickNameStatus } from '@/recoil/isNickNameStatus/atoms';
 import { useRecoilState } from 'recoil';
 
 type Props = {

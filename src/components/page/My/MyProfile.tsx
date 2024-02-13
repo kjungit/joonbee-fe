@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { VariableIcon } from '@/components/ui/VariableIcon';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import { isLoginedStatus } from '@/recoil/isLogined/atom';
-import { isNickNameStatus } from '@/recoil/isTokened/atoms';
+import { isNickNameStatus } from '@/recoil/isNickNameStatus/atoms';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';

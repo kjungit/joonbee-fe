@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Avatar } from '@/components/ui/Avartar';
 import ModalPortal from '@/components/ui/ModalPortal';
 import { useRecoilState } from 'recoil';
-import { isNickNameStatus } from '@/recoil/isTokened/atoms';
+import { isNickNameStatus } from '@/recoil/isNickNameStatus/atoms';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
 import { useUserInfo } from '@/hooks/useUserInfo';
