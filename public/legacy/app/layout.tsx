@@ -1,8 +1,13 @@
-import RecoilRootProvider from '../recoil/recoilRootProvider';
+import RecoilRootProvider from '../../../src/recoil/recoilRootProvider';
+import { RouteChangesProvider } from 'nextjs-router-events';
 
 import './globals.css';
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
+
+import SWRConfigContext from '../context/SWRConfigContext';
+import Footer from '../components/common/Footer';
+import Header from '../components/common/Header';
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -27,7 +32,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={notoSansKr.className} id="potal">
         <RecoilRootProvider>
-          <main>{children}</main>
+          <SWRConfigContext>
+            <RouteChangesProvider>
+              <Header />
+              <main>{children}</main>
+            </RouteChangesProvider>
+          </SWRConfigContext>
         </RecoilRootProvider>
         <div id="portal"></div>
       </body>
