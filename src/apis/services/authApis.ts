@@ -1,11 +1,11 @@
 import { instance } from '../axios';
 
-export const getToken = async () => {
+const getToken = async () => {
   const res = await instance().get('/token');
   return res;
 };
 
-export const getRefresh = async () => {
+const getRefresh = async () => {
   try {
     const res = await instance().get('/auth/login/refresh');
     return res;
@@ -15,7 +15,7 @@ export const getRefresh = async () => {
   }
 };
 
-export const kakaoLogin = async (code: string) => {
+const kakaoLogin = async (code: string) => {
   try {
     const res = await instance().get(`/auth/kakao/callback?code=${code}`);
     return res;
@@ -23,7 +23,7 @@ export const kakaoLogin = async (code: string) => {
     throw error;
   }
 };
-export const naverLogin = async (code: string) => {
+const naverLogin = async (code: string) => {
   try {
     const res = await instance().get(`/auth/naver/callback?code=${code}`);
     return res;
@@ -31,7 +31,7 @@ export const naverLogin = async (code: string) => {
     throw error;
   }
 };
-export const googleLogin = async (code: string) => {
+const googleLogin = async (code: string) => {
   try {
     const res = await instance().get(`/auth/google/callback?code=${code}`);
     return res;
@@ -45,7 +45,7 @@ type PostNickNameProps = {
   nickName: string;
 };
 
-export const postNickName = async ({ id, nickName }: PostNickNameProps) => {
+const postNickName = async ({ id, nickName }: PostNickNameProps) => {
   try {
     const res = await instance().post('/auth/login/nick', { id, nickName });
     return res;
@@ -55,6 +55,18 @@ export const postNickName = async ({ id, nickName }: PostNickNameProps) => {
   }
 };
 
-export const getLogout = async () => {
+const getLogout = async () => {
   const res = await instance().get('/auth/login/logout');
 };
+
+const authApis = {
+  getToken,
+  getRefresh,
+  kakaoLogin,
+  naverLogin,
+  googleLogin,
+  postNickName,
+  getLogout,
+};
+
+export default authApis;
