@@ -1,8 +1,11 @@
-import RecoilRootProvider from '../recoil/recoilRootProvider';
+import QueryProvider from '@/queries/queryProvider';
+import RecoilRootProvider from '@/recoils/recoilRootProvider';
 
 import './globals.css';
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
+import Header from '@/components/header/header';
+import { ThemeProvider } from '@/styles/themeProvider';
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -26,9 +29,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="google-adsense-account" content="ca-pub-7301751207531014" />
       </head>
       <body className={notoSansKr.className} id="potal">
-        <RecoilRootProvider>
-          <main>{children}</main>
-        </RecoilRootProvider>
+        <QueryProvider>
+          <RecoilRootProvider>
+            <ThemeProvider>
+              <Header />
+              <main>{children}</main>
+            </ThemeProvider>
+          </RecoilRootProvider>
+        </QueryProvider>
         <div id="portal"></div>
       </body>
     </html>
