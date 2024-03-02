@@ -1,4 +1,4 @@
-import authApis from '@/apis/services/authApis';
+import authApis from '@/app/apis/services/authApis';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 const useGetToken = () => {
