@@ -1,4 +1,4 @@
-import RecoilRootProvider from '../../../src/recoil/recoilRootProvider';
+import RecoilRootProvider from '../../../src/recoils/recoilRootProvider';
 import { RouteChangesProvider } from 'nextjs-router-events';
 
 import './globals.css';
@@ -6,8 +6,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 
 import SWRConfigContext from '../context/SWRConfigContext';
-import Footer from '../components/common/Footer';
-import Header from '../components/common/Header';
+import Header from '@/components/common/Header';
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
