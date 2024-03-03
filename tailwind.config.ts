@@ -34,10 +34,10 @@ const config: Config = {
       },
       gray: {
         normal: '#E1E1E1',
-        light: '#F6F6F8',
-        primary: '#E2E5EC',
-        disabled: '#CACACA',
-        dark: '#444',
+        light: '#939393',
+        primary: '#323232',
+        dark: '#272727',
+        disabled: '#D6D6D6',
       },
       blue: {
         primary: '#4374F3',
