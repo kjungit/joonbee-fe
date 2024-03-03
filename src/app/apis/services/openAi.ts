@@ -1,7 +1,10 @@
-import { Question } from '../../../recoil/interviewQuestion/atom';
-import { MyInterview } from '../../../recoil/myInterview/atom';
 import OpenAI from 'openai';
 
+export type MyInterview = {
+  questionId: string;
+  questionContent: string;
+  answerContent: string;
+};
 export const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
   dangerouslyAllowBrowser: true,

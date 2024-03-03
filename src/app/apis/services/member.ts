@@ -1,7 +1,22 @@
-import { FetcherResponse } from 'swr/_internal';
 import { instance } from '../axios';
-import { DetailData, QuestionData } from '../../../components/page/My/InterviewComponent';
-import { AxiosError } from 'axios';
+
+type QuestionContent = {
+  questionContent: string;
+  questionId: number;
+};
+export interface DetailData {
+  gptOpinion: string;
+  questionContents: QuestionContent[];
+}
+
+export interface QuestionData {
+  questionContent: string;
+  answerContent: string;
+  commentary: string;
+  evaluation: string;
+  questionId: string;
+  interviewId: string;
+}
 
 export const getUserInfo = async () => {
   try {

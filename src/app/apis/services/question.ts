@@ -1,4 +1,4 @@
-import { CategoryName, QuestionCategory, SubcategoryName } from '@/types/question';
+import { CategoryName, SubcategoryName } from '@/types/question';
 import { instance } from '../axios';
 
 type QuestionType = {

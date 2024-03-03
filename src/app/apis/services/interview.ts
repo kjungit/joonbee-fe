@@ -1,7 +1,3 @@
-import {
-  InteviewSaveData,
-  ResQuestionsProps,
-} from '../../../components/page/interview/result/InterviewResultContainer';
 import { instance } from '../axios';
 import { CategoryName } from '@/types/question';
 
@@ -10,6 +6,31 @@ export type InterviewProps = {
   current: string;
 };
 
+export interface ResQuestionsProps {
+  questionId: string;
+  questionContent: string;
+  answerContent: string;
+  commentary: string;
+  evaluation: string;
+}
+
+export interface QuestionProps {
+  questionId: string;
+  commentary: string;
+  evaluation: string;
+}
+
+export interface OpenAiResponseData {
+  gptOpinion: string;
+  categoryName: string;
+  questions: QuestionProps[];
+}
+
+export interface InteviewSaveData {
+  gptOpinion: string;
+  categoryName: string;
+  questions: ResQuestionsProps[] | undefined;
+}
 export const getInterview = async ({ categorySelect, current }: InterviewProps) => {
   const res = await instance(false).get('/api/interview/all', {
     params: {
