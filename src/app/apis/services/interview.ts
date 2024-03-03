@@ -1,7 +1,4 @@
-import {
-  InteviewSaveData,
-  ResQuestionsProps,
-} from '../../../components/page/interview/result/InterviewResultContainer';
+import { InteviewSaveData } from '../../../../public/.legacy/components/page/interview/result/InterviewResultContainer';
 import { instance } from '../axios';
 import { CategoryName } from '@/types/question';
 
