@@ -184,3 +184,13 @@
     0 1px 4px rgba(255, 255, 255, 0.1),
     0 1px 3px rgba(255, 255, 255, 0.1);
 }
+
+.toggle-item .children {
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out; /* Set animation duration and timing */
+  opacity: 0; /* Initially hidden */
+}
+
+.toggle-item.open .children {
+  opacity: 1; /* Visible when open */
+}
