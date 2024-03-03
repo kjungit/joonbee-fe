@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import Header from '@/components/header/header';
 import { ThemeProvider } from '@/styles/themeProvider';
+import Navbar from '@/components/navbar/navbar';
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -33,7 +34,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <RecoilRootProvider>
             <ThemeProvider>
               <Header />
-              <main>{children}</main>
+              <main className="flex h-full">
+                <Navbar />
+                {children}
+              </main>
             </ThemeProvider>
           </RecoilRootProvider>
         </QueryProvider>
