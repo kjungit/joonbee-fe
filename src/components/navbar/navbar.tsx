@@ -1,4 +1,5 @@
 import React from 'react';
+import { ToggleItemList } from '../@common/ToggleList';
 
 export default function Navbar() {
   return (
@@ -6,7 +7,7 @@ export default function Navbar() {
       <div className="h-[60px] flex items-center justify-center effect-white">
         <p className="font-bold">로그인을 해주세요</p>
       </div>
-      sdffkjdsf sd fd fjsd f
+      <ToggleItemList />
     </div>
   );
 }

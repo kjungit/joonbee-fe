@@ -1,7 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { VariableIcon } from '../VariableIcon';
-export type ToggleItemProps = {};
+import React, { useState } from 'react';
+import { ItemProps, ToggleItem } from '../toggleItem/toggleItem';
 // export const questionCategory: QuestionCategory[] = [
 //   { category: 'fe', subcategory: ['react', 'vuejs', 'nextjs'] },
 //   { category: 'be', subcategory: ['db', 'spring_framework', 'msa'] },
@@ -52,11 +51,10 @@ const data = [
     ],
   },
 ];
-export const ToggleItem = ({}: ToggleItemProps) => {
-  const [items, setItems] = useState(data);
+export const ToggleItemList = () => {
+  const [items, setItems] = useState<ItemProps[]>(data);
 
-  const onClickOpen = (clickedItem: any) => {
-    console.log(clickedItem.id);
+  const onClickOpen = (clickedItem: ItemProps) => {
     const updatedItems = items.map(item => {
       console.log(item.id === clickedItem.id);
       if (item.id === clickedItem.id) {
@@ -67,21 +65,11 @@ export const ToggleItem = ({}: ToggleItemProps) => {
     setItems(updatedItems);
   };
 
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
   return (
     <div>
       {items.map(item => (
         <div key={item.id} className={`toggle-item ${item.isOpen ? 'open' : ''}`}>
-          <button className="flex items-center" onClick={() => onClickOpen(item)}>
-            <VariableIcon
-              name="leftArrow"
-              size={14}
-              className={`${item.isOpen ? 'rotate-90' : ''}`}
-            />
-            <div>{item.value}</div>
-          </button>
+          <ToggleItem item={item} onClickOpen={onClickOpen} />
           <div className="ml-10">
             {item.isOpen &&
               item.children?.map(childItem => (
