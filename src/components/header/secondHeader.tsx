@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
-import ThemeSwitch from '../themeSwitch/themeSwitch';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 export default function SecondHeader() {
   const pathName = usePathname();

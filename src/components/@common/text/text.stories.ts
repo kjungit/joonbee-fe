@@ -1,5 +1,5 @@
-import { Text } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
+import { Text } from './text';
 
 const meta: Meta<typeof Text> = {
   title: 'Design System/Atoms/Text',
