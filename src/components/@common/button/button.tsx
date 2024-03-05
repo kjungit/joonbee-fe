@@ -1,17 +1,17 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
 type ButtonVariants = 'outlined' | 'filled';
-type ButtonColors = 'primary' | 'white' | 'disabled';
-type ButtonSizes = 'sm' | 'md' | 'lg';
+type ButtonColors = 'primary' | 'blue' | 'white' | 'disabled';
+type ButtonSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'auto';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSizes;
   color?: ButtonColors;
   variant?: ButtonVariants;
 }
 
 export default function Button({
-  size = 'md',
+  size = 'auto',
   color = 'primary',
   variant = 'filled',
   children,
@@ -19,14 +19,18 @@ export default function Button({
 }: ButtonProps) {
   const colorStyles = {
     primary: `bg-main-primary text-white hover:bg-hover-primary`,
+    blue: `bg-blue-light text-black`,
     white: `bg-white text-black`,
     disabled: `bg-gray-disabled text-white cursor-not-allowed`,
   };
 
   const sizeStyles = {
-    sm: 'w-[82px] h-[48px]',
-    md: 'w-[142px] h-[48px]',
-    lg: 'w-[234px] h-[48px]',
+    auto: 'w-auto px-4 py-2',
+    xs: 'w-[82px] h-[48px] text-[14px] shadow-md',
+    sm: 'w-[120px] h-[40px] text-[14px]',
+    md: 'w-[142px] h-[48px] text-[14px]',
+    lg: 'w-[200px] h-[48px] text-[16px]',
+    xl: 'w-[234px] h-[48px] text-[16px]',
   };
 
   const variantStyles = {
@@ -40,7 +44,7 @@ export default function Button({
 
   return (
     <button
-      className={`${variantStyles[variant]} ${sizeStyles[size]} shadow-md rounded-md ${buttonStyles} ${props.className}`}
+      className={`${variantStyles[variant]} ${sizeStyles[size]} font-bold rounded-md ${buttonStyles} ${props.className}`}
       {...props}>
       {children}
     </button>
