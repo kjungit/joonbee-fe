@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <RecoilRootProvider>
             <ThemeProvider>
               <Header />
-              <main className="flex h-full">
+              <main className="flex">
                 <Navbar />
                 {children}
               </main>

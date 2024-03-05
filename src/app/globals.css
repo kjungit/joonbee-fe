@@ -119,8 +119,8 @@
   }
 }
 
-.origin-h {
-  height: calc(100vh - 60px);
+body {
+  overflow: hidden;
 }
 
 .mainBg:before {
@@ -129,8 +129,8 @@
   position: absolute;
   background-image: url('/background.gif');
   background-size: cover;
-  width: 100%;
-  height: 870px;
+  width: calc(100% - 260px);
+  height: 100vh;
   opacity: 0.5;
   z-index: -1;
 }
