@@ -32,7 +32,7 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex justify-center items-center gap-4">
-          <p>로그인</p>
+          <Link href="/login">로그인</Link>
           <div className="min-w-[40px">
             <ThemeSwitch />
           </div>

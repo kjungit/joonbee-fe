@@ -18,6 +18,6 @@ type Story = StoryObj<typeof SocialLoginButton>;
 
 export const Primary: Story = {
   args: {
-    name: 'kakao',
+    name: 'kakao.png',
   },
 };
