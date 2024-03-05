@@ -1,40 +1,46 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
 type ButtonVariants = 'outlined' | 'filled';
-type ButtonColors = 'navy' | 'white';
+type ButtonColors = 'primary' | 'white' | 'disabled';
+type ButtonSizes = 'sm' | 'md' | 'lg';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  width?: string;
-  height?: string;
+  size?: ButtonSizes;
   color?: ButtonColors;
-  textColor?: string;
-  textSize?: string;
   variant?: ButtonVariants;
 }
 
 export default function Button({
-  width = 'w-auto',
-  height = 'h-10',
-  color = 'navy',
-  textColor = 'text-white',
-  textSize = 'text-base',
+  size = 'md',
+  color = 'primary',
   variant = 'filled',
   children,
   ...props
 }: ButtonProps) {
   const colorStyles = {
-    navy: 'bg-main-primary ',
-    white: 'bg-white',
+    primary: `bg-main-primary text-white hover:bg-hover-primary`,
+    white: `bg-white text-black`,
+    disabled: `bg-gray-disabled text-white cursor-not-allowed`,
+  };
+
+  const sizeStyles = {
+    sm: 'w-[82px] h-[48px]',
+    md: 'w-[142px] h-[48px]',
+    lg: 'w-[234px] h-[48px]',
   };
 
   const variantStyles = {
-    outlined: `border-2 border-main-primary ${colorStyles[color]} bg-transparent `,
+    outlined: `border-2 border-main-primary ${colorStyles[color]} bg-transparent`,
     filled: `${colorStyles[color]}`,
   };
 
+  const buttonStyles = props.disabled
+    ? colorStyles['disabled']
+    : `${colorStyles[color]} cursor-pointer`;
+
   return (
     <button
-      className={`${variantStyles[variant]} ${width} ${height} rounded-md ${textColor} ${textSize} ${props.className}`}
+      className={`${variantStyles[variant]} ${sizeStyles[size]} shadow-md rounded-md ${buttonStyles} ${props.className}`}
       {...props}>
       {children}
     </button>

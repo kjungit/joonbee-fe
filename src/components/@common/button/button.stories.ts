@@ -9,13 +9,22 @@ const meta: Meta<typeof Button> = {
     className: {
       control: { type: 'text' },
     },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg'],
+    },
+    color: {
+      control: 'inline-radio',
+      options: ['primary', 'white', 'disabled'],
+    },
+    variant: {
+      control: 'inline-radio',
+      options: ['outlined', 'filled'],
+    },
   },
   args: {
-    width: 'w-24',
-    height: 'h-10',
-    color: 'navy',
-    textColor: 'text-white',
-    textSize: 'text-base',
+    size: 'md',
+    color: 'primary',
     variant: 'filled',
     children: '버튼',
   },
