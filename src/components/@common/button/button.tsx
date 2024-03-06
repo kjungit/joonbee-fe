@@ -8,12 +8,14 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSizes;
   color?: ButtonColors;
   variant?: ButtonVariants;
+  className?: string;
 }
 
 export default function Button({
   size = 'auto',
   color = 'primary',
   variant = 'filled',
+  className,
   children,
   ...props
 }: ButtonProps) {
@@ -28,9 +30,9 @@ export default function Button({
     auto: 'w-auto px-4 py-2',
     xs: 'w-[82px] h-[48px] text-[14px] shadow-md',
     sm: 'w-[120px] h-[40px] text-[14px]',
-    md: 'w-[142px] h-[48px] text-[14px]',
+    md: 'w-[142px] h-[48px] text-[16px]',
     lg: 'w-[200px] h-[48px] text-[16px]',
-    xl: 'w-[234px] h-[48px] text-[16px]',
+    xl: 'w-[234px] h-[48px] text-[18px]',
   };
 
   const variantStyles = {
@@ -44,7 +46,7 @@ export default function Button({
 
   return (
     <button
-      className={`${variantStyles[variant]} ${sizeStyles[size]} font-bold rounded-md ${buttonStyles} ${props.className}`}
+      className={`${variantStyles[variant]} ${sizeStyles[size]} rounded-md ${buttonStyles} ${className}`}
       {...props}>
       {children}
     </button>

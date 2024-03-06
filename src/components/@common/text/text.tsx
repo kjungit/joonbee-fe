@@ -42,6 +42,6 @@ export const Text = ({
     black: 'text-black',
     red: 'text-status-alert',
   };
-  const styles = `${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]}`;
+  const styles = `${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]} ${className}`;
   return <Typography className={styles}>{children}</Typography>;
 };
