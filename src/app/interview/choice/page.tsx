@@ -1,6 +1,7 @@
 import Button from '@/components/@common/button/button';
 import { Text } from '@/components/@common/text/text';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 export default function ChoicePage() {
@@ -18,7 +19,9 @@ export default function ChoicePage() {
             체계적으로 준비해봐요!
           </Text>
         </div>
-        <Button size="xl">면접 시작하기</Button>
+        <Link href="/interview/choice/setting">
+          <Button size="xl">면접 시작하기</Button>
+        </Link>
       </div>
     </section>
   );
