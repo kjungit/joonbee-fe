@@ -19,13 +19,13 @@ export default function IconButton({
     auto: 14,
     xs: 14,
     sm: 14,
-    md: 14,
+    md: 16,
     lg: 16,
     xl: 18,
   };
 
   return (
-    <Button size={size} color={color} {...props}>
+    <Button size={size} color={color} className={`${props.className}`}>
       <div className="flex justify-center gap-2 items-center">
         {edge === 'start' && <VariableIcon name={iconName} size={sizeStyles[size]} />}
         {children}
