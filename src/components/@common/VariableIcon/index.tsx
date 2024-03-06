@@ -12,6 +12,8 @@ import { FaUserGroup } from 'react-icons/fa6';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaCheckSquare } from 'react-icons/fa';
 import { FaRegCheckSquare } from 'react-icons/fa';
+import { TbArrowsRandom } from 'react-icons/tb';
+import { FaUserCheck } from 'react-icons/fa';
 
 export type IconName =
   | 'emptyLike'
@@ -26,7 +28,9 @@ export type IconName =
   | 'group'
   | 'fillCheckCir'
   | 'fillCheckRec'
-  | 'checkRec';
+  | 'checkRec'
+  | 'random'
+  | 'choice';
 export type VariableIconProps = {
   name: IconName;
   size?: number;
@@ -50,6 +54,8 @@ export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIc
     fillCheckCir: FaCheckCircle,
     fillCheckRec: FaCheckSquare,
     checkRec: FaRegCheckSquare,
+    random: TbArrowsRandom,
+    choice: FaUserCheck,
   };
 
   const Icon = components[name];

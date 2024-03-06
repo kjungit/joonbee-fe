@@ -22,6 +22,8 @@ const meta: Meta<typeof VariableIcon> = {
         'fillCheckCir',
         'fillCheckRec',
         'checkRec',
+        'random',
+        'choice',
       ],
     },
 
