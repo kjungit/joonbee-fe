@@ -1,1 +1,1 @@
-export type TimerState = 'READY' | 'PROGRESS' | 'DONE';
+export type ProgressStatus = 'READY' | 'PROGRESS' | 'DONE';
