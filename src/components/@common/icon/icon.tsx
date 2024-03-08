@@ -20,7 +20,7 @@ export interface IconProps {
   className?: string;
 }
 
-export const Icon = ({ name, className }: IconProps) => {
+export const Icon = ({ name, className = '' }: IconProps) => {
   const icon = require(`/public/icons/${name}`);
 
   return <Image src={icon} alt={icon} className={className} />;

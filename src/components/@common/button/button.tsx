@@ -15,7 +15,7 @@ export default function Button({
   size = 'auto',
   color = 'primary',
   variant = 'filled',
-  className,
+  className = '',
   children,
   ...props
 }: ButtonProps) {

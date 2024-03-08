@@ -19,7 +19,7 @@ export const Text = ({
   size = 'md',
   weight = 'md',
   children,
-  className,
+  className = '',
 }: TextProps) => {
   const textStyles = {
     xs: 'text-[8px]',
