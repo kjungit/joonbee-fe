@@ -1,17 +1,17 @@
 import React from 'react';
 import { CategoryName, SubcategoryName } from '@/types/question';
-import { useModal } from '../../../hooks/useModal';
-import { Category, MainCategory } from '../../../constants/category';
-import Button from '../button/button';
+import { useModal } from '@/hooks/useModal';
+import Button, { ButtonColors } from '../button/button';
+import { Category } from '@/constants/category';
 
 type DropdownProps = {
   data: (CategoryName | SubcategoryName)[];
   title?: string;
   selected: CategoryName | SubcategoryName;
   onSelect: (item: any) => void;
-  color?: 'white' | 'primary';
+  color?: ButtonColors;
   size?: 'sm' | 'md';
-  isDisabled?: boolean;
+  disabled?: boolean;
 };
 const Dropdown = ({
   data,
@@ -20,7 +20,7 @@ const Dropdown = ({
   onSelect,
   selected,
   color = 'primary',
-  isDisabled = false,
+  disabled = false,
 }: DropdownProps) => {
   const { isOpened, onToggle } = useModal();
   const onSelectItem = (item: CategoryName | SubcategoryName) => {
@@ -37,9 +37,9 @@ const Dropdown = ({
   const sizeStyles = {
     sm: {
       item: 'px-[14px] py-[8px] text-[14px] ',
-      section: 'min-w-[116px] h-full',
+      section: 'min-w-[116px]',
       button: 'h-[50px] min-w-[140px]',
-      ul: 'top-[50px] h-auto  max-h-[180px] w-full',
+      ul: 'top-12 h-[234px] w-[120px]',
     },
     md: {
       item: 'px-[22px] py-[12px] text-[14px]',
@@ -51,7 +51,12 @@ const Dropdown = ({
 
   return (
     <section className="relative">
-      <Button color={color} size={size} onClick={onToggleList} disabled={isDisabled}>
+      <Button
+        color={color}
+        size={size}
+        onClick={onToggleList}
+        className="shadow-md"
+        disabled={disabled}>
         {showSelectedItem()}
       </Button>
       {isOpened && (

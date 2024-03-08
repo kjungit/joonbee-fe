@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
 type ButtonVariants = 'outlined' | 'filled';
-type ButtonColors = 'primary' | 'blue' | 'white' | 'disabled';
+export type ButtonColors = 'primary' | 'blue' | 'white' | 'disabled';
 type ButtonSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'auto';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
