@@ -119,8 +119,8 @@
   }
 }
 
-.origin-h {
-  height: calc(100vh - 60px);
+body {
+  overflow: hidden;
 }
 
 .mainBg:before {
@@ -129,8 +129,8 @@
   position: absolute;
   background-image: url('/background.gif');
   background-size: cover;
-  width: 100%;
-  height: 870px;
+  width: calc(100% - 260px);
+  height: 100vh;
   opacity: 0.5;
   z-index: -1;
 }
@@ -171,4 +171,26 @@
   a {
     padding: 10px;
   }
+}
+
+.effect-white {
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.effect-dark {
+  box-shadow:
+    0 1px 4px rgba(255, 255, 255, 0.1),
+    0 1px 3px rgba(255, 255, 255, 0.1);
+}
+
+.toggle-item .children {
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out; /* Set animation duration and timing */
+  opacity: 0; /* Initially hidden */
+}
+
+.toggle-item.open .children {
+  opacity: 1; /* Visible when open */
 }

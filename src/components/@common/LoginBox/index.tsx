@@ -1,7 +1,7 @@
 'use client';
 import React, { MouseEvent } from 'react';
-import Logo from '../../ui/Logo';
 import { SocialLoginButton } from '../SocialLoginButton';
+import Logo from '../Logo';
 
 // const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth/kakao';
 // const NAVER_REDIRECT_URI = 'http://localhost:3000/oauth/naver';
@@ -28,25 +28,25 @@ export const LoginBox = () => {
   return (
     <div
       onClick={onClickOpen}
-      className=" w-[390px] h-[550px] rounded-[50px] bg-white shadow-md flex items-center justify-center">
+      className=" w-[370px] h-[500px] rounded-[50px] bg-white shadow-md flex items-center justify-center">
       <div className="flex items-center flex-col">
         <Logo size={'lg'} />
         <p className="text-[30px] mt-7 mb-10 font-bold text-blue-secondary">JOONBEE 하세요.</p>
         <div className="flex flex-col gap-3">
           <SocialLoginButton
-            name="kakao"
+            name="kakao.png"
             onClick={() => {
               window.location.href = KAKAO_AUTH_URI;
             }}
           />
           <SocialLoginButton
-            name="naver"
+            name="naver.png"
             onClick={() => {
               window.location.href = NAVER_AUTH_URL;
             }}
           />
           <SocialLoginButton
-            name="google"
+            name="google.png"
             onClick={() => {
               window.location.href = GOOGLE_AUTH_URL;
             }}
