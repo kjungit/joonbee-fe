@@ -5,7 +5,7 @@ export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
   readOnly?: boolean;
 }
 
-export default function TextArea({ readOnly, className, ...props }: TextAreaProps) {
+export default function TextArea({ readOnly = true, className = '', ...props }: TextAreaProps) {
   const readOnlyStyles = readOnly ? 'bg-[#F8F9Fa] text-gray-disabled' : 'focus:border-blue-light';
 
   return (
