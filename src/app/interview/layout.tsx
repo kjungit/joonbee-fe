@@ -5,9 +5,9 @@ export const dynamic = 'force-dynamic';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full">
+    <div className="w-full h-screen">
       <SecondHeader />
-      {children}
+      <section className="h-screen relative">{children}</section>
     </div>
   );
 }
