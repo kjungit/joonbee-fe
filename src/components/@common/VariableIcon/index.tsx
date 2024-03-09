@@ -14,21 +14,7 @@ import { FaCheckSquare } from 'react-icons/fa';
 import { FaRegCheckSquare } from 'react-icons/fa';
 import { TbArrowsRandom } from 'react-icons/tb';
 import { FaUserCheck } from 'react-icons/fa';
-
-export type VariableIconName =
-  | 'emptyLike'
-  | 'copy'
-  | 'filledLike'
-  | 'alarm'
-  | 'close'
-  | 'delete'
-  | 'edit'
-  | 'leftArrow'
-  | 'send'
-  | 'group'
-  | 'fillCheckCir'
-  | 'fillCheckRec'
-  | 'checkRec';
+import { VariableIconName } from '@/types';
 
 export type VariableIconProps = {
   name: VariableIconName;
