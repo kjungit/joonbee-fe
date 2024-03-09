@@ -20,6 +20,10 @@ export const MainCategory: {
   cs: 'CS',
 };
 
+export const mainCategoryList = Object.keys(MainCategory).filter(
+  key => key !== '' && MainCategory[key],
+);
+
 export const SubCategory: {
   [key: string]: string;
 } = {
