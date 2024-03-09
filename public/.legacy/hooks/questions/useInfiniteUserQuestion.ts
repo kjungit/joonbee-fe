@@ -1,6 +1,6 @@
 import { CategoryName, SubcategoryName } from '@/types/question';
 import useSWRInfinite from 'swr/infinite';
-import { useIntersectionObserver } from '../useInterSectionObserver';
+import { useIntersectionObserver } from '../../../../src/hooks/useInterSectionObserver';
 import { QuestionResponse, getUserQuestions } from '../../app/apis/services/question';
 
 export default function useInfiniteUserQuestion(

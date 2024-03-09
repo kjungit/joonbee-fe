@@ -2,7 +2,6 @@
 import React from 'react';
 import ModalPortal from '../ui/ModalPortal';
 import { Button } from '../ui/Button';
-import Logo from '../ui/Logo';
 
 type Props = {
   onClose: () => void;
@@ -26,7 +25,7 @@ export default function ModalAlert({ onClose, title, subTitle }: Props) {
         className="fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen  bg-black/60 shadow-md flex items-center justify-center">
         <div className="w-[390px] h-[380px] border-4 border-bg-main-primary flex items-center justify-center rounded-[50px] bg-white shadow-md">
           <div className="flex flex-col gap-[26px] items-center justify-center p-[30px]">
-            <Logo size={'md'} />
+            {/* <Logo size={'md'} /> */}
             <div className="flex flex-col items-center">
               <h3 className="text-[#4149A6] text-2xl font-bold">{title} </h3>
               <p className="text-status-alert font-bold">{subTitle}</p>

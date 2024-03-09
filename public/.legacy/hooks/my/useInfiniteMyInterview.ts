@@ -1,8 +1,8 @@
 import useSWRInfinite from 'swr/infinite';
-import { useIntersectionObserver } from '../useInterSectionObserver';
+import { useIntersectionObserver } from '../../../../src/hooks/useInterSectionObserver';
 import { getInfiniteData } from '../../app/apis/services/member';
 import { preload } from 'swr';
-import { CategoryName } from '@/types/question';
+import { CategoryName } from '../../components/page/Main/InterviewSection';
 
 export interface MyInterviewProps {
   categoryName: CategoryName;

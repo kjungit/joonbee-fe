@@ -4,7 +4,7 @@ import { Avatar } from '../../ui/Avartar';
 import ModalPortal from '../../ui/ModalPortal';
 import { useRecoilState } from 'recoil';
 import { isNickNameStatus } from '../../../recoil/isNickNameStatus/atoms';
-import Logo from '../../ui/Logo';
+
 import Link from 'next/link';
 import { useUserInfo } from '../../../hooks/useUserInfo';
 import ModalAlert from '../ModalAlert';
@@ -39,7 +39,6 @@ const Header = () => {
         <div className="max-w-[1024px] p-5  w-full flex justify-between items-center">
           <Link href="/">
             <div className="flex gap-3 items-center">
-              <Logo />
               <h2 className="text-blue-secondary text-[24px] font-bold">JOONBEE</h2>
             </div>
           </Link>

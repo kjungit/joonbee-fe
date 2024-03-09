@@ -1,7 +1,6 @@
 import useSWRInfinite from 'swr/infinite';
-import { useIntersectionObserver } from '../useInterSectionObserver';
-import { InterviewItemType } from '../../components/page/Main/InterviewSection';
-import { CategoryName } from '@/types/question';
+import { useIntersectionObserver } from '../../../../src/hooks/useInterSectionObserver';
+import { CategoryName, InterviewItemType } from '../../components/page/Main/InterviewSection';
 import { sortType } from '../../constants/apiState';
 import { getInfiniteData } from '../../app/apis/services/member';
 import useSWRMutation from 'swr/mutation';
