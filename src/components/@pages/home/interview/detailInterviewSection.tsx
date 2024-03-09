@@ -1,5 +1,4 @@
 'use client';
-import { VariableIcon } from '@/components/@common/variableIcon';
 import { Text } from '@/components/@common/text';
 import { MainCategory } from '@/constants/category';
 import { selectInterviewState } from '@/recoils/home/interview/selectInterview/atom';
@@ -9,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { InterviewLikeIcon } from './interviewLikeIcon';
 import { useSearchParams } from 'next/navigation';
 import Logo from '@/components/@common/logo';
+import { VariableIcon } from '@/components/@common/variableIcon';
 
 export default function DetailInterviewSection() {
   const selectInterview = useRecoilValue(selectInterviewState);
