@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ToggleItem } from '../toggleItem/toggleItem';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectMenuState } from '@/recoils/home/selectMenu/atom';
-import { Text } from '../text/text';
+import { Text } from '../text';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toggleNavbarQuestionList } from '@/constants/toggleNavbarItem';
 import { InterviewMenu } from '@/components/navbar/interviewMenu';

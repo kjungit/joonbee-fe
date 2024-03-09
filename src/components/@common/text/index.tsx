@@ -6,7 +6,7 @@ type TextWeight = 'sm' | 'md' | 'lg';
 export type TextProps = {
   color?: TextColor;
   size?: TextSize;
-  weight: TextWeight;
+  weight?: TextWeight;
   children: React.ReactNode;
   className?: string;
 };
@@ -38,6 +38,6 @@ export const Text = ({
     black: 'text-black',
     red: 'text-status-alert',
   };
-  const styles = `  ${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]}`;
-  return <span className={styles}>{children}</span>;
+  const styles = `${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]} ${className}`;
+  return <span className={styles + ' break-keep'}>{children}</span>;
 };
