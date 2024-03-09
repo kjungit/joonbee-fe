@@ -44,7 +44,7 @@ const config: Config = {
         secondary: '#405ABA',
         normal: '#324883',
         tertiary: '#475F85',
-        light: '#F5F6F8',
+        light: '#EFF2FA',
       },
       background: {
         lightgray: '#F4F4F4',

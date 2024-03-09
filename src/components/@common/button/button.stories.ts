@@ -9,13 +9,22 @@ const meta: Meta<typeof Button> = {
     className: {
       control: { type: 'text' },
     },
+    size: {
+      control: 'inline-radio',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'auto'],
+    },
+    color: {
+      control: 'inline-radio',
+      options: ['primary', 'blue', 'white', 'disabled'],
+    },
+    variant: {
+      control: 'inline-radio',
+      options: ['outlined', 'filled'],
+    },
   },
   args: {
-    width: 'w-24',
-    height: 'h-10',
-    color: 'navy',
-    textColor: 'text-white',
-    textSize: 'text-base',
+    size: 'md',
+    color: 'primary',
     variant: 'filled',
     children: '버튼',
   },
@@ -25,15 +34,3 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {};
-
-export const Outlined: Story = {
-  args: {
-    variant: 'outlined',
-  },
-};
-
-export const Filled: Story = {
-  args: {
-    variant: 'filled',
-  },
-};
