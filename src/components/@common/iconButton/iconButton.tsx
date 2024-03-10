@@ -1,7 +1,7 @@
 import React from 'react';
 import Button, { ButtonProps } from '../button/button';
-import { VariableIcon, VariableIconName } from '../VariableIcon';
 import { Icon, IconName } from '../icon/icon';
+import { VariableIcon, VariableIconName } from '../variableIcon';
 
 type Icons = VariableIconName | IconName;
 

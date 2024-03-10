@@ -1,7 +1,7 @@
 import { ProgressStatus } from '@/types';
 import React from 'react';
 import { Icon } from '../icon/icon';
-import { Text, TextColor } from '../text/text';
+import { Text, TextColor } from '../text';
 
 interface IQuestionProgress {
   progress: ProgressStatus;
