@@ -12,10 +12,10 @@ import { FaUserGroup } from 'react-icons/fa6';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaCheckSquare } from 'react-icons/fa';
 import { FaRegCheckSquare } from 'react-icons/fa';
-import { IoDocumentTextOutline } from 'react-icons/io5';
-import { BsQuestionSquare } from 'react-icons/bs';
+import { TbArrowsRandom } from 'react-icons/tb';
+import { FaUserCheck } from 'react-icons/fa';
 
-export type IconName =
+export type VariableIconName =
   | 'emptyLike'
   | 'copy'
   | 'filledLike'
@@ -28,11 +28,10 @@ export type IconName =
   | 'group'
   | 'fillCheckCir'
   | 'fillCheckRec'
-  | 'checkRec'
-  | 'document'
-  | 'questionBox';
+  | 'checkRec';
+
 export type VariableIconProps = {
-  name: IconName;
+  name: VariableIconName;
   size?: number;
   onClick?: () => void;
   className?: string;
@@ -54,11 +53,17 @@ export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIc
     fillCheckCir: FaCheckCircle,
     fillCheckRec: FaCheckSquare,
     checkRec: FaRegCheckSquare,
-    document: IoDocumentTextOutline,
-    questionBox: BsQuestionSquare,
+    random: TbArrowsRandom,
+    choice: FaUserCheck,
   };
 
   const Icon = components[name];
 
-  return <Icon size={size} onClick={onClick} className={`${className} cursor-pointer `} />;
+  return (
+    <Icon
+      size={size}
+      onClick={onClick}
+      className={`${className} cursor-pointer hover:text-gray-disabled`}
+    />
+  );
 };

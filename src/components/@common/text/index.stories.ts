@@ -18,6 +18,10 @@ const meta: Meta<typeof Text> = {
       control: 'radio',
       options: ['xs', 'sm', 'md', 'lg', 'xl', '4xl'],
     },
+    as: {
+      control: 'select',
+      options: ['span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+    },
   },
 };
 
@@ -26,6 +30,7 @@ type Story = StoryObj<typeof Text>;
 
 export const Default: Story = {
   args: {
+    as: 'p',
     size: 'md',
     color: 'gray',
     weight: 'md',

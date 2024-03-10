@@ -3,7 +3,10 @@ import React from 'react';
 export type TextColor = '' | 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '4xl';
 type TextWeight = 'sm' | 'md' | 'lg';
+type TextAs = 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
 export type TextProps = {
+  as?: TextAs;
   color?: TextColor;
   size?: TextSize;
   weight?: TextWeight;
@@ -12,10 +15,11 @@ export type TextProps = {
 };
 export const Text = ({
   color = '',
+  as: Typography = 'p',
   size = 'md',
   weight = 'md',
   children,
-  className,
+  className = '',
 }: TextProps) => {
   const textStyles = {
     xs: 'text-[8px]',
@@ -40,5 +44,5 @@ export const Text = ({
     red: 'text-status-alert',
   };
   const styles = `${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]} ${className}`;
-  return <span className={styles + ' break-keep'}>{children}</span>;
+  return <Typography className={styles + ' break-keep'}>{children}</Typography>;
 };
