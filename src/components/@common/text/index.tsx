@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-export type TextColor = 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red';
+export type TextColor = '' | 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '4xl';
 type TextWeight = 'sm' | 'md' | 'lg';
 export type TextProps = {
@@ -11,7 +11,7 @@ export type TextProps = {
   className?: string;
 };
 export const Text = ({
-  color = 'gray',
+  color = '',
   size = 'md',
   weight = 'md',
   children,
@@ -31,6 +31,7 @@ export const Text = ({
     lg: 'font-bold',
   };
   const colorStyles = {
+    '': '',
     lightGray: 'text-gray-light',
     gray: 'text-gray-primary',
     darkGray: 'text-gray-dark',

@@ -34,7 +34,7 @@ export const InterviewWrapper = () => {
       ) : (
         <div>
           <div className="h-[70px] p-5 flex">
-            <Text size="lg" weight="md" color="darkGray">
+            <Text size="lg" weight="md">
               다른 사람의 면접들을 확인해보세요.
             </Text>
             <RadioButtonGroup
