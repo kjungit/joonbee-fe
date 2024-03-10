@@ -122,7 +122,12 @@
 body {
   overflow: hidden;
 }
-
+.interviewListHeight {
+  height: calc(100vh - 180px);
+}
+.questionListHeight {
+  height: calc(100vh - 110px);
+}
 .mainBg:before {
   content: '';
   display: block;

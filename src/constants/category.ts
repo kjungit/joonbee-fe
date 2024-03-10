@@ -4,7 +4,7 @@ export const questionCategory: QuestionCategory[] = [
   { category: 'fe', subcategory: ['react', 'vuejs', 'nextjs'] },
   { category: 'be', subcategory: ['db', 'spring_framework', 'msa'] },
   { category: 'language', subcategory: ['javascript', 'typescript'] },
-  { category: 'cs', subcategory: ['docker', 'operatingSystem', 'computerArchitecture'] },
+  { category: 'cs', subcategory: ['docker', 'operatingSystem', 'computer_architecture'] },
   { category: 'mobile', subcategory: ['aos', 'ios', 'flutter'] },
   { category: 'etc', subcategory: ['git'] },
 ];
@@ -20,6 +20,10 @@ export const MainCategory: {
   cs: 'CS',
 };
 
+export const mainCategoryList = Object.keys(MainCategory).filter(
+  key => key !== '' && MainCategory[key],
+);
+
 export const SubCategory: {
   [key: string]: string;
 } = {
@@ -32,8 +36,8 @@ export const SubCategory: {
   svelte: 'SVELTE',
   db: '데이터베이스',
   spring_framework: '스프링',
-  nest: 'NEST',
-  node: 'NODE',
+  nestjs: 'NEST',
+  nodejs: 'NODE',
   msa: 'MSA',
   rabbit_mq: 'RabbitMQ',
   redis: '레디스',
@@ -81,8 +85,8 @@ export const Category: {
   svelte: 'SVELTE',
   db: '데이터베이스',
   spring_framework: '스프링',
-  nest: 'NEST',
-  node: 'NODE',
+  nestjs: 'NEST',
+  nodejs: 'NODE',
   msa: 'MSA',
   rabbit_mq: 'RabbitMQ',
   redis: '레디스',
