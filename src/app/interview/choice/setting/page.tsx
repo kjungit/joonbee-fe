@@ -2,7 +2,7 @@
 
 import Button from '@/components/@common/button/button';
 import Dropdown from '@/components/@common/dropdown/dropdown';
-import { Text } from '@/components/@common/text/text';
+import { Text } from '@/components/@common/text';
 import { choiceInterviewCategoryAtom, interviewQuestionCountAtom } from '@/recoils/interview/atom';
 import React from 'react';
 import { useRecoilState } from 'recoil';
