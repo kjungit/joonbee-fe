@@ -4,11 +4,12 @@ import { ToggleItem } from '../toggleItem/toggleItem';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectMenuState } from '@/recoils/home/selectMenu/atom';
 import { Text } from '../text';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { toggleNavbarQuestionList } from '@/constants/toggleNavbarItem';
 import { InterviewMenu } from '@/components/navbar/interviewMenu';
 import { CategoryName, ChildrenProps, SubcategoryName, ToggleItemProps } from '@/types';
 import { selectQuestionCategoryState } from '@/recoils/home/question/selectQuestionCategory/atom';
+import Image from 'next/image';
 
 export const ToggleItemList = () => {
   const [items, setItems] = useState<ToggleItemProps[]>(toggleNavbarQuestionList);
@@ -19,6 +20,7 @@ export const ToggleItemList = () => {
   const selectMenu = useRecoilValue(selectMenuState);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathName = usePathname();
   const fieldParams = searchParams.get('Qfield') as CategoryName;
   const subFieldParams = searchParams.get('subField') as SubcategoryName;
   const categoryParams = searchParams.get('category');
@@ -61,9 +63,13 @@ export const ToggleItemList = () => {
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <div>
-        {categoryParams === 'interview' ? (
+        {pathName === '/' && categoryParams === null ? (
+          <div className="mt-24">
+            <Image src="/bgItem_1.png" alt="bgItem_1" width={216} height={316} />
+          </div>
+        ) : categoryParams === 'interview' ? (
           <InterviewMenu />
         ) : (
           <div>
