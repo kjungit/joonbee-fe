@@ -3,13 +3,13 @@
 import Button from '@/components/@common/button/button';
 import Dropdown from '@/components/@common/dropdown/dropdown';
 import IconButton from '@/components/@common/iconButton/iconButton';
-import { Text } from '@/components/@common/text/text';
 import { mainCategoryList } from '@/constants/category';
 import {
   InterviewCategoryAtom,
   interviewQuestionCountAtom,
   interviewTimeAtom,
 } from '@/recoils/interview/atom';
+import { Text } from '@/components/@common/text';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 

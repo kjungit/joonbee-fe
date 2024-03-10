@@ -1,5 +1,5 @@
 import Button from '@/components/@common/button/button';
-import { Text } from '@/components/@common/text/text';
+import { Text } from '@/components/@common/text';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';

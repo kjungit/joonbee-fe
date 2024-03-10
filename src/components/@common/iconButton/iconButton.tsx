@@ -1,9 +1,11 @@
 import React from 'react';
 import Button, { ButtonProps } from '../button/button';
-import { VariableIcon } from '../VariableIcon';
 import { IconName, IconType, VariableIconName } from '@/types';
 import { Icon } from '../icon/icon';
 import { VariableIconList } from '@/constants/icon';
+import { VariableIcon } from '../variableIcon';
+
+type Icons = VariableIconName | IconName;
 
 interface IconButtonProps extends ButtonProps {
   iconName: IconType;
