@@ -12,6 +12,8 @@ import { FaUserGroup } from 'react-icons/fa6';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaCheckSquare } from 'react-icons/fa';
 import { FaRegCheckSquare } from 'react-icons/fa';
+import { IoDocumentTextOutline } from 'react-icons/io5';
+import { BsQuestionSquare } from 'react-icons/bs';
 
 export type IconName =
   | 'emptyLike'
@@ -26,7 +28,9 @@ export type IconName =
   | 'group'
   | 'fillCheckCir'
   | 'fillCheckRec'
-  | 'checkRec';
+  | 'checkRec'
+  | 'document'
+  | 'questionBox';
 export type VariableIconProps = {
   name: IconName;
   size?: number;
@@ -50,15 +54,11 @@ export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIc
     fillCheckCir: FaCheckCircle,
     fillCheckRec: FaCheckSquare,
     checkRec: FaRegCheckSquare,
+    document: IoDocumentTextOutline,
+    questionBox: BsQuestionSquare,
   };
 
   const Icon = components[name];
 
-  return (
-    <Icon
-      size={size}
-      onClick={onClick}
-      className={`${className} cursor-pointer hover:text-gray-disabled`}
-    />
-  );
+  return <Icon size={size} onClick={onClick} className={`${className} cursor-pointer `} />;
 };

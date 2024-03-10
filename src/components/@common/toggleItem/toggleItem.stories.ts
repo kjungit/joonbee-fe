@@ -27,8 +27,8 @@ type Story = StoryObj<typeof ToggleItem>;
 export const Primary: Story = {
   args: {
     item: {
-      id: 'id',
-      value: 'Toggle Item',
+      id: 'fe',
+      value: '프론트엔드',
       isOpen: false,
       children: [],
     },

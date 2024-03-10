@@ -1,17 +1,17 @@
 'use client';
 import React from 'react';
-export type TextColor = 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red';
+export type TextColor = '' | 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '4xl';
 type TextWeight = 'sm' | 'md' | 'lg';
 export type TextProps = {
   color?: TextColor;
   size?: TextSize;
-  weight: TextWeight;
+  weight?: TextWeight;
   children: React.ReactNode;
   className?: string;
 };
 export const Text = ({
-  color = 'gray',
+  color = '',
   size = 'md',
   weight = 'md',
   children,
@@ -31,6 +31,7 @@ export const Text = ({
     lg: 'font-bold',
   };
   const colorStyles = {
+    '': '',
     lightGray: 'text-gray-light',
     gray: 'text-gray-primary',
     darkGray: 'text-gray-dark',
@@ -38,6 +39,6 @@ export const Text = ({
     black: 'text-black',
     red: 'text-status-alert',
   };
-  const styles = `  ${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]}`;
-  return <span className={styles}>{children}</span>;
+  const styles = `${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]} ${className}`;
+  return <span className={styles + ' break-keep'}>{children}</span>;
 };
