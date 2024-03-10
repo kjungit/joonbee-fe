@@ -1,6 +1,5 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
-import { useUserInfo } from '../hooks/useUserInfo';
 import { isLoginedStatus } from '../recoil/isLogined/atom';
 import useSWR from 'swr';
 
@@ -8,13 +7,11 @@ export const useOauthLogin = (key: string, loginFunc: (AUTHORIZATION_CODE: strin
   const searchParams = useSearchParams();
   const AUTHORIZATION_CODE: string = searchParams.get('code') as string;
   const router = useRouter();
-  const { userInfoMutate } = useUserInfo();
   const [isLogined, setisLogined] = useRecoilState(isLoginedStatus);
 
   const { data } = useSWR(key, () => loginFunc(AUTHORIZATION_CODE), {
     onSuccess: () => {
       router.push('/');
-      userInfoMutate();
       setisLogined(true);
       sessionStorage.setItem('isLogined', 'true');
     },
