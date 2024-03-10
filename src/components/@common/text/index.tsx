@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-export type TextColor = 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red';
+export type TextColor = '' | 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '4xl';
 type TextWeight = 'sm' | 'md' | 'lg';
 type TextAs = 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -14,8 +14,8 @@ export type TextProps = {
   className?: string;
 };
 export const Text = ({
+  color = '',
   as: Typography = 'p',
-  color = 'gray',
   size = 'md',
   weight = 'md',
   children,
@@ -35,6 +35,7 @@ export const Text = ({
     lg: 'font-bold',
   };
   const colorStyles = {
+    '': '',
     lightGray: 'text-gray-light',
     gray: 'text-gray-primary',
     darkGray: 'text-gray-dark',
@@ -43,5 +44,5 @@ export const Text = ({
     red: 'text-status-alert',
   };
   const styles = `${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]} ${className}`;
-  return <Typography className={styles}>{children}</Typography>;
+  return <Typography className={styles + ' break-keep'}>{children}</Typography>;
 };

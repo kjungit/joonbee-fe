@@ -1,4 +1,4 @@
-import { LoginBox } from '@/components/@common/LoginBox';
+import { LoginBox } from '@/components/@common/loginBox';
 import React from 'react';
 
 export default function LoginPage() {
