@@ -1,11 +1,11 @@
 'use client';
 import React from 'react';
-import { googleLogin } from '../../../../public/.legacy/app/apis/services/auth';
 import Image from 'next/image';
 import { useOauthLogin } from '../../../../public/.legacy/oauth/useOauthLogin';
+import authApis from '@/apis/services/authApis';
 
 export default function OauthPage() {
-  useOauthLogin('/auth/google', googleLogin);
+  useOauthLogin('/auth/google', authApis.googleLogin);
 
   return (
     <div className="flex items-center justify-center mainBg origin-h">

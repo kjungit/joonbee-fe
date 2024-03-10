@@ -1,8 +1,6 @@
 'use client';
 import React from 'react';
-import { kakaoLogin } from '../../../../public/.legacy/app/apis/services/auth';
 import Image from 'next/image';
-import { useOauthLogin } from '../../../../public/.legacy/oauth/useOauthLogin';
 import authQueries from '@/queries/authQueries';
 
 export default function OauthPage() {
