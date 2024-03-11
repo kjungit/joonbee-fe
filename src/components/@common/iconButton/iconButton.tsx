@@ -1,12 +1,14 @@
 import React from 'react';
 import Button, { ButtonProps } from '../button/button';
-import { Icon, IconName } from '../icon/icon';
-import { VariableIcon, VariableIconName } from '../variableIcon';
+import { IconName, IconType, VariableIconName } from '@/types';
+import { Icon } from '../icon/icon';
+import { VariableIconList } from '@/constants/icon';
+import { VariableIcon } from '../variableIcon';
 
 type Icons = VariableIconName | IconName;
 
 interface IconButtonProps extends ButtonProps {
-  iconName: Icons;
+  iconName: IconType;
   edge?: 'start' | 'end';
 }
 
@@ -27,22 +29,7 @@ export default function IconButton({
     xl: 18,
   };
 
-  const variableIconNames = [
-    'leftArrow',
-    'emptyLike',
-    'copy',
-    'filledLike',
-    'alarm',
-    'leftArrow',
-    'delete',
-    'edit',
-    'group',
-    'fillCheckCir',
-    'fillCheckRec',
-    'checkRec',
-  ];
-
-  const isVariableIcon = variableIconNames.includes(iconName);
+  const isVariableIcon = VariableIconList.includes(iconName as any);
   const iconComponent = isVariableIcon ? (
     <VariableIcon name={iconName as VariableIconName} size={sizeStyles[size]} />
   ) : (

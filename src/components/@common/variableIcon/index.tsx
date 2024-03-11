@@ -12,36 +12,16 @@ import { FaUserGroup } from 'react-icons/fa6';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaCheckSquare } from 'react-icons/fa';
 import { FaRegCheckSquare } from 'react-icons/fa';
-import { TbArrowsRandom } from 'react-icons/tb';
-import { FaUserCheck } from 'react-icons/fa';
 import { BsQuestionSquare } from 'react-icons/bs';
 import { IoDocumentTextOutline } from 'react-icons/io5';
+import { VariableIconName } from '@/types';
 
-export type VariableIconName =
-  | 'emptyLike'
-  | 'copy'
-  | 'filledLike'
-  | 'alarm'
-  | 'close'
-  | 'delete'
-  | 'edit'
-  | 'leftArrow'
-  | 'send'
-  | 'group'
-  | 'fillCheckCir'
-  | 'fillCheckRec'
-  | 'checkRec'
-  | 'random'
-  | 'choice'
-  | 'questionBox'
-  | 'document';
-
-export type VariableIconProps = {
+export interface VariableIconProps {
   name: VariableIconName;
   size?: number;
   onClick?: () => void;
   className?: string;
-};
+}
 
 export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIconProps) => {
   const components = {
@@ -59,8 +39,6 @@ export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIc
     fillCheckCir: FaCheckCircle,
     fillCheckRec: FaCheckSquare,
     checkRec: FaRegCheckSquare,
-    random: TbArrowsRandom,
-    choice: FaUserCheck,
     questionBox: BsQuestionSquare,
     document: IoDocumentTextOutline,
   };

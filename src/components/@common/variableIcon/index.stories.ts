@@ -1,6 +1,7 @@
 import React from 'react';
 import { VariableIcon } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
+import { VariableIconList } from '@/constants/icon';
 
 const meta: Meta<typeof VariableIcon> = {
   title: 'Design System/Atoms/VariableIcon',
@@ -9,22 +10,7 @@ const meta: Meta<typeof VariableIcon> = {
   argTypes: {
     name: {
       control: 'select',
-      options: [
-        'leftArrow',
-        'emptyLike',
-        'copy',
-        'filledLike',
-        'alarm',
-        'leftArrow',
-        'delete',
-        'edit',
-        'group',
-        'fillCheckCir',
-        'fillCheckRec',
-        'checkRec',
-        'random',
-        'choice',
-      ],
+      options: VariableIconList,
     },
 
     size: {},
