@@ -14,6 +14,8 @@ export const VariableIconList: VariableIconName[] = [
   'fillCheckCir',
   'fillCheckRec',
   'checkRec',
+  'questionBox',
+  'document',
 ];
 
 export const IconList: IconName[] = [
