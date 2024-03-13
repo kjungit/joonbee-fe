@@ -6,9 +6,9 @@ import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { InterviewLikeIcon } from './interviewLikeIcon';
 import { useSearchParams } from 'next/navigation';
-import Logo from '@/components/@common/logo';
-import { Text } from '@/components/@common/text';
-import { VariableIcon } from '@/components/@common/variableIcon';
+import Logo from '@/components/@common/logo/logo';
+import { Text } from '@/components/@common/text/text';
+import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
 
 export default function DetailInterviewSection() {
   const selectInterview = useRecoilValue(selectInterviewState);
@@ -24,7 +24,7 @@ export default function DetailInterviewSection() {
     <section className=" h-full  w-full  ">
       {categoryParams !== 'question' && selectInterview.categoryName === '' && (
         <div className="mainBg flex w-full h-full ">
-          <div className="flex flex-col gap-4 pl-[100px] pt-[140px] items-center">
+          <div className="flex flex-col gap-4 w-full items-center mt-28">
             <Logo size="lg" />
             <Image src="/main_logo_font.png" alt="main_logo" width={120} height={200} />
             <div className="flex flex-col items-center gap-1">
