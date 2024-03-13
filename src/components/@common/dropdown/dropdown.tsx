@@ -5,9 +5,9 @@ import Button, { ButtonColors } from '../button/button';
 import { Category } from '@/constants/category';
 
 type DropdownProps = {
-  data: (CategoryName | SubcategoryName)[];
+  data: string[];
   title?: string;
-  selected: CategoryName | SubcategoryName;
+  selected: string;
   onSelect: (item: any) => void;
   color?: ButtonColors;
   size?: 'sm' | 'md';
@@ -23,7 +23,7 @@ const Dropdown = ({
   disabled = false,
 }: DropdownProps) => {
   const { isOpened, onToggle } = useModal();
-  const onSelectItem = (item: CategoryName | SubcategoryName) => {
+  const onSelectItem = (item: string) => {
     onToggleList();
     onSelect(item);
   };

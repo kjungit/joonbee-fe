@@ -1,19 +1,6 @@
 import React from 'react';
-
 import Image from 'next/image';
-
-export type IconName =
-  | 'kakao.png'
-  | 'naver.png'
-  | 'google.png'
-  | 'meeting.png'
-  | 'service.png'
-  | 'check.png'
-  | 'random.png'
-  | 'blank.png'
-  | 'ai_white.png'
-  | 'checklist.png'
-  | 'questions.svg';
+import { IconName } from '@/types';
 
 export interface IconProps {
   name: IconName;
