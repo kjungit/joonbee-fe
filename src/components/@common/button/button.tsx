@@ -9,6 +9,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: ButtonColors;
   variant?: ButtonVariants;
   className?: string;
+  onClick?: () => void;
 }
 
 export default function Button({
@@ -16,6 +17,7 @@ export default function Button({
   color = 'primary',
   variant = 'filled',
   className = '',
+  onClick,
   children,
   ...props
 }: ButtonProps) {
@@ -46,6 +48,7 @@ export default function Button({
 
   return (
     <button
+      onClick={onClick}
       className={`${variantStyles[variant]} ${sizeStyles[size]} rounded-md ${buttonStyles} ${className}`}
       {...props}>
       {children}

@@ -9,7 +9,7 @@ import {
   interviewQuestionCountAtom,
   interviewTimeAtom,
 } from '@/recoils/interview/atom';
-import { Text } from '@/components/@common/text';
+import { Text } from '@/components/@common/text/text';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 

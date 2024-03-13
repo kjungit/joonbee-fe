@@ -18,22 +18,24 @@ export const useGetQuestion = () => {
     queryKey: ['getQuestion', selectQuestionCategory.category, selectQuestionCategory.subCategory],
     queryFn: ({ pageParam }) => getQuestion(pageParam),
     initialPageParam: {
-      page: 0,
+      page: 1,
       category: selectQuestionCategory.category,
       subCategory: selectQuestionCategory.subCategory,
     },
     getNextPageParam: (lastPage, allPage) => {
+      console.log('lastPage', lastPage);
+      console.log('allPage', allPage);
       const resultData = allPage.flatMap(page => page.result);
       return resultData.length < lastPage.total
         ? {
-            page: allPage.length,
+            page: allPage.length + 1,
             category: selectQuestionCategory.category,
             subCategory: selectQuestionCategory.subCategory,
           }
         : undefined;
     },
     select: pageData => {
-      const data = pageData?.pages.slice(1).flatMap(page => page.result);
+      const data = pageData?.pages.flatMap(page => page.result);
       return data?.[0] === null ? null : data;
     },
   });
