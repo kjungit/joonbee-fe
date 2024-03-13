@@ -1,4 +1,4 @@
-import { SocialLoginButton } from '.';
+import { SocialLoginButton } from './socialLoginButton';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof SocialLoginButton> = {

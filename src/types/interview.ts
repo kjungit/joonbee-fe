@@ -13,6 +13,7 @@ export type MyInterview = {
   questionId: string;
   questionContent: string;
   answerContent: string;
+  isOpen: boolean;
 };
 
 type QuestionContent = {
@@ -21,16 +22,15 @@ type QuestionContent = {
 };
 export interface DetailData {
   gptOpinion: string;
-  questionContents: QuestionContent[];
+  questionContents: QuestionData[];
 }
 
 export interface QuestionData {
   questionContent: string;
-  answerContent: string;
   commentary: string;
   evaluation: string;
-  questionId: string;
-  interviewId: string;
+  questionId: number;
+  isOpen: boolean;
 }
 
 export interface InteviewSaveData {
@@ -63,4 +63,29 @@ export interface InteviewSaveData {
   gptOpinion: string;
   categoryName: string;
   questions: ResQuestionsProps[] | undefined;
+}
+export interface MyClickInterview {
+  questionId: number;
+  questionContent: {
+    id: string;
+    value: string;
+    isOpen: boolean;
+  };
+  evaluation: {
+    id: string;
+    value: string;
+    isOpen: boolean;
+  };
+  commentary: {
+    id: string;
+    value: string;
+    isOpen: boolean;
+  };
+  isOpen: boolean;
+}
+
+export interface MyMenuInterviewItem {
+  categoryName: string;
+  interviewId: number;
+  questionCount: number;
 }
