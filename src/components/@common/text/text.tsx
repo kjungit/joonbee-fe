@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 export type TextColor = '' | 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red';
-type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '4xl';
+type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl';
 type TextWeight = 'sm' | 'md' | 'lg';
 type TextAs = 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
@@ -27,6 +27,7 @@ export const Text = ({
     md: 'text-[12px]',
     lg: 'text-[14px]',
     xl: 'text-[16px]',
+    '2xl': 'text-[20px]',
     '4xl': 'text-[32px]',
   };
   const textWeight = {

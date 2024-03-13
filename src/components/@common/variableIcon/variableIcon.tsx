@@ -16,6 +16,8 @@ import { TbArrowsRandom } from 'react-icons/tb';
 import { FaUserCheck } from 'react-icons/fa';
 import { BsQuestionSquare } from 'react-icons/bs';
 import { IoDocumentTextOutline } from 'react-icons/io5';
+import { LuCalendarCheck } from 'react-icons/lu';
+import { GoTriangleRight } from 'react-icons/go';
 
 export type VariableIconName =
   | 'emptyLike'
@@ -34,7 +36,9 @@ export type VariableIconName =
   | 'random'
   | 'choice'
   | 'questionBox'
-  | 'document';
+  | 'document'
+  | 'calendar'
+  | 'tringleRight';
 
 export type VariableIconProps = {
   name: VariableIconName;
@@ -63,6 +67,8 @@ export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIc
     choice: FaUserCheck,
     questionBox: BsQuestionSquare,
     document: IoDocumentTextOutline,
+    calendar: LuCalendarCheck,
+    tringleRight: GoTriangleRight,
   };
 
   const Icon = components[name];

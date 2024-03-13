@@ -1,18 +1,20 @@
 import React from 'react';
 import Button, { ButtonProps } from '../button/button';
 import { Icon, IconName } from '../icon/icon';
-import { VariableIcon, VariableIconName } from '../variableIcon';
+import { VariableIcon, VariableIconName } from '../variableIcon/variableIcon';
 
 type Icons = VariableIconName | IconName;
 
 interface IconButtonProps extends ButtonProps {
   iconName: Icons;
   edge?: 'start' | 'end';
+  onClick?: () => void;
 }
 
 export default function IconButton({
   iconName,
   children,
+  onClick,
   size = 'auto',
   color = 'primary',
   edge = 'start',
@@ -40,6 +42,7 @@ export default function IconButton({
     'fillCheckCir',
     'fillCheckRec',
     'checkRec',
+    'questionBox',
   ];
 
   const isVariableIcon = variableIconNames.includes(iconName);
@@ -50,7 +53,7 @@ export default function IconButton({
   );
 
   return (
-    <Button size={size} color={color} className={`${props.className}`}>
+    <Button size={size} color={color} className={`${props.className}`} onClick={onClick}>
       <div className="flex justify-center gap-2 items-center">
         {edge === 'start' && iconComponent}
         {children}
