@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import IconButton from './iconButton';
+import { AllIconList } from '@/constants/icon';
 
 const meta: Meta<typeof IconButton> = {
   title: 'Design System/Molecules/IconButton',
@@ -19,32 +20,7 @@ const meta: Meta<typeof IconButton> = {
     },
     iconName: {
       control: 'select',
-      options: [
-        'leftArrow',
-        'emptyLike',
-        'copy',
-        'filledLike',
-        'alarm',
-        'leftArrow',
-        'delete',
-        'edit',
-        'group',
-        'fillCheckCir',
-        'fillCheckRec',
-        'checkRec',
-        'kakao.png',
-        'naver.png',
-        'google.png',
-        'meeting.png',
-        'service.png',
-        'check.png',
-        'circle.png',
-        'random.png',
-        'blank.png',
-        'ai_white.png',
-        'checklist.png',
-        'questions.svg',
-      ],
+      options: AllIconList,
     },
     edge: {
       control: 'inline-radio',
