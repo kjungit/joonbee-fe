@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { Text } from '../@common/text';
+import { Text } from '../@common/text/text';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import { ToggleItemProps } from '@/types';
@@ -15,7 +15,7 @@ export const InterviewMenu = () => {
   const categoryParams = searchParams.get('category');
 
   return (
-    <div>
+    <div className="p-4 h-full">
       <Text size="xl" weight="lg">
         면접 보기
       </Text>
