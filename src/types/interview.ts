@@ -89,3 +89,5 @@ export interface MyMenuInterviewItem {
   interviewId: number;
   questionCount: number;
 }
+
+export type InterviewType = 'choice' | 'random';
