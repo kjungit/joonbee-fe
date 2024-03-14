@@ -59,7 +59,9 @@ export default function Header() {
                 홈
               </Link>
             </button>
-            <Link className={`${pathName.includes('interview') && 'font-bold'}`} href="/interview">
+            <Link
+              className={`${pathName.includes('interview') && 'font-bold'}`}
+              href="/interview/choice">
               AI 면접
             </Link>
             <Link className={`${pathName.includes('resume') && 'font-bold'}`} href="/resume">
@@ -113,7 +115,7 @@ export default function Header() {
         <div className="flex items-center justify-between w-full ">
           <div className="flex gap-4 px-2">
             {pathName === '/' && <HomeHeader />}
-            {pathName === '/interview' && <InterviewHeader />}
+            {pathName.includes('/interview') && <InterviewHeader />}
             {pathName === '/my' && <MyHeader />}
           </div>
         </div>
