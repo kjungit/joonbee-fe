@@ -12,3 +12,9 @@ export const maskNickname = (nickname: string) => {
   const maskedText = new Array(nickname.length - 3).fill('*');
   return visibleText + maskedText.join('');
 };
+
+export const convertSecondsToMinutes = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const renmaingSeconds = seconds % 60;
+  return renmaingSeconds === 0 ? minutes + '분 ' : minutes + '분 ' + renmaingSeconds + '초';
+};
