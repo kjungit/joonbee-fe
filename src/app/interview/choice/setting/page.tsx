@@ -10,26 +10,16 @@ import {
   interviewTimeAtom,
 } from '@/recoils/interview/atom';
 import { Text } from '@/components/@common/text/text';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRecoilState } from 'recoil';
-import { useRouter } from 'next/navigation';
 import InterviewLoading from '@/components/@common/interviewLoading/interviewLoading';
+import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 
 export default function ChoiceSettingPage() {
   const [selected, setSelected] = useRecoilState(InterviewCategoryAtom);
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
   const [time, setTime] = useRecoilState(interviewTimeAtom);
-  const [isPressedBtn, setIsPressedBtn] = useState<boolean>(false);
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isPressedBtn) {
-      setTimeout(() => {
-        router.push('/interview/permission');
-      }, 3000);
-    }
-  }, [isPressedBtn]);
+  const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
 
   return (
     <>
@@ -118,7 +108,7 @@ export default function ChoiceSettingPage() {
             edge="end"
             size="md"
             className="absolute bottom-0"
-            onClick={() => setIsPressedBtn(true)}>
+            onClick={onMovePage}>
             다음 단계
           </IconButton>
         </>
