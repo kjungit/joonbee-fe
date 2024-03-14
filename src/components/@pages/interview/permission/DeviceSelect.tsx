@@ -1,7 +1,6 @@
 'use client';
-
-import { Text } from '@/components/@common/text';
-import { VariableIcon } from '@/components/@common/variableIcon';
+import { Text } from '@/components/@common/text/text';
+import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
 import React from 'react';
 
 interface Device {
