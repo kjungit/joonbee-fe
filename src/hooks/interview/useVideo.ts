@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import useAudio from './useAudio';
+import { interviewVideoUrlAtom } from '@/recoils/interview/atom';
 
 export default function useVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
 
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
-  //   const [recordedMediaUrl, setRecordedMediaUrl] = useRecoilState(interviewVideoUrlAtom);
+  const [recordedMediaUrl, setRecordedMediaUrl] = useRecoilState(interviewVideoUrlAtom);
 
   const { onStartAudio, audioStream } = useAudio();
 
@@ -16,14 +17,13 @@ export default function useVideo() {
     try {
       console.log('onStartVideo');
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-
       setVideoStream(stream);
 
       if (videoRef && videoRef.current && !videoRef.current.srcObject) {
         videoRef.current.srcObject = stream;
       }
-    } catch {
-      console.log('비디오가 없어요');
+    } catch (error) {
+      console.error('비디오 스트림을 시작하는 데 실패했습니다:', error);
     }
   };
 
@@ -90,10 +90,10 @@ export default function useVideo() {
     onStartVideo,
     videoRef,
     onStartAudio,
-    // onStartRecord,
-    // onStopRecord,
-    // onDownload,
-    // recordedMediaUrl,
-    // onToggleRecord,
+    onStartRecord,
+    onStopRecord,
+    onDownload,
+    recordedMediaUrl,
+    onToggleRecord,
   };
 }
