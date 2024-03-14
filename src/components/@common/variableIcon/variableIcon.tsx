@@ -15,6 +15,8 @@ import { FaRegCheckSquare } from 'react-icons/fa';
 import { BsQuestionSquare } from 'react-icons/bs';
 import { IoDocumentTextOutline } from 'react-icons/io5';
 import { AiFillAudio } from 'react-icons/ai';
+import { LuCalendarCheck } from 'react-icons/lu';
+import { GoTriangleRight } from 'react-icons/go';
 import { VariableIconName } from '@/types';
 
 export interface VariableIconProps {
@@ -44,6 +46,8 @@ export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIc
     document: IoDocumentTextOutline,
     video: FaCamera,
     audio: AiFillAudio,
+    calendar: LuCalendarCheck,
+    tringleRight: GoTriangleRight,
   };
 
   const Icon = components[name];

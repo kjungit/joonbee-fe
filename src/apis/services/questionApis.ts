@@ -23,7 +23,7 @@ export const getQuestion = async ({ page, category, subCategory }: GetQuestionPr
       params: {
         page,
         category,
-        subcategory: subCategory,
+        subCategory,
       },
     });
     return res.data.data;
@@ -57,10 +57,16 @@ export const getRandomQuestions = async (
 /**
  * 사용자가 추가한 질문들 가져오기 api
  */
-export const getUserQuestions = async (url: string) => {
-  const res = await instance().get(url);
-  // console.log('res', res.data.data.result);
-  return res.data.data.result;
+export const getUserQuestions = async ({ page, category, subCategory }: GetQuestionProps) => {
+  const res = await instance().get('api/cart/questions', {
+    params: {
+      page,
+      category,
+      subcategory: subCategory,
+    },
+  });
+  console.log('res', res.data.data);
+  return res.data.data;
 };
 
 /**

@@ -3,16 +3,18 @@ import Button, { ButtonProps } from '../button/button';
 import { IconName, IconType, VariableIconName } from '@/types';
 import { Icon } from '../icon/icon';
 import { VariableIconList } from '@/constants/icon';
-import { VariableIcon } from '../variableIcon';
+import { VariableIcon } from '../variableIcon/variableIcon';
 
 interface IconButtonProps extends ButtonProps {
   iconName: IconType;
   edge?: 'start' | 'end';
+  onClick?: () => void;
 }
 
 export default function IconButton({
   iconName,
   children,
+  onClick,
   size = 'auto',
   color = 'primary',
   edge = 'start',
@@ -35,7 +37,7 @@ export default function IconButton({
   );
 
   return (
-    <Button size={size} color={color} className={`${props.className}`} {...props}>
+    <Button size={size} color={color} className={`${props.className}`} onClick={onClick}>
       <div className="flex justify-center gap-2 items-center">
         {edge === 'start' && iconComponent}
         {children}

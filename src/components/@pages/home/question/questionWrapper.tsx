@@ -1,10 +1,10 @@
 'use client';
-import { Text } from '@/components/@common/text';
-import { VariableIcon } from '@/components/@common/variableIcon';
-import { useGetQuestion } from '@/queries/question/useGetQuestion';
+import { Text } from '@/components/@common/text/text';
+import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { QuestionSaveIcon } from './questionSaveIcon';
+import { useGetQuestion } from '@/queries/question/useGetQuestion';
 
 export const QuestionWrapper = () => {
   const searchParams = useSearchParams();
@@ -16,7 +16,7 @@ export const QuestionWrapper = () => {
   }, [status, isFetching]);
   return (
     <section className="min-w-[800px] h-full effect-white p-5 flex flex-col gap-8 ">
-      <div className="questionListHeight ov">
+      <div className="questionListHeight ">
         {categoryParams === 'question' &&
           (status === 'pending' ? (
             <p>Loading...</p>

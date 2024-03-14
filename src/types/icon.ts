@@ -29,6 +29,8 @@ export type VariableIconName =
   | 'questionBox'
   | 'document'
   | 'video'
-  | 'audio';
+  | 'audio'
+  | 'calendar'
+  | 'tringleRight';
 
 export type IconType = VariableIconName | IconName;

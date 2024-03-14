@@ -1,5 +1,5 @@
 import { SavaQuestionProps } from '@/apis/services/questionApis';
-import { VariableIcon } from '@/components/@common/variableIcon';
+import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
 import { usePostQuestionSave } from '@/queries/question/usePostQuestionSave';
 import { MouseEvent, useState } from 'react';
 

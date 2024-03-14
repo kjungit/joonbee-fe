@@ -90,7 +90,6 @@ export const toggleNavbarQuestionList: ToggleItemProps[] = [
       { id: 'git', value: '깃' },
       { id: 'team', value: '팀 협업' },
       { id: 'project', value: '프로젝트' },
-      { id: 'datastructure_algorithm', value: '데이터 구조 알고리즘' },
     ],
   },
   {
@@ -98,6 +97,7 @@ export const toggleNavbarQuestionList: ToggleItemProps[] = [
     isOpen: false,
     value: 'CS',
     children: [
+      { id: 'datastructure_algorithm', value: '데이터 구조 알고리즘' },
       { id: 'docker', value: '도커' },
       { id: 'virtual_machine', value: '가상 머신' },
       { id: 'network', value: '네트워크' },

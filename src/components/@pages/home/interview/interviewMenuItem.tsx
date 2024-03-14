@@ -1,9 +1,8 @@
 'use client';
 
-import { Text } from '@/components/@common/text';
-import { VariableIcon } from '@/components/@common/variableIcon';
+import { Text } from '@/components/@common/text/text';
+import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
 import { MainCategory } from '@/constants/category';
-import { usePostInterviewLike } from '@/queries/interview/usePostInterviewLike';
 import { selectInterviewState } from '@/recoils/home/interview/selectInterview/atom';
 import { InterviewItem } from '@/types/interview';
 import Image from 'next/image';
