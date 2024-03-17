@@ -1,5 +1,5 @@
 import React from 'react';
-import { VariableIcon } from './variableIcon';
+import { VariableIcon } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 import { VariableIconList } from '@/constants/icon';
 

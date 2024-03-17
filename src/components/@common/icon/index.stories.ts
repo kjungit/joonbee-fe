@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from './icon';
+import { Icon } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Icon> = {

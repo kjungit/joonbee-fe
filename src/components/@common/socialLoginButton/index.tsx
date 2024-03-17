@@ -1,6 +1,6 @@
 import React from 'react';
 import { capitalizeFirstLetter } from '@/utils/format';
-import { Icon } from '../icon/icon';
+import { Icon } from '../icon';
 
 export type IconName = 'kakao.png' | 'naver.png' | 'google.png';
 

@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { Text } from '../@common/text/text';
+import { Text } from '../@common/text';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import { ToggleItemProps } from '@/types';

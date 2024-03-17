@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { LoginBox } from './loginBox';
+import { LoginBox } from '.';
 
 const meta: Meta<typeof LoginBox> = {
   title: 'DESIGN SYSTEM/Molecules/LoginBox',

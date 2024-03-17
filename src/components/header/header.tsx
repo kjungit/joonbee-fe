@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { selectMenuState } from '@/recoils/home/selectMenu/atom';
-import { Text } from '../@common/text/text';
+import { Text } from '../@common/text';
 import { selectInterviewState } from '@/recoils/home/interview/selectInterview/atom';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import { userInfoState } from '@/recoils/user/userInfo/atom';

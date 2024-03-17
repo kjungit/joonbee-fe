@@ -1,4 +1,4 @@
-import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
+import { VariableIcon } from '@/components/@common/variableIcon';
 import { usePostInterviewLike } from '@/queries/interview/usePostInterviewLike';
 import { MouseEvent, useState } from 'react';
 
