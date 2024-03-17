@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { VariableIcon } from '../variableIcon/variableIcon';
+import { VariableIcon } from '../variableIcon';
 import { ToggleProps } from '@/types';
 
 export const ToggleItem = ({ item, onClickOpen }: ToggleProps) => {

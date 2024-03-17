@@ -1,7 +1,7 @@
 import React from 'react';
 import { CategoryName, SubcategoryName } from '@/types/question';
 import { useModal } from '@/hooks/useModal';
-import Button, { ButtonColors } from '../button/button';
+import Button, { ButtonColors } from '../button';
 import { Category } from '@/constants/category';
 
 type DropdownProps = {
