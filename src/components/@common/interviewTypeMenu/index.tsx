@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import IconButton from '@/components/@common/iconButton/iconButton';
+import IconButton from '@/components/@common/iconButton';
 
 export default function InterviewTypeMenu() {
   const pathName = usePathname();

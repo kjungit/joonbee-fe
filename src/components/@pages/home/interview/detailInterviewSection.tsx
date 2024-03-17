@@ -6,9 +6,9 @@ import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { InterviewLikeIcon } from './interviewLikeIcon';
 import { useSearchParams } from 'next/navigation';
-import Logo from '@/components/@common/logo/logo';
-import { Text } from '@/components/@common/text/text';
-import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
+import Logo from '@/components/@common/logo';
+import { Text } from '@/components/@common/text';
+import { VariableIcon } from '@/components/@common/variableIcon';
 
 export default function DetailInterviewSection() {
   const selectInterview = useRecoilValue(selectInterviewState);

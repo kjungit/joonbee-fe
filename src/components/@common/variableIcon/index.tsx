@@ -16,7 +16,6 @@ import { BsQuestionSquare } from 'react-icons/bs';
 import { IoDocumentTextOutline } from 'react-icons/io5';
 import { LuCalendarCheck } from 'react-icons/lu';
 import { GoTriangleRight } from 'react-icons/go';
-
 import { VariableIconName } from '@/types';
 
 export interface VariableIconProps {
@@ -45,7 +44,7 @@ export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIc
     questionBox: BsQuestionSquare,
     document: IoDocumentTextOutline,
     calendar: LuCalendarCheck,
-    tringleRight: GoTriangleRight,
+    triangleRight: GoTriangleRight,
   };
 
   const Icon = components[name];

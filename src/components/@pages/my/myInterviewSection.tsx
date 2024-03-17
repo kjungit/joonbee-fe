@@ -1,76 +1,60 @@
-import { Accordion } from '@/components/@common/accordion/accordion';
-import { Text } from '@/components/@common/text/text';
-import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
+import { Accordion } from '@/components/@common/accordion';
+import { Text } from '@/components/@common/text';
+import { VariableIcon } from '@/components/@common/variableIcon';
+import { questionTitle } from '@/constants/question';
 import { useGetDetailInterview } from '@/queries/interview/useGetDetailInterview';
 import { selectMyInterviewState } from '@/recoils/user/seletMyInterview/atom';
-import { MyClickInterview } from '@/types';
+import { QuestionContentsProps, ViewInterfaceProps } from '@/types';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-
 export const MyInterviewSection = () => {
-  const [selectDetail, setSelectDetail] = useState({
+  const [selectDetail, setSelectDetail] = useState<ViewInterfaceProps>({
     gptOpinion: '',
-    questionContents: [
-      {
-        questionId: 0,
-        questionContent: {
-          id: 'questionContent',
-          value: '',
-          isOpen: false,
-        },
-        evaluation: {
-          id: 'evaluation',
-          value: '',
-          isOpen: false,
-        },
-        commentary: {
-          id: 'commentary',
-          value: '',
-          isOpen: false,
-        },
-        isOpen: false,
-      },
-    ],
+    questionContents: [],
   });
-  const selectMyInteview = useRecoilValue(selectMyInterviewState);
+  const selectMyInterview = useRecoilValue(selectMyInterviewState);
   const searchParams = useSearchParams();
   const detailIdParams = searchParams.get('detailId');
 
-  const { detailInterview, isSuccess } = useGetDetailInterview(
-    Number(detailIdParams) || selectMyInteview.interviewId,
+  const { detailInterview, isDetailSuccess, isDetailFetch } = useGetDetailInterview(
+    Number(detailIdParams) || selectMyInterview.interviewId,
   );
 
   useEffect(() => {
     if (detailInterview) {
       setSelectDetail({
         ...detailInterview,
+        gptOpinion: detailInterview.gptOpinion,
         questionContents: detailInterview.questionContents.map(item => ({
+          ...item,
           questionId: item.questionId,
-          questionContent: {
-            id: 'questionContent',
-            value: item.questionContent,
-            isOpen: false,
+          questionContent: item.questionContent,
+          isOpen: false,
+          infoList: {
+            answerContent: {
+              id: 'answerContent',
+              value: item.answerContent,
+              isOpen: false,
+            },
+            evaluation: {
+              id: 'evaluation',
+              value: item.evaluation,
+              isOpen: false,
+            },
+            commentary: {
+              id: 'commentary',
+              value: item.commentary,
+              isOpen: false,
+            },
           },
-          evaluation: {
-            id: 'evaluation',
-            value: item.evaluation,
-            isOpen: false,
-          },
-          commentary: {
-            id: 'commentary',
-            value: item.commentary,
-            isOpen: false,
-          },
-          isOpen: item.isOpen,
         })),
       });
-      console.log(selectDetail);
     }
-  }, [isSuccess, selectMyInteview]);
+  }, [isDetailSuccess, isDetailFetch, selectMyInterview]);
 
-  const handleClickQuestion = (question: MyClickInterview) => {
+  const handleClickQuestion = (question: QuestionContentsProps) => {
     const updateInterview = selectDetail.questionContents.map(item => {
       if (item.questionId === question.questionId) {
         return { ...question, isOpen: !item.isOpen };
@@ -88,7 +72,7 @@ export const MyInterviewSection = () => {
     valueName,
   }: {
     questionId: number;
-    valueName: 'questionContent' | 'evaluation' | 'commentary';
+    valueName: 'answerContent' | 'evaluation' | 'commentary';
   }) => {
     setSelectDetail({
       ...selectDetail,
@@ -96,9 +80,12 @@ export const MyInterviewSection = () => {
         content.questionId === questionId
           ? {
               ...content,
-              [valueName]: {
-                ...content[valueName],
-                isOpen: !content[valueName].isOpen,
+              infoList: {
+                ...content.infoList,
+                [valueName]: {
+                  ...content.infoList[valueName],
+                  isOpen: !content.infoList[valueName].isOpen,
+                },
               },
             }
           : content,
@@ -110,7 +97,7 @@ export const MyInterviewSection = () => {
     <>
       {detailInterview ? (
         <div>
-          <div className="flex  h-[54px] effect-white w-full items-center px-4">
+          <div className="flex h-[54px] effect-white w-full items-center px-4">
             <div className="flex  gap-4 items-center">
               <Text size="xl" weight="md">
                 프론트엔드
@@ -118,110 +105,52 @@ export const MyInterviewSection = () => {
               <div className="flex items-center justify-center h-6 w-[90px] effect-white rounded-md">
                 <VariableIcon name="document" size={18} />
                 <Text size="lg" weight="md" className="p-1">
-                  질문 {selectMyInteview.questionCount || selectDetail.questionContents.length}개
+                  질문 {selectMyInterview.questionCount || selectDetail.questionContents.length}개
                 </Text>
               </div>
             </div>
           </div>
 
-          {selectDetail && (
-            <Accordion
-              title="전체적인 면접에 대한 느낌이에요."
-              description={selectDetail?.gptOpinion}
-            />
+          {selectDetail.gptOpinion && (
+            <Accordion title="전체적인 면접에 대한 느낌이에요." isBorder isMain>
+              <Text size="lg" weight="sm" className="px-11">
+                {selectDetail.gptOpinion}
+              </Text>
+            </Accordion>
           )}
 
           {selectDetail.questionContents &&
             selectDetail.questionContents.map(question => (
               <div key={question.questionId}>
-                <div
-                  className="px-4 pt-2 pb-1 flex cursor-pointer items-center"
-                  onClick={() => handleClickQuestion(question)}>
-                  <VariableIcon
-                    name="tringleRight"
-                    size={16}
-                    className={`${question.isOpen && 'rotate-90'}`}
-                  />
-                  <Text size="lg" weight="md" className="p-1">
-                    {question.questionContent.value}
-                  </Text>
-                </div>
-                {question.isOpen && (
-                  <div>
-                    <div
-                      className="pl-10 mt-2 flex cursor-pointer items-center"
-                      onClick={() =>
-                        handleClickSubQuestion({
-                          questionId: question.questionId,
-                          valueName: 'questionContent',
-                        })
-                      }>
-                      <VariableIcon
-                        name="tringleRight"
-                        size={16}
-                        className={`${question.questionContent.isOpen && 'rotate-90'}`}
-                      />
-                      <Text size="lg" weight="md" className="p-1">
-                        내가 한 답변이에요.
-                      </Text>
-                    </div>
-                    {question.questionContent.isOpen && (
-                      <div className="pl-4 flex items-center">
-                        <Text size="lg" weight="sm" className="px-11 font-normal">
-                          {question.questionContent.value}
-                        </Text>
-                      </div>
-                    )}
-                    <div
-                      className="pl-10 mt-2 flex cursor-pointer items-center"
-                      onClick={() =>
-                        handleClickSubQuestion({
-                          questionId: question.questionId,
-                          valueName: 'commentary',
-                        })
-                      }>
-                      <VariableIcon
-                        name="tringleRight"
-                        size={16}
-                        className={`${question.commentary.isOpen && 'rotate-90'}`}
-                      />
-                      <Text size="lg" weight="md" className="p-1">
-                        참고하면 좋을것 같아요.
-                      </Text>
-                    </div>
-                    {question.commentary.isOpen && (
-                      <div className="pl-4 flex items-center">
-                        <Text size="lg" weight="sm" className="px-11 font-normal">
-                          {question.commentary.value}
-                        </Text>
-                      </div>
-                    )}
-                    <div
-                      className="pl-10 mt-2 flex cursor-pointer items-center"
-                      onClick={() =>
-                        handleClickSubQuestion({
-                          questionId: question.questionId,
-                          valueName: 'evaluation',
-                        })
-                      }>
-                      <VariableIcon
-                        name="tringleRight"
-                        size={16}
-                        className={`${question.evaluation.isOpen && 'rotate-90'}`}
-                      />
-                      <Text size="lg" weight="md" className="p-1">
-                        답변에 대한 느낌이에요.
-                      </Text>
-                    </div>
-                    {question.evaluation.isOpen && (
-                      <div className="pl-4 flex items-center">
-                        <Text size="lg" weight="sm" className="px-11 font-normal">
-                          {question.evaluation.value}
-                        </Text>
-                      </div>
-                    )}
-                  </div>
-                )}
+                <Accordion
+                  title={question.questionContent}
+                  onClick={() => handleClickQuestion(question)}
+                  isMain>
+                  {question.isOpen && (
+                    <>
+                      {Object.values(question.infoList).map(item => (
+                        <>
+                          <Accordion
+                            title={questionTitle[item.id]}
+                            onClick={() =>
+                              handleClickSubQuestion({
+                                questionId: question.questionId,
+                                valueName: item.id,
+                              })
+                            }>
+                            {item.isOpen && (
+                              <div className="pl-4 flex items-center">
+                                <Text size="lg" weight="sm" className="px-11 font-normal">
+                                  {item.value}
+                                </Text>
+                              </div>
+                            )}
+                          </Accordion>
+                        </>
+                      ))}
+                    </>
+                  )}
+                </Accordion>
               </div>
             ))}
         </div>

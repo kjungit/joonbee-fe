@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ToggleItem } from './toggleItem';
+import { ToggleItem } from '.';
 
 const meta: Meta<typeof ToggleItem> = {
   title: 'Design System/Atoms/ToggleItem',

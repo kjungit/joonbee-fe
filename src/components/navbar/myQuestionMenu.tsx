@@ -1,5 +1,5 @@
 import { CategoryName, ChildrenProps, SubcategoryName, ToggleItemProps } from '@/types';
-import { ToggleItem } from '../@common/toggleItem/toggleItem';
+import { ToggleItem } from '../@common/toggleItem';
 import { toggleNavbarQuestionList } from '@/constants/toggleNavbarItem';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';

@@ -1,7 +1,7 @@
 'use client';
 import React, { MouseEvent } from 'react';
-import Logo from '../logo/logo';
-import { SocialLoginButton } from '../socialLoginButton/socialLoginButton';
+import Logo from '../logo';
+import { SocialLoginButton } from '../socialLoginButton';
 
 const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth/kakao';
 const NAVER_REDIRECT_URI = 'http://localhost:3000/oauth/naver';

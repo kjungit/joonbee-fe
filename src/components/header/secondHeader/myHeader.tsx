@@ -1,4 +1,4 @@
-import IconButton from '@/components/@common/iconButton/iconButton';
+import IconButton from '@/components/@common/iconButton';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';

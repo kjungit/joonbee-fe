@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import QuestionProgress from './questionProgress';
+import QuestionProgress from '.';
 
 const meta: Meta<typeof QuestionProgress> = {
   title: 'Design System/Molecules/QuestionProgress',

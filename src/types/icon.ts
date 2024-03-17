@@ -29,6 +29,6 @@ export type VariableIconName =
   | 'questionBox'
   | 'document'
   | 'calendar'
-  | 'tringleRight';
+  | 'triangleRight';
 
 export type IconType = VariableIconName | IconName;
