@@ -1,12 +1,11 @@
 'use client';
 
 import Button from '@/components/@common/button/button';
-import Dropdown from '@/components/@common/dropdown/dropdown';
 import IconButton from '@/components/@common/iconButton/iconButton';
-import { mainCategoryList } from '@/constants/category';
 import {
-  InterviewCategoryAtom,
   interviewQuestionCountAtom,
+  interviewRandomCategoryAtom,
+  interviewRandomSubcategoryAtom,
   interviewTimeAtom,
 } from '@/recoils/interview/atom';
 import { Text } from '@/components/@common/text/text';
@@ -14,9 +13,14 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import InterviewLoading from '@/components/@common/interviewLoading/interviewLoading';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
+import CategoryDropdown from '@/components/@common/categoryDropdown';
 
 export default function RandomSettingPage() {
-  const [selected, setSelected] = useRecoilState(InterviewCategoryAtom);
+  const [selectedCategory, setSelectedCategory] = useRecoilState(interviewRandomCategoryAtom);
+  const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(
+    interviewRandomSubcategoryAtom,
+  );
+
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
   const [time, setTime] = useRecoilState(interviewTimeAtom);
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
@@ -29,7 +33,18 @@ export default function RandomSettingPage() {
             <Text as="h3" size="lg" weight="lg" className="mb-2">
               전체 질문 카테고리를 선택해주세요
             </Text>
-            <Dropdown data={mainCategoryList} selected={selected} onSelect={setSelected} />
+            <div className="flex gap-10">
+              <p className="min-w-[142px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md">
+                카테고리
+              </p>
+              <CategoryDropdown
+                size="md"
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+                selectedSubcategory={selectedSubcategory}
+                setSelectedSubcategory={setSelectedSubcategory}
+              />
+            </div>
           </div>
           <div className="mb-5">
             <Text as="h3" size="lg" weight="lg" className="mb-2">

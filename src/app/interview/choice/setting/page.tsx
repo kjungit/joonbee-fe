@@ -5,7 +5,7 @@ import Dropdown from '@/components/@common/dropdown/dropdown';
 import IconButton from '@/components/@common/iconButton/iconButton';
 import { mainCategoryList } from '@/constants/category';
 import {
-  InterviewCategoryAtom,
+  interviewChoiceCategoryAtom,
   interviewQuestionCountAtom,
   interviewTimeAtom,
 } from '@/recoils/interview/atom';
@@ -16,7 +16,7 @@ import InterviewLoading from '@/components/@common/interviewLoading/interviewLoa
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 
 export default function ChoiceSettingPage() {
-  const [selected, setSelected] = useRecoilState(InterviewCategoryAtom);
+  const [selected, setSelected] = useRecoilState(interviewChoiceCategoryAtom);
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
   const [time, setTime] = useRecoilState(interviewTimeAtom);
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');

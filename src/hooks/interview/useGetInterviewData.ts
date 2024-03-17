@@ -1,7 +1,8 @@
 import useGetRandomQuestionList from '@/queries/question/useGetRandomQuestion';
 import {
-  InterviewCategoryAtom,
   interviewQuestionCountAtom,
+  interviewRandomCategoryAtom,
+  interviewRandomSubcategoryAtom,
   interviewTypeAtom,
 } from '@/recoils/interview/atom';
 import { useEffect, useState } from 'react';
@@ -10,10 +11,10 @@ import { useRecoilValue } from 'recoil';
 export default function useGetInterviewData() {
   const [questionData, setQuestionData] = useState([]);
   const interviewType = useRecoilValue(interviewTypeAtom);
-  const category = useRecoilValue(InterviewCategoryAtom);
-  const questionCount = useRecoilValue(interviewQuestionCountAtom);
-  const subcategory = '';
+  const category = useRecoilValue(interviewRandomCategoryAtom);
+  const subcategory = useRecoilValue(interviewRandomSubcategoryAtom);
 
+  const questionCount = useRecoilValue(interviewQuestionCountAtom);
   const { randomQuestionData, isSuccess } = useGetRandomQuestionList({
     category,
     subcategory,

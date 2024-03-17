@@ -1,9 +1,24 @@
-import { CategoryName, InterviewType } from '@/types';
+import { CategoryName, InterviewType, SubcategoryName } from '@/types';
 import { atom } from 'recoil';
 
-export const InterviewCategoryAtom = atom<CategoryName>({
+export const selectedSubcategoryListAtom = atom<SubcategoryName[]>({
+  key: 'selectedSubcategoryListAtom',
+  default: [],
+});
+
+export const interviewChoiceCategoryAtom = atom({
   key: 'InterviewCategoryAtom',
   default: 'fe',
+});
+
+export const interviewRandomCategoryAtom = atom({
+  key: 'InterviewRandomCategoryAtom',
+  default: 'fe',
+});
+
+export const interviewRandomSubcategoryAtom = atom({
+  key: 'InterviewRandomSubcategoryAtom',
+  default: 'react',
 });
 
 export const interviewQuestionCountAtom = atom<number>({

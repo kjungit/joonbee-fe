@@ -5,12 +5,13 @@ import InterviewLoading from '@/components/@common/interviewLoading/interviewLoa
 import { Text } from '@/components/@common/text/text';
 import Video from '@/components/@common/video/video';
 import DeviceSelect from '@/components/@pages/interview/permission/DeviceSelect';
+import { Category, MainCategory } from '@/constants/category';
 import useGetDevice from '@/hooks/interview/useGetDevice';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import useVideo from '@/hooks/interview/useVideo';
 import {
-  InterviewCategoryAtom,
   interviewQuestionCountAtom,
+  interviewRandomCategoryAtom,
   interviewTimeAtom,
 } from '@/recoils/interview/atom';
 import { convertSecondsToMinutes } from '@/utils/format';
@@ -21,7 +22,7 @@ export default function PermissionPage() {
   const { videoDevices, getConnectedDevices, selectDevice, selectedDeviceIds, audioDevices } =
     useGetDevice();
   const time = useRecoilValue(interviewTimeAtom);
-  const category = useRecoilValue(InterviewCategoryAtom);
+  const category = useRecoilValue(interviewRandomCategoryAtom);
   const questionCount = useRecoilValue(interviewQuestionCountAtom);
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/progress');
 
@@ -71,7 +72,7 @@ export default function PermissionPage() {
           </Text>
           <ul className="flex gap-5">
             <li className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
-              {category}
+              {MainCategory[category]}
             </li>
             <li className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
               질문 {questionCount}개
