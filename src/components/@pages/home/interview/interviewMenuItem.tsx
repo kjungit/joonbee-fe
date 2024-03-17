@@ -1,7 +1,7 @@
 'use client';
 
-import { Text } from '@/components/@common/text/text';
-import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
+import { Text } from '@/components/@common/text';
+import { VariableIcon } from '@/components/@common/variableIcon';
 import { MainCategory } from '@/constants/category';
 import { selectInterviewState } from '@/recoils/home/interview/selectInterview/atom';
 import { InterviewItem } from '@/types/interview';
