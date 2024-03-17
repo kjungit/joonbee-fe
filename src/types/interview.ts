@@ -16,7 +16,7 @@ export type MyInterview = {
   isOpen: boolean;
 };
 
-type QuestionContent = {
+export type QuestionContent = {
   questionContent: string;
   questionId: number;
 };
