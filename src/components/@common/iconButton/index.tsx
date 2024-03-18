@@ -1,9 +1,9 @@
 import React from 'react';
-import Button, { ButtonProps } from '../button/button';
+import Button, { ButtonProps } from '../button';
 import { IconName, IconType, VariableIconName } from '@/types';
-import { Icon } from '../icon/icon';
+import { Icon } from '../icon';
 import { VariableIconList } from '@/constants/icon';
-import { VariableIcon } from '../variableIcon/variableIcon';
+import { VariableIcon } from '../variableIcon';
 
 interface IconButtonProps extends ButtonProps {
   iconName: IconType;

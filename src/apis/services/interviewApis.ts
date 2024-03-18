@@ -1,4 +1,4 @@
-import { InteviewSaveData } from '@/types/interview';
+import { InterviewSaveData } from '@/types/interview';
 import { instance } from '../axios';
 import { CategoryName } from '@/types';
 
@@ -22,7 +22,7 @@ export const getInterview = async ({ selectCategory, sort }: InterviewProps) => 
   }
 };
 
-export const saveInterview = async (data: InteviewSaveData | undefined) => {
+export const saveInterview = async (data: InterviewSaveData) => {
   const res = await instance().post('/api/member/interview/save', {
     gptOpinion: data?.gptOpinion,
     categoryName: data?.categoryName,

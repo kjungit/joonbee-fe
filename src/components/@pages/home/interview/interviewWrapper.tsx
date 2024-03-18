@@ -1,5 +1,5 @@
-import { RadioButtonGroup } from '@/components/@common/radioButtonGroup/radioButtonGroup';
-import { Text } from '@/components/@common/text/text';
+import { RadioButtonGroup } from '@/components/@common/radioButtonGroup';
+import { Text } from '@/components/@common/text';
 import { useSearchParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { InterviewMenuItem } from './interviewMenuItem';

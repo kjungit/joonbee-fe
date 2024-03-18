@@ -1,6 +1,6 @@
 'use client';
-import { Text } from '@/components/@common/text/text';
-import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
+import { Text } from '@/components/@common/text';
+import { VariableIcon } from '@/components/@common/variableIcon';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { QuestionSaveIcon } from './questionSaveIcon';

@@ -47,7 +47,7 @@ export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIc
     video: FaCamera,
     audio: AiFillAudio,
     calendar: LuCalendarCheck,
-    tringleRight: GoTriangleRight,
+    triangleRight: GoTriangleRight,
   };
 
   const Icon = components[name];
