@@ -2,7 +2,7 @@
 import React from 'react';
 export type TextColor = '' | 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl';
-type TextWeight = 'sm' | 'md' | 'lg';
+export type TextWeight = 'sm' | 'md' | 'lg';
 type TextAs = 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export type TextProps = {
