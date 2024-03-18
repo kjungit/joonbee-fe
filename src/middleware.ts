@@ -19,9 +19,7 @@ export async function middleware(request: NextRequest) {
       Cookie: `joonbee-token=${accessToken?.value}; joonbee-token-refresh=${refreshToken?.value}`,
     },
   });
-
   const data = await userInfo.json();
-
   if (data.status !== 200) {
     if (pathname.startsWith('/interview') || pathname.startsWith('/my')) {
       if (pathname !== '/interview') {
