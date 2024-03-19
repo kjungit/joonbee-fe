@@ -13,8 +13,12 @@ import { userInfoState } from '@/recoils/user/userInfo/atom';
 import { MyHeader } from './secondHeader/myHeader';
 import { InterviewHeader } from './secondHeader/interviewHeader';
 import { HomeHeader } from './secondHeader/homeHeader';
+import { isLoginedStatus } from '@/recoils/user/isLogined/atom';
+import { VariableIcon } from '../@common/variableIcon';
+
 export default function Header() {
-  const userInfo = useRecoilValue(userInfoState);
+  const [isLogined, setIsLogined] = useRecoilState(isLoginedStatus);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [selectInterviewCategory, setSelectInterviewCategory] = useRecoilState(
     selectInterviewCategoryState,
   );
@@ -41,8 +45,8 @@ export default function Header() {
   };
 
   useEffect(() => {
-    console.log(pathName);
-  }, [pathName]);
+    console.log(userInfo.thumbnail);
+  }, []);
 
   return (
     <header
@@ -65,23 +69,28 @@ export default function Header() {
             <Link className={`${pathName.includes('resume') && 'font-bold'}`} href="/resume">
               이력서
             </Link>
-            {userInfo && userInfo.id !== '' && (
+            {/* {userInfo && userInfo.id !== '' && (
               <Link
                 className={`${pathName.includes('my') && 'font-bold'}`}
                 href="/my?category=interview&Ifield=fe">
                 마이페이지
               </Link>
-            )}
+            )} */}
           </div>
           <div className="flex justify-center items-center gap-4">
-            {userInfo.thumbnail ? (
-              <Image
-                src={userInfo.thumbnail || ''}
-                alt={`${userInfo.nickName} profile`}
-                width={24}
-                height={24}
-                className="rounded-full"
-              />
+            {isLogined ? (
+              <div className="relative">
+                <Link href="/my?category=interview&Ifield=fe">
+                  <Image
+                    src={userInfo.thumbnail}
+                    alt={`${userInfo.nickName} profile`}
+                    width={26}
+                    height={26}
+                    className="rounded-full hover:outline-4 hover:outline-blue-primary/20 hover:outline "
+                  />
+                </Link>
+                <div className="absolute top-0 right-0"></div>
+              </div>
             ) : (
               <Link href="/login">로그인</Link>
             )}
@@ -95,8 +104,8 @@ export default function Header() {
         className="w-full
     h-[54px] effect-white dark:effect-dark dark:border-b flex items-center">
         <div className="h-full min-w-[260px] flex items-center justify-center border-r-[1px] border-gray-normal">
-          {userInfo.thumbnail ? (
-            <div className="flex gap-2">
+          {isLogined ? (
+            <div className="flex gap-2 items-center">
               <Image
                 src={userInfo.thumbnail}
                 alt={`${userInfo.nickName} profile`}
@@ -105,13 +114,14 @@ export default function Header() {
                 className="rounded-full"
               />
               <Text size="lg">{userInfo.nickName}</Text>
+              <VariableIcon name="edit" size={16} />
             </div>
           ) : (
             <Text size="lg">로그인을 해주세요.</Text>
           )}
         </div>
         <div className="flex items-center justify-between w-full ">
-          <div className="flex gap-4 px-2">
+          <div className="flex gap-4 px-2 w-full">
             {pathName === '/' && <HomeHeader />}
             {pathName === '/interview' && <InterviewHeader />}
             {pathName === '/my' && <MyHeader />}
