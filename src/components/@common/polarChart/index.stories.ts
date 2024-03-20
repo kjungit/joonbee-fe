@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { PolarChart } from './polarChart';
+import { PolarChart } from '.';
 
 const meta: Meta<typeof PolarChart> = {
   title: 'DESIGN SYSTEM/Atoms/PolarChart',

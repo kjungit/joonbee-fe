@@ -3,7 +3,11 @@ import { DetailData } from '@/types/interview';
 import { useQuery } from '@tanstack/react-query';
 
 export const useGetDetailInterview = (id: number) => {
-  const { data: detailInterview, isSuccess } = useQuery<DetailData>({
+  const {
+    data: detailInterview,
+    isSuccess: isDetailSuccess,
+    isFetching: isDetailFetch,
+  } = useQuery<DetailData>({
     queryKey: ['getDetailInterview', id],
     queryFn: () => getInterviewDetail(id),
     select(data) {
@@ -17,5 +21,5 @@ export const useGetDetailInterview = (id: number) => {
     },
   });
 
-  return { detailInterview, isSuccess };
+  return { detailInterview, isDetailSuccess, isDetailFetch };
 };

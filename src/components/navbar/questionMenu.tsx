@@ -1,8 +1,8 @@
 import { CategoryName, ChildrenProps, SubcategoryName, ToggleItemProps } from '@/types';
-import { Text } from '../@common/text/text';
+import { Text } from '../@common/text';
 import { toggleNavbarQuestionList } from '@/constants/toggleNavbarItem';
 import { useState } from 'react';
-import { ToggleItem } from '../@common/toggleItem/toggleItem';
+import { ToggleItem } from '../@common/toggleItem';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { selectQuestionCategoryState } from '@/recoils/home/question/selectQuestionCategory/atom';
