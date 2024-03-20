@@ -1,13 +1,14 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
 type ButtonVariants = 'outlined' | 'filled';
-export type ButtonColors = 'primary' | 'blue' | 'white' | 'disabled';
+export type ButtonColors = 'primary' | 'blue' | 'white';
 type ButtonSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'auto';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSizes;
   color?: ButtonColors;
   variant?: ButtonVariants;
+  disabled?: boolean;
   className?: string;
   onClick?: () => void;
 }
@@ -18,6 +19,7 @@ export default function Button({
   variant = 'filled',
   className = '',
   onClick,
+  disabled = false,
   children,
   ...props
 }: ButtonProps) {
@@ -25,7 +27,6 @@ export default function Button({
     primary: `bg-main-primary text-white hover:bg-hover-primary`,
     blue: `bg-blue-light text-black`,
     white: `bg-white text-black`,
-    disabled: `bg-gray-disabled text-white cursor-not-allowed`,
   };
 
   const sizeStyles = {
@@ -42,14 +43,15 @@ export default function Button({
     filled: `${colorStyles[color]}`,
   };
 
-  const buttonStyles = props.disabled
-    ? colorStyles['disabled']
-    : `${colorStyles[color]} cursor-pointer`;
+  const buttonStyles = disabled
+    ? `bg-gray-disabled text-white cursor-not-allowed`
+    : `${variantStyles[variant]}`;
 
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
-      className={`${variantStyles[variant]} ${sizeStyles[size]} rounded-md ${buttonStyles} ${className}`}
+      className={`${buttonStyles} ${sizeStyles[size]} rounded-md ${className}`}
       {...props}>
       {children}
     </button>
