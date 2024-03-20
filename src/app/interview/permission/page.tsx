@@ -27,6 +27,7 @@ export default function PermissionPage() {
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/progress');
 
   const { onStartVideo, videoRef } = useVideo();
+  console.log('test');
 
   useEffect(() => {
     const startDevices = async () => {
