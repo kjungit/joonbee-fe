@@ -39,3 +39,8 @@ export const interviewTypeAtom = atom<InterviewType>({
   key: 'interviewTypeAtom',
   default: 'random',
 });
+
+export const videoPermissionAtom = atom({
+  key: 'videoPermissionAtom',
+  default: false,
+});
