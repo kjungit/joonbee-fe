@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { mainCategoryList, questionCategory } from '@/constants/category';
 import { CategoryName, SubcategoryName } from '@/types/question';
-import { ButtonColors } from '../button/button';
-import Dropdown from '../dropdown/dropdown';
+import { ButtonColors } from '../button';
+import Dropdown from '../dropdown';
 
 interface DropdownCategoryProps {
   color?: ButtonColors;

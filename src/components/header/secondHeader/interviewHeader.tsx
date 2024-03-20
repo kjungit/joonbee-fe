@@ -1,4 +1,4 @@
-import IconButton from '@/components/@common/iconButton/iconButton';
+import IconButton from '@/components/@common/iconButton';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 

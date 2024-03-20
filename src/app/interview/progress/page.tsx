@@ -1,16 +1,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { interviewTypeAtom } from '@/recoils/interview/atom';
-import { useRecoilValue } from 'recoil';
 import useGetInterviewData from '@/hooks/interview/useGetInterviewData';
-import { Text } from '@/components/@common/text/text';
 import Video from '@/components/@common/video/video';
 import useVideo from '@/hooks/interview/useVideo';
-import Button from '@/components/@common/button/button';
 import useTimer from '@/hooks/interview/useTimer';
 import { ProgressStatus } from '@/types';
-import TextArea from '@/components/@common/textArea/textArea';
-import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
+import { VariableIcon } from '@/components/@common/variableIcon';
+import { Text } from '@/components/@common/text';
+import Button from '@/components/@common/button';
+import TextArea from '@/components/@common/textArea';
 
 export default function ProgressPage() {
   const [currentCount, setCurrentCount] = useState<number>(1);
@@ -46,7 +44,7 @@ export default function ProgressPage() {
         </div>
       </div>
       <div className="flex items-center mb-2">
-        <VariableIcon name="tringleRight" />
+        <VariableIcon name="triangleRight" />
         <Text size="lg">질문 {currentCount}</Text>
       </div>
 

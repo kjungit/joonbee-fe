@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Text } from '../text/text';
+import { Text } from '../text/';
 
 export default function InterviewLoading() {
   return (
