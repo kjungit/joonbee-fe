@@ -1,3 +1,4 @@
+import { MyInterviewQuestions } from '@/apis/services/openAiApis';
 import useGetRandomQuestionList from '@/queries/question/useGetRandomQuestion';
 import {
   interviewQuestionCountAtom,
@@ -9,12 +10,13 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 export default function useGetInterviewData() {
-  const [questionData, setQuestionData] = useState([]);
+  const [questionData, setQuestionData] = useState<MyInterviewQuestions[]>([]);
   const interviewType = useRecoilValue(interviewTypeAtom);
   const category = useRecoilValue(interviewRandomCategoryAtom);
   const subcategory = useRecoilValue(interviewRandomSubcategoryAtom);
 
   const questionCount = useRecoilValue(interviewQuestionCountAtom);
+
   const { randomQuestionData, isSuccess } = useGetRandomQuestionList({
     category,
     subcategory,
@@ -49,7 +51,11 @@ export default function useGetInterviewData() {
 
   useEffect(() => {
     if (isSuccess && randomQuestionData?.length) {
-      if (interviewType === 'random') setQuestionData(randomQuestionData);
+      const updatedQuestionData = randomQuestionData.map((question: any) => ({
+        ...question,
+        answerContent: '',
+      }));
+      if (interviewType === 'random') setQuestionData(updatedQuestionData);
     }
   }, [isSuccess]);
 

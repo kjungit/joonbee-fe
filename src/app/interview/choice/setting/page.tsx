@@ -12,7 +12,7 @@ import {
 import { Text } from '@/components/@common/text';
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import InterviewLoading from '@/components/@common/interviewLoading/interviewLoading';
+import InterviewLoading from '@/components/@common/interviewLoading/';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 
 export default function ChoiceSettingPage() {

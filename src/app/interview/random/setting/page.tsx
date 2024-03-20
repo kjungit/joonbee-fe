@@ -11,9 +11,9 @@ import {
 import { Text } from '@/components/@common/text';
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import InterviewLoading from '@/components/@common/interviewLoading/interviewLoading';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import CategoryDropdown from '@/components/@common/categoryDropdown';
+import InterviewLoading from '@/components/@common/interviewLoading';
 
 export default function RandomSettingPage() {
   const [selectedCategory, setSelectedCategory] = useRecoilState(interviewRandomCategoryAtom);

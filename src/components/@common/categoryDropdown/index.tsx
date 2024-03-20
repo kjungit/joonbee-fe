@@ -37,7 +37,6 @@ export default function CategoryDropdown({
   useEffect(() => {
     const changedSubcategoryList =
       questionCategory.find(item => item.category === selectedCategory)?.subcategory || [];
-    console.log('changedSubcategoryList', changedSubcategoryList);
 
     setSelectedSubcategoryList(changedSubcategoryList);
 

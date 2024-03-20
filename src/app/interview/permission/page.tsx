@@ -1,7 +1,8 @@
 'use client';
 
+import Button from '@/components/@common/button';
 import IconButton from '@/components/@common/iconButton';
-import InterviewLoading from '@/components/@common/interviewLoading/interviewLoading';
+import InterviewLoading from '@/components/@common/interviewLoading';
 import { Text } from '@/components/@common/text';
 import Video from '@/components/@common/video/video';
 import DeviceSelect from '@/components/@pages/interview/permission/DeviceSelect';

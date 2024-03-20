@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 export default function useAudio() {
   const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
 
-  console.log(audioStream);
-
   const onStartAudio = async () => {
     try {
       console.log('onStartAudio');
