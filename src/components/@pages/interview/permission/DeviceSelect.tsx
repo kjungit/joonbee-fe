@@ -1,4 +1,5 @@
 'use client';
+import { Icon } from '@/components/@common/icon';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import React from 'react';
@@ -22,6 +23,7 @@ export default function DeviceSelect({
   onSelect,
 }: DeviceSelectProps) {
   const deviceTypeName = deviceType === 'audio' ? '오디오' : '비디오';
+
   return (
     <div className="flex items-center gap-2 mb-5">
       <VariableIcon name={deviceType} size={16} />
@@ -29,15 +31,21 @@ export default function DeviceSelect({
         {deviceTypeName}
       </Text>
       <select
+        defaultValue=""
         onChange={e => onSelect(e.target.value)}
-        value={selectedId || ''}
+        value={selectedId}
         className="border border-gray-light rounded px-2 py-1 w-[310px]">
+        <option value="" disabled hidden>
+          장치를 선택해주세요
+        </option>
+        {deviceType === 'video' && <option value="1">비디오 사용 안함</option>}
         {devices.map(device => (
           <option key={device.deviceId} value={device.deviceId}>
             {device.label || '알 수 없는 장치'}
           </option>
         ))}
       </select>
+      {!!selectedId && <Icon name="check.png" className="w-4 h-4" />}
     </div>
   );
 }
