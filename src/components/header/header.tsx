@@ -13,6 +13,8 @@ import { userInfoState } from '@/recoils/user/userInfo/atom';
 import { MyHeader } from './secondHeader/myHeader';
 import { InterviewHeader } from './secondHeader/interviewHeader';
 import { HomeHeader } from './secondHeader/homeHeader';
+import InterviewProgressBar from '../@common/InterviewProgressBar';
+import IconButton from '../@common/iconButton';
 export default function Header() {
   const userInfo = useRecoilValue(userInfoState);
   const [selectInterviewCategory, setSelectInterviewCategory] = useRecoilState(
@@ -39,10 +41,6 @@ export default function Header() {
     if (categoryParams !== target.id)
       setSelectInterviewCategory({ category: 'fe', sort: 'latest' });
   };
-
-  useEffect(() => {
-    console.log(pathName);
-  }, [pathName]);
 
   return (
     <header
@@ -115,7 +113,44 @@ export default function Header() {
         <div className="flex items-center justify-between w-full ">
           <div className="flex gap-4 px-2">
             {pathName === '/' && <HomeHeader />}
-            {pathName.includes('/interview') && <InterviewHeader />}
+            {pathName === '/interview/choice' && <InterviewHeader />}
+            {pathName === '/interview/random' && <InterviewHeader />}
+
+            {pathName === '/interview/choice/setting' && (
+              <div className="flex gap-8 items-center">
+                <IconButton
+                  iconName="checklist.png"
+                  color="blue"
+                  size="sm"
+                  className={`${pathName.includes('random') ? 'font-bold bg-blue-light' : ''}`}>
+                  랜덤 질문
+                </IconButton>
+                <InterviewProgressBar />
+              </div>
+            )}
+            {pathName === '/interview/random/setting' && (
+              <div className="flex gap-8 items-center">
+                <IconButton iconName="random.png" color="blue" size="sm">
+                  랜덤 질문
+                </IconButton>
+                <InterviewProgressBar />
+              </div>
+            )}
+            {pathName === '/interview/permission' && (
+              <nav className="flex items-center justify-between w-full px-4 relative">
+                <InterviewProgressBar interview="DeviceSetting" />
+              </nav>
+            )}
+            {pathName === '/interview/progress' && (
+              <nav className="flex items-center justify-between w-full px-4 relative">
+                <InterviewProgressBar interview="InterviewConducting" />
+              </nav>
+            )}
+            {pathName === '/interview/result' && (
+              <nav className="flex items-center justify-between w-full px-4 relative">
+                <InterviewProgressBar interview="InterviewResult" />
+              </nav>
+            )}
             {pathName === '/my' && <MyHeader />}
           </div>
         </div>
