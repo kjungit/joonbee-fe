@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
-export const selectMyInterviewState = atom({
-  key: 'selectMyInterviewState',
+export const selectMyInterviewAtom = atom({
+  key: 'selectMyInterviewAtom',
   default: {
     categoryName: '',
     interviewId: 0,

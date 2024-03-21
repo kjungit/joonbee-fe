@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
-export const isLoginedStatus = atom({
-  key: 'isLoginedStatus',
+export const isLoginedAtom = atom({
+  key: 'isLoginedAtom',
   default: false,
   effects: [
     ({ setSelf, onSet }) => {
