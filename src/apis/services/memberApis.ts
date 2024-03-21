@@ -10,6 +10,16 @@ export const getUserInfo = async () => {
   }
 };
 
+export const getMyInterview = async ({ page }: { page: number }) => {
+  try {
+    const res = await instance().get('api/member/category', {
+      params: { page },
+    });
+    console.log(res.data.data);
+    return res.data.data;
+  } catch (error) {}
+};
+
 export const getInterviewDetail = async (id: number): Promise<DetailData> => {
   try {
     const res = await instance().get(`api/member/interview/detail`, {
@@ -105,12 +115,11 @@ export const deleteInterview = async (id: number) => {
   return res.data;
 };
 
-export const deleteQuestion = async (url: string, { arg }: { arg: string }) => {
-  const res = await instance().delete(url, {
+export const deleteQuestion = async (id: number) => {
+  const res = await instance().delete('api/member/cart/delete', {
     params: {
-      id: arg,
+      id,
     },
   });
-
   return res.data;
 };

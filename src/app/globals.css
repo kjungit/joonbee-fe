@@ -123,10 +123,10 @@ body {
   overflow: hidden;
 }
 .interviewListHeight {
-  height: calc(100vh - 180px);
+  height: calc(100vh - 184px);
 }
 .questionListHeight {
-  height: calc(100vh - 110px);
+  height: calc(100vh - 114px);
 }
 .mainBg:before {
   content: '';
@@ -150,7 +150,9 @@ body {
   top: 8px !important;
   right: 40px !important;
 }
-
+.apexcharts-legend {
+  display: none;
+}
 .apexcharts-legend-text {
   font-size: 10px !important;
 }

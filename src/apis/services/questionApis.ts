@@ -1,7 +1,7 @@
 import { CategoryName, QuestionCategory, SubcategoryName } from '@/types';
 import { instance } from '../axios';
 
-export interface GetQuestionProps {
+export interface Params {
   page: number;
   category: string;
   subCategory: string;
@@ -17,13 +17,13 @@ export interface QuestionResponse {
   total: number;
 }
 
-export const getQuestion = async ({ page, category, subCategory }: GetQuestionProps) => {
+export const getQuestion = async ({ page, category, subCategory }: Params) => {
   try {
     const res = await instance().get(`api/question/all`, {
       params: {
         page,
         category,
-        subcategory: subCategory,
+        subCategory,
       },
     });
     return res.data.data;
@@ -36,19 +36,13 @@ export const getQuestion = async ({ page, category, subCategory }: GetQuestionPr
 /**
  * 랜덤 질문들 가져오기 api
  */
-export const getRandomQuestions = async (
-  category: CategoryName,
-  subcategory: string,
-  questionCount: number,
-) => {
-  // const subcategories = [...subcategory];
-
+export const getRandomQuestionList = async (params: {
+  category: string;
+  subcategory: string;
+  questionCount: number;
+}) => {
   const res = await instance().get('/api/question/gpt', {
-    params: {
-      category,
-      subcategory,
-      questionCount,
-    },
+    params,
   });
 
   return res.data.data.result;
@@ -57,10 +51,16 @@ export const getRandomQuestions = async (
 /**
  * 사용자가 추가한 질문들 가져오기 api
  */
-export const getUserQuestions = async (url: string) => {
-  const res = await instance().get(url);
-  // console.log('res', res.data.data.result);
-  return res.data.data.result;
+export const getUserQuestions = async ({ page, category, subCategory }: Params) => {
+  const res = await instance().get('api/cart/questions', {
+    params: {
+      page,
+      category,
+      subcategory: subCategory,
+    },
+  });
+  console.log('res', res.data.data);
+  return res.data.data;
 };
 
 /**

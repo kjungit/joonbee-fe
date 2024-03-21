@@ -27,6 +27,10 @@ export type VariableIconName =
   | 'fillCheckRec'
   | 'checkRec'
   | 'questionBox'
-  | 'document';
+  | 'document'
+  | 'video'
+  | 'audio'
+  | 'calendar'
+  | 'triangleRight';
 
 export type IconType = VariableIconName | IconName;
