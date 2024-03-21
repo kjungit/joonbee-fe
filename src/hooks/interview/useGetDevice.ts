@@ -1,12 +1,12 @@
+import { selectedDeviceIdAtom } from '@/recoils/interview/atom';
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 export default function useGetDevice() {
   const [videoDevices, setVideoDevices] = useState<{ label: string; deviceId: string }[]>([]);
   const [audioDevices, setAudioDevices] = useState<{ label: string; deviceId: string }[]>([]);
-  const [selectedDeviceIds, setSelectedDeviceIds] = useState<{
-    videoId: string;
-    audioId: string;
-  }>({ videoId: '', audioId: '' });
+
+  const [selectedDeviceId, setSelectedDeviceId] = useRecoilState(selectedDeviceIdAtom);
 
   const getConnectedDevices = async () => {
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -29,11 +29,17 @@ export default function useGetDevice() {
   };
 
   const selectDevice = (deviceType: 'video' | 'audio', deviceId: string) => {
-    setSelectedDeviceIds(prev => ({
+    setSelectedDeviceId(prev => ({
       ...prev,
       [`${deviceType}Id`]: deviceId,
     }));
   };
 
-  return { videoDevices, audioDevices, getConnectedDevices, selectedDeviceIds, selectDevice };
+  return {
+    videoDevices,
+    audioDevices,
+    getConnectedDevices,
+    selectedDeviceId,
+    selectDevice,
+  };
 }
