@@ -1,19 +1,15 @@
 import { useGetMyInterview } from '@/queries/interview/useGetMyInterview';
 import { PolarChart } from '../@common/polarChart';
-import { MainCategory } from '@/constants/category';
-import { Text } from '../@common/text';
-import { VariableIcon } from '../@common/variableIcon';
-import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { selectMyInterviewState } from '@/recoils/user/seletMyInterview/atom';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { CategoryName, MyMenuInterviewItem, SubcategoryName } from '@/types';
+import { selectMyInterviewAtom } from '@/recoils/user/seletMyInterview/atom';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { MyMenuInterviewItem } from '@/types';
 import { MenuInterviewItem } from '../@pages/my/menuInterviewitem';
 
 export const MyInterviewMenu = () => {
   const { interviewData, error, isFetching, isFetchingNextPage, status, setTarget } =
     useGetMyInterview();
-  const [select, setSelect] = useRecoilState(selectMyInterviewState);
+  const [select, setSelect] = useRecoilState(selectMyInterviewAtom);
 
   const router = useRouter();
   const searchParams = useSearchParams();

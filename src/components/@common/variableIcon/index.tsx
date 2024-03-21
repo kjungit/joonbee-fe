@@ -24,9 +24,16 @@ export interface VariableIconProps {
   size?: number;
   onClick?: () => void;
   className?: string;
+  isHover?: boolean;
 }
 
-export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIconProps) => {
+export const VariableIcon = ({
+  size = 24,
+  name,
+  onClick,
+  className,
+  isHover = false,
+}: VariableIconProps) => {
   const components = {
     leftArrow: MdOutlineArrowForwardIos,
     emptyLike: BiLike,
@@ -56,7 +63,7 @@ export const VariableIcon = ({ size = 24, name, onClick, className }: VariableIc
     <Icon
       size={size}
       onClick={onClick}
-      className={`${className} cursor-pointer hover:text-gray-disabled`}
+      className={`${className} cursor-pointer ${isHover && 'hover:text-gray-disabled'}`}
     />
   );
 };

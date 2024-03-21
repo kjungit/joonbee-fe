@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { useOauthLogin } from '@/queries/oauth/useOauthLogin';
+import { useOauthLogin } from '@/queries/user/oauth/useOauthLogin';
 import authApis from '@/apis/services/authApis';
 
 export default function OauthPage() {

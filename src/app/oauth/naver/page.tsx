@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import authApis from '@/apis/services/authApis';
-import { useOauthLogin } from '@/queries/oauth/useOauthLogin';
+import { useOauthLogin } from '@/queries/user/oauth/useOauthLogin';
 
 export default function OauthPage() {
   useOauthLogin('/naver', authApis.naverLogin);

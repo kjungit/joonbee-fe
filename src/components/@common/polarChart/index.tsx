@@ -1,12 +1,11 @@
 'use client';
-import { userInfoState } from '@/recoils/user/userInfo/atom';
-import { CategoryInfoProps } from '@/types/user';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { userInfoAtom } from '@/recoils/user/userInfo/atom';
+import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { useRecoilValue } from 'recoil';
 
 export const PolarChart = () => {
-  const userInfo = useRecoilValue(userInfoState);
+  const userInfo = useRecoilValue(userInfoAtom);
 
   const [currentSeries, setCurrentSeries] = useState([21, 17, 15, 10, 12, 17, 21, 22]);
   const [currentLabels, setCurrentLabels] = useState([

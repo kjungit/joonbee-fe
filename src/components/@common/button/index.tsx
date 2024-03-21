@@ -39,7 +39,7 @@ export default function Button({
   };
 
   const variantStyles = {
-    outlined: `border-2 border-main-primary ${colorStyles[color]} bg-transparent`,
+    outlined: `border-2 border-main-primary ${colorStyles[color]} bg-transparent cursor-pointer`,
     filled: `${colorStyles[color]}`,
   };
 
