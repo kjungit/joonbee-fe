@@ -11,10 +11,11 @@ import Button from '@/components/@common/button';
 import TextArea from '@/components/@common/textArea';
 import useSpeechToText from '@/hooks/interview/useSpeechToText';
 import { useRouter } from 'next/navigation';
-import { videoPermissionAtom } from '@/recoils/interview/atom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { currentCountAtom, videoPermissionAtom } from '@/recoils/interview/atom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { addQuestionSelector } from '@/recoils/myInterview/withAdd';
 import { MyInterviewQuestions } from '@/apis/services/openAiApis';
+import { isAllowedVideoSelector } from '@/recoils/interview/withCheckVideo';
 
 const TimerStateText = {
   READY: {
@@ -32,11 +33,11 @@ const TimerStateText = {
 };
 
 export default function ProgressPage() {
-  const [currentCount, setCurrentCount] = useState<number>(1);
+  const [currentCount, setCurrentCount] = useRecoilState(currentCountAtom);
   const [progressStatus, setProgressStatus] = useState<ProgressStatus>('READY');
   const [btnText, setBtnText] = useState(TimerStateText.READY.btn);
   const [helpText, setHelpText] = useState(TimerStateText.READY.help);
-  const isAllowedVideo = useRecoilValue(videoPermissionAtom);
+  const isAllowedVideo = useRecoilValue(isAllowedVideoSelector);
   const setMyInterview = useSetRecoilState(addQuestionSelector);
 
   const { questionData } = useGetInterviewData();
@@ -44,13 +45,18 @@ export default function ProgressPage() {
   const [currentQuestion, setCurrentQuestion] = useState<MyInterviewQuestions>();
   const questionsCount = questionData.length;
 
-  const { videoRef, onStartVideo, onStartRecord, onStopRecord, onToggleRecord } = useVideo();
+  const { videoRef, onStartVideo, onStartRecord, onStopRecord, onToggleRecord, onStartAudio } =
+    useVideo();
   const { remainingTime } = useTimer(progressStatus, setProgressStatus);
 
   useEffect(() => {
-    onStartVideo();
+    if (isAllowedVideo) {
+      onStartVideo();
+    } else {
+      onStartAudio();
+    }
     if (questionData.length) setCurrentQuestion(questionData[0]);
-  }, [questionData]);
+  }, [questionData, isAllowedVideo]);
 
   const {
     onStartListening,

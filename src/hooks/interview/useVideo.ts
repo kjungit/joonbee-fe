@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import useAudio from './useAudio';
-import { interviewVideoUrlAtom } from '@/recoils/interview/atom';
+import { interviewVideoUrlAtom, selectedDeviceIdAtom } from '@/recoils/interview/atom';
 
 export default function useVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
+  const [selectedDeviceId, setSelectedDeviceId] = useRecoilState(selectedDeviceIdAtom);
 
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [recordedMediaUrl, setRecordedMediaUrl] = useRecoilState(interviewVideoUrlAtom);
@@ -15,8 +16,14 @@ export default function useVideo() {
   const onStartVideo = async () => {
     onStartAudio();
     try {
+      const videoOption = selectedDeviceId.videoId
+        ? { deviceId: { exact: selectedDeviceId.videoId } }
+        : true; //
+
       console.log('onStartVideo');
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: videoOption,
+      });
       setVideoStream(stream);
 
       if (videoRef && videoRef.current && !videoRef.current.srcObject) {
