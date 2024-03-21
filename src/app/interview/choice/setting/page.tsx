@@ -14,6 +14,7 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import InterviewLoading from '@/components/@common/interviewLoading/';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
+import Image from 'next/image';
 
 export default function ChoiceSettingPage() {
   const [selected, setSelected] = useRecoilState(interviewChoiceCategoryAtom);
@@ -107,10 +108,13 @@ export default function ChoiceSettingPage() {
             iconName="next_arrow.png"
             edge="end"
             size="md"
-            className="absolute bottom-0"
+            className="absolute bottom-14"
             onClick={onMovePage}>
             다음 단계
           </IconButton>
+          <div className="absolute bottom-14 right-14">
+            <Image src="/laptop.png" alt="laptop" width={180} height={180} />
+          </div>
         </>
       ) : (
         <InterviewLoading />

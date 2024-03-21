@@ -15,6 +15,7 @@ import { useRecoilState } from 'recoil';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import CategoryDropdown from '@/components/@common/categoryDropdown';
 import InterviewLoading from '@/components/@common/interviewLoading';
+import Image from 'next/image';
 
 export default function RandomSettingPage() {
   const [selectedCategory, setSelectedCategory] = useRecoilState(interviewRandomCategoryAtom);
@@ -123,13 +124,19 @@ export default function RandomSettingPage() {
             iconName="next_arrow.png"
             edge="end"
             size="md"
-            className="absolute bottom-0"
+            className="absolute bottom-14 right-[300px]"
             onClick={onMovePage}>
             다음 단계
           </IconButton>
+          <div className="absolute bottom-14 right-14">
+            <Image src="/laptop.png" alt="laptop" width={220} height={180} />
+          </div>
         </>
       ) : (
-        <InterviewLoading />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col flex-inline items-center gap-5">
+          <InterviewLoading />
+          <Text size="xl">랜덤 면접을 준비중입니다</Text>
+        </div>
       )}
     </>
   );
