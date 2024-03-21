@@ -13,7 +13,6 @@ export const addQuestionSelector = selector({
     const currentInterview = get(myInterviewState);
     const updatedQuestions = [...currentInterview.questions, questionToAdd];
 
-    // myInterviewState를 업데이트합니다.
     set(myInterviewState, { ...currentInterview, questions: updatedQuestions });
   },
 });
