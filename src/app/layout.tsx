@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <meta name="google-adsense-account" content="ca-pub-7301751207531014" />
       </head>
-      <body suppressHydrationWarning={true} className={notoSansKr.className} id="potal">
+      <body suppressHydrationWarning={true} className={notoSansKr.className} id="portal">
         <QueryProvider>
           <RecoilRootProvider>
             <ThemeProvider>
@@ -41,7 +41,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </ThemeProvider>
           </RecoilRootProvider>
         </QueryProvider>
-        <div id="portal"></div>
       </body>
     </html>
   );

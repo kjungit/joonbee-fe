@@ -3,7 +3,7 @@ import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import { questionTitle } from '@/constants/question';
 import { useGetDetailInterview } from '@/queries/interview/useGetDetailInterview';
-import { selectMyInterviewState } from '@/recoils/user/seletMyInterview/atom';
+import { selectMyInterviewAtom } from '@/recoils/user/seletMyInterview/atom';
 import { QuestionContentsProps, ViewInterfaceProps } from '@/types';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -14,7 +14,7 @@ export const MyInterviewSection = () => {
     gptOpinion: '',
     questionContents: [],
   });
-  const selectMyInterview = useRecoilValue(selectMyInterviewState);
+  const selectMyInterview = useRecoilValue(selectMyInterviewAtom);
   const searchParams = useSearchParams();
   const detailIdParams = searchParams.get('detailId');
 

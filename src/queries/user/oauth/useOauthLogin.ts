@@ -3,26 +3,38 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useUserInfo } from '../useUserInfo';
 import { useRecoilState } from 'recoil';
-import { userInfoState } from '@/recoils/user/userInfo/atom';
+import { NickNameAtom } from '@/recoils/user/isNickName/atom';
+import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
+
+interface LoginError {
+  data: string;
+  status: number;
+}
 
 export const useOauthLogin = (key: string, loginFunc: (AUTHORIZATION_CODE: string) => void) => {
+  const [nickState, setNickState] = useRecoilState(NickNameAtom);
+  const [isNickOpen, setIsNickOpen] = useRecoilState(isNickAtom);
   const searchParams = useSearchParams();
-  const [useInfo, setUserInfo] = useRecoilState(userInfoState);
   const AUTHORIZATION_CODE: string = searchParams.get('code') as string;
   const router = useRouter();
-  const { userInfoData, userinfoRefetch } = useUserInfo();
-  const { data, isSuccess } = useQuery({
+  const { userInfoRefetch } = useUserInfo();
+  const { data, isSuccess, error } = useQuery<any, LoginError>({
     queryKey: [key],
     queryFn: () => loginFunc(AUTHORIZATION_CODE),
   });
-
   useEffect(() => {
     if (isSuccess) {
-      setUserInfo(userInfoData);
+      userInfoRefetch();
     }
   }, [isSuccess]);
 
   useEffect(() => {
-    router.push('/');
-  }, [userInfoData]);
+    if (error?.status === 410) {
+      setNickState({
+        ...nickState,
+        id: error.data,
+      });
+      setIsNickOpen(!isNickOpen);
+    }
+  }, [error]);
 };
