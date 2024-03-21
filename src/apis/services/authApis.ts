@@ -20,7 +20,8 @@ const kakaoLogin = async (code: string) => {
     const res = await instance().get(`/auth/kakao/callback?code=${code}`);
     return res;
   } catch (error: any) {
-    throw error;
+    const errorCode = error.response.data;
+    throw errorCode;
   }
 };
 const naverLogin = async (code: string) => {
@@ -28,7 +29,8 @@ const naverLogin = async (code: string) => {
     const res = await instance().get(`/auth/naver/callback?code=${code}`);
     return res;
   } catch (error: any) {
-    throw error;
+    const errorCode = error.response.data;
+    throw errorCode;
   }
 };
 const googleLogin = async (code: string) => {
@@ -36,14 +38,15 @@ const googleLogin = async (code: string) => {
     const res = await instance().get(`/auth/google/callback?code=${code}`);
     return res;
   } catch (error: any) {
-    throw error;
+    const errorCode = error.response.data;
+    throw errorCode;
   }
 };
 
-type PostNickNameProps = {
+export interface PostNickNameProps {
   id: string;
   nickName: string;
-};
+}
 
 const postNickName = async ({ id, nickName }: PostNickNameProps) => {
   try {

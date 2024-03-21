@@ -24,12 +24,12 @@ export default function DetailInterviewSection() {
     <section className=" h-full  w-full  ">
       {categoryParams !== 'question' && selectInterview.categoryName === '' && (
         <div className="mainBg flex w-full h-full ">
-          <div className="flex flex-col gap-4 w-full items-center mt-28">
+          <div className="flex flex-col gap-4 w-full items-center justify-center">
             <Logo size="lg" />
             <Image src="/main_logo_font.png" alt="main_logo" width={120} height={200} />
             <div className="flex flex-col items-center gap-1">
               <Text size="xl" weight="lg" className="text-blue-normal text-center">
-                개발자를 위함 AI 면접서비스
+                개발자를 위한 AI 면접서비스
               </Text>
               <Text size="xl" weight="lg" className="text-blue-normal text-center">
                 랜덤질문 및 질문을 선택해서 기술면접을 준비해보세요!
