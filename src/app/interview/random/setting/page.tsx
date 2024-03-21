@@ -1,14 +1,15 @@
 'use client';
 
-import Button from '@/components/@common/button/';
 import IconButton from '@/components/@common/iconButton';
+import Button from '@/components/@common/button';
+import { Text } from '@/components/@common/text';
 import {
   interviewQuestionCountAtom,
   interviewRandomCategoryAtom,
   interviewRandomSubcategoryAtom,
   interviewTimeAtom,
 } from '@/recoils/interview/atom';
-import { Text } from '@/components/@common/text';
+
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
