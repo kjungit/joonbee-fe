@@ -1,18 +1,18 @@
 import { selector } from 'recoil';
-import { myInterviewState } from './atom';
+import { myInterviewAtom } from './atom';
 
 export const addQuestionSelector = selector({
   key: 'addQuestionSelector',
   get: ({ get }) => {
-    const currentInterview = get(myInterviewState);
+    const currentInterview = get(myInterviewAtom);
     return currentInterview.questions;
   },
   set: ({ set, get }, newValue) => {
     const questionToAdd = newValue as any;
 
-    const currentInterview = get(myInterviewState);
+    const currentInterview = get(myInterviewAtom);
     const updatedQuestions = [...currentInterview.questions, questionToAdd];
 
-    set(myInterviewState, { ...currentInterview, questions: updatedQuestions });
+    set(myInterviewAtom, { ...currentInterview, questions: updatedQuestions });
   },
 });
