@@ -3,7 +3,7 @@ import InterviewLoading from '@/components/@common/interviewLoading';
 import { Text } from '@/components/@common/text';
 import useLoadingProgress from '@/hooks/useLoadingProgress';
 import { usePostOpenAiResult } from '@/queries/interview/usePostOpenAiResult';
-import { myInterviewState } from '@/recoils/myInterview/atom';
+import { myInterviewAtom } from '@/recoils/myInterview/atom';
 import { InterviewSaveData, QuestionContentsProps, ViewInterfaceProps } from '@/types';
 import React, { useEffect, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
@@ -14,7 +14,7 @@ import { questionTitle } from '@/constants/question';
 import { usePostSaveInterview } from '@/queries/interview/usePostSaveInterview';
 
 export default function ResultPage() {
-  const myInterviewData = useRecoilValue(myInterviewState);
+  const myInterviewData = useRecoilValue(myInterviewAtom);
   const [viewMutateData, setViewMutateData] = useState<ViewInterfaceProps>({
     gptOpinion: '',
     questionContents: [],

@@ -1,11 +1,11 @@
 import authApis from '@/apis/services/authApis';
-import { userInfoState } from '@/recoils/user/userInfo/atom';
+import { userInfoAtom } from '@/recoils/user/userInfo/atom';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 export const useLogout = () => {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const router = useRouter();
 
   const { mutate: logoutMutate } = useMutation({
