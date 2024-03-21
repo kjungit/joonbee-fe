@@ -6,13 +6,13 @@ const meta: Meta<typeof QuestionProgress> = {
   component: QuestionProgress,
   tags: ['autodocs'],
   argTypes: {
-    progress: {
+    progressStatus: {
       control: 'inline-radio',
       options: ['READY', 'PROGRESS', 'DONE'],
     },
   },
   args: {
-    progress: 'PROGRESS',
+    progressStatus: 'PROGRESS',
     text: '질문1',
   },
 };
