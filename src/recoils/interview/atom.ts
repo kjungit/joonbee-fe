@@ -44,3 +44,16 @@ export const videoPermissionAtom = atom({
   key: 'videoPermissionAtom',
   default: false,
 });
+
+export const selectedDeviceIdAtom = atom<{
+  videoId: string;
+  audioId: string;
+}>({
+  key: 'selectedDeviceIdAtom',
+  default: { videoId: '', audioId: '' },
+});
+
+export const currentCountAtom = atom({
+  key: 'currentCountAtom',
+  default: 1, // 초기값
+});
