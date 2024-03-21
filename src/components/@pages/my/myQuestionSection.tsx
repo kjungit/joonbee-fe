@@ -1,6 +1,6 @@
 'use client';
-import { Text } from '@/components/@common/text/text';
-import { VariableIcon } from '@/components/@common/variableIcon/variableIcon';
+import { Text } from '@/components/@common/text';
+import { VariableIcon } from '@/components/@common/variableIcon';
 import { useGetMyQuestion } from '@/queries/question/useGetMyQuestion';
 import { QuestionDeleteIcon } from '../home/question/questionDeleteIcon';
 

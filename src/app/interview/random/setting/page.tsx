@@ -1,14 +1,16 @@
 'use client';
 
-import Button from '@/components/@common/button/button';
-import IconButton from '@/components/@common/iconButton/iconButton';
+import Button from '@/components/@common/button';
+import Dropdown from '@/components/@common/dropdown';
+import IconButton from '@/components/@common/iconButton';
+import { Text } from '@/components/@common/text';
+import { mainCategoryList } from '@/constants/category';
 import {
   interviewQuestionCountAtom,
   interviewRandomCategoryAtom,
   interviewRandomSubcategoryAtom,
   interviewTimeAtom,
 } from '@/recoils/interview/atom';
-import { Text } from '@/components/@common/text/text';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import InterviewLoading from '@/components/@common/interviewLoading/interviewLoading';

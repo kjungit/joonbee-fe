@@ -1,8 +1,8 @@
 import { useGetMyInterview } from '@/queries/interview/useGetMyInterview';
-import { PolarChart } from '../@common/polarChart/polarChart';
+import { PolarChart } from '../@common/polarChart';
 import { MainCategory } from '@/constants/category';
-import { Text } from '../@common/text/text';
-import { VariableIcon } from '../@common/variableIcon/variableIcon';
+import { Text } from '../@common/text';
+import { VariableIcon } from '../@common/variableIcon';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectMyInterviewState } from '@/recoils/user/seletMyInterview/atom';
