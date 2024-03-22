@@ -25,8 +25,12 @@ export type VariableIconName =
   | 'group'
   | 'fillCheckCir'
   | 'fillCheckRec'
-  | 'checkRec'
+  | 'emptyCheckBox'
   | 'questionBox'
-  | 'document';
+  | 'document'
+  | 'video'
+  | 'audio'
+  | 'calendar'
+  | 'triangleRight';
 
 export type IconType = VariableIconName | IconName;

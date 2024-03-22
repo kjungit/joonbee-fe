@@ -1,10 +1,10 @@
 import { RadioButtonGroup } from '@/components/@common/radioButtonGroup';
 import { Text } from '@/components/@common/text';
-import { useGetInterview } from '@/queries/interview/useGetInterview';
 import { useSearchParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { InterviewMenuItem } from './interviewMenuItem';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
+import { useGetInterview } from '@/queries/interview/useGetInterview';
 interface ItemProps {
   id: string;
   text: string;

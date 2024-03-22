@@ -15,7 +15,7 @@ export const InterviewMenu = () => {
   const categoryParams = searchParams.get('category');
 
   return (
-    <div>
+    <div className="p-4 h-full">
       <Text size="xl" weight="lg">
         면접 보기
       </Text>

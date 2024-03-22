@@ -1,14 +1,17 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import authQueries from '@/queries/authQueries';
+import { useOauthLogin } from '@/queries/user/oauth/useOauthLogin';
+import authApis from '@/apis/services/authApis';
 
 export default function OauthPage() {
-  authQueries.useGetGoogleLogin('/auth/kakao');
+  useOauthLogin('/kakao', authApis.kakaoLogin);
 
   return (
-    <div className="flex items-center justify-center mainBg origin-h">
-      <Image src={'/loginLoading.gif'} width={250} height={250} alt="loding" />
+    <div className="w-full mainBg questionListHeight">
+      <div className="flex flex-col h-full items-center justify-center">
+        <Image src={'/loginLoading.gif'} width={70} height={70} alt="loding" />
+      </div>
     </div>
   );
 }

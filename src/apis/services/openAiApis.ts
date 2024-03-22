@@ -5,10 +5,16 @@ export const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
   dangerouslyAllowBrowser: true,
 });
+
+export interface MyInterviewQuestions {
+  questionId: number;
+  questionContent: string;
+  answerContent: string;
+}
 export interface OpenAiContent {
   userName: string;
   categoryName: string;
-  questions: MyInterview[];
+  questions: MyInterviewQuestions[];
 }
 
 export const postOpenAi = async (arg: OpenAiContent) => {
