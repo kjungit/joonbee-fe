@@ -5,8 +5,6 @@ import { Icon } from '../icon';
 import { VariableIconList } from '@/constants/icon';
 import { VariableIcon } from '../variableIcon';
 
-type Icons = VariableIconName | IconName;
-
 interface IconButtonProps extends ButtonProps {
   iconName: IconType;
   edge?: 'start' | 'end';

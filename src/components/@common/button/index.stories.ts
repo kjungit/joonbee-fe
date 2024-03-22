@@ -15,11 +15,14 @@ const meta: Meta<typeof Button> = {
     },
     color: {
       control: 'inline-radio',
-      options: ['primary', 'blue', 'white', 'disabled'],
+      options: ['primary', 'blue', 'white'],
     },
     variant: {
       control: 'inline-radio',
       options: ['outlined', 'filled'],
+    },
+    disabled: {
+      control: 'boolean',
     },
   },
   args: {

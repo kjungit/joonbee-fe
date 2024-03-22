@@ -9,6 +9,7 @@ import { selectQuestionCategoryState } from '@/recoils/home/question/selectQuest
 import Image from 'next/image';
 import { QuestionMenu } from '@/components/navbar/questionMenu';
 import { MyMenu } from './myMenu';
+import QuestionProgressMenu from './questionProgressMenu';
 
 export default function Navbar() {
   const [selectQuestionCategory, setSelectQuestionCategory] = useRecoilState(
@@ -40,6 +41,7 @@ export default function Navbar() {
         {pathName === '/' && categoryParams === 'interview' && <InterviewMenu />}
         {pathName === '/' && categoryParams === 'question' && <QuestionMenu />}
         {pathName === '/my' && <MyMenu />}
+        {pathName === '/interview/progress' && <QuestionProgressMenu />}
       </div>
     </div>
   );
