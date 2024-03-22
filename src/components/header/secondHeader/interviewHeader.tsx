@@ -9,14 +9,14 @@ export const InterviewHeader = () => {
   const [interviewType, setInterviewType] = useRecoilState(interviewTypeAtom);
 
   return (
-    <nav className="flex items-center justify-between w-full px-4 relative">
-      <div className="flex gap-4">
+    <nav className="flex items-center">
+      <div className="flex">
         <Link href="/interview/choice">
           <IconButton
             iconName="checklist.png"
-            color="white"
+            color={interviewType === 'choice' ? 'blue' : 'white'}
+            className={`${interviewType === 'choice' ? 'font-bold' : ''}`}
             size="sm"
-            className={`${pathName.includes('choice') ? 'font-bold bg-blue-light' : ''}`}
             onClick={() => setInterviewType('choice')}>
             선택 질문
           </IconButton>
@@ -24,9 +24,9 @@ export const InterviewHeader = () => {
         <Link href="/interview/random">
           <IconButton
             iconName="random.png"
-            color="white"
+            color={interviewType === 'random' ? 'blue' : 'white'}
+            className={`${interviewType === 'random' ? 'font-bold' : ''}`}
             size="sm"
-            className={`${pathName.includes('random') ? 'font-bold bg-blue-light' : ''}`}
             onClick={() => setInterviewType('random')}>
             랜덤 질문
           </IconButton>
