@@ -23,7 +23,7 @@ export const MainHeader = () => {
         </button>
         <Link
           className={`${pathName.includes('interview') && 'font-bold'}`}
-          href="/interview/choice">
+          href="/interview/random">
           AI 면접
         </Link>
         <Link className={`${pathName.includes('resume') && 'font-bold'}`} href="/resume">
