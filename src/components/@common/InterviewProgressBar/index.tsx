@@ -16,10 +16,10 @@ interface InterviewProgressBar {
 
 export default function InterviewProgressBar({
   interview = 'InterviewSetting',
-  className,
+  className = '',
 }: InterviewProgressBar) {
   return (
-    <div className={`flex gap-2 items-center ${className}`}>
+    <div className={`flex gap-2 items-center h-[40px] ${className}`}>
       {interview === 'InterviewSetting' && (
         <>
           <StepIcon progress="DONE" />

@@ -44,7 +44,9 @@ export default function Header() {
                   iconName="checklist.png"
                   color="blue"
                   size="sm"
-                  className={`${pathName.includes('random') ? 'font-bold bg-blue-light' : ''}`}>
+                  className={`${
+                    pathName.includes('random') ? 'font-bold bg-blue-light' : ''
+                  } cursor-default`}>
                   랜덤 질문
                 </IconButton>
                 <InterviewProgressBar />
@@ -52,7 +54,7 @@ export default function Header() {
             )}
             {pathName === '/interview/random/setting' && (
               <div className="flex gap-8 items-center">
-                <IconButton iconName="random.png" color="blue" size="sm">
+                <IconButton iconName="random.png" color="blue" size="sm" className="cursor-default">
                   랜덤 질문
                 </IconButton>
                 <InterviewProgressBar />
