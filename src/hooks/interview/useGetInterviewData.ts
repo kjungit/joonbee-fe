@@ -1,25 +1,20 @@
 import { MyInterviewQuestions } from '@/apis/services/openAiApis';
 import useGetRandomQuestionList from '@/queries/question/useGetRandomQuestion';
-import {
-  interviewQuestionCountAtom,
-  interviewRandomCategoryAtom,
-  interviewRandomSubcategoryAtom,
-  interviewTypeAtom,
-} from '@/recoils/interview/atom';
+import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
+import { interviewQuestionCountAtom, interviewTypeAtom } from '@/recoils/interview/atom';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function useGetInterviewData() {
   const [questionData, setQuestionData] = useState<MyInterviewQuestions[]>([]);
   const interviewType = useRecoilValue(interviewTypeAtom);
-  const category = useRecoilValue(interviewRandomCategoryAtom);
-  const subcategory = useRecoilValue(interviewRandomSubcategoryAtom);
+  const mySelectCategory = useRecoilValue(mySelectQuestionCategoryState);
 
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
 
   const { randomQuestionData, isSuccess } = useGetRandomQuestionList({
-    category,
-    subcategory,
+    category: mySelectCategory.category,
+    subcategory: mySelectCategory.subCategory,
     questionCount,
     interviewType,
   });

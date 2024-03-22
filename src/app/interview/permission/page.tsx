@@ -7,16 +7,13 @@ import InterviewLoading from '@/components/@common/interviewLoading';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import Video from '@/components/@common/video/video';
-import DeviceSelect from '@/components/@pages/interview/permission/DeviceSelect';
+import DeviceSelect from '@/components/@pages/interview/permission/deviceSelect';
 import { Category, MainCategory } from '@/constants/category';
 import useGetDevice from '@/hooks/interview/useGetDevice';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import useVideo from '@/hooks/interview/useVideo';
-import {
-  interviewQuestionCountAtom,
-  interviewRandomCategoryAtom,
-  interviewTimeAtom,
-} from '@/recoils/interview/atom';
+import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
+import { interviewQuestionCountAtom, interviewTimeAtom } from '@/recoils/interview/atom';
 import { convertSecondsToMinutes } from '@/utils/format';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
@@ -26,7 +23,7 @@ export default function PermissionPage() {
   const { videoDevices, getConnectedDevices, selectDevice, selectedDeviceId, audioDevices } =
     useGetDevice();
   const time = useRecoilValue(interviewTimeAtom);
-  const category = useRecoilValue(interviewRandomCategoryAtom);
+  const mySelectCategory = useRecoilValue(mySelectQuestionCategoryState);
   const questionCount = useRecoilValue(interviewQuestionCountAtom);
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/progress');
 
@@ -84,7 +81,7 @@ export default function PermissionPage() {
           </Text>
           <ul className="flex gap-5 absolute">
             <li className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
-              {MainCategory[category]}
+              {MainCategory[mySelectCategory.category]}
             </li>
             <li className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
               질문 {questionCount}개

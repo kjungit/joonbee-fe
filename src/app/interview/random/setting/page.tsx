@@ -3,12 +3,7 @@
 import IconButton from '@/components/@common/iconButton';
 import Button from '@/components/@common/button';
 import { Text } from '@/components/@common/text';
-import {
-  interviewQuestionCountAtom,
-  interviewRandomCategoryAtom,
-  interviewRandomSubcategoryAtom,
-  interviewTimeAtom,
-} from '@/recoils/interview/atom';
+import { interviewQuestionCountAtom } from '@/recoils/interview/atom';
 
 import React from 'react';
 import { useRecoilState } from 'recoil';
@@ -16,15 +11,12 @@ import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import CategoryDropdown from '@/components/@common/categoryDropdown';
 import InterviewLoading from '@/components/@common/interviewLoading';
 import Image from 'next/image';
+import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
+import QuestionTimeButtonGroup from '@/components/@common/questionTimeButtonGroup';
 
 export default function RandomSettingPage() {
-  const [selectedCategory, setSelectedCategory] = useRecoilState(interviewRandomCategoryAtom);
-  const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(
-    interviewRandomSubcategoryAtom,
-  );
-
+  const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
-  const [time, setTime] = useRecoilState(interviewTimeAtom);
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
 
   return (
@@ -40,11 +32,15 @@ export default function RandomSettingPage() {
                 카테고리
               </p>
               <CategoryDropdown
-                size="md"
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-                selectedSubcategory={selectedSubcategory}
-                setSelectedSubcategory={setSelectedSubcategory}
+                selectedCategory={mySelectCategory.category}
+                setSelectedCategory={(category: any) =>
+                  setMySelectCategory(prev => ({ ...prev, category }))
+                }
+                selectedSubcategory={mySelectCategory.subCategory}
+                setSelectedSubcategory={(subCategory: any) =>
+                  setMySelectCategory(prev => ({ ...prev, subCategory }))
+                }
+                className="mb-4"
               />
             </div>
           </div>
@@ -90,36 +86,7 @@ export default function RandomSettingPage() {
               </div>
             </div>
           </div>
-          <div className="mb-5">
-            <Text as="h3" size="lg" weight="lg" className="mb-2">
-              개별 질문 시간을 설정해주세요
-            </Text>
-            <div className="flex gap-10">
-              <p className="min-w-[142px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md">
-                질문 시간
-              </p>
-              <div className="flex gap-5">
-                <Button
-                  size="xs"
-                  color={time === 60 ? 'primary' : 'white'}
-                  onClick={() => setTime(60)}>
-                  1분
-                </Button>
-                <Button
-                  size="xs"
-                  color={time === 90 ? 'primary' : 'white'}
-                  onClick={() => setTime(90)}>
-                  1분 30초
-                </Button>
-                <Button
-                  size="xs"
-                  color={time === 120 ? 'primary' : 'white'}
-                  onClick={() => setTime(120)}>
-                  2분
-                </Button>
-              </div>
-            </div>
-          </div>
+          <QuestionTimeButtonGroup />
           <IconButton
             iconName="next_arrow.png"
             edge="end"
