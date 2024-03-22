@@ -1,9 +1,12 @@
 import IconButton from '@/components/@common/iconButton';
+import { interviewTypeAtom } from '@/recoils/interview/atom';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useRecoilState } from 'recoil';
 
 export const InterviewHeader = () => {
   const pathName = usePathname();
+  const [interviewType, setInterviewType] = useRecoilState(interviewTypeAtom);
 
   return (
     <nav className="flex items-center justify-between w-full px-4 relative">
@@ -13,7 +16,8 @@ export const InterviewHeader = () => {
             iconName="checklist.png"
             color="white"
             size="sm"
-            className={`${pathName.includes('choice') ? 'font-bold bg-blue-light' : ''}`}>
+            className={`${pathName.includes('choice') ? 'font-bold bg-blue-light' : ''}`}
+            onClick={() => setInterviewType('choice')}>
             선택 질문
           </IconButton>
         </Link>
@@ -22,7 +26,8 @@ export const InterviewHeader = () => {
             iconName="random.png"
             color="white"
             size="sm"
-            className={`${pathName.includes('random') ? 'font-bold bg-blue-light' : ''}`}>
+            className={`${pathName.includes('random') ? 'font-bold bg-blue-light' : ''}`}
+            onClick={() => setInterviewType('random')}>
             랜덤 질문
           </IconButton>
         </Link>
