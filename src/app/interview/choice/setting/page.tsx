@@ -2,7 +2,7 @@
 
 import { Text } from '@/components/@common/text';
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import InterviewLoading from '@/components/@common/interviewLoading/';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import Image from 'next/image';
@@ -14,33 +14,52 @@ import CategoryDropdown from '@/components/@common/categoryDropdown';
 import Dropdown from '@/components/@common/dropdown';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
 import QuestionTimeButtonGroup from '@/components/@common/questionTimeButtonGroup';
+import { addQuestionListSelector, addQuestionSelector } from '@/recoils/myInterview/withAdd';
+import { interviewQuestionCountAtom } from '@/recoils/interview/atom';
 
 export default function ChoiceSettingPage() {
   const [isClickNextBtn, setIsClickNextBtn] = useState<boolean>(false);
-  const [checkedQuestionList, setCheckedQuestionList] = useState<number[]>([]);
+  const [checkedQuestionIdList, setCheckedQuestionIdList] = useState<
+    {
+      questionId: number;
+      questionContent: string;
+    }[]
+  >([]);
   // const [selectedCategory, setSelectedCategory] = useRecoilState(selectedChoiceCategoryAtom);
   // const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(
   //   selectedChoiceSubcategoryAtom,
   // );
 
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
+  const checkedQuestionList = useRecoilValue(addQuestionSelector);
+  const setQuestion = useSetRecoilState(addQuestionListSelector);
 
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
   const { questionData, setTarget } = useGetMyQuestion();
 
-  const handleClickQuestion = (questionId: number) => {
-    setCheckedQuestionList(prevList => {
-      if (prevList.includes(questionId)) {
-        return prevList.filter(id => id !== questionId);
+  const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
+
+  const handleClickQuestion = (questionId: number, questionContent: string) => {
+    setCheckedQuestionIdList(prevList => {
+      const index = prevList.findIndex(item => item.questionId === questionId);
+      if (index !== -1) {
+        return prevList.filter(item => item.questionId !== questionId);
       } else {
-        return [...prevList, questionId];
+        return [...prevList, { questionId, questionContent }];
       }
     });
   };
 
   const categoryList = [...new Set(questionData?.map(question => question.category))];
 
-  console.log('categoryList', categoryList);
+  console.log('categoryList', checkedQuestionIdList);
+
+  useEffect(() => {
+    if (isClickNextBtn) {
+      setQuestion(checkedQuestionIdList as any[]);
+      setQuestionCount(checkedQuestionIdList.length);
+    }
+  }, [isClickNextBtn]);
 
   return (
     <>
@@ -52,8 +71,10 @@ export default function ChoiceSettingPage() {
                 <QuestionCheck
                   key={item.questionId}
                   question={item}
-                  isChecked={checkedQuestionList.includes(item.questionId)}
-                  onCheckChange={() => handleClickQuestion(item.questionId)}
+                  isChecked={checkedQuestionIdList.some(
+                    checkedItem => checkedItem.questionId === item.questionId,
+                  )}
+                  onCheckChange={() => handleClickQuestion(item.questionId, item.questionContent)}
                 />
               ))}
               <div ref={setTarget}></div>
@@ -85,11 +106,9 @@ export default function ChoiceSettingPage() {
         ) : (
           <>
             <ul className=" flex flex-col gap-4 h-[600px] overflow-auto">
-              {questionData
-                ?.filter(question => checkedQuestionList.includes(question.questionId))
-                .map(item => (
-                  <QuestionCheck key={item.questionId} question={item} isChecked={true} />
-                ))}
+              {checkedQuestionList.map(item => (
+                <QuestionCheck key={item.questionId} question={item} isChecked={true} />
+              ))}
               <div ref={setTarget}></div>
             </ul>
             <Text as="h3" size="lg" weight="lg" className="mb-2">
