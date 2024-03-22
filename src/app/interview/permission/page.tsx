@@ -7,7 +7,7 @@ import InterviewLoading from '@/components/@common/interviewLoading';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import Video from '@/components/@common/video/video';
-import DeviceSelect from '@/components/@pages/interview/permission/deviceSelect';
+import DeviceSelect from '@/components/@pages/interview/permission/DeviceSelect';
 import { Category, MainCategory } from '@/constants/category';
 import useGetDevice from '@/hooks/interview/useGetDevice';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
