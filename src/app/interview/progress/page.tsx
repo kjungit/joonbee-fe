@@ -11,7 +11,7 @@ import Button from '@/components/@common/button';
 import TextArea from '@/components/@common/textArea';
 import useSpeechToText from '@/hooks/interview/useSpeechToText';
 import { useRouter } from 'next/navigation';
-import { currentCountAtom, videoPermissionAtom } from '@/recoils/interview/atom';
+import { currentCountAtom } from '@/recoils/interview/atom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { addQuestionSelector } from '@/recoils/myInterview/withAdd';
 import { MyInterviewQuestions } from '@/apis/services/openAiApis';
