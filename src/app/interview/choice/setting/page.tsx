@@ -66,7 +66,7 @@ export default function ChoiceSettingPage() {
       {!isPressedBtn ? (
         !isClickNextBtn ? (
           <>
-            <ul className=" flex flex-col gap-4 overflow-auto h-[600px]">
+            <ul className=" flex flex-col gap-4 overflow-auto h-[60%] mb-5">
               {questionData?.map(item => (
                 <QuestionCheck
                   key={item.questionId}
@@ -105,25 +105,26 @@ export default function ChoiceSettingPage() {
           </>
         ) : (
           <>
-            <ul className=" flex flex-col gap-4 h-[600px] overflow-auto">
+            <ul className=" flex flex-col gap-4 h-[60%] overflow-auto">
               {checkedQuestionList.map(item => (
                 <QuestionCheck key={item.questionId} question={item} isChecked={true} />
               ))}
               <div ref={setTarget}></div>
             </ul>
-            <Text as="h3" size="lg" weight="lg" className="mb-2">
-              전체 질문 카테고리를 선택해주세요
-            </Text>
-            <div className="flex gap-10">
-              <p className="min-w-[142px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md">
-                카테고리
-              </p>
-
-              <Dropdown
-                data={categoryList || []}
-                selected={mySelectCategory.category}
-                onSelect={category => setMySelectCategory(prev => ({ ...prev, category }))}
-              />
+            <div className="mb-5">
+              <Text as="h3" size="lg" weight="lg" className="mb-2">
+                전체 질문 카테고리를 선택해주세요
+              </Text>
+              <div className="flex gap-10">
+                <p className="min-w-[142px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md">
+                  카테고리
+                </p>
+                <Dropdown
+                  data={categoryList || []}
+                  selected={mySelectCategory.category}
+                  onSelect={category => setMySelectCategory(prev => ({ ...prev, category }))}
+                />
+              </div>
             </div>
             <QuestionTimeButtonGroup />
 

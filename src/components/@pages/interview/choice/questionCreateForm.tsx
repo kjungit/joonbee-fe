@@ -1,4 +1,5 @@
 import { VariableIcon } from '@/components/@common/variableIcon';
+import { usePostChoiceQuestionSave } from '@/queries/question/usePostChoiceQuestionSave';
 import { usePostQuestionSave } from '@/queries/question/usePostQuestionSave';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
 import { SubcategoryName } from '@/types';
@@ -13,7 +14,7 @@ export default function QuestionCreateForm() {
     setValue(e.target.value);
   };
 
-  const { questionSaveMutate } = usePostQuestionSave({
+  const { questionSaveMutate } = usePostChoiceQuestionSave({
     subcategoryName: category.subCategory as SubcategoryName,
     questionContent: value,
   });

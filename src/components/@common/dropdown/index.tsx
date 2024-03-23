@@ -3,6 +3,7 @@ import { CategoryName, SubcategoryName } from '@/types/question';
 import { useModal } from '@/hooks/useModal';
 import Button, { ButtonColors } from '../button';
 import { Category } from '@/constants/category';
+import useModalOutsideClick from '@/hooks/interview/useModalOutsideClick';
 
 type DropdownProps = {
   data: string[];
@@ -22,7 +23,8 @@ const Dropdown = ({
   color = 'primary',
   disabled = false,
 }: DropdownProps) => {
-  const { isOpened, onToggle } = useModal();
+  const { isOpened, onToggle, onClose } = useModal();
+  const { modalRef } = useModalOutsideClick<HTMLUListElement>(onClose);
   const onSelectItem = (item: string) => {
     onToggleList();
     onSelect(item);
@@ -61,6 +63,7 @@ const Dropdown = ({
       </Button>
       {isOpened && (
         <ul
+          ref={modalRef}
           className={`shadow-normal px-[8px] py-[6px] top-10 rounded-[8px] overflow-y-auto bg-white absolute
            z-10 ${sizeStyles[size].ul}`}>
           {data.map((item, index) => (
