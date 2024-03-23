@@ -12,6 +12,7 @@ interface DropdownCategoryProps {
   setSelectedCategory: Dispatch<SetStateAction<string>>;
   setSelectedSubcategory: Dispatch<SetStateAction<string>>;
   callback?: () => void;
+  className?: string;
 }
 export default function CategoryDropdown({
   color = 'white',
@@ -21,6 +22,7 @@ export default function CategoryDropdown({
   setSelectedCategory,
   setSelectedSubcategory,
   callback,
+  className = '',
 }: DropdownCategoryProps) {
   const [selectedSubcategoryList, setSelectedSubcategoryList] = useState<string[]>([]);
 
@@ -56,7 +58,7 @@ export default function CategoryDropdown({
   };
 
   return (
-    <div className="flex gap-5 relative z-10">
+    <div className={`flex gap-5 relative z-10 ${className}`}>
       <Dropdown
         size={size}
         data={mainCategoryList}

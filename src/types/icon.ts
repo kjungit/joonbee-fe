@@ -25,7 +25,7 @@ export type VariableIconName =
   | 'group'
   | 'fillCheckCir'
   | 'fillCheckRec'
-  | 'checkRec'
+  | 'emptyCheckBox'
   | 'questionBox'
   | 'document'
   | 'video'
