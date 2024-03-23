@@ -19,7 +19,7 @@ export default function InterviewProgressBar({
   className = '',
 }: InterviewProgressBar) {
   return (
-    <div className={`flex gap-2 items-center h-[40px] ${className}`}>
+    <div className={`flex gap-2 items-center h-[40px] min-w-[620px] ${className}`}>
       {interview === 'InterviewSetting' && (
         <>
           <StepIcon progress="DONE" />

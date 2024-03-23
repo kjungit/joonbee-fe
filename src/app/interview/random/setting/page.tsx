@@ -40,6 +40,7 @@ export default function RandomSettingPage() {
                 setSelectedSubcategory={(subCategory: any) =>
                   setMySelectCategory(prev => ({ ...prev, subCategory }))
                 }
+                size="md"
                 className="mb-4"
               />
             </div>

@@ -66,7 +66,7 @@ export default function ChoiceSettingPage() {
       {!isPressedBtn ? (
         !isClickNextBtn ? (
           <>
-            <ul className=" flex flex-col gap-4 overflow-auto h-[600px]">
+            <ul className=" flex flex-col gap-4 overflow-auto h-[60%] mb-5">
               {questionData?.map(item => (
                 <QuestionCheck
                   key={item.questionId}
@@ -105,7 +105,7 @@ export default function ChoiceSettingPage() {
           </>
         ) : (
           <>
-            <ul className=" flex flex-col gap-4 h-[600px] overflow-auto">
+            <ul className=" flex flex-col gap-4 h-[60%] overflow-auto">
               {checkedQuestionList.map(item => (
                 <QuestionCheck key={item.questionId} question={item} isChecked={true} />
               ))}
