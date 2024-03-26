@@ -1,5 +1,4 @@
 import { CategoryName, ChildrenProps, SubcategoryName, ToggleItemProps } from '@/types';
-import { Text } from '../@common/text';
 import { toggleNavbarQuestionList } from '@/constants/toggleNavbarItem';
 import { useState } from 'react';
 import { ToggleItem } from '../@common/toggleItem';
@@ -13,7 +12,6 @@ export const QuestionMenu = () => {
     selectQuestionCategoryState,
   );
   const router = useRouter();
-  const pathName = usePathname();
   const searchParams = useSearchParams();
   const fieldParams = searchParams.get('Qfield') as CategoryName;
   const subFieldParams = searchParams.get('subField') as SubcategoryName;
@@ -47,11 +45,8 @@ export const QuestionMenu = () => {
 
   return (
     <div className="p-4">
-      <Text size="xl" weight="lg">
-        질문 보기
-      </Text>
       {items.map(item => (
-        <div key={item.id} className={`toggle-item ${fieldParams === item.id && 'font-bold'}`}>
+        <div key={item.id} className={`toggle-item ${fieldParams === item.id && 'font-bold '}`}>
           <ToggleItem
             item={item}
             onClickOpen={() => {
@@ -62,10 +57,11 @@ export const QuestionMenu = () => {
               );
             }}
           />
-          <div className="font-normal flex flex-col text-start w-full gap-2">
+          <div className="font-normal flex flex-col text-start w-full gap-1 text-sm px-1 py-2">
             {fieldParams === item.id &&
               item.children?.map(childItem => (
                 <button
+                  className="flex items-center"
                   key={childItem.id}
                   onClick={() => {
                     handleClickChild(childItem);
@@ -73,7 +69,8 @@ export const QuestionMenu = () => {
                       `/?category=${categoryParams}&Qfield=${item.id}&subField=${childItem.id}`,
                     );
                   }}>
-                  <div className={`${subFieldParams === childItem.id && 'font-bold'}`}>
+                  <div
+                    className={`${subFieldParams === childItem.id && 'font-bold'} flex pl-[50px]`}>
                     {childItem.value}
                   </div>
                 </button>

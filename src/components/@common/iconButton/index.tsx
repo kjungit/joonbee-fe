@@ -31,9 +31,9 @@ export default function IconButton({
 
   const isVariableIcon = VariableIconList.includes(iconName as any);
   const iconComponent = isVariableIcon ? (
-    <VariableIcon name={iconName as VariableIconName} size={sizeStyles[size]} />
+    <VariableIcon name={iconName as VariableIconName} size={20} />
   ) : (
-    <Icon name={iconName as IconName} className="w-4" />
+    <Icon name={iconName as IconName} className="w-5" />
   );
 
   return (

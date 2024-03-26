@@ -1,6 +1,7 @@
 import { Accordion } from '@/components/@common/accordion';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
+import { CenterSectionWrapper } from '@/components/wrapper/centerSectionWrapper';
 import { questionTitle } from '@/constants/question';
 import { useGetDetailInterview } from '@/queries/interview/useGetDetailInterview';
 import { selectMyInterviewAtom } from '@/recoils/user/seletMyInterview/atom';
@@ -55,12 +56,15 @@ export const MyInterviewSection = () => {
   }, [isDetailSuccess, isDetailFetch, selectMyInterview]);
 
   const handleClickQuestion = (question: QuestionContentsProps) => {
+    console.log('question', question);
+    console.log('selectDetail', selectDetail);
     const updateInterview = selectDetail.questionContents.map(item => {
       if (item.questionId === question.questionId) {
-        return { ...question, isOpen: !item.isOpen };
+        return { ...item, isOpen: !item.isOpen };
       }
       return item;
     });
+    console.log(updateInterview);
     setSelectDetail({
       ...selectDetail,
       questionContents: updateInterview,
@@ -110,49 +114,54 @@ export const MyInterviewSection = () => {
               </div>
             </div>
           </div>
+          <CenterSectionWrapper>
+            {selectDetail.gptOpinion && (
+              <Accordion title="전체적인 면접에 대한 느낌이에요." isBorder isMain>
+                <Text size="lg" weight="sm" className="px-11 font-normal">
+                  {selectDetail.gptOpinion}
+                </Text>
+              </Accordion>
+            )}
 
-          {selectDetail.gptOpinion && (
-            <Accordion title="전체적인 면접에 대한 느낌이에요." isBorder isMain>
-              <Text size="lg" weight="sm" className="px-11">
-                {selectDetail.gptOpinion}
-              </Text>
-            </Accordion>
-          )}
-
-          {selectDetail.questionContents &&
-            selectDetail.questionContents.map(question => (
-              <div key={question.questionId}>
-                <Accordion
-                  title={question.questionContent}
-                  onClick={() => handleClickQuestion(question)}
-                  isMain>
-                  {question.isOpen && (
-                    <>
-                      {Object.values(question.infoList).map(item => (
-                        <>
-                          <Accordion
-                            title={questionTitle[item.id]}
-                            onClick={() =>
-                              handleClickSubQuestion({
-                                questionId: question.questionId,
-                                valueName: item.id,
-                              })
-                            }>
-                            {item.isOpen && (
-                              <div className="pl-4 flex items-center">
-                                <Text size="lg" weight="sm" className="px-11 font-normal">
-                                  {item.value}
-                                </Text>
-                              </div>
-                            )}
-                          </Accordion>
-                        </>
-                      ))}
-                    </>
-                  )}
-                </Accordion>
-              </div>
-            ))}
+            {selectDetail.questionContents &&
+              selectDetail.questionContents.map(question => (
+                <div key={question.questionId}>
+                  <Accordion
+                    title={question.questionContent}
+                    onClick={() => {
+                      handleClickQuestion(question);
+                    }}
+                    isOpen={question.isOpen}
+                    isMain>
+                    {question.isOpen && (
+                      <>
+                        {Object.values(question.infoList).map(item => (
+                          <>
+                            <Accordion
+                              title={questionTitle[item.id]}
+                              onClick={() =>
+                                handleClickSubQuestion({
+                                  questionId: question.questionId,
+                                  valueName: item.id,
+                                })
+                              }
+                              isOpen={item.isOpen}>
+                              {item.isOpen && (
+                                <div className="pl-4 flex items-center">
+                                  <Text size="lg" weight="sm" className="px-11 font-normal">
+                                    {item.value}
+                                  </Text>
+                                </div>
+                              )}
+                            </Accordion>
+                          </>
+                        ))}
+                      </>
+                    )}
+                  </Accordion>
+                </div>
+              ))}
+          </CenterSectionWrapper>
         </div>
       ) : (
         <div className="flex flex-col gap-2 w-full h-full items-center justify-center">
