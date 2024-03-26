@@ -12,13 +12,22 @@ export default function useVideo() {
   const [recordedMediaUrl, setRecordedMediaUrl] = useRecoilState(interviewVideoUrlAtom);
 
   const { onStartAudio, audioStream } = useAudio();
-
+  
   const onStartVideo = async () => {
     onStartAudio();
     try {
+      // "비디오 없음" 선택 시 처리
+      if (selectedDeviceId.videoId === '1') {
+        if (videoRef.current) {
+          videoRef.current.srcObject = null; // 비디오 스트림 제거
+        }
+        return; // 추가 비디오 설정을 중단
+      }
+
+      // 기존 비디오 설정 로직
       const videoOption = selectedDeviceId.videoId
         ? { deviceId: { exact: selectedDeviceId.videoId } }
-        : true; //
+        : true;
 
       console.log('onStartVideo');
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -26,7 +35,7 @@ export default function useVideo() {
       });
       setVideoStream(stream);
 
-      if (videoRef && videoRef.current && !videoRef.current.srcObject) {
+      if (videoRef && videoRef.current) {
         videoRef.current.srcObject = stream;
       }
     } catch (error) {

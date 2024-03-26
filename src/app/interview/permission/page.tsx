@@ -20,7 +20,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 export default function PermissionPage() {
-  const { videoDevices, getConnectedDevices, selectDevice, selectedDeviceId, audioDevices } =
+  const { videoDevices, getConnectedDevices, handleSelectDevice, selectedDeviceId, audioDevices } =
     useGetDevice();
   const time = useRecoilValue(interviewTimeAtom);
   const mySelectCategory = useRecoilValue(mySelectQuestionCategoryState);
@@ -29,14 +29,21 @@ export default function PermissionPage() {
 
   const { onStartVideo, videoRef } = useVideo();
 
+  console.log('selectedDeviceId', selectedDeviceId);
+  console.log('videoRef', videoRef);
+
   useEffect(() => {
     const startDevices = async () => {
       await onStartVideo();
-      getConnectedDevices();
+      await getConnectedDevices();
     };
 
     startDevices();
   }, []);
+
+  useEffect(() => {
+    onStartVideo();
+  }, [selectedDeviceId]);
 
   return (
     <>
@@ -52,10 +59,10 @@ export default function PermissionPage() {
               <Text as="h3" size="lg" weight="lg" className="mb-2">
                 장치 권한 설정
               </Text>
-              {videoRef ? (
-                <Video videoRef={videoRef} />
-              ) : (
+              {selectedDeviceId.videoId == '1' ? (
                 <div className={`bg-black shadow-md rounded-2xl w-[362px] h-[230px]`}></div>
+              ) : (
+                <Video videoRef={videoRef} />
               )}
             </div>
           </div>
@@ -64,7 +71,7 @@ export default function PermissionPage() {
               deviceType="video"
               devices={videoDevices}
               selectedId={selectedDeviceId.videoId}
-              onSelect={videoId => selectDevice('video', videoId)}
+              onSelect={videoId => handleSelectDevice('video', videoId)}
             />
           </div>
           <div className="flex gap-8 items-center">
@@ -72,7 +79,7 @@ export default function PermissionPage() {
               deviceType="audio"
               devices={audioDevices}
               selectedId={selectedDeviceId.audioId}
-              onSelect={audioId => selectDevice('audio', audioId)}
+              onSelect={audioId => handleSelectDevice('audio', audioId)}
             />
           </div>
 
