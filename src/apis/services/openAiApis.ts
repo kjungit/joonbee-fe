@@ -6,7 +6,7 @@ export const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-interface MyInterviewQuestions {
+export interface MyInterviewQuestions {
   questionId: number;
   questionContent: string;
   answerContent: string;

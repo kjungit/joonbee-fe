@@ -7,8 +7,10 @@ import React from 'react';
 export default function RandomPage() {
   return (
     <>
-      <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-5">
-        <Image src="/rope.png" alt="랜덤면접" width={180} height={180} />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col flex-inline items-center gap-5">
+        <div className="w-[180px] h-[150px]">
+          <Image src="/rope.png" alt="랜덤면접" width={180} height={180} />
+        </div>
         <div>
           <Text size="lg" as="h4" weight="lg">
             질문을 AI가 준비해요

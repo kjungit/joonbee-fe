@@ -16,7 +16,7 @@ export type MyInterview = {
   isOpen: boolean;
 };
 
-type QuestionContent = {
+export type QuestionContent = {
   questionContent: string;
   questionId: number;
 };
@@ -87,6 +87,7 @@ export interface MyMenuInterviewItem {
   questionCount: number;
 }
 
+export type InterviewType = 'choice' | 'random';
 export interface ViewInterfaceProps {
   gptOpinion: string;
   questionContents: QuestionContentsProps[];

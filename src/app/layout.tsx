@@ -30,8 +30,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="google-adsense-account" content="ca-pub-7301751207531014" />
       </head>
       <body suppressHydrationWarning={true} className={notoSansKr.className} id="portal">
-        <QueryProvider>
-          <RecoilRootProvider>
+        <RecoilRootProvider>
+          <QueryProvider>
             <ThemeProvider>
               <Header />
               <main className="flex">
@@ -39,8 +39,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {children}
               </main>
             </ThemeProvider>
-          </RecoilRootProvider>
-        </QueryProvider>
+          </QueryProvider>
+        </RecoilRootProvider>
       </body>
     </html>
   );

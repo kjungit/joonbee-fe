@@ -21,12 +21,19 @@ export const MainHeader = () => {
             홈
           </Link>
         </button>
-        <Link className={`${pathName.includes('interview') && 'font-bold'}`} href="/interview">
+        <Link
+          className={`${pathName.includes('interview') && 'font-bold'}`}
+          href="/interview/random">
           AI 면접
         </Link>
-        <Link className={`${pathName.includes('resume') && 'font-bold'}`} href="/resume">
-          이력서
+        <Link
+          className={`${pathName.includes('my') && 'font-bold'}`}
+          href="/my?category=interview&Ifield=fe">
+          마이페이지
         </Link>
+        {/* <Link className={`${pathName.includes('resume') && 'font-bold'}`} href="/resume">
+          이력서
+        </Link> */}
       </div>
       <div className="flex justify-center items-center gap-4">
         {isLogined ? (

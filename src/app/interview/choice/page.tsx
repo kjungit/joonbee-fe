@@ -7,8 +7,10 @@ import React from 'react';
 export default function ChoicePage() {
   return (
     <>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-5">
-        <Image src="/fluid.png" alt="랜덤면접" width={180} height={180} />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col flex-inline items-center gap-5">
+        <div className="w-[180px] h-[150px]">
+          <Image src="/fluid.png" alt="랜덤면접" width={180} height={180} />
+        </div>
         <div>
           <Text size="lg" as="h4" weight="lg">
             질문을 직접 선택해요

@@ -5,8 +5,6 @@ import { Icon } from '../icon';
 import { VariableIconList } from '@/constants/icon';
 import { VariableIcon } from '../variableIcon';
 
-type Icons = VariableIconName | IconName;
-
 interface IconButtonProps extends ButtonProps {
   iconName: IconType;
   edge?: 'start' | 'end';
@@ -33,9 +31,9 @@ export default function IconButton({
 
   const isVariableIcon = VariableIconList.includes(iconName as any);
   const iconComponent = isVariableIcon ? (
-    <VariableIcon name={iconName as VariableIconName} size={sizeStyles[size]} />
+    <VariableIcon name={iconName as VariableIconName} size={20} />
   ) : (
-    <Icon name={iconName as IconName} className="w-4" />
+    <Icon name={iconName as IconName} className="w-5" />
   );
 
   return (

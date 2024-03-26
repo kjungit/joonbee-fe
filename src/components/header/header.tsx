@@ -6,6 +6,8 @@ import { useRecoilValue } from 'recoil';
 import { MyHeader } from './secondHeader/myHeader';
 import { InterviewHeader } from './secondHeader/interviewHeader';
 import { HomeHeader } from './secondHeader/homeHeader';
+import InterviewProgressBar from '../@common/InterviewProgressBar';
+import IconButton from '../@common/iconButton';
 import ModalPortal from '../@common/modalPortal';
 import { NickNameModal } from '../@common/nickNameModal';
 import { LoginInfo } from './LoginInfo';
@@ -33,7 +35,7 @@ export default function Header() {
         <div className="flex items-center justify-between w-full ">
           <div className="flex gap-4 px-2 w-full">
             {pathName === '/' && <HomeHeader />}
-            {pathName === '/interview' && <InterviewHeader />}
+            <InterviewHeader />
             {pathName === '/my' && <MyHeader />}
           </div>
         </div>

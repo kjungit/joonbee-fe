@@ -10,10 +10,12 @@ import { FaDeleteLeft } from 'react-icons/fa6';
 import { BsFillSendFill } from 'react-icons/bs';
 import { FaUserGroup } from 'react-icons/fa6';
 import { FaCheckCircle } from 'react-icons/fa';
-import { FaCheckSquare } from 'react-icons/fa';
+import { FaCheckSquare, FaCamera, FaRegSquare } from 'react-icons/fa';
+
 import { FaRegCheckSquare } from 'react-icons/fa';
 import { BsQuestionSquare } from 'react-icons/bs';
 import { IoDocumentTextOutline } from 'react-icons/io5';
+import { AiFillAudio } from 'react-icons/ai';
 import { LuCalendarCheck } from 'react-icons/lu';
 import { GoTriangleRight } from 'react-icons/go';
 import { VariableIconName } from '@/types';
@@ -47,9 +49,11 @@ export const VariableIcon = ({
     group: FaUserGroup,
     fillCheckCir: FaCheckCircle,
     fillCheckRec: FaCheckSquare,
-    checkRec: FaRegCheckSquare,
+    emptyCheckBox: FaRegSquare,
     questionBox: BsQuestionSquare,
     document: IoDocumentTextOutline,
+    video: FaCamera,
+    audio: AiFillAudio,
     calendar: LuCalendarCheck,
     triangleRight: GoTriangleRight,
   };
