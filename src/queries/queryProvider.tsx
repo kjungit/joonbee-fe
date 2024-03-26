@@ -1,11 +1,17 @@
 'use client';
 
+import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
+import { userInfoAtom } from '@/recoils/user/userInfo/atom';
 import { removeCookie } from '@/utils/cookies';
 import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 export default function QueryProvider({ children }: { children: React.ReactNode }) {
+  const resetUserInfo = useResetRecoilState(userInfoAtom);
+  const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
+
   const [client] = useState(() => {
     return new QueryClient({
       defaultOptions: {
@@ -28,6 +34,8 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
             removeCookie('joonbee-token');
             removeCookie('joonbee-token-refresh');
             alert('재로그인 해주세요.');
+            resetUserInfo();
+            setIsLogined(false);
           }
         },
       }),
