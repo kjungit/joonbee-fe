@@ -41,7 +41,7 @@ export default function RandomSettingPage() {
               전체 질문 카테고리를 선택해주세요
             </Text>
             <div className="flex gap-10">
-              <p className="min-w-[142px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md">
+              <p className="min-w-[120px] h-[40px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
                 카테고리
               </p>
               <CategoryDropdown
@@ -63,7 +63,7 @@ export default function RandomSettingPage() {
               질문 개수를 설정해주세요
             </Text>
             <div className="flex gap-10">
-              <p className="min-w-[142px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md">
+              <p className="min-w-[120px] h-[40px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
                 질문 수
               </p>
               <div className="flex gap-5">

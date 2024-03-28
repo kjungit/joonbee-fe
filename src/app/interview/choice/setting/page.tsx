@@ -80,7 +80,10 @@ export default function ChoiceSettingPage() {
       {!isPressedBtn ? (
         !isClickNextBtn ? (
           <>
-            <ul className=" flex flex-col gap-4 overflow-auto h-[60%] mb-5">
+            <Text as="h2" size="xl" weight="lg" className="mb-8">
+              나의 질문
+            </Text>
+            <ul className=" flex flex-col gap-4 overflow-auto h-[60%] mb-4">
               {questionData?.map(item => (
                 <QuestionCheck
                   key={item.questionId}
@@ -93,6 +96,9 @@ export default function ChoiceSettingPage() {
               ))}
               <div ref={setTarget}></div>
             </ul>
+            <Text as="h2" size="md" weight="md" color="blue" className="mb-8">
+              * 면접을 진행할 질문을 선택해주세요
+            </Text>
             <CategoryDropdown
               selectedCategory={mySelectCategory.category}
               setSelectedCategory={(category: any) =>
@@ -119,6 +125,9 @@ export default function ChoiceSettingPage() {
           </>
         ) : (
           <>
+            <Text as="h2" size="xl" weight="lg" className="mb-8">
+              선택한 질문
+            </Text>
             <ul className=" flex flex-col gap-4 h-[60%] overflow-auto">
               {checkedQuestionList.map(item => (
                 <QuestionCheck key={item.questionId} question={item} isChecked={true} />
@@ -130,7 +139,7 @@ export default function ChoiceSettingPage() {
                 전체 질문 카테고리를 선택해주세요
               </Text>
               <div className="flex gap-10">
-                <p className="min-w-[142px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md">
+                <p className="min-w-[120px] h-[40px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
                   카테고리
                 </p>
                 <Dropdown
