@@ -14,8 +14,14 @@ import CategoryDropdown from '@/components/@common/categoryDropdown';
 import Dropdown from '@/components/@common/dropdown';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
 import QuestionTimeButtonGroup from '@/components/@common/questionTimeButtonGroup';
-import { addQuestionListSelector, addQuestionSelector } from '@/recoils/myInterview/withAdd';
+import {
+  addQuestionListSelector,
+  addQuestionSelector,
+  updateCategoryNameSelector,
+  updateUserNameSelector,
+} from '@/recoils/myInterview/withAdd';
 import { interviewQuestionCountAtom } from '@/recoils/interview/atom';
+import userQueries from '@/queries/user/useGetUser';
 
 export default function ChoiceSettingPage() {
   const [isClickNextBtn, setIsClickNextBtn] = useState<boolean>(false);
@@ -33,11 +39,15 @@ export default function ChoiceSettingPage() {
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
   const checkedQuestionList = useRecoilValue(addQuestionSelector);
   const setQuestion = useSetRecoilState(addQuestionListSelector);
+  const setUserName = useSetRecoilState(updateUserNameSelector);
+  const setCategory = useSetRecoilState(updateCategoryNameSelector);
 
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
   const { questionData, setTarget } = useGetMyQuestion();
 
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
+
+  const { data: userInfo } = userQueries.useGetInfo();
 
   const handleClickQuestion = (questionId: number, questionContent: string) => {
     setCheckedQuestionIdList(prevList => {
@@ -52,7 +62,11 @@ export default function ChoiceSettingPage() {
 
   const categoryList = [...new Set(questionData?.map(question => question.category))];
 
-  console.log('categoryList', checkedQuestionIdList);
+  const handleMove = () => {
+    onMovePage();
+    setUserName(userInfo?.nickName);
+    setCategory(mySelectCategory.category);
+  };
 
   useEffect(() => {
     if (isClickNextBtn) {
@@ -133,7 +147,7 @@ export default function ChoiceSettingPage() {
               edge="end"
               size="md"
               className="absolute bottom-14 right-[300px]"
-              onClick={onMovePage}>
+              onClick={handleMove}>
               다음 단계
             </IconButton>
             <div className="absolute bottom-14 right-14">

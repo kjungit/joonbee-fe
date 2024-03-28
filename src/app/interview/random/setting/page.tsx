@@ -6,18 +6,31 @@ import { Text } from '@/components/@common/text';
 import { interviewQuestionCountAtom } from '@/recoils/interview/atom';
 
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import CategoryDropdown from '@/components/@common/categoryDropdown';
 import InterviewLoading from '@/components/@common/interviewLoading';
 import Image from 'next/image';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
 import QuestionTimeButtonGroup from '@/components/@common/questionTimeButtonGroup';
+import { updateCategoryNameSelector, updateUserNameSelector } from '@/recoils/myInterview/withAdd';
+import userQueries from '@/queries/user/useGetUser';
 
 export default function RandomSettingPage() {
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
+
+  const setUserName = useSetRecoilState(updateUserNameSelector);
+  const setCategory = useSetRecoilState(updateCategoryNameSelector);
+
+  const { data: userInfo } = userQueries.useGetInfo();
+
+  const handleMove = () => {
+    setUserName(userInfo?.nickName);
+    setCategory(mySelectCategory.category);
+    onMovePage();
+  };
 
   return (
     <>
@@ -93,7 +106,7 @@ export default function RandomSettingPage() {
             edge="end"
             size="md"
             className="absolute bottom-14 right-[300px]"
-            onClick={onMovePage}>
+            onClick={handleMove}>
             다음 단계
           </IconButton>
           <div className="absolute bottom-14 right-14">
