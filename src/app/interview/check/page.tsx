@@ -1,8 +1,10 @@
 'use client';
 
 import { Accordion } from '@/components/@common/accordion';
+import { EditQuestion } from '@/components/@common/editQuestion';
 import IconButton from '@/components/@common/iconButton';
 import { Text } from '@/components/@common/text';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { addQuestionListSelector } from '@/recoils/myInterview/withAdd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -12,6 +14,10 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 export default function CheckPage() {
   const router = useRouter();
   const questionList = useRecoilValue(addQuestionListSelector);
+  //   const questionList = [
+  //     { questionId: 1, questionContent: 'react 질문', answerContent: 'dfsfsdf' },
+  //     { questionId: 2, questionContent: 'react 질문', answerContent: 'dfsfsdf' },
+  //   ];
   const setQuestionList = useSetRecoilState(addQuestionListSelector);
   const [openStates, setOpenStates] = useState(questionList.map(() => false));
   const [editingStates, setEditingStates] = useState(questionList.map(() => false));
@@ -53,13 +59,15 @@ export default function CheckPage() {
     router.push('/interview/result');
   };
 
+  useBeforeUnload();
+
   return (
     <>
       <Text as="h2" size="xl" weight="lg" className="mb-5">
-        면접 결과
+        면접 확인
       </Text>
-      <Text as="h2" size="md" weight="md" color="blue" className="mb-2">
-        * 면접 결과를 확인하고 질문을 수정하세요.
+      <Text as="h2" size="md" weight="md" color="blue" className="mb-5">
+        * 내가 답변한 내용을 확인하고 수정하세요.
       </Text>
       <ul>
         {questionList.map((question, index) => (
@@ -69,23 +77,30 @@ export default function CheckPage() {
             isMain
             isOpen={openStates[index]}
             onClick={() => handleToggle(index)}>
-            {editingStates[index] ? (
-              <input
-                type="text"
+            {editingStates[index] || currentAnswers[index] === '' ? (
+              <textarea
                 value={currentAnswers[index]}
+                className="w-full resize-none border-none px-11 text-[14px]"
                 onChange={e => handleAnswerChange(index, e.target.value)}
                 onBlur={() => handleInputBlur(index)}
-                className="px-11"
               />
             ) : (
               <div onClick={() => handleDoubleClick(index)}>
-                <Text size="lg" weight="sm" className="px-11">
+                <Text size="lg" weight="md" className="px-11">
                   {currentAnswers[index]}
                 </Text>
               </div>
             )}
           </Accordion>
         ))}
+
+        {/* {questionList.map(question => (
+          <EditQuestion
+            key={question.questionId}
+            title={question.questionContent}
+            question={question.answerContent}
+          />
+        ))} */}
       </ul>
       <IconButton
         iconName="next_arrow.png"

@@ -12,6 +12,7 @@ import { Category, MainCategory } from '@/constants/category';
 import useGetDevice from '@/hooks/interview/useGetDevice';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import useVideo from '@/hooks/interview/useVideo';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
 import { interviewQuestionCountAtom, interviewTimeAtom } from '@/recoils/interview/atom';
 import { convertSecondsToMinutes } from '@/utils/format';
@@ -45,6 +46,7 @@ export default function PermissionPage() {
     onStartVideo();
   }, [selectedDeviceId]);
 
+  useBeforeUnload();
   return (
     <>
       {isPressedBtn ? (
@@ -98,7 +100,8 @@ export default function PermissionPage() {
             edge="end"
             size="md"
             className="absolute bottom-14 right-[300px]"
-            onClick={onMovePage}>
+            onClick={onMovePage}
+            disabled={!selectedDeviceId.audioId}>
             다음 단계
           </IconButton>
           <div className="absolute bottom-14 right-14">

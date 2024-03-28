@@ -22,6 +22,7 @@ import {
 } from '@/recoils/myInterview/withAdd';
 import { interviewQuestionCountAtom } from '@/recoils/interview/atom';
 import userQueries from '@/queries/user/useGetUser';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 
 export default function ChoiceSettingPage() {
   const [isClickNextBtn, setIsClickNextBtn] = useState<boolean>(false);
@@ -50,6 +51,11 @@ export default function ChoiceSettingPage() {
   const { data: userInfo } = userQueries.useGetInfo();
 
   const handleClickQuestion = (questionId: number, questionContent: string) => {
+    if (checkedQuestionIdList.length > 10) {
+      window.alert('질문은 최대 10개 선택할 수 있습니다.');
+      return;
+    }
+
     setCheckedQuestionIdList(prevList => {
       const index = prevList.findIndex(item => item.questionId === questionId);
       if (index !== -1) {
@@ -74,6 +80,8 @@ export default function ChoiceSettingPage() {
       setQuestionCount(checkedQuestionIdList.length);
     }
   }, [isClickNextBtn]);
+
+  useBeforeUnload();
 
   return (
     <>
@@ -117,7 +125,8 @@ export default function ChoiceSettingPage() {
               edge="end"
               size="md"
               className="absolute bottom-14 right-[300px]"
-              onClick={() => setIsClickNextBtn(true)}>
+              onClick={() => setIsClickNextBtn(true)}
+              disabled={!checkedQuestionIdList.length}>
               다음 단계
             </IconButton>
             <div className="absolute bottom-14 right-14">

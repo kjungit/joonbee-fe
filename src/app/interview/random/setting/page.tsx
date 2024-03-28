@@ -5,7 +5,7 @@ import Button from '@/components/@common/button';
 import { Text } from '@/components/@common/text';
 import { interviewQuestionCountAtom } from '@/recoils/interview/atom';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import CategoryDropdown from '@/components/@common/categoryDropdown';
@@ -15,6 +15,7 @@ import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQ
 import QuestionTimeButtonGroup from '@/components/@common/questionTimeButtonGroup';
 import { updateCategoryNameSelector, updateUserNameSelector } from '@/recoils/myInterview/withAdd';
 import userQueries from '@/queries/user/useGetUser';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 
 export default function RandomSettingPage() {
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
@@ -31,6 +32,8 @@ export default function RandomSettingPage() {
     setCategory(mySelectCategory.category);
     onMovePage();
   };
+
+  useBeforeUnload();
 
   return (
     <>

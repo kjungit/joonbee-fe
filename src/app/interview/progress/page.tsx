@@ -16,6 +16,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { addQuestionSelector } from '@/recoils/myInterview/withAdd';
 import { MyInterviewQuestions } from '@/apis/services/openAiApis';
 import { isAllowedVideoSelector } from '@/recoils/interview/withCheckVideo';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 
 const TimerStateText = {
   READY: {
@@ -190,6 +191,8 @@ export default function ProgressPage() {
         break;
     }
   };
+
+  useBeforeUnload();
 
   return (
     <>
