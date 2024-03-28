@@ -36,8 +36,11 @@ export default function RandomSettingPage() {
     <>
       {!isPressedBtn ? (
         <>
-          <div className="mb-5">
-            <Text as="h3" size="lg" weight="lg" className="mb-2">
+          <Text as="h2" size="xl" weight="lg" className="mb-5">
+            면접 설정
+          </Text>
+          <div className="mb-4">
+            <Text as="h3" size="lg" className="mb-2">
               전체 질문 카테고리를 선택해주세요
             </Text>
             <div className="flex gap-10">
@@ -53,48 +56,53 @@ export default function RandomSettingPage() {
                 setSelectedSubcategory={(subCategory: any) =>
                   setMySelectCategory(prev => ({ ...prev, subCategory }))
                 }
-                size="md"
+                size="sm"
                 className="mb-4"
               />
             </div>
           </div>
-          <div className="mb-5">
-            <Text as="h3" size="lg" weight="lg" className="mb-2">
+          <div className="mb-4">
+            <Text as="h3" size="lg" className="mb-2">
               질문 개수를 설정해주세요
             </Text>
             <div className="flex gap-10">
               <p className="min-w-[120px] h-[40px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
-                질문 수
+                질문 개수
               </p>
               <div className="flex gap-5">
                 <Button
-                  size="xs"
+                  size="auto"
                   color={questionCount === 2 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(2)}>
+                  onClick={() => setQuestionCount(2)}
+                  className="shadow-md">
                   2
                 </Button>
                 <Button
-                  size="xs"
+                  size="auto"
                   color={questionCount === 4 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(4)}>
+                  onClick={() => setQuestionCount(4)}
+                  className="shadow-md">
                   4
                 </Button>
                 <Button
-                  size="xs"
+                  size="auto"
                   color={questionCount === 6 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(6)}>
+                  onClick={() => setQuestionCount(6)}
+                  className="shadow-md">
                   6
                 </Button>
                 <Button
-                  size="xs"
+                  size="auto"
                   color={questionCount === 8 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(8)}>
+                  onClick={() => setQuestionCount(8)}
+                  className="shadow-md">
                   8
                 </Button>
                 <Button
-                  size="xs"
+                  size="auto"
                   color={questionCount === 10 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(10)}>
+                  onClick={() => setQuestionCount(10)}
+                  className="shadow-md">
                   10
                 </Button>
               </div>

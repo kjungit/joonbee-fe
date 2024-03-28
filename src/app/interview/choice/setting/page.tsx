@@ -136,7 +136,7 @@ export default function ChoiceSettingPage() {
               <div ref={setTarget}></div>
             </ul>
             <div className="mb-5">
-              <Text as="h3" size="lg" weight="lg" className="mb-2">
+              <Text as="h3" size="lg" className="mb-2">
                 전체 질문 카테고리를 선택해주세요
               </Text>
               <div className="flex gap-10">

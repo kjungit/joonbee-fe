@@ -8,8 +8,8 @@ export default function QuestionTimeButtonGroup() {
   const [time, setTime] = useRecoilState(interviewTimeAtom);
 
   return (
-    <div className="mb-5">
-      <Text as="h3" size="lg" weight="lg" className="mb-2">
+    <div className="mb-4">
+      <Text as="h3" size="lg" className="mb-2">
         개별 질문 시간을 설정해주세요
       </Text>
       <div className="flex gap-10">
@@ -21,21 +21,21 @@ export default function QuestionTimeButtonGroup() {
             size="sm"
             color={time === 60 ? 'primary' : 'white'}
             onClick={() => setTime(60)}
-            className="shadow-sm">
+            className="shadow-md">
             1분
           </Button>
           <Button
             size="sm"
             color={time === 90 ? 'primary' : 'white'}
             onClick={() => setTime(90)}
-            className="shadow-sm">
+            className="shadow-md">
             1분 30초
           </Button>
           <Button
             size="sm"
             color={time === 120 ? 'primary' : 'white'}
             onClick={() => setTime(120)}
-            className="shadow-sm">
+            className="shadow-md">
             2분
           </Button>
         </div>
