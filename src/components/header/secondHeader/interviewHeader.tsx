@@ -26,6 +26,8 @@ export const InterviewHeader = ({}: InterviewHeaderProps) => {
 
   const [interviewType, setInterviewType] = useRecoilState(interviewTypeAtom);
 
+  if (!interviewType) return;
+
   return (
     <nav className="flex items-center">
       <div className="flex">

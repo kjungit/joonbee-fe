@@ -15,9 +15,9 @@ export const interviewVideoUrlAtom = atom<string>({
   default: '',
 });
 
-export const interviewTypeAtom = atom<InterviewType>({
+export const interviewTypeAtom = atom<InterviewType | ''>({
   key: 'interviewTypeAtom',
-  default: 'random',
+  default: '',
 });
 
 export const selectedDeviceIdAtom = atom<{

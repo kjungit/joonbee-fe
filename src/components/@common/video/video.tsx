@@ -11,7 +11,7 @@ export default function Video({ className, videoRef }: VideoProps) {
     <video
       autoPlay
       ref={videoRef}
-      className={`object-cover shadow-md rounded-2xl w-[362px] h-[230px] ${className}`}
+      className={`object-cover shadow-md rounded-2xl w-full h-[240px] ${className}`}
     />
   );
 }
