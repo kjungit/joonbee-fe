@@ -196,32 +196,39 @@ export default function ProgressPage() {
       <Text size="xl" className="mb-5">
         질문 {currentCount}
       </Text>
-      <div className="flex gap-10 mb-10">
-        <Video videoRef={videoRef} />
-        <div className="flex flex-col justify-between">
-          <div>
-            <div className="bg-blue-light rounded-md w-[234px] h-[48px] flex justify-center items-center gap-5">
-              <Text className="text-[18px]">남은시간</Text>
-              <Text weight="lg" className="text-[18px]">
-                {remainingTime}
-              </Text>
-            </div>
-            {progressStatus === 'PROGRESS' && (
-              <div className="rounded-md text-[14px] text-main-primary flex gap-5 items-center justify-end">
-                <p>음성 인식 중</p>
-                <div className="voice"></div>
+      <div className="mb-12">
+        <div className="flex gap-10 mb-3 relative">
+          <Video videoRef={videoRef} />
+          <div className="flex flex-col justify-between">
+            <div>
+              <div className="bg-blue-light rounded-md w-[234px] h-[48px] flex justify-center items-center gap-5">
+                <Text className="text-[18px]">남은시간</Text>
+                <Text weight="lg" className="text-[18px]">
+                  {remainingTime}
+                </Text>
               </div>
-            )}
-          </div>
+              {progressStatus === 'PROGRESS' && (
+                <div className="rounded-md text-[14px] text-blue-primary flex gap-2 items-center justify-end">
+                  <Text className="sm">음성 인식 중</Text>
+                  <div className="voice"></div>
+                </div>
+              )}
+            </div>
 
-          <Button size="xl" onClick={onClickButton}>
-            {btnText}
-          </Button>
+            <div>
+              <Button size="xl" onClick={onClickButton}>
+                {btnText}
+              </Button>
+            </div>
+          </div>
         </div>
+        <Text className="absolute">{helpText}</Text>
       </div>
       <div className="flex items-center mb-2">
         <VariableIcon name="triangleRight" />
-        <Text size="lg">{currentQuestion?.questionContent}</Text>
+        <Text size="xl" className="mb-1">
+          {currentQuestion?.questionContent}
+        </Text>
       </div>
 
       <TextArea inputValue={transcript} setInputValue={setTranscript} />
