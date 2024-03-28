@@ -139,7 +139,7 @@ export default function ProgressPage() {
       setCurrentCount(prev => prev + 1);
     } else {
       onStopRecord();
-      router.push('/interview/result');
+      router.push('/interview/check');
       return;
     }
 
