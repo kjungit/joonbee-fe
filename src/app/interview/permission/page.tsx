@@ -54,27 +54,26 @@ export default function PermissionPage() {
         </div>
       ) : (
         <>
-          <div className="mb-5">
-            <div className="mb-6">
-              <Text as="h3" size="lg" weight="lg" className="mb-2">
-                장치 권한 설정
-              </Text>
+          <Text as="h2" size="xl" weight="lg" className="mb-5">
+            장치 권한 설정
+          </Text>
+          <div className="max-w-[400px] mb-8">
+            <div className="mb-5">
               {selectedDeviceId.videoId == '1' ? (
-                <div className={`bg-black shadow-md rounded-2xl w-[362px] h-[230px]`}></div>
+                <div className={`bg-black shadow-md rounded-2xl w-full h-[240px]`}></div>
               ) : (
                 <Video videoRef={videoRef} />
               )}
             </div>
-          </div>
-          <div className="flex gap-8 items-center">
+            <Text size="md" className="mb-2" color="blue">
+              * 카메라는 필수가 아니지만 마이크는 필수에요!
+            </Text>
             <DeviceSelect
               deviceType="video"
               devices={videoDevices}
               selectedId={selectedDeviceId.videoId}
               onSelect={videoId => handleSelectDevice('video', videoId)}
             />
-          </div>
-          <div className="flex gap-8 items-center">
             <DeviceSelect
               deviceType="audio"
               devices={audioDevices}
@@ -83,17 +82,14 @@ export default function PermissionPage() {
             />
           </div>
 
-          <Text size="md" weight="lg" className="mb-20">
-            * 카메라는 필수가 아니지만 마이크는 필수에요!
-          </Text>
-          <ul className="flex gap-5 absolute">
-            <li className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
+          <ul className="flex gap-5">
+            <li className="w-[120px] h-[40px] bg-main-primary rounded-lg text-white flex items-center justify-center">
               {MainCategory[mySelectCategory.category]}
             </li>
-            <li className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
+            <li className="w-[120px] h-[40px] bg-main-primary rounded-lg text-white flex items-center justify-center">
               질문 {questionCount}개
             </li>
-            <li className="w-[140px] h-[50px] bg-main-primary rounded-lg text-white flex items-center justify-center font-bold">
+            <li className="w-[120px] h-[40px] bg-main-primary rounded-lg text-white flex items-center justify-center">
               {convertSecondsToMinutes(time)}
             </li>
           </ul>

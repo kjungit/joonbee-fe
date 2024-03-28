@@ -29,7 +29,7 @@ export default function DeviceSelect({
   }, [devices]);
 
   return (
-    <div className="flex items-center gap-2 mb-5">
+    <div className="flex items-center gap-2 mb-4">
       <VariableIcon name={deviceType} size={16} />
       <Text as="h3" size="lg" weight="lg">
         {deviceTypeName}

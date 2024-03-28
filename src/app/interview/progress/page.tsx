@@ -193,16 +193,16 @@ export default function ProgressPage() {
 
   return (
     <>
-      <Text size="xl" className="mb-5">
+      <Text as="h2" size="xl" weight="lg" className="mb-5">
         질문 {currentCount}
       </Text>
       <div className="mb-12">
-        <div className="flex gap-10 mb-3 relative">
+        <div className="flex gap-24 mb-5 relative">
           <Video videoRef={videoRef} />
           <div className="flex flex-col justify-between">
             <div>
               <div className="bg-blue-light rounded-md w-[234px] h-[48px] flex justify-center items-center gap-5">
-                <Text className="text-[18px]">남은시간</Text>
+                <Text className="text-[16px]">남은시간</Text>
                 <Text weight="lg" className="text-[18px]">
                   {remainingTime}
                 </Text>
@@ -222,7 +222,7 @@ export default function ProgressPage() {
             </div>
           </div>
         </div>
-        <Text className="absolute">{helpText}</Text>
+        <Text>{helpText}</Text>
       </div>
       <div className="flex items-center mb-2">
         <VariableIcon name="triangleRight" />

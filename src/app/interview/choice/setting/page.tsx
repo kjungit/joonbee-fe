@@ -80,10 +80,13 @@ export default function ChoiceSettingPage() {
       {!isPressedBtn ? (
         !isClickNextBtn ? (
           <>
-            <Text as="h2" size="xl" weight="lg" className="mb-8">
+            <Text as="h2" size="xl" weight="lg" className="mb-5">
               나의 질문
             </Text>
-            <ul className=" flex flex-col gap-4 overflow-auto h-[60%] mb-4">
+            <Text as="h2" size="md" weight="md" color="blue" className="mb-2">
+              * 면접을 진행할 질문을 선택해주세요
+            </Text>
+            <ul className=" flex flex-col gap-4 overflow-auto h-[60%] mb-8">
               {questionData?.map(item => (
                 <QuestionCheck
                   key={item.questionId}
@@ -96,9 +99,7 @@ export default function ChoiceSettingPage() {
               ))}
               <div ref={setTarget}></div>
             </ul>
-            <Text as="h2" size="md" weight="md" color="blue" className="mb-8">
-              * 면접을 진행할 질문을 선택해주세요
-            </Text>
+
             <CategoryDropdown
               selectedCategory={mySelectCategory.category}
               setSelectedCategory={(category: any) =>
@@ -125,7 +126,7 @@ export default function ChoiceSettingPage() {
           </>
         ) : (
           <>
-            <Text as="h2" size="xl" weight="lg" className="mb-8">
+            <Text as="h2" size="xl" weight="lg" className="mb-5">
               선택한 질문
             </Text>
             <ul className=" flex flex-col gap-4 h-[60%] overflow-auto">

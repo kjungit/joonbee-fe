@@ -17,13 +17,25 @@ export default function QuestionTimeButtonGroup() {
           질문 시간
         </p>
         <div className="flex gap-5">
-          <Button size="sm" color={time === 60 ? 'primary' : 'white'} onClick={() => setTime(60)}>
+          <Button
+            size="sm"
+            color={time === 60 ? 'primary' : 'white'}
+            onClick={() => setTime(60)}
+            className="shadow-sm">
             1분
           </Button>
-          <Button size="sm" color={time === 90 ? 'primary' : 'white'} onClick={() => setTime(90)}>
+          <Button
+            size="sm"
+            color={time === 90 ? 'primary' : 'white'}
+            onClick={() => setTime(90)}
+            className="shadow-sm">
             1분 30초
           </Button>
-          <Button size="sm" color={time === 120 ? 'primary' : 'white'} onClick={() => setTime(120)}>
+          <Button
+            size="sm"
+            color={time === 120 ? 'primary' : 'white'}
+            onClick={() => setTime(120)}
+            className="shadow-sm">
             2분
           </Button>
         </div>
