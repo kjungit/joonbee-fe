@@ -1,10 +1,20 @@
+'use client';
+
 import Button from '@/components/@common/button';
 import { Text } from '@/components/@common/text';
+import { interviewTypeAtom } from '@/recoils/interview/atom';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
 export default function RandomPage() {
+  const [, setInterviewType] = useRecoilState(interviewTypeAtom);
+
+  useEffect(() => {
+    setInterviewType('random');
+  }, []);
+
   return (
     <>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col flex-inline items-center gap-5">
