@@ -8,17 +8,19 @@ export const Accordion = ({
   onClick,
   isBorder = false,
   isMain = false,
+  isOpen = true,
 }: {
   title: string;
   children: React.ReactNode;
   onClick?: () => void;
   isBorder?: boolean;
   isMain?: boolean;
+  isOpen?: boolean;
 }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpenState, setIsOpenState] = useState(isOpen);
 
   const handleToggle = () => {
-    setIsOpen(!isOpen);
+    setIsOpenState(!isOpenState);
   };
 
   return (
@@ -26,12 +28,16 @@ export const Accordion = ({
       <div
         className={`${isMain ? 'pl-4 py-2 ' : 'pl-10'} flex cursor-pointer items-center`}
         onClick={onClick || handleToggle}>
-        <VariableIcon name="triangleRight" size={16} className={`${isOpen && 'rotate-90'}`} />
+        <VariableIcon
+          name="triangleRight"
+          size={16}
+          className={`${(isOpen || isOpenState) && 'rotate-90'}`}
+        />
         <Text size="lg" weight="md" className="p-1">
           {title}
         </Text>
       </div>
-      {isOpen && <>{children}</>}
+      {(isOpen || isOpenState) && <>{children}</>}
     </div>
   );
 };

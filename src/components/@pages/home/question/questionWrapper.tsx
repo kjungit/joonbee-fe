@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { QuestionSaveIcon } from './questionSaveIcon';
 import { useGetQuestion } from '@/queries/question/useGetQuestion';
+import { CenterSectionWrapper } from '@/components/wrapper/centerSectionWrapper';
 
 export const QuestionWrapper = () => {
   const searchParams = useSearchParams();
@@ -15,15 +16,15 @@ export const QuestionWrapper = () => {
     console.log(questionData);
   }, [status, isFetching]);
   return (
-    <section className="min-w-[800px] h-full effect-white p-5 flex flex-col gap-8 ">
-      <div className="questionListHeight ">
+    <div className="flex h-full w-full justify-center overflow-auto">
+      <CenterSectionWrapper>
         {categoryParams === 'question' &&
           (status === 'pending' ? (
             <p>Loading...</p>
           ) : status === 'error' ? (
             <p>Error: {error?.message}</p>
           ) : (
-            <ul className=" flex flex-col gap-4 interviewListHeight overflow-auto">
+            <ul className=" flex flex-col gap-4 interviewListHeight ">
               {questionData &&
                 questionData.map((item, i) => (
                   <li key={item.questionId} className="flex gap-4">
@@ -37,12 +38,12 @@ export const QuestionWrapper = () => {
                     />
                   </li>
                 ))}
-              <div ref={setTarget}></div>
+              <div ref={setTarget}>ㅤ</div>
             </ul>
           ))}
 
         <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
-      </div>
-    </section>
+      </CenterSectionWrapper>
+    </div>
   );
 };
