@@ -3,6 +3,7 @@ import { CategoryName, SubcategoryName } from '@/types/question';
 import { useModal } from '@/hooks/useModal';
 import Button, { ButtonColors } from '../button';
 import { Category } from '@/constants/category';
+import useModalOutsideClick from '@/hooks/interview/useModalOutsideClick';
 
 type DropdownProps = {
   data: string[];
@@ -15,14 +16,15 @@ type DropdownProps = {
 };
 const Dropdown = ({
   data,
-  size = 'md',
+  size = 'sm',
   title = '카테고리',
   onSelect,
   selected,
   color = 'primary',
   disabled = false,
 }: DropdownProps) => {
-  const { isOpened, onToggle } = useModal();
+  const { isOpened, onToggle, onClose } = useModal();
+  const { modalRef } = useModalOutsideClick<HTMLUListElement>(onClose);
   const onSelectItem = (item: string) => {
     onToggleList();
     onSelect(item);
@@ -42,7 +44,7 @@ const Dropdown = ({
       ul: 'top-12 h-[234px] w-[120px]',
     },
     md: {
-      item: 'px-[22px] py-[12px] text-[14px]',
+      item: 'px-[22px] py-[12px] text-[16px]',
       section: 'min-w-[160px]',
       button: 'h-[60px] min-w-[160px]',
       ul: 'top-12 h-[234px] w-[142px]',
@@ -61,12 +63,13 @@ const Dropdown = ({
       </Button>
       {isOpened && (
         <ul
+          ref={modalRef}
           className={`shadow-normal px-[8px] py-[6px] top-10 rounded-[8px] overflow-y-auto bg-white absolute
            z-10 ${sizeStyles[size].ul}`}>
           {data.map((item, index) => (
             <li key={item} className="cursor-pointer">
               <div
-                className={`font-bold hover:bg-hover-grayLight hover:shadow-normal rounded-[8px] text-center
+                className={` hover:bg-hover-grayLight hover:shadow-normal rounded-[8px] text-center
                 text-[#444] ellipsis ${sizeStyles[size].item} ${
                   item === selected ? 'bg-hover-grayLight shadow-noraml' : ''
                 }`}

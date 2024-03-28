@@ -2,7 +2,7 @@
 import { MainCategory } from '@/constants/category';
 import { selectInterviewState } from '@/recoils/home/interview/selectInterview/atom';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { InterviewLikeIcon } from './interviewLikeIcon';
 import { useSearchParams } from 'next/navigation';
@@ -14,11 +14,6 @@ export default function DetailInterviewSection() {
   const selectInterview = useRecoilValue(selectInterviewState);
   const searchParams = useSearchParams();
   const categoryParams = searchParams.get('category');
-
-  useEffect(() => {
-    console.log(selectInterview);
-    console.log(categoryParams);
-  }, [selectInterview]);
 
   return (
     <section className=" h-full  w-full  ">

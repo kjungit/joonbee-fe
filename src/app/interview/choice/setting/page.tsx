@@ -14,8 +14,15 @@ import CategoryDropdown from '@/components/@common/categoryDropdown';
 import Dropdown from '@/components/@common/dropdown';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
 import QuestionTimeButtonGroup from '@/components/@common/questionTimeButtonGroup';
-import { addQuestionListSelector, addQuestionSelector } from '@/recoils/myInterview/withAdd';
+import {
+  addQuestionListSelector,
+  addQuestionSelector,
+  updateCategoryNameSelector,
+  updateUserNameSelector,
+} from '@/recoils/myInterview/withAdd';
 import { interviewQuestionCountAtom } from '@/recoils/interview/atom';
+import userQueries from '@/queries/user/useGetUser';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 
 export default function ChoiceSettingPage() {
   const [isClickNextBtn, setIsClickNextBtn] = useState<boolean>(false);
@@ -33,13 +40,22 @@ export default function ChoiceSettingPage() {
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
   const checkedQuestionList = useRecoilValue(addQuestionSelector);
   const setQuestion = useSetRecoilState(addQuestionListSelector);
+  const setUserName = useSetRecoilState(updateUserNameSelector);
+  const setCategory = useSetRecoilState(updateCategoryNameSelector);
 
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
   const { questionData, setTarget } = useGetMyQuestion();
 
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
 
+  const { data: userInfo } = userQueries.useGetInfo();
+
   const handleClickQuestion = (questionId: number, questionContent: string) => {
+    if (checkedQuestionIdList.length > 10) {
+      window.alert('질문은 최대 10개 선택할 수 있습니다.');
+      return;
+    }
+
     setCheckedQuestionIdList(prevList => {
       const index = prevList.findIndex(item => item.questionId === questionId);
       if (index !== -1) {
@@ -52,7 +68,11 @@ export default function ChoiceSettingPage() {
 
   const categoryList = [...new Set(questionData?.map(question => question.category))];
 
-  console.log('categoryList', checkedQuestionIdList);
+  const handleMove = () => {
+    onMovePage();
+    setUserName(userInfo?.nickName);
+    setCategory(mySelectCategory.category);
+  };
 
   useEffect(() => {
     if (isClickNextBtn) {
@@ -61,12 +81,20 @@ export default function ChoiceSettingPage() {
     }
   }, [isClickNextBtn]);
 
+  useBeforeUnload();
+
   return (
     <>
       {!isPressedBtn ? (
         !isClickNextBtn ? (
           <>
-            <ul className=" flex flex-col gap-4 overflow-auto h-[600px]">
+            <Text as="h2" size="xl" weight="lg" className="mb-5">
+              나의 질문
+            </Text>
+            <Text as="h2" size="md" weight="md" color="blue" className="mb-2">
+              * 면접을 진행할 질문을 선택해주세요
+            </Text>
+            <ul className=" flex flex-col gap-4 overflow-auto h-[60%] mb-8">
               {questionData?.map(item => (
                 <QuestionCheck
                   key={item.questionId}
@@ -79,6 +107,7 @@ export default function ChoiceSettingPage() {
               ))}
               <div ref={setTarget}></div>
             </ul>
+
             <CategoryDropdown
               selectedCategory={mySelectCategory.category}
               setSelectedCategory={(category: any) =>
@@ -96,7 +125,8 @@ export default function ChoiceSettingPage() {
               edge="end"
               size="md"
               className="absolute bottom-14 right-[300px]"
-              onClick={() => setIsClickNextBtn(true)}>
+              onClick={() => setIsClickNextBtn(true)}
+              disabled={!checkedQuestionIdList.length}>
               다음 단계
             </IconButton>
             <div className="absolute bottom-14 right-14">
@@ -105,25 +135,29 @@ export default function ChoiceSettingPage() {
           </>
         ) : (
           <>
-            <ul className=" flex flex-col gap-4 h-[600px] overflow-auto">
+            <Text as="h2" size="xl" weight="lg" className="mb-5">
+              선택한 질문
+            </Text>
+            <ul className=" flex flex-col gap-4 h-[60%] overflow-auto">
               {checkedQuestionList.map(item => (
                 <QuestionCheck key={item.questionId} question={item} isChecked={true} />
               ))}
               <div ref={setTarget}></div>
             </ul>
-            <Text as="h3" size="lg" weight="lg" className="mb-2">
-              전체 질문 카테고리를 선택해주세요
-            </Text>
-            <div className="flex gap-10">
-              <p className="min-w-[142px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md">
-                카테고리
-              </p>
-
-              <Dropdown
-                data={categoryList || []}
-                selected={mySelectCategory.category}
-                onSelect={category => setMySelectCategory(prev => ({ ...prev, category }))}
-              />
+            <div className="mb-5">
+              <Text as="h3" size="lg" className="mb-2">
+                전체 질문 카테고리를 선택해주세요
+              </Text>
+              <div className="flex gap-10">
+                <p className="min-w-[120px] h-[40px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
+                  카테고리
+                </p>
+                <Dropdown
+                  data={categoryList || []}
+                  selected={mySelectCategory.category}
+                  onSelect={category => setMySelectCategory(prev => ({ ...prev, category }))}
+                />
+              </div>
             </div>
             <QuestionTimeButtonGroup />
 
@@ -132,7 +166,7 @@ export default function ChoiceSettingPage() {
               edge="end"
               size="md"
               className="absolute bottom-14 right-[300px]"
-              onClick={onMovePage}>
+              onClick={handleMove}>
               다음 단계
             </IconButton>
             <div className="absolute bottom-14 right-14">

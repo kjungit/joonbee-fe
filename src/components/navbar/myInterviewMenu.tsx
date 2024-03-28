@@ -1,5 +1,4 @@
 import { useGetMyInterview } from '@/queries/interview/useGetMyInterview';
-import { PolarChart } from '../@common/polarChart';
 import { useRecoilState } from 'recoil';
 import { selectMyInterviewAtom } from '@/recoils/user/seletMyInterview/atom';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -44,7 +43,6 @@ export const MyInterviewMenu = () => {
       )}
 
       <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
-      <PolarChart />
     </div>
   );
 };

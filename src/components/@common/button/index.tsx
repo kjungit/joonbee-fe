@@ -35,7 +35,7 @@ export default function Button({
     sm: 'w-[120px] h-[40px] text-[14px]',
     md: 'w-[142px] h-[48px] text-[16px]',
     lg: 'w-[200px] h-[48px] text-[16px]',
-    xl: 'w-[234px] h-[48px] text-[18px]',
+    xl: 'w-[234px] h-[48px] text-[16px]',
   };
 
   const variantStyles = {
