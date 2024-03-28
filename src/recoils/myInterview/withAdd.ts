@@ -1,5 +1,6 @@
 import { selector } from 'recoil';
 import { myInterviewAtom } from './atom';
+import { MyInterviewQuestions } from '@/apis/services/openAiApis';
 
 export const addQuestionSelector = selector({
   key: 'addQuestionSelector',
@@ -24,13 +25,43 @@ export const addQuestionListSelector = selector({
     return currentInterview.questions;
   },
   set: ({ set }, newValue) => {
-    // newValue를 새로운 questions 배열로 처리합니다.
-    const newQuestions = newValue as any[]; // 새로운 배열의 타입에 맞게 조정하세요.
+    const newQuestions = newValue as MyInterviewQuestions[];
 
-    // myInterviewAtom을 업데이트하여 questions만 새로운 배열로 대체합니다.
     set(myInterviewAtom, prevInterview => ({
       ...prevInterview,
       questions: newQuestions,
     }));
+  },
+});
+
+export const updateUserNameSelector = selector({
+  key: 'updateUserNameSelector',
+  get: ({ get }) => {
+    const myInterview = get(myInterviewAtom);
+    return myInterview.userName;
+  },
+  set: ({ set }, newValue) => {
+    if (typeof newValue === 'string') {
+      set(myInterviewAtom, prevValue => ({
+        ...prevValue,
+        userName: newValue,
+      }));
+    }
+  },
+});
+
+export const updateCategoryNameSelector = selector({
+  key: 'updateCategoryNameSelector',
+  get: ({ get }) => {
+    const myInterview = get(myInterviewAtom);
+    return myInterview.categoryName;
+  },
+  set: ({ set }, newValue) => {
+    if (typeof newValue === 'string') {
+      set(myInterviewAtom, prevValue => ({
+        ...prevValue,
+        categoryName: newValue,
+      }));
+    }
   },
 });
