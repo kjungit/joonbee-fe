@@ -6,7 +6,7 @@ export default function useGetRandomQuestionList(data: {
   category: string;
   subcategory: string;
   questionCount: number;
-  interviewType: InterviewType;
+  interviewType: InterviewType | '';
 }) {
   const { interviewType, ...params } = data;
   const { data: randomQuestionData, isSuccess } = useQuery({
