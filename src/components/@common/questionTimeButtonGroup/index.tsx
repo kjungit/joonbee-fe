@@ -8,7 +8,7 @@ export default function QuestionTimeButtonGroup() {
   const [time, setTime] = useRecoilState(interviewTimeAtom);
 
   return (
-    <div className="mb-4">
+    <div className="">
       <Text as="h3" size="lg" className="mb-2">
         개별 질문 시간을 설정해주세요
       </Text>

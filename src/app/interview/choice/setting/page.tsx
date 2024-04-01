@@ -94,7 +94,7 @@ export default function ChoiceSettingPage() {
             <Text as="h2" size="md" weight="md" color="blue" className="mb-2">
               * 면접을 진행할 질문을 선택해주세요
             </Text>
-            <ul className=" flex flex-col gap-4 overflow-auto h-[60%] mb-8">
+            <ul className=" flex flex-col gap-4 overflow-auto h-[360px] mb-8">
               {questionData?.map(item => (
                 <QuestionCheck
                   key={item.questionId}
@@ -107,38 +107,35 @@ export default function ChoiceSettingPage() {
               ))}
               <div ref={setTarget}></div>
             </ul>
-
-            <CategoryDropdown
-              selectedCategory={mySelectCategory.category}
-              setSelectedCategory={(category: any) =>
-                setMySelectCategory(prev => ({ ...prev, category }))
-              }
-              selectedSubcategory={mySelectCategory.subCategory}
-              setSelectedSubcategory={(subCategory: any) =>
-                setMySelectCategory(prev => ({ ...prev, subCategory }))
-              }
-              className="mb-4"
-            />
-            <QuestionCreateForm />
-            <IconButton
-              iconName="next_arrow.png"
-              edge="end"
-              size="md"
-              className="absolute bottom-14 right-[300px]"
-              onClick={() => setIsClickNextBtn(true)}
-              disabled={!checkedQuestionIdList.length}>
-              다음 단계
-            </IconButton>
-            <div className="absolute bottom-14 right-14">
-              <Image src="/laptop.png" alt="laptop" width={220} height={180} />
+            <div className="flex justify-between">
+              <CategoryDropdown
+                selectedCategory={mySelectCategory.category}
+                setSelectedCategory={(category: any) =>
+                  setMySelectCategory(prev => ({ ...prev, category }))
+                }
+                selectedSubcategory={mySelectCategory.subCategory}
+                setSelectedSubcategory={(subCategory: any) =>
+                  setMySelectCategory(prev => ({ ...prev, subCategory }))
+                }
+                className="mb-4"
+              />
+              <IconButton
+                iconName="next_arrow.png"
+                edge="end"
+                size="md"
+                onClick={() => setIsClickNextBtn(true)}
+                disabled={!checkedQuestionIdList.length}>
+                다음 단계
+              </IconButton>
             </div>
+            <QuestionCreateForm />
           </>
         ) : (
           <>
             <Text as="h2" size="xl" weight="lg" className="mb-5">
               선택한 질문
             </Text>
-            <ul className=" flex flex-col gap-4 h-[60%] overflow-auto">
+            <ul className=" flex flex-col gap-4 h-[360px] overflow-auto">
               {checkedQuestionList.map(item => (
                 <QuestionCheck key={item.questionId} question={item} isChecked={true} />
               ))}
@@ -159,18 +156,11 @@ export default function ChoiceSettingPage() {
                 />
               </div>
             </div>
-            <QuestionTimeButtonGroup />
-
-            <IconButton
-              iconName="next_arrow.png"
-              edge="end"
-              size="md"
-              className="absolute bottom-14 right-[300px]"
-              onClick={handleMove}>
-              다음 단계
-            </IconButton>
-            <div className="absolute bottom-14 right-14">
-              <Image src="/laptop.png" alt="laptop" width={220} height={180} />
+            <div className="flex justify-between items-end">
+              <QuestionTimeButtonGroup />
+              <IconButton iconName="next_arrow.png" edge="end" size="md" onClick={handleMove}>
+                다음 단계
+              </IconButton>
             </div>
           </>
         )
