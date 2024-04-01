@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { QuestionMenu } from '@/components/navbar/questionMenu';
 import { MyMenu } from './myMenu';
 import QuestionProgressMenu from './questionProgressMenu';
+import ChoiceSettingMenu from './choiceSettingMenu';
 
 export default function Navbar() {
   const [selectQuestionCategory, setSelectQuestionCategory] = useRecoilState(
@@ -42,6 +43,7 @@ export default function Navbar() {
         {pathName === '/' && categoryParams === 'question' && <QuestionMenu />}
         {pathName === '/my' && <MyMenu />}
         {pathName === '/interview/progress' && <QuestionProgressMenu />}
+        {pathName === '/interview/choice/setting' && <ChoiceSettingMenu />}
       </div>
     </div>
   );
