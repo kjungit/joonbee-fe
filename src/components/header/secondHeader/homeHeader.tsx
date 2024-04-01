@@ -1,5 +1,7 @@
+import IconButton from '@/components/@common/iconButton';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import { selectMenuState } from '@/recoils/home/selectMenu/atom';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MouseEvent } from 'react';
 import { useRecoilState } from 'recoil';
@@ -28,19 +30,25 @@ export const HomeHeader = () => {
   };
 
   return (
-    <>
-      <button
-        onClick={handleClickMenu}
-        id="interview"
-        className={`${categoryParams === 'interview' && 'font-bold'}`}>
-        면접 보기
-      </button>
-      <button
-        onClick={handleClickMenu}
-        id="question"
-        className={`${categoryParams === 'question' && 'font-bold'}`}>
-        질문 보기
-      </button>
-    </>
+    <nav>
+      <Link href="/?category=interview&Ifield=fe">
+        <IconButton
+          iconName="document"
+          color={categoryParams === 'interview' ? 'blue' : 'white'}
+          className={`${categoryParams === 'interview' && 'font-bold'}`}
+          size="sm">
+          면접 보기
+        </IconButton>
+      </Link>
+      <Link href="/?category=question&Qfield=fe&subField=react">
+        <IconButton
+          iconName="questionBox"
+          color={categoryParams === 'question' ? 'blue' : 'white'}
+          className={`${categoryParams === 'question' && 'font-bold'}`}
+          size="sm">
+          질문 보기
+        </IconButton>
+      </Link>
+    </nav>
   );
 };

@@ -35,46 +35,7 @@ export default function Header() {
         <div className="flex items-center justify-between w-full ">
           <div className="flex gap-4 px-2 w-full">
             {pathName === '/' && <HomeHeader />}
-            {pathName === '/interview/choice' && <InterviewHeader />}
-            {pathName === '/interview/random' && <InterviewHeader />}
-
-            {pathName === '/interview/choice/setting' && (
-              <div className="flex gap-8 items-center">
-                <IconButton
-                  iconName="checklist.png"
-                  color="blue"
-                  size="sm"
-                  className={`${
-                    pathName.includes('random') ? 'font-bold bg-blue-light' : ''
-                  } cursor-default`}>
-                  랜덤 질문
-                </IconButton>
-                <InterviewProgressBar />
-              </div>
-            )}
-            {pathName === '/interview/random/setting' && (
-              <div className="flex gap-8 items-center">
-                <IconButton iconName="random.png" color="blue" size="sm" className="cursor-default">
-                  랜덤 질문
-                </IconButton>
-                <InterviewProgressBar />
-              </div>
-            )}
-            {pathName === '/interview/permission' && (
-              <nav className="flex items-center justify-between w-full px-4 relative">
-                <InterviewProgressBar interview="DeviceSetting" />
-              </nav>
-            )}
-            {pathName === '/interview/progress' && (
-              <nav className="flex items-center justify-between w-full px-4 relative">
-                <InterviewProgressBar interview="InterviewConducting" />
-              </nav>
-            )}
-            {pathName === '/interview/result' && (
-              <nav className="flex items-center justify-between w-full px-4 relative">
-                <InterviewProgressBar interview="InterviewResult" />
-              </nav>
-            )}
+            <InterviewHeader />
             {pathName === '/my' && <MyHeader />}
           </div>
         </div>

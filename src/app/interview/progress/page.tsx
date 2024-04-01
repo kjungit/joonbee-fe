@@ -16,6 +16,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { addQuestionSelector } from '@/recoils/myInterview/withAdd';
 import { MyInterviewQuestions } from '@/apis/services/openAiApis';
 import { isAllowedVideoSelector } from '@/recoils/interview/withCheckVideo';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 
 const TimerStateText = {
   READY: {
@@ -23,7 +24,7 @@ const TimerStateText = {
     help: '질문에 대답할 준비가 되시면 시작버튼을 눌러주세요. 타이머가 끝나면 질문이 시작됩니다.',
   },
   PROGRESS: {
-    btn: '음성 인식 중',
+    btn: '다음 질문으로 넘어가기',
     help: '질문에 답변해주세요. 답변을 마치면 버튼을 눌러주세요.',
   },
   DONE: {
@@ -139,7 +140,7 @@ export default function ProgressPage() {
       setCurrentCount(prev => prev + 1);
     } else {
       onStopRecord();
-      router.push('/interview/result');
+      router.push('/interview/check');
       return;
     }
 
@@ -191,30 +192,46 @@ export default function ProgressPage() {
     }
   };
 
+  useBeforeUnload();
+
   return (
     <>
-      <Text size="xl" className="mb-5">
+      <Text as="h2" size="xl" weight="lg" className="mb-5">
         질문 {currentCount}
       </Text>
-      <div className="flex gap-10 mb-10">
-        <Video videoRef={videoRef} />
-        <div className="flex flex-col justify-between">
-          <div className="bg-blue-light rounded-md w-[234px] h-[48px] flex justify-center">
-            <div className="flex items-center gap-5 ">
-              <Text className="text-[18px]">남은시간</Text>
-              <Text weight="lg" className="text-[18px]">
-                {remainingTime}
-              </Text>
+      <div className="mb-12">
+        <div className="flex gap-24 mb-5 relative">
+          <Video videoRef={videoRef} />
+          <div className="flex flex-col justify-between">
+            <div>
+              <div className="bg-blue-light rounded-md w-[234px] h-[48px] flex justify-center items-center gap-5">
+                <Text className="text-[16px]">남은시간</Text>
+                <Text weight="lg" className="text-[18px]">
+                  {remainingTime}
+                </Text>
+              </div>
+              {progressStatus === 'PROGRESS' && (
+                <div className="rounded-md text-[14px] text-blue-primary flex gap-2 items-center justify-end">
+                  <Text className="sm">음성 인식 중</Text>
+                  <div className="voice"></div>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <Button size="xl" onClick={onClickButton}>
+                {btnText}
+              </Button>
             </div>
           </div>
-          <Button size="xl" onClick={onClickButton}>
-            {btnText}
-          </Button>
         </div>
+        <Text>{helpText}</Text>
       </div>
       <div className="flex items-center mb-2">
         <VariableIcon name="triangleRight" />
-        <Text size="lg">{currentQuestion?.questionContent}</Text>
+        <Text size="xl" className="mb-1">
+          {currentQuestion?.questionContent}
+        </Text>
       </div>
 
       <TextArea inputValue={transcript} setInputValue={setTranscript} />

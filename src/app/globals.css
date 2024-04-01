@@ -67,14 +67,11 @@
 
   .voice {
     display: block;
-    position: absolute;
     background-image: url('/voice.gif');
     background-size: cover;
-    width: 100px;
-    height: 100px;
-    bottom: 10px;
-    right: 10px;
-    opacity: 0.5;
+    width: 40px;
+    height: 40px;
+    opacity: 0.8;
   }
 
   .ellipsis {

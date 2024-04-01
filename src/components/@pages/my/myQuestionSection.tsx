@@ -3,13 +3,14 @@ import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import { useGetMyQuestion } from '@/queries/question/useGetMyQuestion';
 import { QuestionDeleteIcon } from '../home/question/questionDeleteIcon';
+import { CenterSectionWrapper } from '@/components/wrapper/centerSectionWrapper';
 
 export const MyQuestionSection = () => {
   const { questionData, error, isFetching, isFetchingNextPage, status, setTarget } =
     useGetMyQuestion();
 
   return (
-    <div>
+    <CenterSectionWrapper>
       <div className="questionListHeight p-5">
         {status === 'pending' ? (
           <p>Loading...</p>
@@ -33,6 +34,6 @@ export const MyQuestionSection = () => {
 
         <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
       </div>
-    </div>
+    </CenterSectionWrapper>
   );
 };
