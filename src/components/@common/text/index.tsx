@@ -12,6 +12,7 @@ export type TextProps = {
   weight?: TextWeight;
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 };
 export const Text = ({
   color = '',
@@ -20,6 +21,7 @@ export const Text = ({
   weight = 'md',
   children,
   className = '',
+  onClick,
 }: TextProps) => {
   const textStyles = {
     xs: 'text-[8px]',
@@ -46,5 +48,9 @@ export const Text = ({
     red: 'text-status-alert',
   };
   const styles = `${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]} ${className}`;
-  return <Typography className={styles + ' break-keep'}>{children}</Typography>;
+  return (
+    <Typography className={styles + ' break-keep'} onClick={onClick}>
+      {children}
+    </Typography>
+  );
 };
