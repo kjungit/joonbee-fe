@@ -9,12 +9,14 @@ interface IconButtonProps extends ButtonProps {
   iconName: IconType;
   edge?: 'start' | 'end';
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export default function IconButton({
   iconName,
   children,
   onClick,
+  disabled = false,
   size = 'auto',
   color = 'primary',
   edge = 'start',
@@ -37,7 +39,12 @@ export default function IconButton({
   );
 
   return (
-    <Button size={size} color={color} className={`${props.className}`} onClick={onClick}>
+    <Button
+      size={size}
+      color={color}
+      className={`${props.className}`}
+      disabled={disabled}
+      onClick={onClick}>
       <div className="flex justify-center gap-2 items-center">
         {edge === 'start' && iconComponent}
         {children}

@@ -15,9 +15,9 @@ export const interviewVideoUrlAtom = atom<string>({
   default: '',
 });
 
-export const interviewTypeAtom = atom<InterviewType>({
+export const interviewTypeAtom = atom<InterviewType | ''>({
   key: 'interviewTypeAtom',
-  default: 'random',
+  default: '',
 });
 
 export const selectedDeviceIdAtom = atom<{
@@ -30,5 +30,10 @@ export const selectedDeviceIdAtom = atom<{
 
 export const currentCountAtom = atom({
   key: 'currentCountAtom',
-  default: 1, // 초기값
+  default: 1,
+});
+
+export const isClickNextBtnAtom = atom<boolean>({
+  key: 'isClickNextBtnAtom',
+  default: false,
 });

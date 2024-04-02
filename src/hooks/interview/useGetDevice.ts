@@ -28,7 +28,7 @@ export default function useGetDevice() {
     setAudioDevices(audioDeviceInfo);
   };
 
-  const selectDevice = (deviceType: 'video' | 'audio', deviceId: string) => {
+  const handleSelectDevice = (deviceType: 'video' | 'audio', deviceId: string) => {
     setSelectedDeviceId(prev => ({
       ...prev,
       [`${deviceType}Id`]: deviceId,
@@ -40,6 +40,6 @@ export default function useGetDevice() {
     audioDevices,
     getConnectedDevices,
     selectedDeviceId,
-    selectDevice,
+    handleSelectDevice,
   };
 }
