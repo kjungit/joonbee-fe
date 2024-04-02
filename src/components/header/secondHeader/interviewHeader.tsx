@@ -86,6 +86,20 @@ export const InterviewHeader = ({}: InterviewHeaderProps) => {
             </div>
           </nav>
         )}
+        {pathName === '/interview/check' && (
+          <nav className="flex items-center justify-between w-full px-4 relative">
+            <div className="flex gap-8 items-center">
+              <IconButton
+                iconName={INTERVIEW_TYPE[interviewType].iconName}
+                color="blue"
+                size="sm"
+                className="cursor-default font-bold">
+                {INTERVIEW_TYPE[interviewType].text}
+              </IconButton>
+              <InterviewProgressBar interview="InterviewConducting" />
+            </div>
+          </nav>
+        )}
         {pathName === '/interview/result' && (
           <nav className="flex items-center justify-between w-full px-4 relative">
             <div className="flex gap-8 items-center">
