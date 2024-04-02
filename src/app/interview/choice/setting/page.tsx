@@ -23,26 +23,24 @@ import {
 import { interviewQuestionCountAtom, isClickNextBtnAtom } from '@/recoils/interview/atom';
 import userQueries from '@/queries/user/useGetUser';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
+import PreventBackModal from '@/components/@common/preventBackModal';
 
 export default function ChoiceSettingPage() {
-  // const [isClickNextBtn, setIsClickNextBtn] = useState<boolean>(false);
   const [isClickNextBtn, setIsClickNextBtn] = useRecoilState(isClickNextBtnAtom);
   const [checkedQuestionIdList, setCheckedQuestionIdList] = useState<
     {
       questionId: number;
       questionContent: string;
+      category: string;
     }[]
   >([]);
-  // const [selectedCategory, setSelectedCategory] = useRecoilState(selectedChoiceCategoryAtom);
-  // const [selectedSubcategory, setSelectedSubcategory] = useRecoilState(
-  //   selectedChoiceSubcategoryAtom,
-  // );
 
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
   const checkedQuestionList = useRecoilValue(addQuestionSelector);
   const setQuestion = useSetRecoilState(addQuestionListSelector);
   const setUserName = useSetRecoilState(updateUserNameSelector);
   const setCategory = useSetRecoilState(updateCategoryNameSelector);
+  const [categoryList, setCategoryList] = useState<string[]>([]);
 
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
   const { questionData, setTarget } = useGetMyQuestion();
@@ -51,7 +49,7 @@ export default function ChoiceSettingPage() {
 
   const { data: userInfo } = userQueries.useGetInfo();
 
-  const handleClickQuestion = (questionId: number, questionContent: string) => {
+  const handleClickQuestion = (questionId: number, questionContent: string, category: string) => {
     if (checkedQuestionIdList.length > 10) {
       window.alert('질문은 최대 10개 선택할 수 있습니다.');
       return;
@@ -62,12 +60,15 @@ export default function ChoiceSettingPage() {
       if (index !== -1) {
         return prevList.filter(item => item.questionId !== questionId);
       } else {
-        return [...prevList, { questionId, questionContent }];
+        return [...prevList, { questionId, questionContent, category }];
       }
     });
   };
 
-  const categoryList = [...new Set(questionData?.map(question => question.category))];
+  useEffect(() => {
+    const uniqueCategories = new Set(checkedQuestionIdList.map(item => item.category));
+    setCategoryList([...uniqueCategories]);
+  }, [checkedQuestionIdList]);
 
   const handleMove = () => {
     onMovePage();
@@ -77,7 +78,12 @@ export default function ChoiceSettingPage() {
 
   useEffect(() => {
     if (isClickNextBtn) {
-      setQuestion(checkedQuestionIdList as any[]);
+      setQuestion(
+        checkedQuestionIdList.map(({ category, ...rest }) => ({
+          ...rest,
+          answerContent: '',
+        })),
+      );
       setQuestionCount(checkedQuestionIdList.length);
     }
   }, [isClickNextBtn]);
@@ -103,7 +109,9 @@ export default function ChoiceSettingPage() {
                   isChecked={checkedQuestionIdList.some(
                     checkedItem => checkedItem.questionId === item.questionId,
                   )}
-                  onCheckChange={() => handleClickQuestion(item.questionId, item.questionContent)}
+                  onCheckChange={() =>
+                    handleClickQuestion(item.questionId, item.questionContent, item.category)
+                  }
                 />
               ))}
               <div ref={setTarget}></div>
@@ -171,6 +179,7 @@ export default function ChoiceSettingPage() {
           <Text size="xl">면접을 준비중입니다</Text>
         </div>
       )}
+      <PreventBackModal />
     </>
   );
 }
