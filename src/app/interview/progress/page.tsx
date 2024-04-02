@@ -11,12 +11,13 @@ import Button from '@/components/@common/button';
 import TextArea from '@/components/@common/textArea';
 import useSpeechToText from '@/hooks/interview/useSpeechToText';
 import { useRouter } from 'next/navigation';
-import { currentCountAtom } from '@/recoils/interview/atom';
+import { currentCountAtom, interviewTypeAtom } from '@/recoils/interview/atom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { addQuestionSelector } from '@/recoils/myInterview/withAdd';
 import { MyInterviewQuestions } from '@/apis/services/openAiApis';
 import { isAllowedVideoSelector } from '@/recoils/interview/withCheckVideo';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
+import { resetQuestionListSelector } from '@/recoils/myInterview/withReset';
 
 const TimerStateText = {
   READY: {
@@ -39,10 +40,11 @@ export default function ProgressPage() {
   const [btnText, setBtnText] = useState(TimerStateText.READY.btn);
   const [helpText, setHelpText] = useState(TimerStateText.READY.help);
   const isAllowedVideo = useRecoilValue(isAllowedVideoSelector);
+  const interviewType = useRecoilValue(interviewTypeAtom);
   const setMyInterview = useSetRecoilState(addQuestionSelector);
+  const resetQuestionList = useSetRecoilState(resetQuestionListSelector);
 
   const { questionData } = useGetInterviewData();
-
   const [currentQuestion, setCurrentQuestion] = useState<MyInterviewQuestions>();
   const questionsCount = questionData.length;
 
@@ -58,6 +60,10 @@ export default function ProgressPage() {
     }
     if (questionData.length) setCurrentQuestion(questionData[0]);
   }, [questionData, isAllowedVideo]);
+
+  useEffect(() => {
+    if (interviewType === 'choice') resetQuestionList();
+  }, []);
 
   const {
     onStartListening,
