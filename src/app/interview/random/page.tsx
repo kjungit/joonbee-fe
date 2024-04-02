@@ -2,18 +2,13 @@
 
 import Button from '@/components/@common/button';
 import { Text } from '@/components/@common/text';
-import { interviewTypeAtom } from '@/recoils/interview/atom';
+import useResetInterviewData from '@/hooks/useResetInterviewData';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
 
 export default function RandomPage() {
-  const [, setInterviewType] = useRecoilState(interviewTypeAtom);
-
-  useEffect(() => {
-    setInterviewType('random');
-  }, []);
+  useResetInterviewData('random');
 
   return (
     <>
