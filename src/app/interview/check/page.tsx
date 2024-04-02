@@ -9,18 +9,14 @@ import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { addQuestionListSelector } from '@/recoils/myInterview/withAdd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 export default function CheckPage() {
   const router = useRouter();
-  // const questionList = useRecoilValue(addQuestionListSelector);
-  const questionList = [
-    { questionId: 1, questionContent: 'react 질문 react 질문', answerContent: 'dfsfsdf' },
-    { questionId: 2, questionContent: 'react 질문', answerContent: 'dfsfsdf' },
-    { questionId: 3, questionContent: 'react 질문', answerContent: 'dfsfsdf' },
-  ];
+  const questionList = useRecoilValue(addQuestionListSelector);
   const [textareaHeight, setTextareaHeight] = useState('auto');
+  const textareaRefs = useRef<HTMLTextAreaElement[]>([]);
 
   const setQuestionList = useSetRecoilState(addQuestionListSelector);
   const [openStates, setOpenStates] = useState(questionList.map(() => true));
@@ -29,13 +25,12 @@ export default function CheckPage() {
     questionList.map(question => question.answerContent),
   );
 
-  console.log('openStates', openStates);
   const handleToggle = (index: number) => {
     const updatedOpenStates = openStates.map((isOpen, i) => (i === index ? !isOpen : isOpen));
     setOpenStates(updatedOpenStates);
   };
 
-  const handleDoubleClick = (index: number) => {
+  const handleClick = (index: number) => {
     const updatedEditingStates = editingStates.map((isEditing, i) =>
       i === index ? true : isEditing,
     );
@@ -45,14 +40,6 @@ export default function CheckPage() {
   const handleAnswerChange = (index: number, value: string) => {
     const updatedAnswers = currentAnswers.map((content, i) => (i === index ? value : content));
     setCurrentAnswers(updatedAnswers);
-
-    requestAnimationFrame(() => {
-      const textarea = document.getElementById(`textarea-${index}`);
-      if (textarea) {
-        textarea.style.height = `${textarea.scrollHeight}px`;
-        setTextareaHeight(textarea.style.height); // 이 부분은 상태를 업데이트하는 데 필요하다면 유지
-      }
-    });
   };
 
   const handleInputBlur = (event: React.FocusEvent<HTMLTextAreaElement>, index: number) => {
@@ -77,6 +64,21 @@ export default function CheckPage() {
     router.push('/interview/result');
   };
 
+  const hasEmptyAnswer = currentAnswers.some(answer => answer === '');
+
+  useEffect(() => {
+    editingStates.forEach((isEditing, index) => {
+      if (isEditing && textareaRefs.current[index]) {
+        const textarea = textareaRefs.current[index];
+        textarea.style.height = 'auto';
+        const newHeight = Math.max(21, textarea.scrollHeight);
+        textarea.style.height = `${newHeight}px`;
+      }
+    });
+  }, [editingStates, currentAnswers]);
+
+  useBeforeUnload();
+
   return (
     <>
       <Text as="h2" size="xl" weight="lg" className="mb-5">
@@ -85,9 +87,9 @@ export default function CheckPage() {
       <Text as="h2" size="md" weight="md" color="blue" className="mb-5">
         * 내가 답변한 내용을 확인하고 수정하세요.
       </Text>
-      <div>
+      <div className="h-[480px] overflow-scroll">
         {questionList.map((question, index) => (
-          <div key={question.questionId} className={`pb-2 border-gray-normal`}>
+          <div key={question.questionId} className={`mb-2 border-gray-normal`}>
             <div className={`flex cursor-pointer items-center`} onClick={() => handleToggle(index)}>
               <VariableIcon
                 name="triangleRight"
@@ -99,26 +101,42 @@ export default function CheckPage() {
               </Text>
             </div>
             {openStates[index] && (
-              <div>
-                {editingStates[index] || currentAnswers[index] === '' ? (
+              <>
+                {editingStates[index] ? (
                   <textarea
+                    ref={el => {
+                      if (el) {
+                        textareaRefs.current[index] = el;
+                      }
+                    }}
                     id={`textarea-${index}`}
+                    rows={1}
                     style={{ height: textareaHeight }}
+                    placeholder="답변을 입력하세요."
                     value={currentAnswers[index]}
-                    className="w-full resize-none border-none px-8 text-[14px] font-medium"
+                    className="w-full resize-none border-none px-8 text-[14px] font-medium break-keep align-top block placeholder:text-gray-light"
                     onChange={e => handleAnswerChange(index, e.target.value)}
                     onBlur={e => handleInputBlur(e, index)}
                   />
+                ) : currentAnswers[index] === '' ? (
+                  <Text
+                    size="lg"
+                    weight="md"
+                    color="lightGray"
+                    className="w-full px-8 text-[14px]"
+                    onClick={() => handleClick(index)}>
+                    답변을 입력하세요.
+                  </Text>
                 ) : (
                   <Text
                     size="lg"
                     weight="md"
-                    className="px-8 text-[14px] "
-                    onClick={() => handleDoubleClick(index)}>
+                    className="w-full px-8 text-[14px]"
+                    onClick={() => handleClick(index)}>
                     {currentAnswers[index]}
                   </Text>
                 )}
-              </div>
+              </>
             )}
           </div>
         ))}
@@ -129,6 +147,7 @@ export default function CheckPage() {
         edge="end"
         size="md"
         className="absolute bottom-14 right-[300px]"
+        disabled={hasEmptyAnswer}
         onClick={handleMove}>
         다음 단계
       </IconButton>
