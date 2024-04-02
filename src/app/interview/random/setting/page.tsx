@@ -16,6 +16,7 @@ import QuestionTimeButtonGroup from '@/components/@common/questionTimeButtonGrou
 import { updateCategoryNameSelector, updateUserNameSelector } from '@/recoils/myInterview/withAdd';
 import userQueries from '@/queries/user/useGetUser';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
+import PreventBackModal from '@/components/@common/preventBackModal';
 
 export default function RandomSettingPage() {
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
@@ -130,6 +131,7 @@ export default function RandomSettingPage() {
           <Text size="xl">랜덤 면접을 준비중입니다</Text>
         </div>
       )}
+      <PreventBackModal />
     </>
   );
 }
