@@ -10,12 +10,15 @@ import Image from 'next/image';
 import { QuestionMenu } from '@/components/navbar/questionMenu';
 import { MyMenu } from './myMenu';
 import QuestionProgressMenu from './questionProgressMenu';
+import ChoiceSettingMenu from './choiceSettingMenu';
+import { isClickNextBtnAtom } from '@/recoils/interview/atom';
 
 export default function Navbar() {
   const [selectQuestionCategory, setSelectQuestionCategory] = useRecoilState(
     selectQuestionCategoryState,
   );
 
+  const isClickNextBtn = useRecoilValue(isClickNextBtnAtom);
   const selectMenu = useRecoilValue(selectMenuState);
   const searchParams = useSearchParams();
   const pathName = usePathname();
@@ -42,6 +45,7 @@ export default function Navbar() {
         {pathName === '/' && categoryParams === 'question' && <QuestionMenu />}
         {pathName === '/my' && <MyMenu />}
         {pathName === '/interview/progress' && <QuestionProgressMenu />}
+        {pathName === '/interview/choice/setting' && !isClickNextBtn && <ChoiceSettingMenu />}
       </div>
     </div>
   );

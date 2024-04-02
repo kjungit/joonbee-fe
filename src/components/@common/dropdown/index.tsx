@@ -16,7 +16,7 @@ type DropdownProps = {
 };
 const Dropdown = ({
   data,
-  size = 'md',
+  size = 'sm',
   title = '카테고리',
   onSelect,
   selected,
@@ -44,7 +44,7 @@ const Dropdown = ({
       ul: 'top-12 h-[234px] w-[120px]',
     },
     md: {
-      item: 'px-[22px] py-[12px] text-[14px]',
+      item: 'px-[22px] py-[12px] text-[16px]',
       section: 'min-w-[160px]',
       button: 'h-[60px] min-w-[160px]',
       ul: 'top-12 h-[234px] w-[142px]',
@@ -69,7 +69,7 @@ const Dropdown = ({
           {data.map((item, index) => (
             <li key={item} className="cursor-pointer">
               <div
-                className={`font-bold hover:bg-hover-grayLight hover:shadow-normal rounded-[8px] text-center
+                className={` hover:bg-hover-grayLight hover:shadow-normal rounded-[8px] text-center
                 text-[#444] ellipsis ${sizeStyles[size].item} ${
                   item === selected ? 'bg-hover-grayLight shadow-noraml' : ''
                 }`}

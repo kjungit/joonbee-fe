@@ -23,9 +23,8 @@ export const useGetQuestion = () => {
       subCategory: selectQuestionCategory.subCategory,
     },
     getNextPageParam: (lastPage, allPage) => {
-      console.log('lastPage', lastPage);
-      console.log('allPage', allPage);
       const resultData = allPage.flatMap(page => page.result);
+      console.log(resultData);
       return resultData.length < lastPage.total
         ? {
             page: allPage.length + 1,

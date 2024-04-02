@@ -1,3 +1,4 @@
+import IconButton from '@/components/@common/iconButton';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import { usePostChoiceQuestionSave } from '@/queries/question/usePostChoiceQuestionSave';
 import { usePostQuestionSave } from '@/queries/question/usePostQuestionSave';
@@ -24,12 +25,12 @@ export default function QuestionCreateForm() {
     questionSaveMutate();
   };
   return (
-    <form onSubmit={handleSubmit} className="border border-gray-light rounded-md w-[500px] p-3">
+    <form onSubmit={handleSubmit} className="border border-gray-light rounded-md w-full p-3">
       <label htmlFor="question" className="flex justify-center items-center">
         <input
           id="question"
-          placeholder="면접을 진행할 질문을 입력하세요!"
-          className="w-full"
+          placeholder="질문을 입력하세요!"
+          className="w-full text-[14px]"
           value={value}
           onChange={onChange}
         />

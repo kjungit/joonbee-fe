@@ -27,5 +27,8 @@ export default function useTimer(
     }
   }, [remainingTime, timerState]);
 
-  return { remainingTime };
+  const formattedMinutes = `0${Math.floor(remainingTime / 60)}`.slice(-2);
+  const formattedSeconds = `0${remainingTime % 60}`.slice(-2);
+
+  return { remainingTime, minutes: formattedMinutes, seconds: formattedSeconds };
 }
