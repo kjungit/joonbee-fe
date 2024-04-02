@@ -7,6 +7,7 @@ import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInt
 import { useGetInterview } from '@/queries/interview/useGetInterview';
 import Image from 'next/image';
 import { MainCategory } from '@/constants/category';
+import { CategoryName } from '@/types';
 interface ItemProps {
   id: string;
   text: string;
@@ -19,10 +20,10 @@ export const InterviewWrapper = () => {
 
   const searchParams = useSearchParams();
   const categoryParams = searchParams.get('category');
-  const iFieldParams = searchParams.get('Ifield') as string;
+  const iFieldParams = searchParams.get('Ifield') as CategoryName;
 
-  const { interviewData } = useGetInterview({
-    selectCategory: selectInterviewCategory.category,
+  const { interviewData, setTarget } = useGetInterview({
+    selectCategory: iFieldParams || 'fe',
     sort: selectInterviewCategory.sort,
   });
 
@@ -56,18 +57,20 @@ export const InterviewWrapper = () => {
               onClickFunc={handleClickCategory}
             />
           </div>
-          <ul className="interviewListHeight overflow-scroll flex flex-col items-center ">
-            {interviewData ? (
-              interviewData.map(item => <InterviewMenuItem key={item.interviewId} item={item} />)
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full">
-                <Image src="/desktop.png" width={200} height={200} alt="desktop" className="ml-4" />
-                <Text size="lg" weight="md">
-                  등록된 {MainCategory[iFieldParams]} 면접이 없습니다.
-                </Text>
-              </div>
-            )}
-          </ul>
+          {interviewData ? (
+            <ul className="interviewListHeight overflow-auto">
+              {interviewData &&
+                interviewData.map(item => <InterviewMenuItem key={item.interviewId} item={item} />)}
+              <div ref={setTarget}></div>
+            </ul>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full pt-20">
+              <Image src="/desktop.png" width={200} height={200} alt="desktop" className="ml-4" />
+              <Text size="lg" weight="md">
+                등록된 {MainCategory[iFieldParams]} 면접이 없습니다.
+              </Text>
+            </div>
+          )}
         </div>
       )}
     </section>
