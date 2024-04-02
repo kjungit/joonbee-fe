@@ -161,7 +161,7 @@ export default function ProgressPage() {
     setProgressStatus('DONE');
     setCountdown(5);
     setMyInterview({
-      questionId: currentQuestion?.questionId,
+      questionId: Number(currentQuestion?.questionId),
       questionContent: currentQuestion?.questionContent,
       answerContent: transcript,
     } as any);
