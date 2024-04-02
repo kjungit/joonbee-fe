@@ -9,18 +9,18 @@ export const InterviewLikeIcon = ({
   interviewId: number;
   liked: boolean;
 }) => {
-  const [isLikeCooldown, setIsLikeCooldown] = useState(false);
+  const [isLikeCoolDown, setIsLikeCoolDown] = useState(false);
   const { interviewLikeMutate } = usePostInterviewLike(interviewId);
 
   const handleClickInterviewId = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
-    if (!isLikeCooldown) {
-      setIsLikeCooldown(true);
+    if (!isLikeCoolDown) {
+      setIsLikeCoolDown(true);
       interviewLikeMutate();
 
       setTimeout(() => {
-        setIsLikeCooldown(false);
+        setIsLikeCoolDown(false);
       }, 1200);
     }
   };

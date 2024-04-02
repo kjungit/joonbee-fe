@@ -34,7 +34,7 @@ export const InterviewMenuItem = ({ item }: { item: InterviewItem }) => {
           alt={item.nickname + ' imgae'}
         />
       </div>
-      <div className="w-10">
+      <div className="w-14">
         <Text size="lg" weight="lg">
           {MainCategory[item.categoryName]}
         </Text>

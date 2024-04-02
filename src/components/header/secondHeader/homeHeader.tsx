@@ -30,7 +30,7 @@ export const HomeHeader = () => {
   };
 
   return (
-    <nav>
+    <nav className="flex gap-2">
       <Link href="/?category=interview&Ifield=fe">
         <IconButton
           iconName="document"
