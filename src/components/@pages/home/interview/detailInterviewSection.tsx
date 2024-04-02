@@ -16,9 +16,9 @@ export default function DetailInterviewSection() {
   const categoryParams = searchParams.get('category');
 
   return (
-    <section className=" h-full  w-full  ">
+    <section className="h-full w-full">
       {categoryParams !== 'question' && selectInterview.categoryName === '' && (
-        <div className="mainBg flex w-full h-full ">
+        <div className="mainBg flex w-full h-full">
           <div className="flex flex-col gap-4 w-full items-center justify-center">
             <Logo size="lg" />
             <Image src="/main_logo_font.png" alt="main_logo" width={120} height={200} />
@@ -37,8 +37,11 @@ export default function DetailInterviewSection() {
       <div>
         {categoryParams === 'interview' && (
           <div>
-            <div className="flex gap-4 p-4 items-center">
-              <div>
+            <div className="flex gap-4 p-6 flex-col items-start">
+              <Text size="lg" weight="lg">
+                {MainCategory[selectInterview.categoryName]}
+              </Text>
+              <div className="flex items-center gap-2">
                 <Image
                   className="rounded-full"
                   width={28}
@@ -46,17 +49,8 @@ export default function DetailInterviewSection() {
                   src={selectInterview.thumbnail}
                   alt={selectInterview.nickname + ' imgae'}
                 />
-              </div>
-              <Text size="lg" weight="lg">
-                {MainCategory[selectInterview.categoryName]}
-              </Text>
-              <div className="flex gap-1 items-center justify-center">
-                <InterviewLikeIcon
-                  interviewId={selectInterview.interviewId}
-                  liked={selectInterview.liked}
-                />
                 <Text size="lg" weight="lg" className="p-1">
-                  {selectInterview.likeCount}
+                  {selectInterview.nickname}
                 </Text>
               </div>
             </div>

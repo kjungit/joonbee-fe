@@ -3,20 +3,21 @@ import { instance } from '../axios';
 import { CategoryName } from '@/types';
 
 export type InterviewProps = {
+  page: number;
   selectCategory: CategoryName;
   sort: string;
 };
 
-export const getInterview = async ({ selectCategory, sort }: InterviewProps) => {
+export const getInterview = async ({ selectCategory, sort, page }: InterviewProps) => {
   try {
     const res = await instance().get('/api/interview/all', {
       params: {
-        page: 1,
+        page,
         category: selectCategory,
         sort,
       },
     });
-    return res.data.data.result;
+    return res.data.data;
   } catch (error: any) {
     throw error.response.status;
   }

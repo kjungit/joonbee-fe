@@ -18,29 +18,24 @@ export const QuestionWrapper = () => {
   return (
     <div className="flex h-full w-full justify-center overflow-auto">
       <CenterSectionWrapper>
-        {categoryParams === 'question' &&
-          (status === 'pending' ? (
-            <p>Loading...</p>
-          ) : status === 'error' ? (
-            <p>Error: {error?.message}</p>
-          ) : (
-            <ul className=" flex flex-col gap-4 interviewListHeight ">
-              {questionData &&
-                questionData.map((item, i) => (
-                  <li key={item.questionId} className="flex gap-4">
-                    <div className="flex gap-2">
-                      <VariableIcon name="questionBox" size={18} />
-                      <Text size="lg">{item.questionContent}</Text>
-                    </div>
-                    <QuestionSaveIcon
-                      subcategoryName={item.subcategoryName}
-                      questionContent={item.questionContent}
-                    />
-                  </li>
-                ))}
-              <div ref={setTarget}>ㅤ</div>
-            </ul>
-          ))}
+        {categoryParams === 'question' && (
+          <ul className=" flex flex-col gap-4 interviewListHeight ">
+            {questionData &&
+              questionData.map((item, i) => (
+                <li key={item.questionId} className="flex gap-2 h-10 items-start">
+                  <div className="flex gap-2">
+                    <VariableIcon name="questionBox" size={18} />
+                    <Text size="lg">{item.questionContent}</Text>
+                  </div>
+                  <QuestionSaveIcon
+                    subcategoryName={item.subcategoryName}
+                    questionContent={item.questionContent}
+                  />
+                </li>
+              ))}
+            <div ref={setTarget}>ㅤ</div>
+          </ul>
+        )}
 
         <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
       </CenterSectionWrapper>
