@@ -20,12 +20,13 @@ import {
   updateCategoryNameSelector,
   updateUserNameSelector,
 } from '@/recoils/myInterview/withAdd';
-import { interviewQuestionCountAtom } from '@/recoils/interview/atom';
+import { interviewQuestionCountAtom, isClickNextBtnAtom } from '@/recoils/interview/atom';
 import userQueries from '@/queries/user/useGetUser';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 
 export default function ChoiceSettingPage() {
-  const [isClickNextBtn, setIsClickNextBtn] = useState<boolean>(false);
+  // const [isClickNextBtn, setIsClickNextBtn] = useState<boolean>(false);
+  const [isClickNextBtn, setIsClickNextBtn] = useRecoilState(isClickNextBtnAtom);
   const [checkedQuestionIdList, setCheckedQuestionIdList] = useState<
     {
       questionId: number;
