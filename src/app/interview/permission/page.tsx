@@ -4,6 +4,7 @@ import Button from '@/components/@common/button';
 import { Icon } from '@/components/@common/icon';
 import IconButton from '@/components/@common/iconButton';
 import InterviewLoading from '@/components/@common/interviewLoading';
+import PreventBackModal from '@/components/@common/preventBackModal';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import Video from '@/components/@common/video/video';
@@ -109,6 +110,7 @@ export default function PermissionPage() {
           </div>
         </>
       )}
+      <PreventBackModal />
     </>
   );
 }

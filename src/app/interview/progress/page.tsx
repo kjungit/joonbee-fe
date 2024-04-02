@@ -11,12 +11,14 @@ import Button from '@/components/@common/button';
 import TextArea from '@/components/@common/textArea';
 import useSpeechToText from '@/hooks/interview/useSpeechToText';
 import { useRouter } from 'next/navigation';
-import { currentCountAtom } from '@/recoils/interview/atom';
+import { currentCountAtom, interviewTypeAtom } from '@/recoils/interview/atom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { addQuestionSelector } from '@/recoils/myInterview/withAdd';
 import { MyInterviewQuestions } from '@/apis/services/openAiApis';
 import { isAllowedVideoSelector } from '@/recoils/interview/withCheckVideo';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
+import { resetQuestionListSelector } from '@/recoils/myInterview/withReset';
+import PreventBackModal from '@/components/@common/preventBackModal';
 
 const TimerStateText = {
   READY: {
@@ -39,16 +41,17 @@ export default function ProgressPage() {
   const [btnText, setBtnText] = useState(TimerStateText.READY.btn);
   const [helpText, setHelpText] = useState(TimerStateText.READY.help);
   const isAllowedVideo = useRecoilValue(isAllowedVideoSelector);
+  const interviewType = useRecoilValue(interviewTypeAtom);
   const setMyInterview = useSetRecoilState(addQuestionSelector);
+  const resetQuestionList = useSetRecoilState(resetQuestionListSelector);
 
   const { questionData } = useGetInterviewData();
-
   const [currentQuestion, setCurrentQuestion] = useState<MyInterviewQuestions>();
   const questionsCount = questionData.length;
 
   const { videoRef, onStartVideo, onStartRecord, onStopRecord, onToggleRecord, onStartAudio } =
     useVideo();
-  const { remainingTime } = useTimer(progressStatus, setProgressStatus);
+  const { minutes, seconds, remainingTime } = useTimer(progressStatus, setProgressStatus);
 
   useEffect(() => {
     if (isAllowedVideo) {
@@ -58,6 +61,10 @@ export default function ProgressPage() {
     }
     if (questionData.length) setCurrentQuestion(questionData[0]);
   }, [questionData, isAllowedVideo]);
+
+  useEffect(() => {
+    if (interviewType === 'choice') resetQuestionList();
+  }, []);
 
   const {
     onStartListening,
@@ -206,8 +213,8 @@ export default function ProgressPage() {
             <div>
               <div className="bg-blue-light rounded-md w-[234px] h-[48px] flex justify-center items-center gap-5">
                 <Text className="text-[16px]">남은시간</Text>
-                <Text weight="lg" className="text-[18px]">
-                  {remainingTime}
+                <Text size="4xl" weight="lg" className="text-[18px]">
+                  {minutes} : {seconds}
                 </Text>
               </div>
               {progressStatus === 'PROGRESS' && (
@@ -225,7 +232,7 @@ export default function ProgressPage() {
             </div>
           </div>
         </div>
-        <Text>{helpText}</Text>
+        <Text className="text-right">{helpText}</Text>
       </div>
       <div className="flex items-center mb-2">
         <VariableIcon name="triangleRight" />
@@ -235,6 +242,7 @@ export default function ProgressPage() {
       </div>
 
       <TextArea inputValue={transcript} setInputValue={setTranscript} />
+      <PreventBackModal />
     </>
   );
 }
