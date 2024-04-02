@@ -3,6 +3,7 @@
 import { Accordion } from '@/components/@common/accordion';
 import { EditQuestion } from '@/components/@common/editQuestion';
 import IconButton from '@/components/@common/iconButton';
+import PreventBackModal from '@/components/@common/preventBackModal';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
@@ -38,8 +39,13 @@ export default function CheckPage() {
   };
 
   const handleAnswerChange = (index: number, value: string) => {
-    const updatedAnswers = currentAnswers.map((content, i) => (i === index ? value : content));
-    setCurrentAnswers(updatedAnswers);
+    console.log(value.length);
+    if (value.length <= 200) {
+      const updatedAnswers = currentAnswers.map((content, i) => (i === index ? value : content));
+      setCurrentAnswers(updatedAnswers);
+    } else {
+      alert('글자수 제한을 초과했습니다.');
+    }
   };
 
   const handleInputBlur = (event: React.FocusEvent<HTMLTextAreaElement>, index: number) => {
@@ -154,6 +160,7 @@ export default function CheckPage() {
       <div className="absolute bottom-14 right-14">
         <Image src="/laptop.png" alt="laptop" width={220} height={180} />
       </div>
+      <PreventBackModal />
     </>
   );
 }
