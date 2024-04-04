@@ -18,21 +18,21 @@ export default function QuestionTimeButtonGroup() {
         </p>
         <div className="flex gap-5">
           <Button
-            size="sm"
+            size="sm2"
             color={time === 60 ? 'primary' : 'white'}
             onClick={() => setTime(60)}
             className="shadow-md">
             1분
           </Button>
           <Button
-            size="sm"
+            size="sm2"
             color={time === 90 ? 'primary' : 'white'}
             onClick={() => setTime(90)}
             className="shadow-md">
             1분 30초
           </Button>
           <Button
-            size="sm"
+            size="sm2"
             color={time === 120 ? 'primary' : 'white'}
             onClick={() => setTime(120)}
             className="shadow-md">

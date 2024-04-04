@@ -19,7 +19,7 @@ export const QuestionWrapper = () => {
     <div className="flex h-full w-full justify-center overflow-auto">
       <CenterSectionWrapper>
         {categoryParams === 'question' && (
-          <ul className=" flex flex-col gap-4 interviewListHeight ">
+          <ul className=" flex flex-col gap-4 interviewListHeight pt-14">
             {questionData &&
               questionData.map((item, i) => (
                 <li key={item.questionId} className="flex gap-2 h-10 items-start">

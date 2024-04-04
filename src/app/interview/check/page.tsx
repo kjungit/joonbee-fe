@@ -86,7 +86,7 @@ export default function CheckPage() {
   useBeforeUnload();
 
   return (
-    <>
+    <div className="pt-14">
       <Text as="h2" size="xl" weight="lg" className="mb-5">
         면접 확인
       </Text>
@@ -160,6 +160,6 @@ export default function CheckPage() {
         <Image src="/laptop.png" alt="laptop" width={220} height={180} />
       </div>
       <PreventBackModal />
-    </>
+    </div>
   );
 }

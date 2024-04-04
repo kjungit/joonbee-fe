@@ -56,7 +56,7 @@ export default function PermissionPage() {
           <Text size="xl">면접을 준비중입니다</Text>
         </div>
       ) : (
-        <>
+        <div className="pt-14">
           <Text as="h2" size="xl" weight="lg" className="mb-5">
             장치 권한 설정
           </Text>
@@ -108,7 +108,7 @@ export default function PermissionPage() {
           <div className="absolute bottom-14 right-14">
             <Image src="/white_desk.png" alt="white_desk" width={180} height={180} />
           </div>
-        </>
+        </div>
       )}
       <PreventBackModal />
     </>
