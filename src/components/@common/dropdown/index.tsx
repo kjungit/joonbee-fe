@@ -41,13 +41,13 @@ const Dropdown = ({
       item: 'px-[14px] py-[8px] text-[14px] ',
       section: 'min-w-[116px]',
       button: 'h-[50px] min-w-[140px]',
-      ul: 'top-12 h-[234px] w-[120px]',
+      ul: 'top-12 max-h-[234px] h-auto w-[124px]',
     },
     md: {
       item: 'px-[22px] py-[12px] text-[16px]',
       section: 'min-w-[160px]',
       button: 'h-[60px] min-w-[160px]',
-      ul: 'top-12 h-[234px] w-[142px]',
+      ul: 'top-12 max-h-[234px] h-auto w-[142px]',
     },
   };
 
