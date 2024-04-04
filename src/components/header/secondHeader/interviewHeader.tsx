@@ -96,7 +96,7 @@ export const InterviewHeader = ({}: InterviewHeaderProps) => {
                 className="cursor-default font-bold">
                 {INTERVIEW_TYPE[interviewType].text}
               </IconButton>
-              <InterviewProgressBar interview="InterviewConducting" />
+              <InterviewProgressBar interview="InterviewCheck" />
             </div>
           </nav>
         )}

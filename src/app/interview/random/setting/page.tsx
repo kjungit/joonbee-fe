@@ -39,7 +39,7 @@ export default function RandomSettingPage() {
   return (
     <>
       {!isPressedBtn ? (
-        <>
+        <div className="pt-14">
           <Text as="h2" size="xl" weight="lg" className="mb-5">
             면접 설정
           </Text>
@@ -124,7 +124,7 @@ export default function RandomSettingPage() {
           <div className="absolute bottom-14 right-14">
             <Image src="/laptop.png" alt="laptop" width={220} height={180} />
           </div>
-        </>
+        </div>
       ) : (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col flex-inline items-center gap-5">
           <InterviewLoading />

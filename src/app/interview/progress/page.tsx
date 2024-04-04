@@ -161,7 +161,7 @@ export default function ProgressPage() {
     setProgressStatus('DONE');
     setCountdown(5);
     setMyInterview({
-      questionId: currentQuestion?.questionId,
+      questionId: Number(currentQuestion?.questionId),
       questionContent: currentQuestion?.questionContent,
       answerContent: transcript,
     } as any);
@@ -202,7 +202,7 @@ export default function ProgressPage() {
   useBeforeUnload();
 
   return (
-    <>
+    <div className="pt-14">
       <Text as="h2" size="xl" weight="lg" className="mb-5">
         질문 {currentCount}
       </Text>
@@ -243,6 +243,6 @@ export default function ProgressPage() {
 
       <TextArea inputValue={transcript} setInputValue={setTranscript} />
       <PreventBackModal />
-    </>
+    </div>
   );
 }

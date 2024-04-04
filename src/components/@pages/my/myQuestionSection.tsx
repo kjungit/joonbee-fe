@@ -25,7 +25,7 @@ export const MyQuestionSection = () => {
                     <VariableIcon name="questionBox" size={18} />
                     <Text size="lg">{item.questionContent}</Text>
                   </div>
-                  <QuestionDeleteIcon id={item.questionId} />
+                  <QuestionDeleteIcon id={Number(item.questionId)} />
                 </li>
               ))}
             <div ref={setTarget}></div>
