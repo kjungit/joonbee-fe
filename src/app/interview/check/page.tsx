@@ -93,7 +93,7 @@ export default function CheckPage() {
       <Text as="h2" size="md" weight="md" color="blue" className="mb-5">
         * 내가 답변한 내용을 확인하고 수정하세요.
       </Text>
-      <div className="h-[480px] overflow-scroll">
+      <div className="h-[480px] w-full">
         {questionList.map((question, index) => (
           <div key={question.questionId} className={`mb-2 border-gray-normal`}>
             <div className={`flex cursor-pointer items-center`} onClick={() => handleToggle(index)}>
@@ -134,13 +134,12 @@ export default function CheckPage() {
                     답변을 입력하세요.
                   </Text>
                 ) : (
-                  <Text
-                    size="lg"
-                    weight="md"
-                    className="w-full px-8 text-[14px]"
+                  <p
+                    className="w-full px-8 text-[14px] font-medium"
+                    style={{ overflowWrap: 'break-word' }}
                     onClick={() => handleClick(index)}>
                     {currentAnswers[index]}
-                  </Text>
+                  </p>
                 )}
               </>
             )}
