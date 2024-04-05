@@ -50,8 +50,6 @@ export const PolarChart = () => {
     const name_list = userInfo.categoryInfo.map(item => item.categoryName);
     setCurrentSeries(count_list);
     setCurrentLabels(name_list);
-    console.log(currentSeries);
-    console.log(currentLabels);
   }, [userInfo.categoryInfo]);
 
   return (

@@ -44,7 +44,7 @@ const Dropdown = ({
       ul: 'top-12 max-h-[234px] h-auto w-[124px]',
     },
     md: {
-      item: 'px-[22px] py-[12px] text-[16px]',
+      item: 'px-[16px] py-[6px]  text-[14px]',
       section: 'min-w-[160px]',
       button: 'h-[60px] min-w-[160px]',
       ul: 'top-12 max-h-[234px] h-auto w-[142px]',
@@ -64,19 +64,19 @@ const Dropdown = ({
       {isOpened && (
         <ul
           ref={modalRef}
-          className={`shadow-normal px-[8px] py-[6px] top-10 rounded-[8px] overflow-y-auto bg-white absolute
+          className={`shadow-normal px-[8px] mt-[10px] py-[6px] top-10 rounded-[8px] overflow-y-auto bg-white absolute
            z-10 ${sizeStyles[size].ul}`}>
           {data.map((item, index) => (
             <li key={item} className="cursor-pointer">
               <div
-                className={` hover:bg-hover-grayLight hover:shadow-normal rounded-[8px] text-center
+                className={` hover:bg-hover-grayLight my-1 px-2 py-2 rounded-[8px] text-center
                 text-[#444] ellipsis ${sizeStyles[size].item} ${
-                  item === selected ? 'bg-hover-grayLight shadow-noraml' : ''
+                  item === selected ? 'bg-hover-grayLight ' : ''
                 }`}
                 onClick={() => onSelectItem(item)}>
                 {!item ? '카테고리' : Category[item]}
               </div>
-              {index !== data.length - 1 && <div className="border-b-2 border-gray-normal" />}
+              {index !== data.length - 1 && <div className="border-b-[1px] border-gray-normal" />}
             </li>
           ))}
         </ul>

@@ -54,7 +54,7 @@ export default function ChoiceSettingMenu() {
               handleClickOpen(item);
             }}
           />
-          <div className="font-normal flex flex-col text-start w-full gap-1 text-sm px-1 py-2">
+          <div className="font-normal flex flex-col text-start w-full gap-1 text-sm px-1 py-1">
             {selectQuestionCategory.category === item.id &&
               item.children?.map(childItem => (
                 <button

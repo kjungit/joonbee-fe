@@ -24,7 +24,6 @@ export const useGetQuestion = () => {
     },
     getNextPageParam: (lastPage, allPage) => {
       const resultData = allPage.flatMap(page => page.result);
-      console.log(resultData);
       return resultData.length < lastPage.total
         ? {
             page: allPage.length + 1,

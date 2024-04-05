@@ -29,7 +29,6 @@ export const useGetInterview = ({
     },
     getNextPageParam: (lastPage, allPage) => {
       const resultData = allPage.flatMap(page => page.result);
-      console.log(resultData);
       return resultData.length <= lastPage.total
         ? {
             page: allPage.length,

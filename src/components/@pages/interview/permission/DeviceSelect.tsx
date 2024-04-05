@@ -2,7 +2,7 @@
 import { Icon } from '@/components/@common/icon';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
-import React, { useEffect } from 'react';
+import React, { RefObject, useEffect } from 'react';
 
 interface Device {
   deviceId: string;
@@ -46,7 +46,10 @@ export default function DeviceSelect({
         ))}
         {deviceType === 'video' && <option value="1">비디오 사용 안함</option>}
       </select>
-      {!!selectedId && <Icon name="check.png" className="w-4 h-4" />}
+      {deviceType === 'audio' && !!selectedId && <Icon name="check.png" className="w-4 h-4" />}{' '}
+      {deviceType === 'video' && !!selectedId && selectedId !== '1' && (
+        <Icon name="check.png" className="w-4 h-4" />
+      )}
     </div>
   );
 }

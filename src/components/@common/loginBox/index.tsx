@@ -31,7 +31,7 @@ export const LoginBox = () => {
       className=" w-[370px] h-[500px] rounded-[50px] bg-white shadow-md flex items-center justify-center">
       <div className="flex items-center flex-col">
         <Logo size={'lg'} />
-        <p className="text-[30px] mt-7 mb-10 font-bold text-blue-secondary">JOONBEE 하세요.</p>
+        <p className="text-[24px] mt-7 mb-10 font-bold text-blue-secondary">JOONBEE 하세요.</p>
         <div className="flex flex-col gap-3">
           <SocialLoginButton
             name="kakao.png"
