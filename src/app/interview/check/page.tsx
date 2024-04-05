@@ -38,7 +38,6 @@ export default function CheckPage() {
     const updatedEditingStates = editingStates.map((isEditing, i) =>
       i === index ? true : isEditing,
     );
-    handleTextFront(index);
     setEditingStates(updatedEditingStates);
   };
 
@@ -51,8 +50,8 @@ export default function CheckPage() {
     }
   };
 
-  const handleInputBlur = (e: React.FocusEvent<HTMLTextAreaElement>, index: number) => {
-    const content = e.target.value.replace(/\s+/g, ' ');
+  const handleInputBlur = (event: React.FocusEvent<HTMLTextAreaElement>, index: number) => {
+    const content = event.target.value.replace(/\s+/g, ' ');
     const newAnswers = [...currentAnswers];
     newAnswers[index] = content;
     setCurrentAnswers(newAnswers);
@@ -72,15 +71,6 @@ export default function CheckPage() {
 
     setQuestionList(updatedQuestions);
     router.push('/interview/result');
-  };
-  const handleTextFront = (index: number) => {
-    if (textareaRefs.current[index]) {
-      const textarea = textareaRefs.current[index];
-      const clickPosition = textarea.value.length; // 클릭한 위치를 텍스트의 끝으로 설정
-
-      textarea.focus();
-      textarea.setSelectionRange(clickPosition, clickPosition);
-    }
   };
   const hasEmptyAnswer = currentAnswers.some(answer => answer === '');
 
@@ -139,7 +129,6 @@ export default function CheckPage() {
                         textareaRefs.current[index] = el;
                       }
                     }}
-                    autoFocus
                     id={`textarea-${index}`}
                     rows={1}
                     style={{ height: textareaHeight }}
