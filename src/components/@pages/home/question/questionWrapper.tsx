@@ -6,15 +6,18 @@ import React, { useEffect } from 'react';
 import { QuestionSaveIcon } from './questionSaveIcon';
 import { useGetQuestion } from '@/queries/question/useGetQuestion';
 import { CenterSectionWrapper } from '@/components/wrapper/centerSectionWrapper';
+import ModalPortal from '@/components/@common/modalPortal';
+import { CommonModal } from '@/components/@common/commonModal';
+import { useRecoilState } from 'recoil';
+import { isSaveQuestion } from '@/recoils/user/isSaveQuestion/atom';
 
 export const QuestionWrapper = () => {
+  const [isOpen, setIsOpen] = useRecoilState(isSaveQuestion);
+
   const searchParams = useSearchParams();
   const categoryParams = searchParams.get('category');
   const { questionData, error, isFetching, isFetchingNextPage, status, setTarget } =
     useGetQuestion();
-  useEffect(() => {
-    console.log(questionData);
-  }, [status, isFetching]);
   return (
     <div className="flex h-full w-full justify-center overflow-auto">
       <CenterSectionWrapper>
@@ -38,6 +41,15 @@ export const QuestionWrapper = () => {
         )}
 
         <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
+        {isOpen && (
+          <ModalPortal>
+            <CommonModal isModalOpen={isOpen} setIsModalOpen={setIsOpen}>
+              <Text size="xl" className="text-blue-secondary w-full" weight="lg">
+                질문을 저장했습니다.
+              </Text>
+            </CommonModal>
+          </ModalPortal>
+        )}
       </CenterSectionWrapper>
     </div>
   );
