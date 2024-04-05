@@ -56,15 +56,12 @@ export const MyInterviewSection = () => {
   }, [isDetailSuccess, isDetailFetch, selectMyInterview]);
 
   const handleClickQuestion = (question: QuestionContentsProps) => {
-    console.log('question', question);
-    console.log('selectDetail', selectDetail);
     const updateInterview = selectDetail.questionContents.map(item => {
       if (item.questionId === question.questionId) {
         return { ...item, isOpen: !item.isOpen };
       }
       return item;
     });
-    console.log(updateInterview);
     setSelectDetail({
       ...selectDetail,
       questionContents: updateInterview,
