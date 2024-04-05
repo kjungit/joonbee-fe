@@ -4,6 +4,7 @@ import { selectMyInterviewAtom } from '@/recoils/user/seletMyInterview/atom';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MyMenuInterviewItem } from '@/types';
 import { MenuInterviewItem } from '../@pages/my/menuInterviewitem';
+import Image from 'next/image';
 
 export const MyInterviewMenu = () => {
   const { interviewData, error, isFetching, isFetchingNextPage, status, setTarget } =
@@ -24,11 +25,11 @@ export const MyInterviewMenu = () => {
   return (
     <div className="flex flex-col justify-between h-full w-full ">
       {status === 'pending' ? (
-        <p>Loading...</p>
+        <Image src={'/loginLoading.gif'} width={20} height={20} alt="loding" />
       ) : status === 'error' ? (
         <p>Error: {error?.message}</p>
       ) : (
-        <ul className="h-full">
+        <ul className="h-full overflow-auto">
           {interviewData &&
             interviewData.map(item => (
               <MenuInterviewItem
@@ -42,7 +43,11 @@ export const MyInterviewMenu = () => {
         </ul>
       )}
 
-      <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
+      <div>
+        {isFetching && !isFetchingNextPage ? (
+          <Image src={'/loginLoading.gif'} width={20} height={20} alt="loding" />
+        ) : null}
+      </div>
     </div>
   );
 };
