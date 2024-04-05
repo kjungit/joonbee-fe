@@ -12,19 +12,22 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-
+interface EditStateProps {
+  index: number | null;
+  isEdit: boolean;
+}
 export default function CheckPage() {
   const router = useRouter();
   const questionList = useRecoilValue(addQuestionListSelector);
   const [textareaHeight, setTextareaHeight] = useState('auto');
   const textareaRefs = useRef<HTMLTextAreaElement[]>([]);
-
   const setQuestionList = useSetRecoilState(addQuestionListSelector);
   const [openStates, setOpenStates] = useState(questionList.map(() => true));
   const [editingStates, setEditingStates] = useState(questionList.map(() => false));
   const [currentAnswers, setCurrentAnswers] = useState(
     questionList.map(question => question.answerContent),
   );
+  const [isEditState, setIsEditState] = useState<EditStateProps>({ index: null, isEdit: false });
 
   const handleToggle = (index: number) => {
     const updatedOpenStates = openStates.map((isOpen, i) => (i === index ? !isOpen : isOpen));
@@ -35,11 +38,11 @@ export default function CheckPage() {
     const updatedEditingStates = editingStates.map((isEditing, i) =>
       i === index ? true : isEditing,
     );
+    handleTextFront(index);
     setEditingStates(updatedEditingStates);
   };
 
   const handleAnswerChange = (index: number, value: string) => {
-    console.log(value.length);
     if (value.length <= 200) {
       const updatedAnswers = currentAnswers.map((content, i) => (i === index ? value : content));
       setCurrentAnswers(updatedAnswers);
@@ -48,8 +51,8 @@ export default function CheckPage() {
     }
   };
 
-  const handleInputBlur = (event: React.FocusEvent<HTMLTextAreaElement>, index: number) => {
-    const content = event.target.value.replace(/\s+/g, ' ');
+  const handleInputBlur = (e: React.FocusEvent<HTMLTextAreaElement>, index: number) => {
+    const content = e.target.value.replace(/\s+/g, ' ');
     const newAnswers = [...currentAnswers];
     newAnswers[index] = content;
     setCurrentAnswers(newAnswers);
@@ -57,6 +60,7 @@ export default function CheckPage() {
     const updatedEditingStates = editingStates.map((isEditing, i) =>
       i === index ? false : isEditing,
     );
+    setIsEditState({ index, isEdit: true });
     setEditingStates(updatedEditingStates);
   };
 
@@ -69,7 +73,15 @@ export default function CheckPage() {
     setQuestionList(updatedQuestions);
     router.push('/interview/result');
   };
+  const handleTextFront = (index: number) => {
+    if (textareaRefs.current[index]) {
+      const textarea = textareaRefs.current[index];
+      const clickPosition = textarea.value.length; // 클릭한 위치를 텍스트의 끝으로 설정
 
+      textarea.focus();
+      textarea.setSelectionRange(clickPosition, clickPosition);
+    }
+  };
   const hasEmptyAnswer = currentAnswers.some(answer => answer === '');
 
   useEffect(() => {
@@ -82,7 +94,19 @@ export default function CheckPage() {
       }
     });
   }, [editingStates, currentAnswers]);
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
 
+    if (isEditState.isEdit) {
+      timer = setTimeout(() => {
+        setIsEditState({ index: null, isEdit: false });
+      }, 2000);
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isEditState]);
   useBeforeUnload();
 
   return (
@@ -107,7 +131,7 @@ export default function CheckPage() {
               </Text>
             </div>
             {openStates[index] && (
-              <>
+              <div className="h-10">
                 {editingStates[index] ? (
                   <textarea
                     ref={el => {
@@ -115,6 +139,7 @@ export default function CheckPage() {
                         textareaRefs.current[index] = el;
                       }
                     }}
+                    autoFocus
                     id={`textarea-${index}`}
                     rows={1}
                     style={{ height: textareaHeight }}
@@ -141,7 +166,12 @@ export default function CheckPage() {
                     {currentAnswers[index]}
                   </p>
                 )}
-              </>
+                {isEditState.index === index && (
+                  <Text size="sm" weight="md" color="blue" className="w-full px-8 ">
+                    작성하신 답변이 수정되었습니다.
+                  </Text>
+                )}
+              </div>
             )}
           </div>
         ))}
