@@ -14,7 +14,7 @@ export const MainHeader = () => {
   const resetSelectInterview = useResetRecoilState(selectInterviewState);
   const pathName = usePathname();
   return (
-    <div className="flex items-center justify-between w-full px-4">
+    <div className="flex items-center justify-between w-full px-6">
       <div className="flex gap-4">
         <button onClick={resetSelectInterview}>
           <Link className={`${pathName === '/' && 'font-bold'}`} href="/">
