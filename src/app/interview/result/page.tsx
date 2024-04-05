@@ -25,6 +25,8 @@ export default function ResultPage() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const { onDownload } = useVideo();
   const videoUrl = useRecoilValue(interviewVideoUrlAtom);
+
+  console.log('url', videoUrl);
   const router = useRouter();
 
   const myInterviewData = useRecoilValue(myInterviewAtom);

@@ -1,12 +1,9 @@
 'use client';
 
-import Button from '@/components/@common/button';
-import { Icon } from '@/components/@common/icon';
 import IconButton from '@/components/@common/iconButton';
 import InterviewLoading from '@/components/@common/interviewLoading';
 import PreventBackModal from '@/components/@common/preventBackModal';
 import { Text } from '@/components/@common/text';
-import { VariableIcon } from '@/components/@common/variableIcon';
 import Video from '@/components/@common/video/video';
 import DeviceSelect from '@/components/@pages/interview/permission/DeviceSelect';
 import { Category, MainCategory } from '@/constants/category';
@@ -15,15 +12,22 @@ import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import useVideo from '@/hooks/interview/useVideo';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
-import { interviewQuestionCountAtom, interviewTimeAtom } from '@/recoils/interview/atom';
+import {
+  interviewQuestionCountAtom,
+  interviewTimeAtom,
+  selectedDeviceIdAtom,
+} from '@/recoils/interview/atom';
 import { convertSecondsToMinutes } from '@/utils/format';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function PermissionPage() {
-  const { videoDevices, getConnectedDevices, handleSelectDevice, selectedDeviceId, audioDevices } =
-    useGetDevice();
+  const { deviceList: videoDeviceList } = useGetDevice('video');
+  const { deviceList: audioDeviceList } = useGetDevice('audio');
+
+  const [selectedDeviceId, setSelectedDeviceId] = useRecoilState(selectedDeviceIdAtom);
+
   const time = useRecoilValue(interviewTimeAtom);
   const mySelectCategory = useRecoilValue(mySelectQuestionCategoryState);
   const questionCount = useRecoilValue(interviewQuestionCountAtom);
@@ -31,23 +35,24 @@ export default function PermissionPage() {
 
   const { onStartVideo, videoRef } = useVideo();
 
-  console.log('selectedDeviceId', selectedDeviceId);
-  console.log('videoRef', videoRef);
-
-  useEffect(() => {
-    const startDevices = async () => {
-      await onStartVideo();
-      await getConnectedDevices();
-    };
-
-    startDevices();
-  }, []);
+  const handleSelectDevice = (deviceId: string, deviceType: 'video' | 'audio') => {
+    setSelectedDeviceId(prev => ({
+      ...prev,
+      [`${deviceType}Id`]: deviceId,
+    }));
+  };
 
   useEffect(() => {
     onStartVideo();
   }, [selectedDeviceId]);
 
-  useBeforeUnload();
+  useEffect(() => {
+    if (videoDeviceList[0]?.deviceId) handleSelectDevice(videoDeviceList[0].deviceId, 'video');
+    if (audioDeviceList[0]?.deviceId) handleSelectDevice(audioDeviceList[0].deviceId, 'audio');
+  }, [videoDeviceList, audioDeviceList]);
+
+  // useBeforeUnload();
+
   return (
     <>
       {isPressedBtn ? (
@@ -73,15 +78,15 @@ export default function PermissionPage() {
             </Text>
             <DeviceSelect
               deviceType="video"
-              devices={videoDevices}
+              deviceList={videoDeviceList}
               selectedId={selectedDeviceId.videoId}
-              onSelect={videoId => handleSelectDevice('video', videoId)}
+              onSelect={videoId => handleSelectDevice(videoId, 'video')}
             />
             <DeviceSelect
               deviceType="audio"
-              devices={audioDevices}
+              deviceList={audioDeviceList}
               selectedId={selectedDeviceId.audioId}
-              onSelect={audioId => handleSelectDevice('audio', audioId)}
+              onSelect={audioId => handleSelectDevice(audioId, 'audio')}
             />
           </div>
 

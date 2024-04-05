@@ -11,22 +11,18 @@ interface Device {
 
 interface DeviceSelectProps {
   deviceType: 'audio' | 'video';
-  devices: Device[];
+  deviceList: Device[];
   selectedId: string;
   onSelect: (deviceId: string) => void;
 }
 
 export default function DeviceSelect({
   deviceType,
-  devices,
+  deviceList,
   selectedId,
   onSelect,
 }: DeviceSelectProps) {
   const deviceTypeName = deviceType === 'audio' ? '오디오' : '비디오';
-
-  useEffect(() => {
-    if (devices[0]?.deviceId) onSelect(devices[0].deviceId);
-  }, [devices]);
 
   return (
     <div className="flex items-center gap-2 mb-4">
@@ -35,11 +31,11 @@ export default function DeviceSelect({
         {deviceTypeName}
       </Text>
       <select
-        defaultValue={devices[0]?.deviceId}
+        defaultValue={deviceList[0]?.deviceId}
         onChange={e => onSelect(e.target.value)}
         value={selectedId}
         className="border border-gray-light rounded px-2 py-1 w-[300px]">
-        {devices.map(device => (
+        {deviceList.map(device => (
           <option key={device.deviceId} value={device.deviceId}>
             {device.label || '알 수 없는 장치'}
           </option>
