@@ -27,7 +27,7 @@ export default function TextArea({
       value={inputValue}
       readOnly={readOnly}
       onChange={onChange}
-      className={`${readOnlyStyles} py-2 px-3 rounded-md border border-gray-normal text-[14px] text-black w-full h-[240px] ${className}`}
+      className={`${readOnlyStyles} resize-none py-2 px-3 rounded-md border border-gray-normal text-[14px] text-black w-full h-[240px] ${className}`}
       {...props}
     />
   );
