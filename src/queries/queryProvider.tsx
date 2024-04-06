@@ -1,5 +1,9 @@
 'use client';
 
+import { CommonModal } from '@/components/@common/commonModal';
+import ModalPortal from '@/components/@common/modalPortal';
+import { Text } from '@/components/@common/text';
+import { isLoginState } from '@/recoils/user/isLoginState/atom';
 import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { userInfoAtom } from '@/recoils/user/userInfo/atom';
 import { removeCookie } from '@/utils/cookies';
@@ -11,6 +15,7 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 export default function QueryProvider({ children }: { children: React.ReactNode }) {
   const resetUserInfo = useResetRecoilState(userInfoAtom);
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
+  const [isOpen, setIsOpen] = useRecoilState(isLoginState);
 
   const [client] = useState(() => {
     return new QueryClient({
@@ -33,7 +38,7 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
           if (error === 403) {
             removeCookie('joonbee-token');
             removeCookie('joonbee-token-refresh');
-            alert('재로그인 해주세요.');
+            setIsOpen(true);
             resetUserInfo();
             setIsLogined(false);
           }
@@ -45,6 +50,15 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
   return (
     <QueryClientProvider client={client}>
       {children}
+      {isOpen && (
+        <ModalPortal>
+          <CommonModal isModalOpen={isOpen} setIsModalOpen={setIsOpen}>
+            <Text size="xl" className="text-blue-secondary w-full" weight="lg">
+              재로그인 해주세요.
+            </Text>
+          </CommonModal>
+        </ModalPortal>
+      )}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

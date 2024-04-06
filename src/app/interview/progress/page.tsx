@@ -19,6 +19,7 @@ import { isAllowedVideoSelector } from '@/recoils/interview/withCheckVideo';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import { resetQuestionListSelector } from '@/recoils/myInterview/withReset';
 import PreventBackModal from '@/components/@common/preventBackModal';
+import Image from 'next/image';
 
 const TimerStateText = {
   READY: {
@@ -179,8 +180,6 @@ export default function ProgressPage() {
   };
 
   const onClickButton = () => {
-    console.log('progressStatus', progressStatus);
-
     switch (progressStatus) {
       case 'READY':
         onClickReadyButton();
@@ -208,12 +207,26 @@ export default function ProgressPage() {
       </Text>
       <div className="mb-12">
         <div className="flex gap-24 mb-5 relative">
-          <Video videoRef={videoRef} />
-          <div className="flex flex-col justify-between">
+          <Video
+            videoRef={videoRef}
+            className={`${videoRef.current && !videoRef.current.srcObject && 'hidden'}`}
+          />
+          {videoRef.current && !videoRef.current.srcObject && (
+            <div className="shadow-md rounded-2xl w-full h-[240px] flex justify-center items-center">
+              <Image
+                src="/basicProfile.png"
+                alt="white_desk"
+                width={80}
+                height={80}
+                className="opacity-50"
+              />
+            </div>
+          )}
+          <div className="flex flex-col justify-between w-full max-w-[270px]">
             <div>
-              <div className="bg-blue-light rounded-md w-[234px] h-[48px] flex justify-center items-center gap-5">
+              <div className="bg-blue-light rounded-md w-full h-[56px] p- flex justify-between px-5 py-3 items-end gap-5">
                 <Text className="text-[16px]">남은시간</Text>
-                <Text size="4xl" weight="lg" className="text-[18px]">
+                <Text size="3xl" weight="lg" className="line leading-8">
                   {minutes} : {seconds}
                 </Text>
               </div>
@@ -225,7 +238,7 @@ export default function ProgressPage() {
               )}
             </div>
 
-            <div>
+            <div className="flex justify-end">
               <Button size="xl" onClick={onClickButton}>
                 {btnText}
               </Button>

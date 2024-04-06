@@ -39,89 +39,91 @@ export default function RandomSettingPage() {
   return (
     <>
       {!isPressedBtn ? (
-        <div className="pt-14">
-          <Text as="h2" size="xl" weight="lg" className="mb-5">
-            면접 설정
-          </Text>
-          <div className="mb-4">
-            <Text as="h3" size="lg" className="mb-2">
-              전체 질문 카테고리를 선택해주세요
+        <div className="py-14 flex flex-col justify-between h-full">
+          <div>
+            <Text as="h2" size="xl" weight="lg" className="mb-5">
+              면접 설정
             </Text>
-            <div className="flex gap-10">
-              <p className="min-w-[120px] h-[40px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
-                카테고리
-              </p>
-              <CategoryDropdown
-                selectedCategory={mySelectCategory.category}
-                setSelectedCategory={(category: any) =>
-                  setMySelectCategory(prev => ({ ...prev, category }))
-                }
-                selectedSubcategory={mySelectCategory.subCategory}
-                setSelectedSubcategory={(subCategory: any) =>
-                  setMySelectCategory(prev => ({ ...prev, subCategory }))
-                }
-                size="sm"
-                className="mb-4"
-              />
-            </div>
-          </div>
-          <div className="mb-4">
-            <Text as="h3" size="lg" className="mb-2">
-              질문 개수를 설정해주세요
-            </Text>
-            <div className="flex gap-10">
-              <p className="min-w-[120px] h-[40px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
-                질문 개수
-              </p>
-              <div className="flex gap-5">
-                <Button
-                  size="auto"
-                  color={questionCount === 2 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(2)}
-                  className="shadow-md">
-                  2
-                </Button>
-                <Button
-                  size="auto"
-                  color={questionCount === 4 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(4)}
-                  className="shadow-md">
-                  4
-                </Button>
-                <Button
-                  size="auto"
-                  color={questionCount === 6 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(6)}
-                  className="shadow-md">
-                  6
-                </Button>
-                <Button
-                  size="auto"
-                  color={questionCount === 8 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(8)}
-                  className="shadow-md">
-                  8
-                </Button>
-                <Button
-                  size="auto"
-                  color={questionCount === 10 ? 'primary' : 'white'}
-                  onClick={() => setQuestionCount(10)}
-                  className="shadow-md">
-                  10
-                </Button>
+            <div className="mb-4">
+              <Text as="h3" size="lg" className="mb-2">
+                전체 질문 카테고리를 선택해주세요
+              </Text>
+              <div className="flex gap-10">
+                <p className="min-w-[120px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
+                  카테고리
+                </p>
+                <CategoryDropdown
+                  selectedCategory={mySelectCategory.category}
+                  setSelectedCategory={(category: any) =>
+                    setMySelectCategory(prev => ({ ...prev, category }))
+                  }
+                  selectedSubcategory={mySelectCategory.subCategory}
+                  setSelectedSubcategory={(subCategory: any) =>
+                    setMySelectCategory(prev => ({ ...prev, subCategory }))
+                  }
+                  size="md"
+                  className="mb-4"
+                />
               </div>
             </div>
+            <div className="mb-4">
+              <Text as="h3" size="lg" className="mb-2">
+                질문 개수를 설정해주세요
+              </Text>
+              <div className="flex gap-10">
+                <p className="min-w-[120px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
+                  질문 개수
+                </p>
+                <div className="flex gap-5">
+                  <Button
+                    size="square"
+                    color={questionCount === 2 ? 'primary' : 'white'}
+                    onClick={() => setQuestionCount(2)}
+                    className="shadow-md">
+                    2
+                  </Button>
+                  <Button
+                    size="square"
+                    color={questionCount === 4 ? 'primary' : 'white'}
+                    onClick={() => setQuestionCount(4)}
+                    className="shadow-md">
+                    4
+                  </Button>
+                  <Button
+                    size="square"
+                    color={questionCount === 6 ? 'primary' : 'white'}
+                    onClick={() => setQuestionCount(6)}
+                    className="shadow-md">
+                    6
+                  </Button>
+                  <Button
+                    size="square"
+                    color={questionCount === 8 ? 'primary' : 'white'}
+                    onClick={() => setQuestionCount(8)}
+                    className="shadow-md">
+                    8
+                  </Button>
+                  <Button
+                    size="square"
+                    color={questionCount === 10 ? 'primary' : 'white'}
+                    onClick={() => setQuestionCount(10)}
+                    className="shadow-md">
+                    10
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <QuestionTimeButtonGroup />
           </div>
-          <QuestionTimeButtonGroup />
           <IconButton
+            className="self-end"
             iconName="next_arrow.png"
             edge="end"
             size="md"
-            className="absolute bottom-14 right-[300px]"
             onClick={handleMove}>
             다음 단계
           </IconButton>
-          <div className="absolute bottom-14 right-14">
+          <div className="absolute top-14 right-14">
             <Image src="/laptop.png" alt="laptop" width={220} height={180} />
           </div>
         </div>

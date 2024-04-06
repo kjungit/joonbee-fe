@@ -28,7 +28,6 @@ export const getQuestion = async ({ page, category, subCategory }: Params) => {
     });
     return res.data.data;
   } catch (error: any) {
-    console.log(error);
     throw error;
   }
 };
@@ -59,7 +58,6 @@ export const getUserQuestions = async ({ page, category, subCategory }: Params) 
       subcategory: subCategory,
     },
   });
-  console.log('res', res.data.data);
   return res.data.data;
 };
 
