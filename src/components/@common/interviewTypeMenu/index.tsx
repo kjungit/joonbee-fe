@@ -11,29 +11,27 @@ export default function InterviewTypeMenu() {
   const [interviewType, setInterviewType] = useRecoilState(interviewTypeAtom);
 
   return (
-    <nav className="flex items-center justify-between w-full ">
-      <div className="flex gap-4">
-        <Link href="/interview/random">
-          <IconButton
-            iconName="random.png"
-            color={interviewType === 'random' ? 'blue' : 'white'}
-            className={`${interviewType === 'random' ? 'font-bold' : ''}`}
-            size="sm"
-            onClick={() => setInterviewType('random')}>
-            랜덤 질문
-          </IconButton>
-        </Link>
-        <Link href="/interview/choice">
-          <IconButton
-            iconName="checklist.png"
-            color={interviewType === 'choice' ? 'blue' : 'white'}
-            className={`${interviewType === 'choice' ? 'font-bold' : ''}`}
-            size="sm"
-            onClick={() => setInterviewType('choice')}>
-            선택 질문
-          </IconButton>
-        </Link>
-      </div>
+    <nav className="flex items-center justify-between w-full gap-2">
+      <Link href="/interview/random">
+        <IconButton
+          iconName="random.png"
+          color={interviewType === 'random' ? 'blue' : 'white'}
+          className={`${interviewType === 'random' ? 'font-bold' : ''}`}
+          size="sm"
+          onClick={() => setInterviewType('random')}>
+          랜덤 질문
+        </IconButton>
+      </Link>
+      <Link href="/interview/choice">
+        <IconButton
+          iconName="checklist.png"
+          color={interviewType === 'choice' ? 'blue' : 'white'}
+          className={`${interviewType === 'choice' ? 'font-bold' : ''}`}
+          size="sm"
+          onClick={() => setInterviewType('choice')}>
+          선택 질문
+        </IconButton>
+      </Link>
     </nav>
   );
 }

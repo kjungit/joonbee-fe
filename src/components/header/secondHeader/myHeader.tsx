@@ -27,12 +27,14 @@ export const MyHeader = () => {
   };
 
   return (
-    <div className="flex justify-between w-full">
-      <div>
+    <nav className="flex justify-between w-full">
+      <div className="flex gap-2">
         <IconButton
           edge="start"
           iconName="group"
           color={categoryParams === 'interview' ? 'blue' : 'white'}
+          className={categoryParams === 'interview' ? 'font-bold' : ''}
+          size="sm"
           onClick={() => handleClickMenu('interview')}>
           면접 관리
         </IconButton>
@@ -40,19 +42,20 @@ export const MyHeader = () => {
           edge="start"
           iconName="questionBox"
           color={categoryParams === 'question' ? 'blue' : 'white'}
+          className={categoryParams === 'question' ? 'font-bold' : ''}
+          size="sm"
           onClick={() => handleClickMenu('question')}>
           질문 관리
         </IconButton>
       </div>
-
       <button
-        className="text-sm text-status-alert mr-2 p-2"
+        className="text-sm text-status-alert mr-2 p-2 whitespace-nowrap"
         onClick={() => {
           logoutMutate();
           setIsLogined(false);
         }}>
         로그아웃
       </button>
-    </div>
+    </nav>
   );
 };
