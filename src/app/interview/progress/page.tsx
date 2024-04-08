@@ -198,7 +198,7 @@ export default function ProgressPage() {
     }
   };
 
-  // useBeforeUnload();
+  useBeforeUnload();
 
   return (
     <div className="pt-14">
