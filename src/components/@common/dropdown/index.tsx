@@ -3,7 +3,7 @@ import { CategoryName, SubcategoryName } from '@/types/question';
 import { useModal } from '@/hooks/useModal';
 import Button, { ButtonColors } from '../button';
 import { Category } from '@/constants/category';
-import useModalOutsideClick from '@/hooks/interview/useModalOutsideClick';
+import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 
 type DropdownProps = {
   data: string[];
