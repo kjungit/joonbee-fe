@@ -33,7 +33,7 @@ export default function PermissionPage() {
   const questionCount = useRecoilValue(interviewQuestionCountAtom);
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/progress');
 
-  const { onStartVideo, videoRef } = useVideo();
+  const { onStart, videoRef } = useVideo();
 
   const handleSelectDevice = (deviceId: string, deviceType: 'video' | 'audio') => {
     setSelectedDeviceId(prev => ({
@@ -43,7 +43,7 @@ export default function PermissionPage() {
   };
 
   useEffect(() => {
-    onStartVideo();
+    onStart();
   }, [selectedDeviceId]);
 
   useEffect(() => {
@@ -68,8 +68,8 @@ export default function PermissionPage() {
           <div className="max-w-[400px] mb-8">
             <div className="mb-5">
               {selectedDeviceId.videoId == '1' ? (
-                <div className={`bg-black shadow-md rounded-2xl w-full h-[240px]`}>
-                  {' '}
+                <div
+                  className={`bg-black shadow-md rounded-2xl w-full h-[240px] flex items-center justify-center`}>
                   <Image
                     src="/basicProfile.png"
                     alt="white_desk"
