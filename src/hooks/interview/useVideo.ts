@@ -1,44 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import useAudio from './useAudio';
 import { interviewVideoUrlAtom, selectedDeviceIdAtom } from '@/recoils/interview/atom';
+import useAudioStream from './useAudioStream';
+import useVideoStream from './useVideoStream';
 
 export default function useVideo() {
+  console.log('...useVideo');
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
   const [selectedDeviceId, setSelectedDeviceId] = useRecoilState(selectedDeviceIdAtom);
 
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [recordedMediaUrl, setRecordedMediaUrl] = useRecoilState(interviewVideoUrlAtom);
 
-  const { onStartAudio, audioStream } = useAudio();
+  const { onStartAudio, audioStream } = useAudioStream();
+  const { onStartVideo, videoStream, setVideoStream } = useVideoStream(videoRef);
 
-  const onStartVideo = async () => {
-    onStartAudio();
-    try {
-      if (selectedDeviceId.videoId === '1') {
-        if (videoRef.current) {
-          videoRef.current.srcObject = null;
-        }
-        return;
-      }
-
-      const videoOption = selectedDeviceId.videoId
-        ? { deviceId: { exact: selectedDeviceId.videoId } }
-        : true;
-
-      console.log('onStartVideo');
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: videoOption,
-      });
-      setVideoStream(stream);
-
-      if (videoRef && videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-    } catch (error) {
-      console.error('비디오 스트림을 시작하는 데 실패했습니다:', error);
-    }
+  const onStart = async () => {
+    await onStartAudio();
+    await onStartVideo();
   };
 
   const onStartRecord = () => {
@@ -101,7 +80,7 @@ export default function useVideo() {
   };
 
   return {
-    onStartVideo,
+    onStart,
     videoRef,
     onStartAudio,
     onStartRecord,
