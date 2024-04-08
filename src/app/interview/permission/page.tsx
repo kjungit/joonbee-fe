@@ -51,7 +51,7 @@ export default function PermissionPage() {
     if (audioDeviceList[0]?.deviceId) handleSelectDevice(audioDeviceList[0].deviceId, 'audio');
   }, [videoDeviceList, audioDeviceList]);
 
-  // useBeforeUnload();
+  useBeforeUnload();
 
   return (
     <>
@@ -61,14 +61,23 @@ export default function PermissionPage() {
           <Text size="xl">면접을 준비중입니다</Text>
         </div>
       ) : (
-        <div className="pt-14">
+        <div className="py-14 flex flex-col justify-between h-full">
           <Text as="h2" size="xl" weight="lg" className="mb-5">
             장치 권한 설정
           </Text>
           <div className="max-w-[400px] mb-8">
             <div className="mb-5">
               {selectedDeviceId.videoId == '1' ? (
-                <div className={`bg-black shadow-md rounded-2xl w-full h-[240px]`}></div>
+                <div className={`bg-black shadow-md rounded-2xl w-full h-[240px]`}>
+                  {' '}
+                  <Image
+                    src="/basicProfile.png"
+                    alt="white_desk"
+                    width={80}
+                    height={80}
+                    className="opacity-50"
+                  />
+                </div>
               ) : (
                 <Video videoRef={videoRef} />
               )}
@@ -88,29 +97,33 @@ export default function PermissionPage() {
               selectedId={selectedDeviceId.audioId}
               onSelect={audioId => handleSelectDevice(audioId, 'audio')}
             />
+            <Text size="md" className="mb-2" color="blue">
+              * 면접 영상은 저장되지 않아요. 일회성으로 면접이 끝난 후 확인이 가능하며, 면접 결과
+              페이지를 나가면 파기됩니다.
+            </Text>
           </div>
-
-          <ul className="flex gap-5">
-            <li className="w-[120px] h-[40px] bg-main-primary rounded-lg text-white flex items-center justify-center">
-              {MainCategory[mySelectCategory.category]}
-            </li>
-            <li className="w-[120px] h-[40px] bg-main-primary rounded-lg text-white flex items-center justify-center">
-              질문 {questionCount}개
-            </li>
-            <li className="w-[120px] h-[40px] bg-main-primary rounded-lg text-white flex items-center justify-center">
-              {convertSecondsToMinutes(time)}
-            </li>
-          </ul>
-          <IconButton
-            iconName="next_arrow.png"
-            edge="end"
-            size="md"
-            className="absolute bottom-14 right-[300px]"
-            onClick={onMovePage}
-            disabled={!selectedDeviceId.audioId}>
-            다음 단계
-          </IconButton>
-          <div className="absolute bottom-14 right-14">
+          <div className="flex justify-between w-full">
+            <ul className="flex gap-5">
+              <li className="text-sm w-[120px] h-[48px] bg-main-primary rounded-lg text-white flex items-center justify-center">
+                {MainCategory[mySelectCategory.category]}
+              </li>
+              <li className="text-sm w-[120px] h-[48px] bg-main-primary rounded-lg text-white flex items-center justify-center">
+                질문 {questionCount}개
+              </li>
+              <li className="text-sm w-[120px] h-[48px] bg-main-primary rounded-lg text-white flex items-center justify-center">
+                {convertSecondsToMinutes(time)}
+              </li>
+            </ul>
+            <IconButton
+              iconName="next_arrow.png"
+              edge="end"
+              size="md"
+              onClick={onMovePage}
+              disabled={!selectedDeviceId.audioId}>
+              다음 단계
+            </IconButton>
+          </div>
+          <div className="absolute top-14 right-14">
             <Image src="/white_desk.png" alt="white_desk" width={180} height={180} />
           </div>
         </div>

@@ -15,7 +15,6 @@ export const getMyInterview = async ({ page }: { page: number }) => {
     const res = await instance().get('api/member/category', {
       params: { page },
     });
-    console.log(res.data.data);
     return res.data.data;
   } catch (error) {}
 };
@@ -100,7 +99,6 @@ export const postCartsave = async ({
       subcategoryName,
       questionContent,
     });
-    console.log(res);
     return res;
   } catch (error) {}
 };

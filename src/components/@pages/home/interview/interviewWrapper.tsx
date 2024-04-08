@@ -57,13 +57,14 @@ export const InterviewWrapper = () => {
               onClickFunc={handleClickCategory}
             />
           </div>
-          {interviewData ? (
+          {interviewData && (
             <ul className="interviewListHeight overflow-auto">
               {interviewData &&
                 interviewData.map(item => <InterviewMenuItem key={item.interviewId} item={item} />)}
               <div ref={setTarget}></div>
             </ul>
-          ) : (
+          )}
+          {interviewData?.length === 0 && (
             <div className="flex flex-col items-center justify-center h-full pt-20">
               <Image src="/desktop.png" width={200} height={200} alt="desktop" className="ml-4" />
               <Text size="lg" weight="md">

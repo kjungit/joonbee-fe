@@ -22,7 +22,6 @@ export default function Pagination({
   const noNext = start + pageCount - 1 >= totalPages;
 
   useEffect(() => {
-    console.log(currentPage);
     if (currentPage === start + pageCount) setStart(prev => prev + pageCount);
     if (currentPage < start) setStart(prev => prev - pageCount);
   }, [currentPage, pageCount, start]);

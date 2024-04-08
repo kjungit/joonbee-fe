@@ -49,7 +49,7 @@ export default function StepIcon({ progress, text = '면접 시작', count = 1 }
             </Text>
           )}
         </div>
-        <Text weight={fontWeight} size="md" color={color}>
+        <Text weight={fontWeight} size="sm" color={color}>
           {text}
         </Text>
       </div>

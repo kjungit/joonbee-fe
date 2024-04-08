@@ -49,7 +49,6 @@ export default function ResultPage() {
   }, []);
 
   useEffect(() => {
-    console.log(isSuccess);
     if (isSuccess && postMutateData.gptOpinion) {
       saveTrigger();
     }
