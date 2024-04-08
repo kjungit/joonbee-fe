@@ -5,7 +5,6 @@ import useAudioStream from './useAudioStream';
 import useVideoStream from './useVideoStream';
 
 export default function useVideo() {
-  console.log('...useVideo');
   const videoRef = useRef<HTMLVideoElement>(null);
   const [selectedDeviceId, setSelectedDeviceId] = useRecoilState(selectedDeviceIdAtom);
 
@@ -22,10 +21,8 @@ export default function useVideo() {
 
   const onStartRecord = () => {
     if (!videoStream || !audioStream) {
-      console.log('비디오나 오디오 스트림이 없습니다.');
       return;
     }
-    console.log('onStartRecord');
     const combined = new MediaStream([...videoStream.getTracks(), ...audioStream.getTracks()]);
     const mediaData: Blob[] = [];
 
@@ -41,7 +38,6 @@ export default function useVideo() {
     };
 
     recorder.onstop = () => {
-      console.log('onstop');
       const blob = new Blob(mediaData, { type: 'video/webm' });
 
       const url = URL.createObjectURL(blob);
@@ -56,22 +52,18 @@ export default function useVideo() {
 
     if (mediaRecorder.state === 'recording') {
       mediaRecorder.pause();
-      console.log('video pasue', mediaRecorder);
     } else if (mediaRecorder.state === 'paused') {
-      console.log('video resume');
       mediaRecorder.resume();
     }
   };
 
   const onStopRecord = () => {
-    console.log('onStopRecord');
     if (mediaRecorder) {
       mediaRecorder.stop();
     }
   };
 
   const onDownload = (recordedMediaUrl: string) => {
-    console.log('onDownload');
     const anchor = document.createElement('a');
     anchor.href = recordedMediaUrl;
     anchor.download = 'video.webm';

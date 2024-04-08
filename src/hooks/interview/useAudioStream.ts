@@ -5,7 +5,6 @@ export default function useAudioStream() {
 
   const onStartAudio = useCallback(async () => {
     try {
-      console.log('onStartAudio');
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setAudioStream(stream);
     } catch (error) {
