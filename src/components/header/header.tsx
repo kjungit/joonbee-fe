@@ -32,12 +32,10 @@ export default function Header() {
         className="w-full
     h-[54px] effect-white dark:effect-dark dark:border-b flex items-center">
         <LoginInfo />
-        <div className="flex items-center justify-between w-full ">
-          <div className="flex gap-4 px-2 w-full">
-            {pathName === '/' && <HomeHeader />}
-            <InterviewHeader />
-            {pathName === '/my' && <MyHeader />}
-          </div>
+        <div className="flex items-center justify-between w-full px-2">
+          {pathName === '/' && <HomeHeader />}
+          <InterviewHeader />
+          {pathName === '/my' && <MyHeader />}
         </div>
       </div>
 

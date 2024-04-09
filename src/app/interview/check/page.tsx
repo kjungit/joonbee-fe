@@ -19,13 +19,14 @@ interface EditStateProps {
 export default function CheckPage() {
   const router = useRouter();
   const questionList = useRecoilValue(addQuestionListSelector);
+
   const [textareaHeight, setTextareaHeight] = useState('auto');
   const textareaRefs = useRef<HTMLTextAreaElement[]>([]);
   const setQuestionList = useSetRecoilState(addQuestionListSelector);
   const [openStates, setOpenStates] = useState(questionList.map(() => true));
   const [editingStates, setEditingStates] = useState(questionList.map(() => false));
   const [currentAnswers, setCurrentAnswers] = useState(
-    questionList.map(question => question.answerContent),
+    questionList.map((question, index) => question.answerContent),
   );
   const [isEditState, setIsEditState] = useState<EditStateProps>({ index: null, isEdit: false });
 
@@ -36,7 +37,7 @@ export default function CheckPage() {
 
   const handleClick = (index: number) => {
     const updatedEditingStates = editingStates.map((isEditing, i) =>
-      i === index ? true : isEditing,
+      i === index ? !isEditing : isEditing,
     );
     setEditingStates(updatedEditingStates);
   };
@@ -74,6 +75,19 @@ export default function CheckPage() {
   };
   const hasEmptyAnswer = currentAnswers.some(answer => answer === '');
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>, index: number) => {
+    if (e.key == 'Enter') {
+      e.preventDefault();
+      handleClick(index);
+      e.currentTarget.blur();
+      setIsEditState({ index, isEdit: true });
+    }
+
+    if (e.key === 'Tab') {
+      e.preventDefault();
+    }
+  };
+
   useEffect(() => {
     editingStates.forEach((isEditing, index) => {
       if (isEditing && textareaRefs.current[index]) {
@@ -84,6 +98,7 @@ export default function CheckPage() {
       }
     });
   }, [editingStates, currentAnswers]);
+
   useEffect(() => {
     let timer: NodeJS.Timeout;
 
@@ -97,6 +112,18 @@ export default function CheckPage() {
       clearTimeout(timer);
     };
   }, [isEditState]);
+
+  useEffect(() => {
+    setEditingStates(editingStates.map((state, index) => (index === 0 ? true : state)));
+
+    if (textareaRefs.current[0]) {
+      const element = textareaRefs.current[0];
+      element.focus();
+      const valueLength = element.value.length;
+      element.setSelectionRange(valueLength, valueLength);
+    }
+  }, []);
+
   useBeforeUnload();
 
   return (
@@ -120,46 +147,34 @@ export default function CheckPage() {
                 {question.questionContent}
               </Text>
             </div>
+
             {openStates[index] && (
               <div className="h-10">
-                {editingStates[index] ? (
-                  <textarea
-                    ref={el => {
-                      if (el) {
-                        textareaRefs.current[index] = el;
-                      }
-                    }}
-                    id={`textarea-${index}`}
-                    rows={1}
-                    style={{ height: textareaHeight }}
-                    placeholder="답변을 입력하세요."
-                    value={currentAnswers[index]}
-                    className="w-full resize-none border-none px-8 text-[14px] font-medium break-keep align-top block placeholder:text-gray-light"
-                    onChange={e => handleAnswerChange(index, e.target.value)}
-                    onBlur={e => handleInputBlur(e, index)}
-                  />
-                ) : currentAnswers[index] === '' ? (
-                  <Text
-                    size="lg"
-                    weight="md"
-                    color="lightGray"
-                    className="w-full px-8 text-[14px]"
-                    onClick={() => handleClick(index)}>
-                    답변을 입력하세요.
-                  </Text>
-                ) : (
-                  <p
-                    className="w-full px-8 text-[14px] font-medium"
-                    style={{ overflowWrap: 'break-word' }}
-                    onClick={() => handleClick(index)}>
-                    {currentAnswers[index]}
-                  </p>
-                )}
-                {isEditState.index === index && (
-                  <Text size="sm" weight="md" color="blue" className="w-full px-8 ">
-                    작성하신 답변이 수정되었습니다.
-                  </Text>
-                )}
+                <textarea
+                  ref={el => {
+                    if (el) {
+                      textareaRefs.current[index] = el;
+                    }
+                  }}
+                  id={`textarea-${index}`}
+                  rows={1}
+                  style={{ height: textareaHeight }}
+                  placeholder="답변을 입력하세요."
+                  value={currentAnswers[index]}
+                  className="w-full resize-none border-none px-8 text-[14px] font-medium break-keep align-top block placeholder:text-gray-light"
+                  onChange={e => handleAnswerChange(index, e.target.value)}
+                  onClick={() => handleClick(index)}
+                  onBlur={e => handleInputBlur(e, index)}
+                  onKeyDown={e => handleKeyDown(e, index)}
+                  readOnly={!editingStates[index]}
+                />
+                {isEditState.index === index &&
+                  !editingStates[index] &&
+                  currentAnswers[index].trim().length > 0 && (
+                    <Text size="sm" weight="md" color="blue" className="w-full px-8 ">
+                      작성하신 답변이 수정되었습니다.
+                    </Text>
+                  )}
               </div>
             )}
           </div>
