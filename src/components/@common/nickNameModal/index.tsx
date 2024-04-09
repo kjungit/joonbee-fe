@@ -30,7 +30,7 @@ export const NickNameModal = ({ isClose = false }: { isClose?: boolean }) => {
 
   return (
     <div className="bg-main-primary/20 fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen   shadow-md flex items-center justify-center">
-      <div className="relative w-[280px] h-[320px] flex items-center justify-center rounded-xl bg-white shadow-md">
+      <div className="relative w-[280px] h-[260px] flex items-center justify-center rounded-xl bg-white shadow-md">
         <div className="flex flex-col gap-16 items-center justify-center p-[30px]">
           <div className="flex flex-col gap-5 w-full">
             {isClose && (

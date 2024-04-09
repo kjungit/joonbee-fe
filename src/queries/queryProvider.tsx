@@ -59,7 +59,7 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
           </CommonModal>
         </ModalPortal>
       )}
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }

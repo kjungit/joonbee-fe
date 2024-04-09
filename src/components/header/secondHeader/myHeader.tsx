@@ -1,15 +1,11 @@
-import Button from '@/components/@common/button';
 import IconButton from '@/components/@common/iconButton';
 import { useLogout } from '@/queries/user/useLogout';
-import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 export const MyHeader = () => {
-  const [selectInterviewCategory, setSelectInterviewCategory] = useRecoilState(
-    selectInterviewCategoryState,
-  );
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
 
   const { logoutMutate } = useLogout();
@@ -27,12 +23,14 @@ export const MyHeader = () => {
   };
 
   return (
-    <div className="flex justify-between w-full">
+    <nav className="flex justify-between w-full">
       <div>
         <IconButton
           edge="start"
           iconName="group"
           color={categoryParams === 'interview' ? 'blue' : 'white'}
+          className={categoryParams === 'interview' ? 'font-bold' : ''}
+          size="sm"
           onClick={() => handleClickMenu('interview')}>
           면접 관리
         </IconButton>
@@ -40,11 +38,12 @@ export const MyHeader = () => {
           edge="start"
           iconName="questionBox"
           color={categoryParams === 'question' ? 'blue' : 'white'}
+          className={categoryParams === 'question' ? 'font-bold' : ''}
+          size="sm"
           onClick={() => handleClickMenu('question')}>
           질문 관리
         </IconButton>
       </div>
-
       <button
         className="text-sm text-status-alert mr-2 p-2"
         onClick={() => {
@@ -53,6 +52,6 @@ export const MyHeader = () => {
         }}>
         로그아웃
       </button>
-    </div>
+    </nav>
   );
 };

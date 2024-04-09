@@ -22,12 +22,14 @@ export const QuestionWrapper = () => {
     <div className="flex h-full w-full justify-center overflow-auto">
       <CenterSectionWrapper>
         {categoryParams === 'question' && (
-          <ul className=" flex flex-col gap-4 interviewListHeight pt-14">
+          <ul className=" flex flex-col gap-4 interviewListHeight md:pt-14 md:px-0 px-4 pt-4">
             {questionData &&
               questionData.map((item, i) => (
-                <li key={item.questionId} className="flex gap-2 h-10 items-start">
+                <li
+                  key={item.questionId}
+                  className="flex gap-2 md:h-10 h-auto items-start justify-between md:justify-normal ">
                   <div className="flex gap-2">
-                    <VariableIcon name="questionBox" size={18} />
+                    <VariableIcon className="min-w-[18px]" name="questionBox" size={18} />
                     <Text size="lg">{item.questionContent}</Text>
                   </div>
                   <QuestionSaveIcon
@@ -36,7 +38,9 @@ export const QuestionWrapper = () => {
                   />
                 </li>
               ))}
-            <div ref={setTarget}>ㅤ</div>
+            <div ref={setTarget} className="pb-20">
+              ㅤ
+            </div>
           </ul>
         )}
 

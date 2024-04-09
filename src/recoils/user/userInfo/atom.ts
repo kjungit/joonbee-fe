@@ -18,7 +18,7 @@ export const userInfoAtom = atom({
   },
   effects: [
     ({ setSelf, onSet }) => {
-      const savedData = sessionStorage.getItem('userInfo');
+      const savedData = typeof window !== 'undefined' ? sessionStorage.getItem('userInfo') : null;
       if (savedData) setSelf(JSON.parse(savedData));
 
       onSet((newValue, _, isReset) => {

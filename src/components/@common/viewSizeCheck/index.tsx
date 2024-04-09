@@ -1,13 +1,14 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import ModalPortal from '../modalPortal';
+import { useEffect, useRef } from 'react';
 import Logo from '../logo';
 import Image from 'next/image';
 import { Text } from '../text';
+import Button from '../button';
+import { useRouter } from 'next/navigation';
 
 export const ViewSizeCheck = () => {
   const ref = useRef<HTMLDivElement>(null);
-
+  const router = useRouter();
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 1200) {
@@ -39,14 +40,16 @@ export const ViewSizeCheck = () => {
       <div className="flex flex-col gap-4 w-full h-full items-center justify-center">
         <Logo size="lg" />
         <Image src="/main_logo_font.png" alt="main_logo" width={120} height={200} />
-        <div className="flex flex-col items-center gap-1">
-          <Text size="xl" weight="lg" className="text-blue-normal text-center">
-            AI 면접서비스는 넓은 PC화면에서만 가능합니다.
-          </Text>
-
-          <Text size="md" weight="lg" className="text-blue-normal text-center">
-            모바일 버전도 준비중이니 양해부탁드립니다.
-          </Text>
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-1">
+            <Text size="xl" weight="lg" className="text-blue-normal text-center">
+              AI 면접서비스는 넓은 PC화면에서만 가능합니다.
+            </Text>
+            <Text size="md" weight="lg" className="text-blue-normal text-center">
+              모바일 버전도 준비중이니 양해부탁드립니다.
+            </Text>
+          </div>
+          <Button onClick={() => router.push('/')}>홈으로 돌아가기</Button>
         </div>
       </div>
     </div>

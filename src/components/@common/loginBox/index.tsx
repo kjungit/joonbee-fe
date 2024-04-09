@@ -28,10 +28,14 @@ export const LoginBox = () => {
   return (
     <div
       onClick={onClickOpen}
-      className=" w-[370px] h-[500px] rounded-[50px] bg-white shadow-md flex items-center justify-center">
+      className=" md:w-[370px] md:h-[500px] w-[280px] h-[460px] md:rounded-[50px] rounded-3xl bg-white shadow-md flex items-center justify-center">
       <div className="flex items-center flex-col">
-        <Logo size={'lg'} />
-        <p className="text-[24px] mt-7 mb-10 font-bold text-blue-secondary">JOONBEE 하세요.</p>
+        <div className="md:w-[120px] md:h-[120px] w-20 h-20 ">
+          <Logo size={'lg'} />
+        </div>
+        <p className="md:text-[24px] text-xl mt-7 mb-10 font-bold text-blue-secondary">
+          JOONBEE 하세요.
+        </p>
         <div className="flex flex-col gap-3">
           <SocialLoginButton
             name="kakao.png"

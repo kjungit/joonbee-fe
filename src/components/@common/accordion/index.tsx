@@ -26,12 +26,12 @@ export const Accordion = ({
   return (
     <div className={`${isBorder && 'border-b-[1px]'} pb-2 border-gray-normal`}>
       <div
-        className={`${isMain ? 'pl-4 py-2 ' : 'pl-10'} flex cursor-pointer items-center`}
+        className={`${isMain ? 'pl-4 py-2 ' : 'pl-10'} flex cursor-pointer items-start`}
         onClick={onClick || handleToggle}>
         <VariableIcon
           name="triangleRight"
           size={16}
-          className={`${(isOpen || isOpenState) && 'rotate-90'}`}
+          className={`${(isOpen || isOpenState) && 'rotate-90'} min-w-[18px] mt-[6px]`}
         />
         <Text size="lg" weight="md" className="p-1">
           {title}
