@@ -18,7 +18,7 @@ interface DropdownCategoryProps {
 export default function CategoryDropdown({
   color = 'white',
   size = 'sm',
-  direction = 'top',
+  direction = 'bottom',
   selectedCategory,
   selectedSubcategory,
   setSelectedCategory,

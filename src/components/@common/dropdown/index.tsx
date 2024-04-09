@@ -30,17 +30,6 @@ const Dropdown = ({
 
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
 
-  useEffect(() => {
-    if (direction === 'top' && modalRef.current) {
-      const dropdownHeight = modalRef.current.offsetHeight;
-      setDropdownStyle({
-        top: `calc(100% - 60px - ${dropdownHeight}px)`,
-      });
-    } else {
-      setDropdownStyle({});
-    }
-  }, [isOpened, direction, modalRef.current]);
-
   const onSelectItem = (item: string) => {
     onToggleList();
     onSelect(item);
@@ -67,6 +56,17 @@ const Dropdown = ({
     },
   };
 
+  useEffect(() => {
+    if (direction === 'top' && modalRef.current) {
+      const dropdownHeight = modalRef.current.offsetHeight;
+      setDropdownStyle({
+        top: `calc(100% - 70px - ${dropdownHeight}px)`,
+      });
+    } else {
+      setDropdownStyle({});
+    }
+  }, [isOpened, direction, modalRef.current]);
+
   return (
     <section className="relative">
       <Button
@@ -81,7 +81,7 @@ const Dropdown = ({
         <ul
           style={dropdownStyle}
           ref={modalRef}
-          className={`shadow-normal px-[8px]  py-[6px] top-10 rounded-[8px] overflow-y-auto bg-white absolute
+          className={`shadow-normal px-[8px] mt-[10px]  py-[6px] top-10 rounded-[8px] overflow-y-auto bg-white absolute
            z-10 ${sizeStyles[size].ul} `}>
           {data.map((item, index) => (
             <li key={item} className="cursor-pointer">

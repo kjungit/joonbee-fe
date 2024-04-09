@@ -168,6 +168,7 @@ export default function ChoiceSettingPage() {
                     카테고리
                   </p>
                   <Dropdown
+                    direction="top"
                     size="md"
                     data={categoryList || []}
                     selected={mySelectCategory.category}
