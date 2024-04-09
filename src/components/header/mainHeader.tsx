@@ -53,7 +53,7 @@ export const MainHeader = () => {
           <Link href="/login">로그인</Link>
         )}
         {/* <div className="absolute bottom-3 right-3 ">
-            <ThemeSwitch />
+          <ThemeSwitch />
         </div> */}
       </div>
     </div>

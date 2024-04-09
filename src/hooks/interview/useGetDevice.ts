@@ -1,45 +1,28 @@
 import { selectedDeviceIdAtom } from '@/recoils/interview/atom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-export default function useGetDevice() {
-  const [videoDevices, setVideoDevices] = useState<{ label: string; deviceId: string }[]>([]);
-  const [audioDevices, setAudioDevices] = useState<{ label: string; deviceId: string }[]>([]);
+// 장치 유형을 인자로 받는 함수
+export default function useGetDevice(deviceType: 'audio' | 'video') {
+  const [deviceList, setDeviceList] = useState<{ label: string; deviceId: string }[]>([]);
 
-  const [selectedDeviceId, setSelectedDeviceId] = useRecoilState(selectedDeviceIdAtom);
+  useEffect(() => {
+    const getConnectedDevices = async () => {
+      const allDevices = await navigator.mediaDevices.enumerateDevices();
+      const filteredDeviceList = allDevices
+        .filter(device => device.kind === `${deviceType}input`)
+        .map(device => ({
+          label: device.label,
+          deviceId: device.deviceId,
+        }));
 
-  const getConnectedDevices = async () => {
-    const devices = await navigator.mediaDevices.enumerateDevices();
+      setDeviceList(filteredDeviceList);
+    };
 
-    const videoDeviceInfo = devices
-      .filter(device => device.kind === 'videoinput')
-      .map(device => ({
-        label: device.label,
-        deviceId: device.deviceId,
-      }));
-    setVideoDevices(videoDeviceInfo);
-
-    const audioDeviceInfo = devices
-      .filter(device => device.kind === 'audioinput')
-      .map(device => ({
-        label: device.label,
-        deviceId: device.deviceId,
-      }));
-    setAudioDevices(audioDeviceInfo);
-  };
-
-  const handleSelectDevice = (deviceType: 'video' | 'audio', deviceId: string) => {
-    setSelectedDeviceId(prev => ({
-      ...prev,
-      [`${deviceType}Id`]: deviceId,
-    }));
-  };
+    getConnectedDevices();
+  }, [deviceType]);
 
   return {
-    videoDevices,
-    audioDevices,
-    getConnectedDevices,
-    selectedDeviceId,
-    handleSelectDevice,
+    deviceList,
   };
 }

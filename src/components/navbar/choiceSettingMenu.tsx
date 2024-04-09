@@ -13,8 +13,6 @@ export default function ChoiceSettingMenu() {
     mySelectQuestionCategoryState,
   );
 
-  console.log('it', items, selectQuestionCategory.category, selectQuestionCategory.subCategory);
-
   const handleClickChild = (childItem: ChildrenProps) => {
     setSelectQuestionCategory({
       ...selectQuestionCategory,

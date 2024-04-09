@@ -1,7 +1,7 @@
 import usePreventBack from '../../../hooks/usePreventBack';
 import { VariableIcon } from '../variableIcon';
 import { Text } from '../text';
-import useModalOutsideClick from '@/hooks/interview/useModalOutsideClick';
+import useModalOutsideClick from '@/hooks/useModalOutsideClick';
 import Button from '../button';
 
 export default function PreventBackModal() {

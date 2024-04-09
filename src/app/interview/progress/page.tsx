@@ -50,13 +50,13 @@ export default function ProgressPage() {
   const [currentQuestion, setCurrentQuestion] = useState<MyInterviewQuestions>();
   const questionsCount = questionData.length;
 
-  const { videoRef, onStartVideo, onStartRecord, onStopRecord, onToggleRecord, onStartAudio } =
+  const { videoRef, onStart, onStartRecord, onStopRecord, onToggleRecord, onStartAudio } =
     useVideo();
   const { minutes, seconds, remainingTime } = useTimer(progressStatus, setProgressStatus);
 
   useEffect(() => {
     if (isAllowedVideo) {
-      onStartVideo();
+      onStart();
     } else {
       onStartAudio();
     }

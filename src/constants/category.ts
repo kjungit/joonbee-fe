@@ -1,12 +1,38 @@
 import { QuestionCategory } from '@/types';
 
 export const questionCategory: QuestionCategory[] = [
-  { category: 'fe', subcategory: ['react', 'vuejs', 'nextjs'] },
-  { category: 'be', subcategory: ['db', 'spring_framework', 'msa'] },
-  { category: 'language', subcategory: ['javascript', 'typescript'] },
-  { category: 'cs', subcategory: ['docker', 'operatingSystem', 'computer_architecture'] },
-  { category: 'mobile', subcategory: ['aos', 'ios', 'flutter'] },
-  { category: 'etc', subcategory: ['git'] },
+  { category: 'fe', subcategory: ['react', 'vuejs', 'nextjs', 'svelte', 'html/css'] },
+  {
+    category: 'be',
+    subcategory: ['db', 'spring_framework', 'msa', 'nestjs', 'nodejs', 'rebbitmq', 'redis'],
+  },
+  {
+    category: 'language',
+    subcategory: [
+      'java',
+      'kotlin',
+      'javascript',
+      'typescript',
+      'delphi',
+      'c_c++',
+      'c#',
+      'golang',
+      'swift',
+      'objective-c',
+    ],
+  },
+  {
+    category: 'cs',
+    subcategory: [
+      'datastructure_algorithm',
+      'docker',
+      'virtual_machine',
+      'network',
+      'computer_architecture',
+    ],
+  },
+  { category: 'mobile', subcategory: ['react_native', 'aos', 'ios', 'flutter'] },
+  { category: 'etc', subcategory: ['git', 'team', 'project'] },
 ];
 export const MainCategory: {
   [key: string]: string;
