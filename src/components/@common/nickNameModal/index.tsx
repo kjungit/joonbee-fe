@@ -7,6 +7,7 @@ import { NickNameAtom } from '@/recoils/user/isNickName/atom';
 import { VariableIcon } from '../variableIcon';
 import { useUpdateNick } from '@/queries/user/useUpdateNick';
 import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 
 export const NickNameModal = ({ isClose = false }: { isClose?: boolean }) => {
   const [inputState, setInputState] = useState('');

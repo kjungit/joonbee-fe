@@ -37,6 +37,7 @@ export const LoginInfo = () => {
                   ...nickState,
                   id: userInfo.id,
                 });
+                setIsOpen(false);
                 setIsNickOpen(!isNickOpen);
               }}>
               <VariableIcon name="edit" size={16} isHover />

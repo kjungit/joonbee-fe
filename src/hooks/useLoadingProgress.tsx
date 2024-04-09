@@ -30,10 +30,10 @@ export default function useLoadingProgress(isLoaded: boolean) {
           interval = setInterval(updatePercent, 300);
           break;
         case percent >= 33 && percent < 51:
-          interval = setInterval(updatePercent, 500);
+          interval = setInterval(updatePercent, 400);
           break;
         case percent >= 52 && percent < 60:
-          interval = setInterval(updatePercent, 800);
+          interval = setInterval(updatePercent, 300);
           break;
         case percent >= 60 && percent < 70:
           interval = setInterval(updatePercent, 700);

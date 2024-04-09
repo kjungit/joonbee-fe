@@ -261,8 +261,8 @@ export default function ResultPage() {
                 브라우저가 비디오를 지원하지 않습니다.
               </video>
               <div className="flex w-full justify-end">
-                <Button size="sm" className="" onClick={() => onDownload(videoUrl)}>
-                  면접 영상 다운로드
+                <Button size="sm" className="px-2" onClick={() => onDownload(videoUrl)}>
+                  영상 다운로드
                 </Button>
               </div>
             </div>

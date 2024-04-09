@@ -37,7 +37,7 @@ export default function Header() {
     h-[54px] effect-white dark:effect-dark dark:border-b flex items-center">
         <LoginInfo />
         <div className="flex items-center justify-between w-full ">
-          <div className={`flex gap-4 px-2 w-full ${isOpen && 'min-w-[320px]'}`}>
+          <div className={`flex px-2 w-full ${isOpen && 'min-w-[320px]'}`}>
             {pathName === '/' && <HomeHeader />}
             <InterviewHeader />
             {pathName === '/my' && <MyHeader />}
