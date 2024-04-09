@@ -121,6 +121,7 @@ export default function ChoiceSettingPage() {
             <div>
               <div className="flex justify-between">
                 <CategoryDropdown
+                  direction="top"
                   size="md"
                   selectedCategory={mySelectCategory.category}
                   setSelectedCategory={(category: any) =>

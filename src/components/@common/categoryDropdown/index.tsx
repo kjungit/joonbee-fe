@@ -7,6 +7,7 @@ import Dropdown from '../dropdown';
 interface DropdownCategoryProps {
   color?: ButtonColors;
   size?: 'sm' | 'md';
+  direction?: 'top' | 'bottom';
   selectedCategory: string;
   selectedSubcategory: string;
   setSelectedCategory: Dispatch<SetStateAction<string>>;
@@ -17,6 +18,7 @@ interface DropdownCategoryProps {
 export default function CategoryDropdown({
   color = 'white',
   size = 'sm',
+  direction = 'top',
   selectedCategory,
   selectedSubcategory,
   setSelectedCategory,
@@ -60,6 +62,7 @@ export default function CategoryDropdown({
   return (
     <div className={`flex gap-5 relative z-10 ${className}`}>
       <Dropdown
+        direction={direction}
         size={size}
         data={mainCategoryList}
         selected={selectedCategory}
@@ -67,6 +70,7 @@ export default function CategoryDropdown({
         color={color}
       />
       <Dropdown
+        direction={direction}
         size={size}
         data={selectedSubcategoryList}
         selected={selectedSubcategory}
