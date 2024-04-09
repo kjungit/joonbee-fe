@@ -24,7 +24,7 @@ export const MyHeader = () => {
 
   return (
     <nav className="flex justify-between w-full">
-      <div>
+      <div className="flex justify-between items-center gap-2">
         <IconButton
           edge="start"
           iconName="group"
