@@ -38,7 +38,9 @@ export const QuestionWrapper = () => {
                   />
                 </li>
               ))}
-            <div ref={setTarget}>ㅤ</div>
+            <div ref={setTarget} className="pb-20">
+              ㅤ
+            </div>
           </ul>
         )}
 

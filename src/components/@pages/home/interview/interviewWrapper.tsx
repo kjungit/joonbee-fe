@@ -61,7 +61,7 @@ export const InterviewWrapper = () => {
             <ul className="interviewListHeight overflow-auto">
               {interviewData &&
                 interviewData.map(item => <InterviewMenuItem key={item.interviewId} item={item} />)}
-              <div ref={setTarget}></div>
+              <div ref={setTarget} className="pb-[90px]"></div>
             </ul>
           )}
           {interviewData?.length === 0 && (
