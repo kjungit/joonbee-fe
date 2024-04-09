@@ -12,8 +12,11 @@ import { MyMenu } from './myMenu';
 import QuestionProgressMenu from './questionProgressMenu';
 import ChoiceSettingMenu from './choiceSettingMenu';
 import { isClickNextBtnAtom } from '@/recoils/interview/atom';
+import { VariableIcon } from '../@common/variableIcon';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useRecoilState(NavbarIsOpenAtom);
   const [selectQuestionCategory, setSelectQuestionCategory] = useRecoilState(
     selectQuestionCategoryState,
   );
@@ -33,11 +36,24 @@ export default function Navbar() {
     });
   }, [selectMenu]);
 
+  const onClickOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div className="min-w-[260px] questionListHeight effect-white">
-      <div className="h-full">
+    <div
+      className={`md:min-w-[260px] min-w-[50px] relative questionListHeight effect-white  ${
+        isOpen ? '!min-w-[260px]' : 'md:min-w-[260px] min-w-[50px]'
+      }`}>
+      <div className={`flex absolute top-2 right-2 md:hidden ${isOpen && '!justify-end '}`}>
+        <VariableIcon name="bar" onClick={onClickOpen} />
+      </div>
+      <div
+        className={`h-full md:min-w-[260px] min-w-[50px] hidden md:block ${
+          isOpen ? '!min-w-[260px] !block' : 'md:min-w-[260px] min-w-[50px]'
+        }`}>
         {pathName === '/' && categoryParams === null && (
-          <div className="mt-24">
+          <div className="mt-24 flex justify-center">
             <Image src="/bgItem_1.png" alt="bgItem_1" width={216} height={316} />
           </div>
         )}

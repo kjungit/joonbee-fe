@@ -12,7 +12,7 @@ export const HomeSectionWrapper = () => {
   const selectInterview = useRecoilValue(selectInterviewState);
 
   return (
-    <div className="flex h-full w-full ">
+    <div className="flex h-full w-full">
       {categoryParams !== null && categoryParams === 'interview' && <InterviewWrapper />}
       {categoryParams !== 'question' && <DetailInterviewSection />}
       {categoryParams === 'question' && <QuestionWrapper />}

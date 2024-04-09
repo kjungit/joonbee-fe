@@ -162,8 +162,8 @@ export const MyInterviewSection = () => {
         </div>
       ) : (
         <div className="flex flex-col gap-2 w-full h-full items-center justify-center">
-          <Image src="/desktop.png" width={300} height={300} alt="desktop" />
-          <Text size="lg" weight="md" className="p-1">
+          <Image src="/desktop.png" width={200} height={200} alt="desktop" />
+          <Text size="lg" weight="md" className="p-1 md:text-[14px] text-[12px]">
             내 면접 결과를 확인해보세요.
           </Text>
         </div>

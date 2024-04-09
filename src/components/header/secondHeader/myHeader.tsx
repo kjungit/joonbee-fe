@@ -1,15 +1,11 @@
-import Button from '@/components/@common/button';
 import IconButton from '@/components/@common/iconButton';
 import { useLogout } from '@/queries/user/useLogout';
-import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 export const MyHeader = () => {
-  const [selectInterviewCategory, setSelectInterviewCategory] = useRecoilState(
-    selectInterviewCategoryState,
-  );
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
 
   const { logoutMutate } = useLogout();
@@ -28,7 +24,7 @@ export const MyHeader = () => {
 
   return (
     <nav className="flex justify-between w-full">
-      <div className="flex gap-2">
+      <div>
         <IconButton
           edge="start"
           iconName="group"
@@ -49,7 +45,7 @@ export const MyHeader = () => {
         </IconButton>
       </div>
       <button
-        className="text-sm text-status-alert mr-2 p-2 whitespace-nowrap"
+        className="text-sm text-status-alert mr-2 p-2"
         onClick={() => {
           logoutMutate();
           setIsLogined(false);

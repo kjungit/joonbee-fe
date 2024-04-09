@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
   if (data.status !== 200) {
     if (pathname.startsWith('/interview') || pathname.startsWith('/my')) {
       if (pathname !== '/interview') {
-        return NextResponse.redirect(new URL('/login', request.url));
+        return NextResponse.redirect(new URL('/login?redirect=t', request.url));
       }
     }
   }

@@ -15,7 +15,7 @@ export const MainHeader = () => {
   const pathName = usePathname();
   return (
     <div className="flex items-center justify-between w-full px-6">
-      <div className="flex gap-4">
+      <div className="flex gap-4 md:text-md text-sm">
         <button onClick={resetSelectInterview}>
           <Link className={`${pathName === '/' && 'font-bold'}`} href="/">
             홈
@@ -35,7 +35,7 @@ export const MainHeader = () => {
           이력서
         </Link> */}
       </div>
-      <div className="flex justify-center items-center gap-4">
+      <div className="flex justify-center items-center gap-4 md:text-md text-sm">
         {isLogined ? (
           <div className="relative">
             <Link href="/my?category=interview&Ifield=fe">
@@ -52,9 +52,9 @@ export const MainHeader = () => {
         ) : (
           <Link href="/login">로그인</Link>
         )}
-        <div className="min-w-[40px">
+        {/* <div className="absolute bottom-3 right-3 ">
           <ThemeSwitch />
-        </div>
+        </div> */}
       </div>
     </div>
   );

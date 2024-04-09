@@ -30,7 +30,7 @@ export default function Button({
   };
 
   const sizeStyles = {
-    auto: 'w-auto px-4 py-2',
+    auto: 'w-auto px-4 py-2 md:text-[16px] text-[14px]',
     xs: 'w-[82px] h-[48px] text-[14px] shadow-md',
     sm: 'w-[120px] h-[40px] text-[14px]',
     sm2: 'w-[80px] h-[40px] text-[14px]',

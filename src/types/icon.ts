@@ -31,6 +31,7 @@ export type VariableIconName =
   | 'video'
   | 'audio'
   | 'calendar'
-  | 'triangleRight';
+  | 'triangleRight'
+  | 'bar';
 
 export type IconType = VariableIconName | IconName;

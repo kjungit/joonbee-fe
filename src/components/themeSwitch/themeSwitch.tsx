@@ -21,6 +21,7 @@ export default function ThemeSwitch() {
         alt="Loading Light/Dark Toggle"
         priority={false}
         title="Loading Light/Dark Toggle"
+        className="md:w-8 md:h-8 w-10 h-10 border-1 border border-black rounded-full bg-main-primary dark:bg-white dark:text-main-primary dark:border-white text-white flex justify-center items-center"
       />
     );
 
