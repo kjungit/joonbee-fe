@@ -31,12 +31,12 @@ export const MyQuestionSection = () => {
             <Image src={'/loginLoading.gif'} width={100} height={100} alt="loading" />
           </div>
         ) : (
-          <ul className=" flex flex-col gap-4 interviewListHeight overflow-auto">
+          <ul className=" flex flex-col gap-4 interviewListHeight overflow-auto pr-1">
             {questionData &&
               questionData?.map(item => (
-                <li key={item.questionId} className="flex gap-4">
+                <li key={item.questionId} className="flex gap-4 w-full justify-between">
                   <div className="flex gap-2">
-                    <VariableIcon name="questionBox" size={18} />
+                    <VariableIcon name="questionBox" size={18} className="min-w-[18px]" />
                     <Text size="lg">{item.questionContent}</Text>
                   </div>
                   <QuestionDeleteIcon id={Number(item.questionId)} />

@@ -30,12 +30,14 @@ export const SocialLoginButton = ({ name, onClick }: SocialLoginButtonProps) => 
   const capitalizedName = capitalizeFirstLetter(name);
 
   return (
-    <button className={`${boxStyle} w-[300px] h-[60px] rounded-lg `} onClick={onClick}>
+    <button
+      className={`${boxStyle} md:w-[300px] md:h-[60px] md:rounded-lg w-[240px] h-[50px] rounded-md `}
+      onClick={onClick}>
       <div className="h-full px-[30px] py-[10px] flex justify-start items-center  ">
-        <div className="w-12 h-12 flex items-center justify-center">
+        <div className="md:w-12 md:h-12 w-6 h-6 flex items-center justify-center">
           <Icon name={name} />
         </div>
-        <h2 className={`${text} font-bold text-[14px] pl-8`}>
+        <h2 className={`${text} font-bold text-xs md:text-[14px] md:pl-8 pl-6`}>
           {capitalizedName.slice(0, -4)}로 시작하기
         </h2>
       </div>

@@ -1,12 +1,15 @@
 import { useGetMyInterview } from '@/queries/interview/useGetMyInterview';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectMyInterviewAtom } from '@/recoils/user/seletMyInterview/atom';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MyMenuInterviewItem } from '@/types';
 import { MenuInterviewItem } from '../@pages/my/menuInterviewitem';
 import Image from 'next/image';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 
 export const MyInterviewMenu = () => {
+  const isOpen = useRecoilValue(NavbarIsOpenAtom);
+
   const { interviewData, error, isFetching, isFetchingNextPage, status, setTarget } =
     useGetMyInterview();
   const [select, setSelect] = useRecoilState(selectMyInterviewAtom);
@@ -23,7 +26,7 @@ export const MyInterviewMenu = () => {
     );
   };
   return (
-    <div className="flex flex-col justify-between h-full w-full ">
+    <div className={`flex flex-col justify-between h-full w-full ${isOpen && 'mt-10'}`}>
       {status === 'pending' ? (
         <Image src={'/loginLoading.gif'} width={20} height={20} alt="loding" />
       ) : status === 'error' ? (

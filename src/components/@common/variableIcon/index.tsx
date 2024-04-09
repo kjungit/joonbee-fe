@@ -18,6 +18,7 @@ import { IoDocumentTextOutline } from 'react-icons/io5';
 import { AiFillAudio } from 'react-icons/ai';
 import { LuCalendarCheck } from 'react-icons/lu';
 import { GoTriangleRight } from 'react-icons/go';
+import { FaBars } from 'react-icons/fa6';
 import { VariableIconName } from '@/types';
 
 export interface VariableIconProps {
@@ -56,6 +57,7 @@ export const VariableIcon = ({
     audio: AiFillAudio,
     calendar: LuCalendarCheck,
     triangleRight: GoTriangleRight,
+    bar: FaBars,
   };
 
   const Icon = components[name];

@@ -35,7 +35,7 @@ export const InterviewWrapper = () => {
   };
 
   return (
-    <section className="min-w-[370px] h-full effect-white">
+    <section className="md:max-w-[370px] w-full h-full effect-white ">
       {categoryParams === null ? (
         <div>면접 및 질문을 둘러보세요!</div>
       ) : (
