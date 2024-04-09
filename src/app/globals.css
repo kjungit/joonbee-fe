@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    width: 100%;
+    height: 100%;
+  }
   input,
   textarea,
   select {
@@ -95,7 +99,24 @@
     stroke-dasharray: 500;
   }
 }
+.slide-enter {
+  transform: translateX(0px);
+  transition: transform 0.3s ease-in-out;
+}
 
+.slide-enter-active {
+  transform: translateX(-210px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide-exit {
+  transform: translateX(0);
+}
+
+.slide-exit-active {
+  transform: translateX(260px);
+  transition: transform 0.3s ease-in-out;
+}
 .fadeOutBox {
   animation: fadein 2s;
   animation-delay: 1s;
@@ -131,7 +152,7 @@ body {
   position: absolute;
   background-image: url('/background.gif');
   background-size: cover;
-  width: calc(100% - 260px);
+  width: 100%;
   height: 100vh;
   opacity: 0.5;
   z-index: -1;
