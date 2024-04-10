@@ -5,7 +5,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import Header from '@/components/header/header';
-import { ThemeProvider } from '@/styles/themeProvider';
 import Navbar from '@/components/navbar/navbar';
 
 const notoSansKr = Noto_Sans_KR({
@@ -32,13 +31,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning={true} className={notoSansKr.className} id="portal">
         <RecoilRootProvider>
           <QueryProvider>
-            <ThemeProvider>
-              <Header />
-              <main className="flex">
-                <Navbar />
-                {children}
-              </main>
-            </ThemeProvider>
+            <Header />
+            <main className="flex">
+              <Navbar />
+              {children}
+            </main>
           </QueryProvider>
         </RecoilRootProvider>
       </body>
