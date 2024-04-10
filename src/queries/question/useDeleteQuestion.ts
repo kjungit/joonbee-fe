@@ -3,9 +3,11 @@ import { useMutation } from '@tanstack/react-query';
 import { useGetMyQuestion } from './useGetMyQuestion';
 import { useRecoilState } from 'recoil';
 import { isDeleteQuestion } from '@/recoils/user/isDeleteQuestion/atom';
+import { isNotLogined } from '@/recoils/user/isNotLogined/atom';
 
 export const useDeleteQuestion = (id: number) => {
   const [isOpen, setIsOpen] = useRecoilState(isDeleteQuestion);
+  const [isNotLoginedOpen, setIsNotLoginedOpen] = useRecoilState(isNotLogined);
 
   const { refetch } = useGetMyQuestion();
 
@@ -17,7 +19,7 @@ export const useDeleteQuestion = (id: number) => {
       setIsOpen(true);
     },
     onError: (error: number) => {
-      if (error === 401) alert('로그인 후 이용해주세요.');
+      if (error === 401) setIsNotLoginedOpen(true);
     },
   });
 
