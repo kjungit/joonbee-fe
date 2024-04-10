@@ -48,10 +48,11 @@ export const NickNameModal = ({ isClose = false }: { isClose?: boolean }) => {
             <div>
               <input
                 type="text"
+                placeholder="변경할 닉네임을 입력해주세요."
                 value={nickState.nickName}
                 onChange={handleChangeNick}
                 autoFocus
-                className="w-full rounded-lg px-4 py-2 border border-gray-normal h-12"
+                className="w-full bg-white rounded-lg px-4 py-2 border border-gray-normal h-12"
               />
               <Text size="md" color="red" className="pl-2 h-2">
                 {nickError === 400 && <>중복된 닉네임입니다.</>}

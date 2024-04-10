@@ -30,7 +30,7 @@ export default function QuestionCreateForm() {
         <input
           id="question"
           placeholder="질문을 입력하세요!"
-          className="w-full text-[14px]"
+          className="w-full text-[14px] bg-white"
           value={value}
           onChange={onChange}
         />

@@ -28,7 +28,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <meta name="google-adsense-account" content="ca-pub-7301751207531014" />
       </head>
-      <body suppressHydrationWarning={true} className={notoSansKr.className} id="portal">
+      <body
+        suppressHydrationWarning={true}
+        className={(notoSansKr.className, 'bg-white text-gray-dark')}
+        id="portal">
         <RecoilRootProvider>
           <QueryProvider>
             <Header />
