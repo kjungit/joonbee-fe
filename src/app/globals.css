@@ -6,7 +6,7 @@
   html {
     width: 100%;
     height: 100%;
-    color-scheme: normal;
+    color-scheme: normal !important;
   }
   input,
   textarea,
