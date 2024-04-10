@@ -201,7 +201,7 @@ export default function ProgressPage() {
   useBeforeUnload();
 
   return (
-    <div className="pt-14">
+    <div className="pt-10">
       <Text as="h2" size="xl" weight="lg" className="mb-5">
         질문 {currentCount}
       </Text>
