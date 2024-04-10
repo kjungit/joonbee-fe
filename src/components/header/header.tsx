@@ -23,7 +23,7 @@ export default function Header() {
   const isNickOpen = useRecoilValue(isNickAtom);
 
   return (
-    <header className="flex-col w-screen h-[114px] relative">
+    <header className="flex-col w-screen h-[114px] relative bg-white text-gray-dark">
       <div className="h-[60px] effect-white md:px-0 px-2 flex items-center">
         <div className="md:min-w-[260px] min-w-[100px] flex items-center justify-center">
           <Link href="/">

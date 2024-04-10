@@ -42,7 +42,7 @@ export default function Navbar() {
 
   return (
     <div
-      className={`md:min-w-[260px] min-w-[50px] relative questionListHeight effect-white  ${
+      className={`md:min-w-[260px] min-w-[50px] relative questionListHeight effect-white text-gray-dark bg-white ${
         isOpen ? '!min-w-[260px]' : 'md:min-w-[260px] min-w-[50px]'
       }`}>
       <div className={`flex absolute top-2 right-2 md:hidden ${isOpen && '!justify-end '}`}>
