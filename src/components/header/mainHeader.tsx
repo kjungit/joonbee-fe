@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import ThemeSwitch from '../themeSwitch/themeSwitch';
 
 export const MainHeader = () => {
   const isLogined = useRecoilValue(isLoginedAtom);
@@ -52,9 +51,6 @@ export const MainHeader = () => {
         ) : (
           <Link href="/login">로그인</Link>
         )}
-        {/* <div className="absolute bottom-3 right-3 ">
-          <ThemeSwitch />
-        </div> */}
       </div>
     </div>
   );
