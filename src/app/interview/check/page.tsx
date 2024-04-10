@@ -191,7 +191,7 @@ export default function CheckPage() {
         onClick={handleMove}>
         다음 단계
       </IconButton>
-      <div className="absolute bottom-14 right-14">
+      <div className="absolute top-14 right-14">
         <Image src="/laptop.png" alt="laptop" width={220} height={180} />
       </div>
       <PreventBackModal />
