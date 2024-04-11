@@ -10,6 +10,7 @@ import ModalPortal from '@/components/@common/modalPortal';
 import { CommonModal } from '@/components/@common/commonModal';
 import { useRecoilState } from 'recoil';
 import { isSaveQuestion } from '@/recoils/user/isSaveQuestion/atom';
+import Image from 'next/image';
 
 export const QuestionWrapper = () => {
   const [isOpen, setIsOpen] = useRecoilState(isSaveQuestion);
@@ -44,7 +45,11 @@ export const QuestionWrapper = () => {
           </ul>
         )}
 
-        <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
+        <div>
+          {isFetching && !isFetchingNextPage ? (
+            <Image src={'/loginLoading.gif'} width={20} height={20} alt="loding" />
+          ) : null}
+        </div>
         {isOpen && (
           <ModalPortal>
             <CommonModal isModalOpen={isOpen} setIsModalOpen={setIsOpen}>
