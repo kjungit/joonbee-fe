@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useModal } from '../../../public/.legacy/hooks/useModal';
 import { useRouter } from 'next/navigation';
+import { useModal } from '../useModal';
 
 const useSpeechToText = () => {
   const [transcript, setTranscript] = useState('');

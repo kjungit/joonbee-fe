@@ -37,7 +37,7 @@ export default function CheckPage() {
   };
 
   const handleAnswerChange = (index: number, value: string) => {
-    if (value.length <= 200) {
+    if (value.length <= 400) {
       const updatedAnswers = currentAnswers.map((content, i) => (i === index ? value : content));
       setCurrentAnswers(updatedAnswers);
     } else {
@@ -154,7 +154,7 @@ export default function CheckPage() {
                 id={`textarea-${index}`}
                 placeholder="답변을 입력하세요."
                 value={currentAnswers[index]}
-                className="w-full resize-none border-none px-8 text-[14px] font-medium break-keep align-top block placeholder:text-gray-light"
+                className="w-full resize-none bg-white border-none px-8 text-[14px] font-medium break-keep align-top block placeholder:text-gray-light"
                 onChange={e => handleAnswerChange(index, e.target.value)}
                 onClick={() => handleClick(index)}
                 onBlur={e => handleInputBlur(e, index)}

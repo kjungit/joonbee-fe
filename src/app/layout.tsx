@@ -5,7 +5,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import Header from '@/components/header/header';
-import { ThemeProvider } from '@/styles/themeProvider';
 import Navbar from '@/components/navbar/navbar';
 
 const notoSansKr = Noto_Sans_KR({
@@ -29,16 +28,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <meta name="google-adsense-account" content="ca-pub-7301751207531014" />
       </head>
-      <body suppressHydrationWarning={true} className={notoSansKr.className} id="portal">
+      <body
+        suppressHydrationWarning={true}
+        className={(notoSansKr.className, 'bg-white text-gray-dark')}
+        id="portal">
         <RecoilRootProvider>
           <QueryProvider>
-            <ThemeProvider>
-              <Header />
-              <main className="flex">
-                <Navbar />
-                {children}
-              </main>
-            </ThemeProvider>
+            <Header />
+            <main className="flex">
+              <Navbar />
+              {children}
+            </main>
           </QueryProvider>
         </RecoilRootProvider>
       </body>

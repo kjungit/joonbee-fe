@@ -38,7 +38,7 @@ export const useGetInterview = ({
         : undefined;
     },
     select: pageData => {
-      const data = pageData?.pages.slice(1).flatMap(page => page.result);
+      const data = pageData?.pages.flatMap(page => page.result);
       return data?.[0] === null ? null : data;
     },
   });

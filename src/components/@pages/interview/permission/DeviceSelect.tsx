@@ -34,7 +34,7 @@ export default function DeviceSelect({
         defaultValue={deviceList[0]?.deviceId}
         onChange={e => onSelect(e.target.value)}
         value={selectedId}
-        className="border border-gray-light rounded px-2 py-1 w-[300px]">
+        className="border bg-white border-gray-light rounded px-2 py-1 w-[300px]">
         {deviceList.map(device => (
           <option key={device.deviceId} value={device.deviceId}>
             {device.label || '알 수 없는 장치'}
