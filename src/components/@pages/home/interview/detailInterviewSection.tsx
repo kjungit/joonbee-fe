@@ -29,7 +29,7 @@ export default function DetailInterviewSection() {
       }`}>
       {categoryParams !== 'question' && selectInterview.categoryName === '' && (
         <div
-          className={`mainBg w-full h-full flex ${
+          className={`md:mainBg md:w-full h-full flex  ${
             selectInterview.categoryName !== '' && 'hidden'
           }`}>
           <div
