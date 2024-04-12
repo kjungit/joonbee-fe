@@ -11,10 +11,8 @@ export default function PreventBackModal() {
   return (
     <>
       {isOpened && (
-        <div
-          ref={modalRef}
-          className="bg-main-primary/20 fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen   shadow-md flex items-center justify-center">
-          <div className="relative w-[280px]  rounded-xl bg-white shadow-md">
+        <div className="bg-main-primary/20 fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen   shadow-md flex items-center justify-center">
+          <div ref={modalRef} className="relative w-[280px]  rounded-xl bg-white shadow-md">
             <div className="w-full p-8">
               <button className="absolute right-4 top-4" onClick={handleClose}>
                 <VariableIcon name="close" size={24} isHover className="p-1" />
