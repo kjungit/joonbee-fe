@@ -19,12 +19,15 @@ import {
 } from '@/recoils/interview/atom';
 import { convertSecondsToMinutes } from '@/utils/format';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function PermissionPage() {
-  const { deviceList: videoDeviceList } = useGetDevice('video');
-  const { deviceList: audioDeviceList } = useGetDevice('audio');
+  // const { deviceList: videoDeviceList } = useGetDevice('video');
+  // const { deviceList: audioDeviceList } = useGetDevice('audio');
+
+  const [videoDeviceList, setVideoDeviceList] = useState<{ label: string; deviceId: string }[]>([]);
+  const [audioDeviceList, setAudioDeviceList] = useState<{ label: string; deviceId: string }[]>([]);
 
   const [selectedDeviceId, setSelectedDeviceId] = useRecoilState(selectedDeviceIdAtom);
 
@@ -41,6 +44,69 @@ export default function PermissionPage() {
       [`${deviceType}Id`]: deviceId,
     }));
   };
+
+  const getConnectedDevices = async (deviceType: 'audio' | 'video') => {
+    const allDevices = await navigator.mediaDevices.enumerateDevices();
+    const filteredDeviceList = allDevices
+      .filter(device => device.kind === `${deviceType}input`)
+      .map(device => ({
+        label: device.label,
+        deviceId: device.deviceId,
+      }));
+
+    return filteredDeviceList;
+  };
+
+  const checkVideoPermission = async () => {
+    try {
+      const permissionStatus = await navigator.permissions.query({ name: 'camera' as any });
+
+      if (permissionStatus.state === 'granted') {
+        const devices = await getConnectedDevices('video');
+        setVideoDeviceList(devices);
+      } else if (permissionStatus.state === 'prompt') {
+        console.log('Requesting camera permission...');
+      }
+      permissionStatus.onchange = () => {
+        (async () => {
+          if (permissionStatus.state === 'granted') {
+            const devices = await getConnectedDevices('video');
+            setVideoDeviceList(devices);
+          }
+        })();
+      };
+    } catch (error) {
+      console.error('Error vido permission:', error);
+    }
+  };
+
+  const checkAudioPermission = async () => {
+    try {
+      const permissionStatus = await navigator.permissions.query({ name: 'microphone' as any });
+
+      if (permissionStatus.state === 'granted') {
+        const devices = await getConnectedDevices('audio');
+        setAudioDeviceList(devices);
+      } else if (permissionStatus.state === 'prompt') {
+        console.log('Requesting video permission...');
+      }
+      permissionStatus.onchange = () => {
+        (async () => {
+          if (permissionStatus.state === 'granted') {
+            const devices = await getConnectedDevices('audio');
+            setAudioDeviceList(devices);
+          }
+        })();
+      };
+    } catch (error) {
+      console.error('Error audio permission:', error);
+    }
+  };
+
+  useEffect(() => {
+    checkVideoPermission();
+    checkAudioPermission();
+  }, []);
 
   useEffect(() => {
     onStart();

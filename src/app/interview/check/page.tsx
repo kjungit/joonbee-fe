@@ -1,12 +1,14 @@
 'use client';
 
 import { Accordion } from '@/components/@common/accordion';
+import AlertModal from '@/components/@common/alertModal';
 import { EditQuestion } from '@/components/@common/editQuestion';
 import IconButton from '@/components/@common/iconButton';
 import PreventBackModal from '@/components/@common/preventBackModal';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
+import { useModal } from '@/hooks/useModal';
 import { addQuestionListSelector } from '@/recoils/myInterview/withAdd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -19,6 +21,8 @@ interface EditStateProps {
 export default function CheckPage() {
   const router = useRouter();
   const questionList = useRecoilValue(addQuestionListSelector);
+
+  const { isOpened, onClose, onOpen } = useModal();
 
   const textareaRefs = useRef<HTMLTextAreaElement[]>([]);
   const setQuestionList = useSetRecoilState(addQuestionListSelector);
@@ -41,7 +45,7 @@ export default function CheckPage() {
       const updatedAnswers = currentAnswers.map((content, i) => (i === index ? value : content));
       setCurrentAnswers(updatedAnswers);
     } else {
-      alert('글자수 제한을 초과했습니다.');
+      onOpen();
     }
   };
 
@@ -194,6 +198,7 @@ export default function CheckPage() {
       <div className="absolute top-14 right-14">
         <Image src="/laptop.png" alt="laptop" width={220} height={180} />
       </div>
+      <AlertModal isOpened={isOpened} onClose={onClose} text="글자수 제한을 초과하였습니다." />
       <PreventBackModal />
     </div>
   );

@@ -24,6 +24,8 @@ import { interviewQuestionCountAtom, isClickNextBtnAtom } from '@/recoils/interv
 import userQueries from '@/queries/user/useGetUser';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import PreventBackModal from '@/components/@common/preventBackModal';
+import AlertModal from '@/components/@common/alertModal';
+import { useModal } from '@/hooks/useModal';
 
 export default function ChoiceSettingPage() {
   const [isClickNextBtn, setIsClickNextBtn] = useRecoilState(isClickNextBtnAtom);
@@ -34,7 +36,7 @@ export default function ChoiceSettingPage() {
       category: string;
     }[]
   >([]);
-
+  const { isOpened, onClose, onOpen } = useModal();
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
   const checkedQuestionList = useRecoilValue(addQuestionSelector);
   const setQuestion = useSetRecoilState(addQuestionListSelector);
@@ -50,8 +52,8 @@ export default function ChoiceSettingPage() {
   const { data: userInfo } = userQueries.useGetInfo();
 
   const handleClickQuestion = (questionId: number, questionContent: string, category: string) => {
-    if (checkedQuestionIdList.length > 10) {
-      window.alert('질문은 최대 10개 선택할 수 있습니다.');
+    if (checkedQuestionIdList.length > 9) {
+      onOpen();
       return;
     }
 
@@ -191,6 +193,11 @@ export default function ChoiceSettingPage() {
           <Text size="xl">면접을 준비중입니다</Text>
         </div>
       )}
+      <AlertModal
+        isOpened={isOpened}
+        onClose={onClose}
+        text="질문은 최대 10개 선택할 수 있습니다."
+      />
       <PreventBackModal />
     </>
   );
