@@ -11,7 +11,7 @@ const getRefresh = async () => {
     return res;
   } catch (error: any) {
     const errorCode = error.response.data;
-    throw errorCode;
+    return errorCode;
   }
 };
 

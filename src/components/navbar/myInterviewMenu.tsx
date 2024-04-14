@@ -28,9 +28,9 @@ export const MyInterviewMenu = () => {
   return (
     <div className={`flex flex-col justify-between h-full w-full ${isOpen && 'mt-10'}`}>
       {status === 'pending' ? (
-        <Image src={'/loginLoading.gif'} width={20} height={20} alt="loding" />
-      ) : status === 'error' ? (
-        <p>Error: {error?.message}</p>
+        <div className="flex items-center justify-center w-full">
+          <Image src={'/loginLoading.gif'} width={40} height={40} alt="loding" />
+        </div>
       ) : (
         <ul className="h-full overflow-auto">
           {interviewData &&
