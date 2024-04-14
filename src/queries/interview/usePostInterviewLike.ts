@@ -1,4 +1,4 @@
-import { postInterviewLike } from '@/apis/services/memberApis';
+import { getUserInfo, postInterviewLike } from '@/apis/services/memberApis';
 import { useMutation } from '@tanstack/react-query';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useGetInterview } from './useGetInterview';
@@ -13,6 +13,7 @@ export const usePostInterviewLike = (interviewId: number) => {
   const resetUserInfo = useResetRecoilState(userInfoAtom);
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
   const [isOpen, setIsOpen] = useRecoilState(isNotLogined);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
   const { interviewRefetch } = useGetInterview({
     selectCategory: selectInterviewCategory.category,
@@ -26,11 +27,17 @@ export const usePostInterviewLike = (interviewId: number) => {
     },
     onError: (error: number) => {
       if (error === 401) {
-        // alert('로그인 후 이용해주세요.');
-        authApis.getRefresh();
-        setIsOpen(true);
-        resetUserInfo();
-        setIsLogined(false);
+        authApis.getRefresh().then(() => {
+          getUserInfo()
+            .then(data => {
+              setUserInfo(data);
+            })
+            .catch(() => {
+              setIsOpen(true);
+              resetUserInfo();
+              setIsLogined(false);
+            });
+        });
       }
     },
   });
