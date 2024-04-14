@@ -1,4 +1,3 @@
-import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import Image from 'next/image';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Text } from '../@common/text';
@@ -7,13 +6,15 @@ import { userInfoAtom } from '@/recoils/user/userInfo/atom';
 import { VariableIcon } from '../@common/variableIcon';
 import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
+import { useCookies } from 'react-cookie';
+import { useEffect } from 'react';
 
 export const LoginInfo = () => {
-  const isLogined = useRecoilValue(isLoginedAtom);
   const [nickState, setNickState] = useRecoilState(NickNameAtom);
   const [isNickOpen, setIsNickOpen] = useRecoilState(isNickAtom);
   const userInfo = useRecoilValue(userInfoAtom);
   const [isOpen, setIsOpen] = useRecoilState(NavbarIsOpenAtom);
+  const [cookies] = useCookies(['joonbee-token']);
 
   return (
     <div
@@ -21,7 +22,7 @@ export const LoginInfo = () => {
         isOpen ? '!min-w-[260px] ' : 'md:min-w-[260px] min-w-[50px]'
       }`}>
       <div className={`hidden md:block ${isOpen && '!block'}`}>
-        {isLogined ? (
+        {cookies['joonbee-token'] ? (
           <div className="flex gap-2 items-center">
             <Image
               src={userInfo.thumbnail}

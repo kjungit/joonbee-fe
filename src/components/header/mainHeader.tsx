@@ -1,14 +1,14 @@
 import { selectInterviewState } from '@/recoils/home/interview/selectInterview/atom';
-import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { userInfoAtom } from '@/recoils/user/userInfo/atom';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useCookies } from 'react-cookie';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 export const MainHeader = () => {
-  const isLogined = useRecoilValue(isLoginedAtom);
   const userInfo = useRecoilValue(userInfoAtom);
+  const [cookies] = useCookies(['joonbee-token']);
 
   const resetSelectInterview = useResetRecoilState(selectInterviewState);
   const pathName = usePathname();
@@ -25,17 +25,19 @@ export const MainHeader = () => {
           href="/interview/random">
           AI 면접
         </Link>
-        <Link
-          className={`${pathName.includes('my') && 'font-bold'}`}
-          href="/my?category=interview&Ifield=fe">
-          마이페이지
-        </Link>
+        {cookies['joonbee-token'] && (
+          <Link
+            className={`${pathName.includes('my') && 'font-bold'}`}
+            href="/my?category=interview&Ifield=fe">
+            마이페이지
+          </Link>
+        )}
         {/* <Link className={`${pathName.includes('resume') && 'font-bold'}`} href="/resume">
           이력서
         </Link> */}
       </div>
       <div className="flex justify-center items-center gap-4 md:text-md text-sm">
-        {isLogined ? (
+        {cookies['joonbee-token'] ? (
           <div className="relative">
             <Link href="/my?category=interview&Ifield=fe">
               <Image
