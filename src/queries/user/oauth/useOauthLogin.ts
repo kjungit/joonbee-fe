@@ -5,6 +5,7 @@ import { useUserInfo } from '../useUserInfo';
 import { useRecoilState } from 'recoil';
 import { NickNameAtom } from '@/recoils/user/isNickName/atom';
 import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
+import { isLoginErrorAtom } from '@/recoils/user/isRefresh/atom';
 
 interface LoginError {
   data: string;
@@ -14,6 +15,8 @@ interface LoginError {
 export const useOauthLogin = (key: string, loginFunc: (AUTHORIZATION_CODE: string) => void) => {
   const [nickState, setNickState] = useRecoilState(NickNameAtom);
   const [isNickOpen, setIsNickOpen] = useRecoilState(isNickAtom);
+  const [isLoginError, setIsLoginError] = useRecoilState(isLoginErrorAtom);
+
   const searchParams = useSearchParams();
   const AUTHORIZATION_CODE: string = searchParams.get('code') as string;
   const router = useRouter();
@@ -29,6 +32,9 @@ export const useOauthLogin = (key: string, loginFunc: (AUTHORIZATION_CODE: strin
   }, [isSuccess]);
 
   useEffect(() => {
+    if (error?.status === 500) {
+      setIsLoginError(true);
+    }
     if (error?.status === 410) {
       setNickState({
         ...nickState,
