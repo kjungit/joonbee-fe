@@ -6,7 +6,7 @@ export const getUserInfo = async () => {
     const res = await instance().get(`api/member/info`);
     return res.data.data;
   } catch (error: any) {
-    throw error;
+    throw error.response.status;
   }
 };
 
@@ -16,7 +16,9 @@ export const getMyInterview = async ({ page }: { page: number }) => {
       params: { page },
     });
     return res.data.data;
-  } catch (error) {}
+  } catch (error: any) {
+    throw error.response.status;
+  }
 };
 
 export const getInterviewDetail = async (id: number): Promise<DetailData> => {
@@ -27,8 +29,8 @@ export const getInterviewDetail = async (id: number): Promise<DetailData> => {
       },
     });
     return res.data.data;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    throw error.response.status;
   }
 };
 
@@ -40,8 +42,8 @@ export const getInterviewLikeDetail = async (id: number): Promise<DetailData> =>
       },
     });
     return res.data.data;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    throw error.response.status;
   }
 };
 
@@ -57,8 +59,8 @@ export const getInterviewQuestionDetail = async (
       },
     });
     return res.data.data;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    throw error.response.status;
   }
 };
 
@@ -100,7 +102,9 @@ export const postCartsave = async ({
       questionContent,
     });
     return res;
-  } catch (error) {}
+  } catch (error: any) {
+    throw error.response.status;
+  }
 };
 
 export const deleteInterview = async (id: number) => {
