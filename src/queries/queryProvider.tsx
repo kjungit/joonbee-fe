@@ -41,7 +41,6 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
       },
       queryCache: new QueryCache({
         onError: (error: any) => {
-          //Todo: 토큰이 만료되는 로직처리 작성
           if (error === 401 || error === 402) {
             authApis.getRefresh().then(data => {
               if (data.status !== 200) {
