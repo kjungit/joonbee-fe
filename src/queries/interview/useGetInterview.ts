@@ -17,7 +17,6 @@ export const useGetInterview = ({
     isFetching,
     isFetchingNextPage,
     status,
-    error,
     refetch: interviewRefetch,
   } = useInfiniteQuery({
     queryKey: ['getInterview', selectCategory, sort],
@@ -29,16 +28,16 @@ export const useGetInterview = ({
     },
     getNextPageParam: (lastPage, allPage) => {
       const resultData = allPage.flatMap(page => page.result);
-      return resultData.length <= lastPage.total
+      return resultData.length < lastPage.total
         ? {
-            page: allPage.length,
+            page: allPage.length + 1,
             selectCategory,
             sort,
           }
         : undefined;
     },
     select: pageData => {
-      const data = pageData?.pages.slice(1).flatMap(page => page.result);
+      const data = pageData?.pages.flatMap(page => page.result);
       return data?.[0] === null ? null : data;
     },
   });
@@ -62,7 +61,6 @@ export const useGetInterview = ({
 
   return {
     interviewData,
-    error,
     isFetching,
     isFetchingNextPage,
     status,
