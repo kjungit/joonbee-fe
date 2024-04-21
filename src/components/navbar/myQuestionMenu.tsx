@@ -57,7 +57,7 @@ export const MyQuestionMenu = () => {
               );
             }}
           />
-          <div className="font-normal flex flex-col text-start w-full gap-2">
+          <div className="font-normal flex flex-col text-start w-full gap-1 text-sm px-1 py-1">
             {fieldParams === item.id &&
               item.children?.map(childItem => (
                 <button
@@ -68,7 +68,8 @@ export const MyQuestionMenu = () => {
                       `my/?category=${categoryParams}&Qfield=${item.id}&subField=${childItem.id}`,
                     );
                   }}>
-                  <div className={`${subFieldParams === childItem.id && 'font-bold'}`}>
+                  <div
+                    className={`${subFieldParams === childItem.id && 'font-bold'} flex pl-[50px]`}>
                     {childItem.value}
                   </div>
                 </button>

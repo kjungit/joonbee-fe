@@ -1,19 +1,23 @@
 import { RadioButtonGroup } from '@/components/@common/radioButtonGroup';
 import { Text } from '@/components/@common/text';
 import { useSearchParams } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { InterviewMenuItem } from './interviewMenuItem';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import { useGetInterview } from '@/queries/interview/useGetInterview';
 import Image from 'next/image';
 import { MainCategory } from '@/constants/category';
 import { CategoryName } from '@/types';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
+import DetailInterviewInfoWrapper from './detailinterviewInfoWrapper';
 interface ItemProps {
   id: string;
   text: string;
 }
 
 export const InterviewWrapper = () => {
+  const isNavbarOpen = useRecoilValue(NavbarIsOpenAtom);
+
   const [selectInterviewCategory, setSelectInterviewCategory] = useRecoilState(
     selectInterviewCategoryState,
   );
@@ -23,7 +27,7 @@ export const InterviewWrapper = () => {
   const iFieldParams = searchParams.get('Ifield') as CategoryName;
 
   const { interviewData, setTarget } = useGetInterview({
-    selectCategory: iFieldParams || 'fe',
+    selectCategory: iFieldParams,
     sort: selectInterviewCategory.sort,
   });
 
@@ -39,9 +43,12 @@ export const InterviewWrapper = () => {
       {categoryParams === null ? (
         <div>면접 및 질문을 둘러보세요!</div>
       ) : (
-        <div>
+        <div className="">
+          <div className="md:hidden flex">
+            {categoryParams === 'interview' && <DetailInterviewInfoWrapper />}
+          </div>
           <div className="h-[70px] p-5 flex justify-between">
-            <div className="w-[140px]">
+            <div className={`w-[140px] ${isNavbarOpen && 'hidden'}`}>
               <Text size="lg" weight="md">
                 다른 사람의 면접들을 확인해보세요.
               </Text>

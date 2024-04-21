@@ -7,10 +7,13 @@ import { selectInterviewState } from '@/recoils/home/interview/selectInterview/a
 import { InterviewItem } from '@/types/interview';
 import Image from 'next/image';
 import { MouseEvent } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { InterviewLikeIcon } from './interviewLikeIcon';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 
 export const InterviewMenuItem = ({ item }: { item: InterviewItem }) => {
+  const isNavbarOpen = useRecoilValue(NavbarIsOpenAtom);
+
   const [selectInterview, setSelectInterview] = useRecoilState(selectInterviewState);
 
   const handleClickInterview = (e: MouseEvent<HTMLDivElement>) => {
@@ -39,14 +42,14 @@ export const InterviewMenuItem = ({ item }: { item: InterviewItem }) => {
           {MainCategory[item.categoryName]}
         </Text>
       </div>
-      <div className="flex items-center justify-start w-[90px]">
+      <div className={`flex items-center justify-start w-[90px] ${isNavbarOpen && 'hidden'}`}>
         <VariableIcon name="document" size={18} />
         <Text size="lg" weight="md" className="p-1">
           질문 {item.questions.length}개
         </Text>
       </div>
 
-      <div className="flex gap-1 items-center justify-center">
+      <div className={`flex gap-1 items-center justify-center ${isNavbarOpen && 'hidden'}`}>
         <InterviewLikeIcon interviewId={item.interviewId} liked={item.liked} />
         <Text size="lg" weight="lg" className="p-1">
           {item.likeCount}
