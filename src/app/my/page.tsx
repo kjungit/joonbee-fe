@@ -24,7 +24,7 @@ export default function MyPage() {
     }
   }, []);
   return (
-    <div className={`w-full overflow-auto questionListHeight ${isOpen && 'min-w-[320px]'}`}>
+    <div className={`w-full overflow-auto questionListHeight `}>
       {categoryParams === 'interview' && <MyInterviewSection />}
       {categoryParams === 'question' && <MyQuestionSection />}
     </div>

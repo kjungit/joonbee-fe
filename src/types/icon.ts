@@ -32,6 +32,7 @@ export type VariableIconName =
   | 'audio'
   | 'calendar'
   | 'triangleRight'
+  | 'logout'
   | 'bar';
 
 export type IconType = VariableIconName | IconName;

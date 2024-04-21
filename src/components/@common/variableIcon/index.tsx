@@ -11,6 +11,7 @@ import { BsFillSendFill } from 'react-icons/bs';
 import { FaUserGroup } from 'react-icons/fa6';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaCheckSquare, FaCamera, FaRegSquare } from 'react-icons/fa';
+import { RiLogoutBoxLine } from 'react-icons/ri';
 
 import { FaRegCheckSquare } from 'react-icons/fa';
 import { BsQuestionSquare } from 'react-icons/bs';
@@ -60,6 +61,7 @@ export const VariableIcon = ({
     calendar: LuCalendarCheck,
     triangleRight: GoTriangleRight,
     bar: FaBars,
+    logout: RiLogoutBoxLine,
   };
 
   const Icon = components[name];
@@ -70,7 +72,7 @@ export const VariableIcon = ({
       onClick={onClick}
       className={`${className} ${isCursor && 'cursor-pointer'} ${
         isHover && 'hover:text-gray-disabled'
-      }`}
+      } `}
     />
   );
 };
