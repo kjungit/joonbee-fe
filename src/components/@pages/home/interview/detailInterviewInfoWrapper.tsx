@@ -1,3 +1,4 @@
+import IconButton from '@/components/@common/iconButton';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import { MainCategory } from '@/constants/category';
@@ -13,9 +14,12 @@ export default function DetailInterviewInfoWrapper() {
   const handleClose = () => {
     resetSelectInterview();
   };
+  const handleMove = () => {
+    console.log('이동');
+  };
   return (
     <div
-      className={`w-full flex flex-col bg-white questionListHeight effect-white ${
+      className={`md:w-full max-w-[800px] flex flex-col bg-white questionListHeight effect-white ${
         selectInterview.categoryName === '' && 'hidden'
       }`}>
       <div className="gap-4 p-6 flex justify-between">
@@ -43,7 +47,7 @@ export default function DetailInterviewInfoWrapper() {
           onClick={handleClose}
         />
       </div>
-      <ul className="flex flex-col p-6 gap-4">
+      <ul className="flex flex-col p-6 gap-4 justify-between ">
         {selectInterview.questions.map(item => (
           <div key={item.questionId} className="flex gap-2 leading-5 items-center">
             <div className="min-w-4">
@@ -55,6 +59,16 @@ export default function DetailInterviewInfoWrapper() {
           </div>
         ))}
       </ul>
+      <div className="mt-auto p-6 hidden justify-end lg:flex">
+        <IconButton
+          iconName="next_arrow.png"
+          edge="end"
+          size="md"
+          className=""
+          onClick={handleMove}>
+          다음 단계
+        </IconButton>
+      </div>
     </div>
   );
 }
