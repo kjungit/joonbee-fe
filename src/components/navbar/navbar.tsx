@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { selectMenuState } from '@/recoils/home/selectMenu/atom';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { InterviewMenu } from '@/components/navbar/interviewMenu';
@@ -14,6 +14,7 @@ import ChoiceSettingMenu from './choiceSettingMenu';
 import { isClickNextBtnAtom } from '@/recoils/interview/atom';
 import { VariableIcon } from '../@common/variableIcon';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
+import { selectInterviewState } from '@/recoils/home/interview/selectInterview/atom';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useRecoilState(NavbarIsOpenAtom);
@@ -28,6 +29,7 @@ export default function Navbar() {
   const fieldParams = searchParams.get('Qfield') as CategoryName;
   const subFieldParams = searchParams.get('subField') as SubcategoryName;
   const categoryParams = searchParams.get('category');
+  const resetSelectInterview = useResetRecoilState(selectInterviewState);
 
   useEffect(() => {
     setSelectQuestionCategory({
@@ -38,6 +40,7 @@ export default function Navbar() {
 
   const onClickOpen = () => {
     setIsOpen(!isOpen);
+    resetSelectInterview();
   };
 
   return (
