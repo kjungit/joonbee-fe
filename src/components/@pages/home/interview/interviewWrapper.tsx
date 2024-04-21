@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { MainCategory } from '@/constants/category';
 import { CategoryName } from '@/types';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
-import DetailInterviewInfoWrapper from './detailinterviewInfoWrapper';
+import DetailInterviewInfoWrapper from './detailInterviewInfoWrapper';
 interface ItemProps {
   id: string;
   text: string;

@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Logo from '@/components/@common/logo';
 import { Text } from '@/components/@common/text';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
-import DetailInterviewInfoWrapper from './detailinterviewInfoWrapper';
+import DetailInterviewInfoWrapper from './detailInterviewInfoWrapper';
 
 export default function DetailInterviewSection() {
   const isNavbarOpen = useRecoilValue(NavbarIsOpenAtom);
