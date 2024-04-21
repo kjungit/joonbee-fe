@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import InterviewLoading from '@/components/@common/interviewLoading/';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
-import Image from 'next/image';
 import { useGetMyQuestion } from '@/queries/question/useGetMyQuestion';
 import QuestionCreateForm from '@/components/@pages/interview/choice/questionCreateForm';
 import IconButton from '@/components/@common/iconButton';

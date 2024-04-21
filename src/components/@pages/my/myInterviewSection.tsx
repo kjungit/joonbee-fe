@@ -4,6 +4,7 @@ import { VariableIcon } from '@/components/@common/variableIcon';
 import { CenterSectionWrapper } from '@/components/wrapper/centerSectionWrapper';
 import { questionTitle } from '@/constants/question';
 import { useGetDetailInterview } from '@/queries/interview/useGetDetailInterview';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import { selectMyInterviewAtom } from '@/recoils/user/seletMyInterview/atom';
 import { QuestionContentsProps, ViewInterfaceProps } from '@/types';
 import Image from 'next/image';
@@ -11,6 +12,8 @@ import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 export const MyInterviewSection = () => {
+  const isNavbarOpen = useRecoilValue(NavbarIsOpenAtom);
+
   const [selectDetail, setSelectDetail] = useState<ViewInterfaceProps>({
     gptOpinion: '',
     questionContents: [],
@@ -161,7 +164,10 @@ export const MyInterviewSection = () => {
           </CenterSectionWrapper>
         </div>
       ) : (
-        <div className="flex flex-col gap-2 w-full h-full items-center justify-center">
+        <div
+          className={`${
+            isNavbarOpen && 'hidden'
+          } flex flex-col gap-2 w-full h-full items-center justify-center`}>
           <Image src="/desktop.png" width={200} height={200} alt="desktop" />
           <Text size="lg" weight="md" className="p-1 md:text-[14px] text-[12px]">
             내 면접 결과를 확인해보세요.

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
@@ -23,7 +23,7 @@ export default function Header() {
   const isNickOpen = useRecoilValue(isNickAtom);
 
   return (
-    <header className="flex-col w-screen h-[114px] relative bg-white text-gray-dark">
+    <header className="z-50 flex-col w-screen h-[114px] relative bg-white text-gray-dark">
       <div className="h-[60px] effect-white md:px-0 px-2 flex items-center">
         <div className="md:min-w-[260px] min-w-[100px] flex items-center justify-center">
           <Link href="/">
@@ -36,7 +36,7 @@ export default function Header() {
         className="w-full
     h-[54px] effect-white flex items-center">
         <LoginInfo />
-        <div className="flex items-center justify-between w-full ">
+        <div className="flex items-center justify-between w-full overflow-hidden ">
           <div className={`flex px-2 w-full ${isOpen && 'min-w-[320px]'}`}>
             {pathName === '/' && <HomeHeader />}
             <InterviewHeader />

@@ -17,7 +17,6 @@ export const useGetInterview = ({
     isFetching,
     isFetchingNextPage,
     status,
-    error,
     refetch: interviewRefetch,
   } = useInfiniteQuery({
     queryKey: ['getInterview', selectCategory, sort],
@@ -29,9 +28,9 @@ export const useGetInterview = ({
     },
     getNextPageParam: (lastPage, allPage) => {
       const resultData = allPage.flatMap(page => page.result);
-      return resultData.length <= lastPage.total
+      return resultData.length < lastPage.total
         ? {
-            page: allPage.length,
+            page: allPage.length + 1,
             selectCategory,
             sort,
           }
@@ -62,7 +61,6 @@ export const useGetInterview = ({
 
   return {
     interviewData,
-    error,
     isFetching,
     isFetchingNextPage,
     status,

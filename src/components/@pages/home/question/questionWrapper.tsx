@@ -8,11 +8,14 @@ import { useGetQuestion } from '@/queries/question/useGetQuestion';
 import { CenterSectionWrapper } from '@/components/wrapper/centerSectionWrapper';
 import ModalPortal from '@/components/@common/modalPortal';
 import { CommonModal } from '@/components/@common/commonModal';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { isSaveQuestion } from '@/recoils/user/isSaveQuestion/atom';
 import Image from 'next/image';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 
 export const QuestionWrapper = () => {
+  const isNavbarOpen = useRecoilValue(NavbarIsOpenAtom);
+
   const [isOpen, setIsOpen] = useRecoilState(isSaveQuestion);
 
   const searchParams = useSearchParams();
@@ -23,15 +26,20 @@ export const QuestionWrapper = () => {
     <div className="flex h-full w-full justify-center overflow-auto">
       <CenterSectionWrapper>
         {categoryParams === 'question' && (
-          <ul className=" flex flex-col gap-4 interviewListHeight md:pt-14 md:px-0 px-4 pt-4">
+          <ul
+            className={`flex flex-col gap-4 interviewListHeight md:pt-14 md:px-0 px-4 pt-4 ${
+              isNavbarOpen && 'w-[100px]'
+            }`}>
             {questionData &&
               questionData.map((item, i) => (
                 <li
                   key={item.questionId}
-                  className="flex gap-2 md:h-10 h-auto items-start justify-between md:justify-normal ">
+                  className={`flex gap-2 md:h-10 h-auto items-start justify-between md:justify-normal`}>
                   <div className="flex gap-2">
                     <VariableIcon className="min-w-[18px]" name="questionBox" size={18} />
-                    <Text size="lg">{item.questionContent}</Text>
+                    <Text size="lg" className={` ${isNavbarOpen && 'whitespace-nowrap'}`}>
+                      {item.questionContent}
+                    </Text>
                   </div>
                   <QuestionSaveIcon
                     subcategoryName={item.subcategoryName}

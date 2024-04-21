@@ -28,7 +28,7 @@ export const getQuestion = async ({ page, category, subCategory }: Params) => {
     });
     return res.data.data;
   } catch (error: any) {
-    throw error;
+    throw error.response.status;
   }
 };
 
@@ -40,11 +40,14 @@ export const getRandomQuestionList = async (params: {
   subcategory: string;
   questionCount: number;
 }) => {
-  const res = await instance().get('/api/question/gpt', {
-    params,
-  });
-
-  return res.data.data.result;
+  try {
+    const res = await instance().get('/api/question/gpt', {
+      params,
+    });
+    return res.data.data.result;
+  } catch (error: any) {
+    throw error.response.status;
+  }
 };
 
 /**
@@ -91,6 +94,6 @@ export const postUserQuestion = async (questionId: number, subcategoryName: Subc
 
     return res.data.data.result;
   } catch (error: any) {
-    throw error;
+    throw error.response.status;
   }
 };

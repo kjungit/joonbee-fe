@@ -1,5 +1,7 @@
 'use client';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 export type TextColor = '' | 'lightGray' | 'gray' | 'darkGray' | 'black' | 'white' | 'red' | 'blue';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 export type TextWeight = 'sm' | 'md' | 'lg';
@@ -23,6 +25,8 @@ export const Text = ({
   className = '',
   onClick,
 }: TextProps) => {
+  const isNavbarOpen = useRecoilValue(NavbarIsOpenAtom);
+
   const textStyles = {
     xs: 'text-[8px]',
     sm: 'text-[10px]',
@@ -49,8 +53,11 @@ export const Text = ({
     red: 'text-status-alert',
   };
   const styles = `${textStyles[size]} ${textWeight[weight]} ${colorStyles[color]} ${className}`;
+
   return (
-    <Typography className={styles + ' break-keep'} onClick={onClick}>
+    <Typography
+      className={`${styles + ' break-keep'} ${isNavbarOpen && 'whitespace-nowrap'}`}
+      onClick={onClick}>
       {children}
     </Typography>
   );

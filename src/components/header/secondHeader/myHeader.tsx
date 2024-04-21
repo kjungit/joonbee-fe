@@ -1,9 +1,9 @@
 import IconButton from '@/components/@common/iconButton';
+import { VariableIcon } from '@/components/@common/variableIcon';
 import { useLogout } from '@/queries/user/useLogout';
-import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 export const MyHeader = () => {
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
@@ -44,14 +44,17 @@ export const MyHeader = () => {
           질문 관리
         </IconButton>
       </div>
-      <button
-        className="text-sm text-status-alert mr-2 p-2"
-        onClick={() => {
-          logoutMutate();
-          setIsLogined(false);
-        }}>
-        로그아웃
-      </button>
+      <div className="h-full flex justify-center items-center cursor-pointer mr-4 hover:text-gray-disabled">
+        <VariableIcon
+          name="logout"
+          size={20}
+          isHover
+          onClick={() => {
+            logoutMutate();
+            setIsLogined(false);
+          }}
+        />
+      </div>
     </nav>
   );
 };
