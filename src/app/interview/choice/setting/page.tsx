@@ -79,6 +79,8 @@ export default function ChoiceSettingPage() {
 
   useEffect(() => {
     if (isClickNextBtn) {
+      if (!checkedQuestionIdList.length) return;
+
       setQuestion(
         checkedQuestionIdList.map(({ category, ...rest }) => ({
           ...rest,
@@ -88,8 +90,6 @@ export default function ChoiceSettingPage() {
       setQuestionCount(checkedQuestionIdList.length);
     }
   }, [isClickNextBtn]);
-
-  useBeforeUnload();
 
   return (
     <>
