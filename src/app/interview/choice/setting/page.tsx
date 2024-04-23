@@ -79,7 +79,10 @@ export default function ChoiceSettingPage() {
 
   useEffect(() => {
     if (isClickNextBtn) {
-      if (!checkedQuestionIdList.length) return;
+      if (!checkedQuestionIdList.length) {
+        setCategoryList([mySelectCategory.category]);
+        return;
+      }
 
       setQuestion(
         checkedQuestionIdList.map(({ category, ...rest }) => ({
