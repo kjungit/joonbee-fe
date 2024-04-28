@@ -18,6 +18,5 @@ export const META = {
   url: 'https://www.joonbee.co.kr',
   googleVerification: process.env.NEXT_PUBLIC_GOOGLE_CONTENT,
   naverVerification: process.env.NEXT_PUBLIC_NAVER_CONTENT,
-  ogImage:
-    'https://joonbee-71av2d3uk-kjungits-projects.vercel.app/opengraph-image.jpg?f3bf07bd5b5c3942',
+  ogImage: '/opengraph-image.jpg',
 };

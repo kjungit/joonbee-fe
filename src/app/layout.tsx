@@ -40,7 +40,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="google-site-verification" content={META.googleVerification} />
         <meta name="naver-site-verification" content={META.naverVerification} />
-        <meta name="google-adsense-account" content="ca-pub-7301751207531014" />
+        <meta name="google-adsense-account" content={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE} />
+        <meta property="og:image" content={META.ogImage} />
       </head>
       <body
         suppressHydrationWarning={true}
