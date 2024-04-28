@@ -19,7 +19,14 @@ export const metadata: Metadata = {
     title: META.title,
     siteName: META.siteName,
     description: META.description,
-    images: META.ogImage,
+    images: [
+      {
+        url: META.ogImage,
+        width: 1200,
+        height: 630,
+        alt: META.title,
+      },
+    ],
     url: META.url,
   },
   keywords: META.keyword,
