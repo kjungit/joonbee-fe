@@ -124,7 +124,7 @@ export default function CheckPage() {
   }, []);
 
   useEffect(() => {
-    textareaRefs.current[0].focus();
+    textareaRefs.current[0]?.focus();
   }, []);
 
   useBeforeUnload();

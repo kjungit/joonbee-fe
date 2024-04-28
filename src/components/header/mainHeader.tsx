@@ -1,17 +1,25 @@
+import { useUserInfo } from '@/queries/user/useUserInfo';
 import { selectInterviewState } from '@/recoils/home/interview/selectInterview/atom';
 import { userInfoAtom } from '@/recoils/user/userInfo/atom';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 export const MainHeader = () => {
   const userInfo = useRecoilValue(userInfoAtom);
   const [cookies] = useCookies(['joonbee-token']);
-
+  const { userInfoRefetch } = useUserInfo();
   const resetSelectInterview = useResetRecoilState(selectInterviewState);
   const pathName = usePathname();
+
+  useEffect(() => {
+    if (!userInfo.thumbnail) {
+      userInfoRefetch();
+    }
+  }, []);
   return (
     <div className="flex items-center justify-between w-full px-6">
       <div className="flex gap-4 md:text-md text-sm">

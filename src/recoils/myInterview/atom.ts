@@ -4,7 +4,7 @@ import { atom } from 'recoil';
 export const myInterviewAtom = atom<OpenAiContent>({
   key: 'myInterviewAtom',
   default: {
-    userName: '테스트',
+    userName: '',
     categoryName: 'fe',
     questions: [],
   },
