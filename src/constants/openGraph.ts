@@ -18,5 +18,5 @@ export const META = {
   url: 'https://www.joonbee.co.kr',
   googleVerification: process.env.NEXT_PUBLIC_GOOGLE_CONTENT,
   naverVerification: process.env.NEXT_PUBLIC_NAVER_CONTENT,
-  ogImage: '@/public/og_bg.jpg',
+  ogImage: '/opengraph-image.jpg',
 };
