@@ -6,14 +6,23 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import Header from '@/components/header/header';
 import Navbar from '@/components/navbar/navbar';
+import { META } from '@/constants/openGraph';
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: 'JOONBEE' || '준비',
-  description: '개발자를 위한 AI 면접 서비스',
+  title: META.title,
+  description: META.description,
+  openGraph: {
+    title: META.title,
+    siteName: META.siteName,
+    description: META.description,
+    images: META.ogImage,
+    url: META.url,
+  },
+  keywords: META.keyword,
 };
 
 export const dynamic = 'force-dynamic';
@@ -22,10 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <head>
-        <meta
-          name="google-site-verification"
-          content="790Y2Fo5k5nIvvZRacBoSA3jqr-DIKThbxNFVMRHhuw"
-        />
+        <meta name="google-site-verification" content={META.googleVerification} />
+        <meta name="naver-site-verification" content={META.naverVerification} />
         <meta name="google-adsense-account" content="ca-pub-7301751207531014" />
       </head>
       <body
