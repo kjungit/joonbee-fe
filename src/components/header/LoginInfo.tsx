@@ -8,6 +8,7 @@ import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import { useCookies } from 'react-cookie';
 import { useEffect } from 'react';
+import { useUserInfo } from '@/queries/user/useUserInfo';
 
 export const LoginInfo = () => {
   const [nickState, setNickState] = useRecoilState(NickNameAtom);
@@ -15,6 +16,13 @@ export const LoginInfo = () => {
   const userInfo = useRecoilValue(userInfoAtom);
   const [isOpen, setIsOpen] = useRecoilState(NavbarIsOpenAtom);
   const [cookies] = useCookies(['joonbee-token']);
+
+  const { userInfoRefetch } = useUserInfo();
+  useEffect(() => {
+    if (!userInfo.thumbnail) {
+      userInfoRefetch();
+    }
+  }, []);
 
   return (
     <div
