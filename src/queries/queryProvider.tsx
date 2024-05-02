@@ -49,7 +49,7 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
             removeCookie('joonbee-token-refresh');
             setIsLogined(false);
           }
-          if (error === 401 || error === 402) {
+          if (error === 402) {
             authApis.getRefresh().then(data => {
               if (data.status !== 200) {
                 router.push('/login');

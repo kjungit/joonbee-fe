@@ -7,10 +7,12 @@ import { CenterSectionWrapper } from '@/components/wrapper/centerSectionWrapper'
 import Image from 'next/image';
 import ModalPortal from '@/components/@common/modalPortal';
 import { CommonModal } from '@/components/@common/commonModal';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { isDeleteQuestion } from '@/recoils/user/isDeleteQuestion/atom';
+import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 
 export const MyQuestionSection = () => {
+  const isNavbarOpen = useRecoilValue(NavbarIsOpenAtom);
   const [isOpen, setIsOpen] = useRecoilState(isDeleteQuestion);
   const { questionData, error, isFetching, isFetchingNextPage, status, setTarget } =
     useGetMyQuestion();
@@ -18,7 +20,7 @@ export const MyQuestionSection = () => {
   return (
     <CenterSectionWrapper>
       <div className="questionListHeight p-5">
-        {questionData?.length === 0 && (
+        {isNavbarOpen && questionData?.length === 0 && (
           <div className="flex flex-col items-center justify-center interviewListHeight pt-20">
             <Image src="/desktop.png" width={200} height={200} alt="desktop" className="ml-4" />
             <Text size="lg" weight="md">

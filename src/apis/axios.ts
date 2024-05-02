@@ -5,6 +5,7 @@ export const instance = (withCredentials = true) => {
     baseURL: '/api',
     headers: {
       'Content-Type': 'application/json',
+      'x-restrict-key': process.env.NEXT_PUBLIC_RESTRICT_KEY,
     },
     withCredentials,
   });
