@@ -33,7 +33,9 @@ export const useUserInfo = () => {
         ...nickState,
         id: data.id,
       });
-      router.push('/');
+      if (!isLogined) {
+        router.push('/');
+      }
     }
   }, [isSuccess, isFetched]);
 
