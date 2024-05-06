@@ -23,7 +23,8 @@ export default function RandomSettingPage() {
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
-  const [disabled, setDisabled] = useState<boolean>(true);
+  const [isClickMicrophone, setIsClickMicrophone] = useState<boolean>(false);
+  const [isClickCamera, setIsClickCamera] = useState<boolean>(false);
 
   const setUserName = useSetRecoilState(updateUserNameSelector);
   const setCategory = useSetRecoilState(updateCategoryNameSelector);
@@ -116,14 +117,19 @@ export default function RandomSettingPage() {
               </div>
             </div>
             <QuestionTimeButtonGroup />
-            <PermissionButtonGroup setDisabled={setDisabled} />
+            <PermissionButtonGroup
+              isClickMicrophone={isClickMicrophone}
+              setIsClickMicrophone={setIsClickMicrophone}
+              isClickCamera={isClickCamera}
+              setIsClickCamera={setIsClickCamera}
+            />
           </div>
           <IconButton
             className="self-end"
             iconName="next_arrow.png"
             edge="end"
             size="md"
-            disabled={disabled}
+            disabled={!isClickMicrophone}
             onClick={handleMove}>
             다음 단계
           </IconButton>

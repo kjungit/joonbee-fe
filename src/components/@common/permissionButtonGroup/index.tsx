@@ -6,10 +6,18 @@ import { Text } from '../text';
 import usePermitDevice from '@/hooks/interview/usePermitDevice';
 
 interface PermissionButtonGroupProps {
-  setDisabled: (disabled: boolean) => void;
+  setIsClickCamera: (isClick: boolean) => void;
+  setIsClickMicrophone: (isClick: boolean) => void;
+  isClickCamera: boolean;
+  isClickMicrophone: boolean;
 }
 
-export default function PermissionButtonGroup({ setDisabled }: PermissionButtonGroupProps) {
+export default function PermissionButtonGroup({
+  setIsClickCamera,
+  setIsClickMicrophone,
+  isClickCamera,
+  isClickMicrophone,
+}: PermissionButtonGroupProps) {
   const { checkAudioPermission, checkVideoPermission } = usePermitDevice();
 
   return (
@@ -25,16 +33,23 @@ export default function PermissionButtonGroup({ setDisabled }: PermissionButtonG
           장치 권한
         </p>
         <div className="flex gap-5">
-          <Button size="sm3" color="white" className="shadow-md" onClick={checkVideoPermission}>
+          <Button
+            size="sm3"
+            color={!isClickCamera ? 'white' : 'primary'}
+            className="shadow-md"
+            onClick={() => {
+              checkVideoPermission();
+              setIsClickCamera(true);
+            }}>
             카메라 허용
           </Button>
           <Button
             size="sm3"
-            color="white"
+            color={!isClickMicrophone ? 'white' : 'primary'}
             className="shadow-md"
             onClick={() => {
               checkAudioPermission();
-              setDisabled(false);
+              setIsClickMicrophone(true);
             }}>
             마이크 허용
           </Button>
