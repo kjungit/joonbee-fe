@@ -99,7 +99,7 @@ export default function ChoiceSettingPage() {
   return (
     <>
       {!isPressedBtn ? (
-        isClickNextBtn ? (
+        !isClickNextBtn ? (
           <div className="py-14 flex flex-col justify-between questionListHeight">
             <div>
               <Text as="h2" size="xl" weight="lg" className="mb-5">
