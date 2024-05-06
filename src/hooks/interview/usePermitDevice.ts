@@ -4,13 +4,14 @@ import useVideoStream from './useVideoStream';
 import useVideo from './useVideo';
 
 export default function usePermitDevice() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   const { onStartAudio } = useAudioStream();
-  const { onStartVideo } = useVideoStream(videoRef);
 
   const checkVideoPermission = async () => {
-    onStartVideo();
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    } catch (error) {
+      console.error('오디오 스트림을 시작하는 데 실패했습니다:', error);
+    }
   };
 
   const checkAudioPermission = async () => {
