@@ -29,7 +29,8 @@ import PermissionButtonGroup from '@/components/@common/permissionButtonGroup';
 
 export default function ChoiceSettingPage() {
   const [isClickNextBtn, setIsClickNextBtn] = useRecoilState(isClickNextBtnAtom);
-  const [disabled, setDisabled] = useState<boolean>(true);
+  const [isClickMicrophone, setIsClickMicrophone] = useState<boolean>(false);
+  const [isClickCamera, setIsClickCamera] = useState<boolean>(false);
   const [checkedQuestionIdList, setCheckedQuestionIdList] = useState<
     {
       questionId: number;
@@ -184,13 +185,18 @@ export default function ChoiceSettingPage() {
               </div>
               <QuestionTimeButtonGroup />
               <div className="flex justify-between items-end">
-                <PermissionButtonGroup setDisabled={setDisabled} />
+                <PermissionButtonGroup
+                  isClickMicrophone={isClickMicrophone}
+                  setIsClickMicrophone={setIsClickMicrophone}
+                  isClickCamera={isClickCamera}
+                  setIsClickCamera={setIsClickCamera}
+                />
                 <IconButton
                   iconName="next_arrow.png"
                   edge="end"
                   size="md"
                   onClick={handleMove}
-                  disabled={disabled}>
+                  disabled={!isClickMicrophone}>
                   다음 단계
                 </IconButton>
               </div>
