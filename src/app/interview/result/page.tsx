@@ -257,7 +257,7 @@ export default function ResultPage() {
               </div>
 
               <video height="360" controls ref={videoRef} className="mb-3 w-[360px] rounded-xl">
-                <source src={videoUrl} type="video/webm" />
+                <source src={videoUrl} type="video/mp4" />
                 브라우저가 비디오를 지원하지 않습니다.
               </video>
               <div className="flex w-full justify-end">
