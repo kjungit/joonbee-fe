@@ -25,9 +25,11 @@ import useBeforeUnload from '@/hooks/useBeforeUnload';
 import PreventBackModal from '@/components/@common/preventBackModal';
 import AlertModal from '@/components/@common/alertModal';
 import { useModal } from '@/hooks/useModal';
+import PermissionButtonGroup from '@/components/@common/permissionButtonGroup';
 
 export default function ChoiceSettingPage() {
   const [isClickNextBtn, setIsClickNextBtn] = useRecoilState(isClickNextBtnAtom);
+  const [disabled, setDisabled] = useState<boolean>(true);
   const [checkedQuestionIdList, setCheckedQuestionIdList] = useState<
     {
       questionId: number;
@@ -155,7 +157,7 @@ export default function ChoiceSettingPage() {
               <Text as="h2" size="xl" weight="lg" className="mb-5">
                 선택한 질문
               </Text>
-              <ul className=" flex flex-col gap-4 h-[360px] overflow-auto">
+              <ul className=" flex flex-col gap-4 h-[240px] overflow-auto">
                 {checkedQuestionList.map(item => (
                   <QuestionCheck key={item.questionId} question={item} isChecked={true} />
                 ))}
@@ -180,9 +182,15 @@ export default function ChoiceSettingPage() {
                   />
                 </div>
               </div>
+              <QuestionTimeButtonGroup />
               <div className="flex justify-between items-end">
-                <QuestionTimeButtonGroup />
-                <IconButton iconName="next_arrow.png" edge="end" size="md" onClick={handleMove}>
+                <PermissionButtonGroup setDisabled={setDisabled} />
+                <IconButton
+                  iconName="next_arrow.png"
+                  edge="end"
+                  size="md"
+                  onClick={handleMove}
+                  disabled={disabled}>
                   다음 단계
                 </IconButton>
               </div>

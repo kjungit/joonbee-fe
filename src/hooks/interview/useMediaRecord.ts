@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { interviewVideoUrlAtom } from '@/recoils/interview/atom';
+import useGetMimetype from './useGetMimetype';
 
 export default function useMediaRecord(videoStream: MediaStream, audioStream: MediaStream) {
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [recordedMediaUrl, setRecordedMediaUrl] = useRecoilState(interviewVideoUrlAtom);
+
+  const mimeType = useGetMimetype();
 
   const onStartRecord = () => {
     if (!videoStream || !audioStream) {
@@ -14,7 +17,7 @@ export default function useMediaRecord(videoStream: MediaStream, audioStream: Me
 
     const combined = new MediaStream([...videoStream.getTracks(), ...audioStream.getTracks()]);
     const mediaData: Blob[] = [];
-    const recorder = new MediaRecorder(combined, { mimeType: 'video/webm; codecs=vp8,opus' });
+    const recorder = new MediaRecorder(combined, { mimeType: mimeType });
     setMediaRecorder(recorder);
 
     recorder.ondataavailable = event => {
@@ -22,7 +25,7 @@ export default function useMediaRecord(videoStream: MediaStream, audioStream: Me
     };
 
     recorder.onstop = () => {
-      const blob = new Blob(mediaData, { type: 'video/webm' });
+      const blob = new Blob(mediaData, { type: mimeType });
       const url = URL.createObjectURL(blob);
       setRecordedMediaUrl(url);
     };
