@@ -7,7 +7,6 @@ import { NickNameAtom } from '@/recoils/user/isNickName/atom';
 import { VariableIcon } from '../variableIcon';
 import { useUpdateNick } from '@/queries/user/useUpdateNick';
 import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
-import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 
 export const NickNameModal = ({ isClose = false }: { isClose?: boolean }) => {
   const [inputState, setInputState] = useState('');
@@ -48,8 +47,8 @@ export const NickNameModal = ({ isClose = false }: { isClose?: boolean }) => {
             <div>
               <input
                 type="text"
-                placeholder="변경할 닉네임을 입력해주세요."
-                value={nickState.nickName}
+                placeholder="닉네임을 입력해주세요."
+                value={inputState}
                 onChange={handleChangeNick}
                 autoFocus
                 className="w-full bg-white rounded-lg px-4 py-2 border border-gray-normal h-12"

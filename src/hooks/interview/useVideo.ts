@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil';
 import { interviewVideoUrlAtom, selectedDeviceIdAtom } from '@/recoils/interview/atom';
 import useAudioStream from './useAudioStream';
 import useVideoStream from './useVideoStream';
+import useGetMimetype from './useGetMimetype';
 
 export default function useVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -13,6 +14,8 @@ export default function useVideo() {
 
   const { onStartAudio, audioStream } = useAudioStream();
   const { onStartVideo, videoStream, setVideoStream } = useVideoStream(videoRef);
+
+  const mimeType = useGetMimetype();
 
   const onStart = async () => {
     await onStartAudio();
@@ -27,7 +30,7 @@ export default function useVideo() {
     const mediaData: Blob[] = [];
 
     const recorder = new MediaRecorder(combined, {
-      mimeType: 'video/webm; codecs=vp8,opus',
+      mimeType: mimeType,
     });
     setMediaRecorder(recorder);
 
@@ -38,7 +41,7 @@ export default function useVideo() {
     };
 
     recorder.onstop = () => {
-      const blob = new Blob(mediaData, { type: 'video/webm' });
+      const blob = new Blob(mediaData, { type: mimeType });
 
       const url = URL.createObjectURL(blob);
       setRecordedMediaUrl(url);
@@ -66,7 +69,7 @@ export default function useVideo() {
   const onDownload = (recordedMediaUrl: string) => {
     const anchor = document.createElement('a');
     anchor.href = recordedMediaUrl;
-    anchor.download = 'video.webm';
+    anchor.download = mimeType;
     anchor.click();
     URL.revokeObjectURL(recordedMediaUrl);
   };

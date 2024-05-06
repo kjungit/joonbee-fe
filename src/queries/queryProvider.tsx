@@ -41,8 +41,7 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
       },
       queryCache: new QueryCache({
         onError: (error: any) => {
-          console.log('error', error);
-          if (error === 403) {
+          if (error === 403 || error === 406) {
             router.push('/login');
 
             removeCookie('joonbee-token');

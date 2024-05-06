@@ -5,7 +5,7 @@ import Button from '@/components/@common/button';
 import { Text } from '@/components/@common/text';
 import { interviewQuestionCountAtom } from '@/recoils/interview/atom';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
 import CategoryDropdown from '@/components/@common/categoryDropdown';
@@ -17,11 +17,13 @@ import { updateCategoryNameSelector, updateUserNameSelector } from '@/recoils/my
 import userQueries from '@/queries/user/useGetUser';
 import useBeforeUnload from '@/hooks/useBeforeUnload';
 import PreventBackModal from '@/components/@common/preventBackModal';
+import PermissionButtonGroup from '@/components/@common/permissionButtonGroup';
 
 export default function RandomSettingPage() {
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
+  const [disabled, setDisabled] = useState<boolean>(true);
 
   const setUserName = useSetRecoilState(updateUserNameSelector);
   const setCategory = useSetRecoilState(updateCategoryNameSelector);
@@ -114,12 +116,14 @@ export default function RandomSettingPage() {
               </div>
             </div>
             <QuestionTimeButtonGroup />
+            <PermissionButtonGroup setDisabled={setDisabled} />
           </div>
           <IconButton
             className="self-end"
             iconName="next_arrow.png"
             edge="end"
             size="md"
+            disabled={disabled}
             onClick={handleMove}>
             다음 단계
           </IconButton>
