@@ -106,13 +106,6 @@ export default function RandomSettingPage() {
                     className="shadow-md">
                     8
                   </Button>
-                  <Button
-                    size="square"
-                    color={questionCount === 10 ? 'primary' : 'white'}
-                    onClick={() => setQuestionCount(10)}
-                    className="shadow-md">
-                    10
-                  </Button>
                 </div>
               </div>
             </div>
