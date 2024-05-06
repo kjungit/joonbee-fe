@@ -54,7 +54,7 @@ export default function ChoiceSettingPage() {
   const { data: userInfo } = userQueries.useGetInfo();
 
   const handleClickQuestion = (questionId: number, questionContent: string, category: string) => {
-    if (checkedQuestionIdList.length > 9) {
+    if (checkedQuestionIdList.length > 7) {
       onOpen();
       return;
     }
@@ -212,7 +212,7 @@ export default function ChoiceSettingPage() {
       <AlertModal
         isOpened={isOpened}
         onClose={onClose}
-        text="질문은 최대 10개 선택할 수 있습니다."
+        text="질문은 최대 8개 선택할 수 있습니다."
       />
       <PreventBackModal />
     </>
