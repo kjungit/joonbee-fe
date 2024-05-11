@@ -7,6 +7,7 @@ const nextConfig = {
       'i.ytimg.com',
       'lh3.googleusercontent.com',
       'ssl.pstatic.net',
+      't1.kakaocdn.net'
     ],
   },
   async rewrites() {
