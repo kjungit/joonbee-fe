@@ -50,7 +50,7 @@ export const MainHeader = () => {
           <div className="relative">
             <Link href="/my?category=interview&Ifield=fe">
               <Image
-                src={userInfo.thumbnail}
+                src={userInfo.thumbnail === 'NONE' ? '/basicProfile.png' : userInfo.thumbnail}
                 alt={`${userInfo.nickName} profile`}
                 width={26}
                 height={26}
