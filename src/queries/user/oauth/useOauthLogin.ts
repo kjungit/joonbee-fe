@@ -8,7 +8,7 @@ import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
 import { isLoginErrorAtom } from '@/recoils/user/isRefresh/atom';
 
 interface LoginError {
-  data: string;
+  message: string;
   status: number;
 }
 
@@ -38,7 +38,7 @@ export const useOauthLogin = (key: string, loginFunc: (AUTHORIZATION_CODE: strin
     if (error?.status === 410) {
       setNickState({
         ...nickState,
-        id: error.data,
+        id: error.message,
       });
       setIsNickOpen(!isNickOpen);
     }
