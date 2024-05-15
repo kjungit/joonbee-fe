@@ -11,10 +11,10 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 export const MainHeader = () => {
   const userInfo = useRecoilValue(userInfoAtom);
   const [cookies] = useCookies(['joonbee-token']);
-  const { userInfoRefetch } = useUserInfo();
   const resetSelectInterview = useResetRecoilState(selectInterviewState);
   const pathName = usePathname();
 
+  const { userInfoRefetch } = useUserInfo();
   useEffect(() => {
     if (!userInfo.thumbnail) {
       userInfoRefetch();
@@ -23,11 +23,12 @@ export const MainHeader = () => {
   return (
     <div className="flex items-center justify-between w-full px-6">
       <div className="flex gap-4 md:text-md text-sm">
-        <button onClick={resetSelectInterview}>
-          <Link className={`${pathName === '/' && 'font-bold'}`} href="/">
-            홈
-          </Link>
-        </button>
+        <Link
+          className={`${pathName === '/' && 'font-bold'}`}
+          href="/"
+          onClick={resetSelectInterview}>
+          홈
+        </Link>
         <Link
           className={`${pathName.includes('interview') && 'font-bold'}`}
           href="/interview/random">
