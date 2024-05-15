@@ -25,7 +25,7 @@ export const Avatar = ({ size = 'sm', thumbnail, onClick }: AvatarProps) => {
       {thumbnail && (
         <Image
           className="rounded-full"
-          src={thumbnail}
+          src={thumbnail === 'NONE' ? '/basicProfile.png' : thumbnail}
           alt="thumbnail"
           layout="fill"
           objectFit="cover"
