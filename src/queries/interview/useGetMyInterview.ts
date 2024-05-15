@@ -19,7 +19,7 @@ export const useGetMyInterview = () => {
     },
     getNextPageParam: (lastPage, allPage) => {
       const resultData = allPage.flatMap(page => page.result);
-      return resultData.length <= lastPage.total
+      return resultData.length <= lastPage.total && lastPage.total > 0
         ? {
             page: allPage.length,
           }
