@@ -74,7 +74,11 @@ export default function DetailInterviewInfoWrapper() {
                 className="rounded-full"
                 width={28}
                 height={28}
-                src={selectInterview.thumbnail}
+                src={
+                  selectInterview.thumbnail === 'NONE'
+                    ? '/basicProfile.png'
+                    : selectInterview.thumbnail
+                }
                 alt={selectInterview.nickname + ' imgae'}
               />
               <Text size="lg" weight="lg" className="p-1">

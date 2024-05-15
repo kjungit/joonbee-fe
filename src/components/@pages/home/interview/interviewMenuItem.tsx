@@ -33,7 +33,7 @@ export const InterviewMenuItem = ({ item }: { item: InterviewItem }) => {
           className="rounded-full"
           width={28}
           height={28}
-          src={item.thumbnail}
+          src={item.thumbnail === 'NONE' ? '/basicProfile.png' : item.thumbnail}
           alt={item.nickname + ' imgae'}
         />
       </div>
