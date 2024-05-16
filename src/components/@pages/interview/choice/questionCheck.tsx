@@ -19,7 +19,7 @@ export default function QuestionCheck({
   const { questionId, questionContent } = question;
 
   return (
-    <li key={questionId} className="flex gap-4 items-center" onClick={onCheckChange}>
+    <li key={questionId} className="flex gap-4 items-center mb-2" onClick={onCheckChange}>
       {isChecked ? (
         <VariableIcon name="fillCheckRec" size={18} />
       ) : (
