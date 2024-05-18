@@ -21,16 +21,7 @@ export const usePostQuestionSave = ({ subcategoryName, questionContent }: SavaQu
     },
     onError: (error: number) => {
       if (error === 401) {
-        authApis.getRefresh().then(() => {
-          getUserInfo()
-            .then(data => {
-              setUserInfo(data);
-            })
-            .catch(() => {
-              resetUserInfo();
-              setIsNotLoginedOpen(true);
-            });
-        });
+        setIsNotLoginedOpen(true);
       }
     },
   });
