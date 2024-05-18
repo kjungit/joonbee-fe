@@ -22,15 +22,12 @@ export const Avatar = ({ size = 'sm', thumbnail, onClick }: AvatarProps) => {
 
   return (
     <div className={AvatarStyles} onClick={onClick}>
-      {thumbnail && (
-        <Image
-          className="rounded-full"
-          src={thumbnail === 'NONE' ? '/basicProfile.png' : thumbnail}
-          alt="thumbnail"
-          layout="fill"
-          objectFit="cover"
-        />
-      )}
+      <Image
+        className="rounded-full"
+        src={thumbnail === 'NONE' ? '/basicProfile.png' : thumbnail}
+        alt="thumbnail"
+        objectFit="cover"
+      />
     </div>
   );
 };

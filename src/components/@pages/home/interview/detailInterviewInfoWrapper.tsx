@@ -1,3 +1,4 @@
+'use client';
 import AlertModal from '@/components/@common/alertModal';
 import IconButton from '@/components/@common/iconButton';
 import { Text } from '@/components/@common/text';
@@ -74,12 +75,12 @@ export default function DetailInterviewInfoWrapper() {
                 className="rounded-full"
                 width={28}
                 height={28}
+                alt={selectInterview.nickname + ' imgae'}
                 src={
                   selectInterview.thumbnail === 'NONE'
                     ? '/basicProfile.png'
                     : selectInterview.thumbnail
                 }
-                alt={selectInterview.nickname + ' imgae'}
               />
               <Text size="lg" weight="lg" className="p-1">
                 {selectInterview.nickname}
@@ -96,7 +97,7 @@ export default function DetailInterviewInfoWrapper() {
         <ul className="flex flex-col p-6 gap-4 justify-between ">
           {selectInterview.questions.map(item => (
             <div key={item.questionId} className="flex gap-2 leading-5 items-center">
-              <div className="min-w-4">
+              <div className="min-w-4 h-full pt-[2px]">
                 <VariableIcon name="questionBox" size={16} className="leading-5 min-w-5 min-h-4" />
               </div>
               <Text size="lg" weight="md">

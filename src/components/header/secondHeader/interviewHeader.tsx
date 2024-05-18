@@ -1,3 +1,5 @@
+'use client';
+
 import InterviewProgressBar from '@/components/@common/InterviewProgressBar';
 import IconButton from '@/components/@common/iconButton';
 import { interviewTypeAtom } from '@/recoils/interview/atom';

@@ -10,8 +10,6 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 export const usePostQuestionSave = ({ subcategoryName, questionContent }: SavaQuestionProps) => {
   const [isOpen, setIsOpen] = useRecoilState(isSaveQuestion);
   const [isNotLoginedOpen, setIsNotLoginedOpen] = useRecoilState(isNotLogined);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
-  const resetUserInfo = useResetRecoilState(userInfoAtom);
 
   const { mutate: questionSaveMutate } = useMutation({
     mutationKey: ['postInterviewLike', subcategoryName, questionContent],
@@ -21,16 +19,7 @@ export const usePostQuestionSave = ({ subcategoryName, questionContent }: SavaQu
     },
     onError: (error: number) => {
       if (error === 401) {
-        authApis.getRefresh().then(() => {
-          getUserInfo()
-            .then(data => {
-              setUserInfo(data);
-            })
-            .catch(() => {
-              resetUserInfo();
-              setIsNotLoginedOpen(true);
-            });
-        });
+        setIsNotLoginedOpen(true);
       }
     },
   });

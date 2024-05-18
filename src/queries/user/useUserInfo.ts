@@ -17,7 +17,7 @@ export const useUserInfo = () => {
   const {
     data,
     isSuccess,
-    isFetched,
+    isFetching,
     refetch: userInfoRefetch,
   } = useQuery({
     queryKey: ['userInfo'],
@@ -26,18 +26,17 @@ export const useUserInfo = () => {
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (data) {
+      console.log(data);
       setUserInfo(data);
       setIsLogined(true);
       setNickState({
         ...nickState,
         id: data.id,
       });
-      if (!isLogined) {
-        router.push('/');
-      }
+      router.push('/');
     }
-  }, [isSuccess, isFetched]);
+  }, [isSuccess, isFetching]);
 
   return { userInfoRefetch };
 };

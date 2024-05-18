@@ -18,9 +18,6 @@ export const useDeleteQuestion = (id: number) => {
       refetch();
       setIsOpen(true);
     },
-    onError: (error: number) => {
-      if (error === 401) setIsNotLoginedOpen(true);
-    },
   });
 
   return { questionDeleteMutate };

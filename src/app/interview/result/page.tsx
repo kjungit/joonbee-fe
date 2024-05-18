@@ -19,6 +19,7 @@ import { VariableIcon } from '@/components/@common/variableIcon';
 import useVideo from '@/hooks/interview/useVideo';
 import { interviewVideoUrlAtom } from '@/recoils/interview/atom';
 import { useRouter } from 'next/navigation';
+import useBeforeUnload from '@/hooks/useBeforeUnload';
 
 export default function ResultPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +27,6 @@ export default function ResultPage() {
   const { onDownload } = useVideo();
   const videoUrl = useRecoilValue(interviewVideoUrlAtom);
 
-  console.log('url', videoUrl);
   const router = useRouter();
 
   const myInterviewData = useRecoilValue(myInterviewAtom);
@@ -53,6 +53,8 @@ export default function ResultPage() {
       saveTrigger();
     }
   }, [postMutateData, isSuccess]);
+
+  console.log('openAiResultData', openAiResultData);
 
   useEffect(() => {
     if (openAiResultData?.questions) {
@@ -151,6 +153,8 @@ export default function ResultPage() {
     });
   };
 
+  useBeforeUnload();
+
   return (
     <div className="w-full overflow-auto questionListHeight ">
       {!isSuccess ? (
@@ -172,13 +176,12 @@ export default function ResultPage() {
       ) : (
         <div className="flex flex-col questionListHeight overflow-auto w-[800px]">
           <div className="pt-14">
-            {viewMutateData.gptOpinion && (
-              <Accordion title="전체적인 면접에 대한 느낌이에요." isBorder isMain>
-                <Text size="lg" weight="sm" className="px-11">
-                  {viewMutateData.gptOpinion}
-                </Text>
-              </Accordion>
-            )}
+            <Accordion title="전체적인 면접에 대한 느낌이에요." isBorder isMain>
+              <Text size="lg" weight="sm" className="px-11">
+                {viewMutateData.gptOpinion ||
+                  '답변이 제대로 입력되지 않아 면접에 대한 피드백을 볼 수 없습니다.'}
+              </Text>
+            </Accordion>
             <ul className="pb-32">
               {viewMutateData.questionContents &&
                 viewMutateData.questionContents.map(question => (

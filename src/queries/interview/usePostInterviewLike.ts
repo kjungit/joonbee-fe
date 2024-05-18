@@ -1,19 +1,18 @@
-import { getUserInfo, postInterviewLike } from '@/apis/services/memberApis';
-import { useMutation } from '@tanstack/react-query';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+'use client';
+
+import { postInterviewLike } from '@/apis/services/memberApis';
+import { QueryClient, useMutation } from '@tanstack/react-query';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useGetInterview } from './useGetInterview';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
-import { userInfoAtom } from '@/recoils/user/userInfo/atom';
 import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { isNotLogined } from '@/recoils/user/isNotLogined/atom';
-import authApis from '@/apis/services/authApis';
+const queryClient = new QueryClient();
 
 export const usePostInterviewLike = (interviewId: number) => {
   const selectInterviewCategory = useRecoilValue(selectInterviewCategoryState);
-  const resetUserInfo = useResetRecoilState(userInfoAtom);
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
   const [isOpen, setIsOpen] = useRecoilState(isNotLogined);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
   const { interviewRefetch } = useGetInterview({
     selectCategory: selectInterviewCategory.category,
@@ -23,21 +22,13 @@ export const usePostInterviewLike = (interviewId: number) => {
     mutationKey: ['postInterviewLike', interviewId],
     mutationFn: () => postInterviewLike(interviewId),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['userInfo'] });
       interviewRefetch();
     },
     onError: (error: number) => {
       if (error === 401) {
-        authApis.getRefresh().then(() => {
-          getUserInfo()
-            .then(data => {
-              setUserInfo(data);
-            })
-            .catch(() => {
-              setIsOpen(true);
-              resetUserInfo();
-              setIsLogined(false);
-            });
-        });
+        setIsOpen(true);
+        setIsLogined(false);
       }
     },
   });

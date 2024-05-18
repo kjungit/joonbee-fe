@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export type ItemProps = {
   id: string;
@@ -48,12 +48,13 @@ export const RadioButtonGroup = ({
               name={groupName}
               className="w-4 h-4 hidden peer"
               checked={checkedRadio === item.id}
+              readOnly
             />
             <div
               className={` ${
                 colorStyles[color]
               } cursor-pointer shadow-md flex items-center justify-center font-bold rounded-lg ${
-                checkedRadio === item.id
+                checkedRadio || defaultId === item.id
               } ${sizeStyles[size]}`}
               onClick={() => {
                 if (item.id !== checkedRadio) {
