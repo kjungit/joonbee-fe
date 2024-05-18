@@ -2,7 +2,17 @@ import React, { ButtonHTMLAttributes } from 'react';
 
 type ButtonVariants = 'outlined' | 'filled';
 export type ButtonColors = 'primary' | 'blue' | 'white';
-type ButtonSizes = 'xs' | 'sm' | 'sm2' | 'sm3' | 'md' | 'lg' | 'xl' | '2xl' | 'auto' | 'square';
+export type ButtonSizes =
+  | 'xs'
+  | 'sm'
+  | 'sm2'
+  | 'sm3'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | 'auto'
+  | 'square';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSizes;

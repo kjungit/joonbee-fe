@@ -1,10 +1,6 @@
 'use client';
 import { LoginBox } from '@/components/@common/loginBox';
-import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
-import { userInfoAtom } from '@/recoils/user/userInfo/atom';
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import React from 'react';
 
 export default function LoginPage() {
   return (
