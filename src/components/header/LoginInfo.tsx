@@ -33,11 +33,16 @@ export const LoginInfo = () => {
         {cookies['joonbee-token'] ? (
           <div className="flex gap-2 items-center">
             <Image
-              src={userInfo.thumbnail === 'NONE' ? '/basicProfile.png' : userInfo.thumbnail}
+              className="rounded-full"
+              src={
+                userInfo.thumbnail === 'NONE' || !userInfo.thumbnail
+                  ? '/basicProfile.png'
+                  : userInfo.thumbnail
+              }
               alt={`${userInfo.nickName} profile`}
               width={24}
               height={24}
-              className="rounded-full"
+              objectFit="cover"
             />
             <Text size="lg">{userInfo.nickName}</Text>
             <button
