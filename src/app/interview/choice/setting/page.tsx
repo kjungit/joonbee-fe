@@ -109,7 +109,7 @@ export default function ChoiceSettingPage() {
               <Text as="h2" size="md" weight="md" color="blue" className="mb-2">
                 * 면접을 진행할 질문을 선택해주세요
               </Text>
-              <ul className=" flex flex-col gap-4 overflow-auto h-[360px] mb-8">
+              <ul className="overflow-auto h-[360px] mb-8">
                 {questionData?.map(item => (
                   <QuestionCheck
                     key={item.questionId}
@@ -122,7 +122,7 @@ export default function ChoiceSettingPage() {
                     }
                   />
                 ))}
-                <div ref={setTarget}></div>
+                <div className="h-[1px]" ref={setTarget}></div>
               </ul>
             </div>
             <div>
@@ -158,11 +158,11 @@ export default function ChoiceSettingPage() {
               <Text as="h2" size="xl" weight="lg" className="mb-5">
                 선택한 질문
               </Text>
-              <ul className=" flex flex-col gap-4 h-[240px] overflow-auto">
+              <ul className="mb-8 h-[300px] overflow-auto">
                 {checkedQuestionList.map(item => (
                   <QuestionCheck key={item.questionId} question={item} isChecked={true} />
                 ))}
-                <div ref={setTarget}></div>
+                <div className="h-[1px]" ref={setTarget}></div>
               </ul>
             </div>
             <div>
