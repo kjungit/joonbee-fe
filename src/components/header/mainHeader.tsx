@@ -1,3 +1,5 @@
+'use client';
+
 import { useUserInfo } from '@/queries/user/useUserInfo';
 import { selectInterviewState } from '@/recoils/home/interview/selectInterview/atom';
 import { userInfoAtom } from '@/recoils/user/userInfo/atom';
@@ -13,7 +15,6 @@ export const MainHeader = () => {
   const [cookies] = useCookies(['joonbee-token']);
   const resetSelectInterview = useResetRecoilState(selectInterviewState);
   const pathName = usePathname();
-
   const { userInfoRefetch } = useUserInfo();
   useEffect(() => {
     if (!userInfo.thumbnail) {
@@ -24,17 +25,19 @@ export const MainHeader = () => {
     <div className="flex items-center justify-between w-full px-6">
       <div className="flex gap-4 md:text-md text-sm">
         <Link
-          className={`${pathName === '/' && 'font-bold'}`}
+          className={`${
+            pathName === '/' && 'font-bold border-b-2 border-blue-primary'
+          } border-b-2 border-white`}
           href="/"
           onClick={resetSelectInterview}>
           홈
         </Link>
         <Link
           className={`${pathName.includes('interview') && 'font-bold'}`}
-          href="/interview/random">
+          href={userInfo.thumbnail ? '/interview/random' : '/login'}>
           AI 면접
         </Link>
-        {cookies['joonbee-token'] && (
+        {userInfo.thumbnail && (
           <Link
             className={`${pathName.includes('my') && 'font-bold'}`}
             href="/my?category=interview&Ifield=fe">
@@ -46,15 +49,15 @@ export const MainHeader = () => {
         </Link> */}
       </div>
       <div className="flex justify-center items-center gap-4 md:text-md text-sm">
-        {cookies['joonbee-token'] ? (
+        {userInfo.thumbnail ? (
           <div className="relative">
             <Link href="/my?category=interview&Ifield=fe">
               <Image
-                src={userInfo.thumbnail === 'NONE' ? '/basicProfile.png' : userInfo.thumbnail}
+                className="rounded-full hover:outline-4 hover:outline-blue-primary/20 hover:outline "
+                src={userInfo.thumbnail}
                 alt={`${userInfo.nickName} profile`}
                 width={26}
                 height={26}
-                className="rounded-full hover:outline-4 hover:outline-blue-primary/20 hover:outline "
               />
             </Link>
             <div className="absolute top-0 right-0"></div>
