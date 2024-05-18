@@ -1,48 +1,47 @@
-import IconButton from '@/components/@common/iconButton';
+'use client';
+
+import IconButtonLink from '@/components/@common/iconButtonLink';
+import ModalPortal from '@/components/@common/modalPortal';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import { useLogout } from '@/queries/user/useLogout';
 import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
-import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 export const MyHeader = () => {
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
-
-  const { logoutMutate } = useLogout();
-  const router = useRouter();
+  const [isLogoutLoading, setIsLogoutLoading] = useState(false);
+  const { logoutMutate, isLogoutSuccess } = useLogout();
   const searchParams = useSearchParams();
   const categoryParams = searchParams.get('category');
-  const handleClickMenu = (id: string) => {
-    if (id === 'interview') {
-      router.push(`/my?category=interview&Ifield=fe`);
-    }
-    if (id === 'question') {
-      // 백엔드에서 유저정보 넣어주게되면 동적으로 가지고있는 데이터로 첫 메뉴 열려져있는 상태 적용하기
-      router.push(`/my?category=question&Qfield=fe&subField=react`);
-    }
-  };
+
+  useEffect(() => {
+    setIsLogoutLoading(false);
+  }, [isLogoutSuccess]);
 
   return (
     <nav className="flex justify-between w-full">
       <div className="flex justify-between items-center gap-2">
-        <IconButton
-          edge="start"
-          iconName="group"
+        <IconButtonLink
           color={categoryParams === 'interview' ? 'blue' : 'white'}
-          className={categoryParams === 'interview' ? 'font-bold' : ''}
-          size="sm"
-          onClick={() => handleClickMenu('interview')}>
-          면접 관리
-        </IconButton>
-        <IconButton
+          className={`${categoryParams === 'interview' && 'font-bold'}`}
+          path="/my?category=interview&Ifield=fe"
+          iconName="checklist.png"
           edge="start"
-          iconName="questionBox"
+          size="sm">
+          면접 보기
+        </IconButtonLink>
+        <IconButtonLink
           color={categoryParams === 'question' ? 'blue' : 'white'}
-          className={categoryParams === 'question' ? 'font-bold' : ''}
-          size="sm"
-          onClick={() => handleClickMenu('question')}>
-          질문 관리
-        </IconButton>
+          className={`${categoryParams === 'question' && 'font-bold'}`}
+          path="/my?category=question&Qfield=fe&subField=react"
+          iconName="questions.svg"
+          edge="start"
+          size="sm">
+          질문 보기
+        </IconButtonLink>
       </div>
       <div className="h-full flex justify-center items-center cursor-pointer mr-4 hover:text-gray-disabled">
         <VariableIcon
@@ -50,11 +49,20 @@ export const MyHeader = () => {
           size={20}
           isHover
           onClick={() => {
+            setIsLogoutLoading(true);
             logoutMutate();
             setIsLogined(false);
           }}
         />
       </div>
+      {/* // 로그아웃 로딩 표시 */}
+      {isLogoutLoading && (
+        <ModalPortal>
+          <div className="bg-main-primary/20 fixed z-40 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-screen h-screen   shadow-md flex items-center justify-center">
+            <Image src={'/loginLoading.gif'} width={70} height={70} alt="loading" />
+          </div>
+        </ModalPortal>
+      )}
     </nav>
   );
 };

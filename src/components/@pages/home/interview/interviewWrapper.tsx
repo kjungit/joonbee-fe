@@ -1,7 +1,7 @@
 import { RadioButtonGroup } from '@/components/@common/radioButtonGroup';
 import { Text } from '@/components/@common/text';
 import { useSearchParams } from 'next/navigation';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { InterviewMenuItem } from './interviewMenuItem';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import { useGetInterview } from '@/queries/interview/useGetInterview';

@@ -41,14 +41,14 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
       },
       queryCache: new QueryCache({
         onError: (error: any) => {
-          if (error === 403 || error === 406) {
+          if (error === 406) {
             router.push('/login');
 
             removeCookie('joonbee-token');
             removeCookie('joonbee-token-refresh');
             setIsLogined(false);
           }
-          if (error === 402) {
+          if (error === 403) {
             authApis.getRefresh().then(data => {
               if (data.status !== 200) {
                 router.push('/login');

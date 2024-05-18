@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useUserInfo } from '../useUserInfo';
 import { useRecoilState } from 'recoil';
@@ -16,11 +16,9 @@ export const useOauthLogin = (key: string, loginFunc: (AUTHORIZATION_CODE: strin
   const [nickState, setNickState] = useRecoilState(NickNameAtom);
   const [isNickOpen, setIsNickOpen] = useRecoilState(isNickAtom);
   const [isLoginError, setIsLoginError] = useRecoilState(isLoginErrorAtom);
-
+  const { userInfoRefetch } = useUserInfo();
   const searchParams = useSearchParams();
   const AUTHORIZATION_CODE: string = searchParams.get('code') as string;
-  const router = useRouter();
-  const { userInfoRefetch } = useUserInfo();
   const { data, isSuccess, error } = useQuery<any, LoginError>({
     queryKey: [key],
     queryFn: () => loginFunc(AUTHORIZATION_CODE),

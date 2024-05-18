@@ -55,7 +55,7 @@ export const QuestionWrapper = () => {
 
         <div>
           {isFetching && !isFetchingNextPage ? (
-            <Image src={'/loginLoading.gif'} width={20} height={20} alt="loding" />
+            <Image src={'/loginLoading.gif'} width={20} height={20} alt="loading" />
           ) : null}
         </div>
         {isOpen && (

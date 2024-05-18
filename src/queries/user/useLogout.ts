@@ -8,7 +8,7 @@ export const useLogout = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const router = useRouter();
 
-  const { mutate: logoutMutate } = useMutation({
+  const { mutate: logoutMutate, isSuccess: isLogoutSuccess } = useMutation({
     mutationKey: ['logout'],
     mutationFn: () => authApis.getLogout(),
     onSuccess: () => {
@@ -30,5 +30,5 @@ export const useLogout = () => {
     },
   });
 
-  return { logoutMutate };
+  return { logoutMutate, isLogoutSuccess };
 };

@@ -2,6 +2,7 @@
 import React, { MouseEvent } from 'react';
 import Logo from '../logo';
 import { SocialLoginButton } from '../socialLoginButton';
+import Link from 'next/link';
 
 // const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth/kakao';
 // const NAVER_REDIRECT_URI = 'http://localhost:3000/oauth/naver';
@@ -37,24 +38,9 @@ export const LoginBox = () => {
           JOONBEE 하세요.
         </p>
         <div className="flex flex-col gap-3">
-          <SocialLoginButton
-            name="kakao.png"
-            onClick={() => {
-              window.location.href = KAKAO_AUTH_URI;
-            }}
-          />
-          <SocialLoginButton
-            name="naver.png"
-            onClick={() => {
-              window.location.href = NAVER_AUTH_URL;
-            }}
-          />
-          <SocialLoginButton
-            name="google.png"
-            onClick={() => {
-              window.location.href = GOOGLE_AUTH_URL;
-            }}
-          />
+          <SocialLoginButton name="kakao.png" path={KAKAO_AUTH_URI} />
+          <SocialLoginButton name="naver.png" path={NAVER_AUTH_URL} />
+          <SocialLoginButton name="google.png" path={GOOGLE_AUTH_URL} />
         </div>
       </div>
     </div>
