@@ -29,7 +29,7 @@ export const MyInterviewMenu = () => {
     <div className={`flex flex-col justify-between h-full w-full ${isOpen && 'mt-10'}`}>
       {status === 'pending' ? (
         <div className="flex items-center justify-center w-full">
-          <Image src={'/loginLoading.gif'} width={40} height={40} alt="loding" />
+          <Image src={'/loginLoading.gif'} width={40} height={40} alt="loading" />
         </div>
       ) : (
         <ul className="h-full overflow-auto">
@@ -48,7 +48,7 @@ export const MyInterviewMenu = () => {
 
       <div>
         {isFetching && !isFetchingNextPage ? (
-          <Image src={'/loginLoading.gif'} width={20} height={20} alt="loding" />
+          <Image src={'/loginLoading.gif'} width={20} height={20} alt="loading" />
         ) : null}
       </div>
     </div>

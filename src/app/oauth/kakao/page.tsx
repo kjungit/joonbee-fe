@@ -10,7 +10,7 @@ export default function OauthPage() {
   return (
     <div className="w-full mainBg questionListHeight">
       <div className="flex flex-col h-full items-center justify-center">
-        <Image src={'/loginLoading.gif'} width={70} height={70} alt="loding" />
+        <Image src={'/loginLoading.gif'} width={70} height={70} alt="loading" />
       </div>
     </div>
   );
