@@ -37,7 +37,7 @@ export const MyHeader = () => {
           color={categoryParams === 'question' ? 'blue' : 'white'}
           className={`${categoryParams === 'question' && 'font-bold'}`}
           path="/my?category=question&Qfield=fe&subField=react"
-          iconName="checklist.png"
+          iconName="questions.svg"
           edge="start"
           size="sm">
           질문 보기
