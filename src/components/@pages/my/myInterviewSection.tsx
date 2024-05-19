@@ -2,6 +2,7 @@ import { Accordion } from '@/components/@common/accordion';
 import { Text } from '@/components/@common/text';
 import { VariableIcon } from '@/components/@common/variableIcon';
 import { CenterSectionWrapper } from '@/components/wrapper/centerSectionWrapper';
+import { MainCategory } from '@/constants/category';
 import { questionTitle } from '@/constants/question';
 import { useGetDetailInterview } from '@/queries/interview/useGetDetailInterview';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
@@ -20,6 +21,7 @@ export const MyInterviewSection = () => {
   });
   const selectMyInterview = useRecoilValue(selectMyInterviewAtom);
   const searchParams = useSearchParams();
+  const detailFieldParams = searchParams.get('Ifield') as string;
   const detailIdParams = searchParams.get('detailId');
 
   const { detailInterview, isDetailSuccess, isDetailFetch } = useGetDetailInterview(
@@ -103,8 +105,8 @@ export const MyInterviewSection = () => {
         <div>
           <div className="flex h-[54px] effect-white w-full items-center px-4">
             <div className="flex  gap-4 items-center">
-              <Text size="xl" weight="md">
-                프론트엔드
+              <Text size="xl" weight="lg">
+                {MainCategory[detailFieldParams]}
               </Text>
               <div className="flex items-center justify-center h-6 w-[90px] effect-white rounded-md">
                 <VariableIcon name="document" size={18} />
