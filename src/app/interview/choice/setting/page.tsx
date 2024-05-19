@@ -21,7 +21,6 @@ import {
 } from '@/recoils/myInterview/withAdd';
 import { interviewQuestionCountAtom, isClickNextBtnAtom } from '@/recoils/interview/atom';
 import userQueries from '@/queries/user/useGetUser';
-import useBeforeUnload from '@/hooks/useBeforeUnload';
 import PreventBackModal from '@/components/@common/preventBackModal';
 import AlertModal from '@/components/@common/alertModal';
 import { useModal } from '@/hooks/useModal';
@@ -49,8 +48,6 @@ export default function ChoiceSettingPage() {
 
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
   const { questionData, setTarget } = useGetSettingQuestion();
-
-  console.log('q', questionData);
 
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
 
