@@ -21,11 +21,11 @@ import {
 } from '@/recoils/myInterview/withAdd';
 import { interviewQuestionCountAtom, isClickNextBtnAtom } from '@/recoils/interview/atom';
 import userQueries from '@/queries/user/useGetUser';
-import useBeforeUnload from '@/hooks/useBeforeUnload';
 import PreventBackModal from '@/components/@common/preventBackModal';
 import AlertModal from '@/components/@common/alertModal';
 import { useModal } from '@/hooks/useModal';
 import PermissionButtonGroup from '@/components/@common/permissionButtonGroup';
+import { useGetSettingQuestion } from '@/queries/interview/useGetSettingQuestion';
 
 export default function ChoiceSettingPage() {
   const [isClickNextBtn, setIsClickNextBtn] = useRecoilState(isClickNextBtnAtom);
@@ -47,7 +47,7 @@ export default function ChoiceSettingPage() {
   const [categoryList, setCategoryList] = useState<string[]>([]);
 
   const { onMovePage, isPressedBtn } = useRedirectButtonClick('/interview/permission');
-  const { questionData, setTarget } = useGetMyQuestion();
+  const { questionData, setTarget } = useGetSettingQuestion();
 
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
 

@@ -1,16 +1,15 @@
+'use client';
 import { CategoryName, ChildrenProps, SubcategoryName, ToggleItemProps } from '@/types';
 import { toggleNavbarQuestionList, useCategoryImageList } from '@/constants/toggleNavbarItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToggleItem } from '../@common/toggleItem';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { selectQuestionCategoryState } from '@/recoils/home/question/selectQuestionCategory/atom';
 import Image from 'next/image';
 import { GoCodeReview } from 'react-icons/go';
-import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 
 export const QuestionMenu = () => {
-  const [isOpen, setIsOpen] = useRecoilState(NavbarIsOpenAtom);
   const [items, setItems] = useState<ToggleItemProps[]>(toggleNavbarQuestionList);
   const [selectQuestionCategory, setSelectQuestionCategory] = useRecoilState(
     selectQuestionCategoryState,
