@@ -86,7 +86,7 @@ export const QuestionMenu = () => {
                     {useCategoryImageList.includes(childItem.id) ? (
                       <Image
                         src={`/icons/logo/${childItem.id}.png`}
-                        alt="react"
+                        alt={childItem.id}
                         width={30}
                         height={30}
                       />
