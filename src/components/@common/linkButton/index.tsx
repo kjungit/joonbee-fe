@@ -23,6 +23,11 @@ export default function LinkButton({
   children,
   ...props
 }: LinkButtonProps) {
+  const colorStyles = {
+    primary: `bg-main-primary text-white hover:bg-hover-primary`,
+    blue: `bg-blue-light text-black`,
+    white: `bg-white text-black`,
+  };
   const sizeStyles = {
     auto: 'w-auto px-4 py-2 md:text-[16px] text-[14px]',
     xs: 'w-[82px] h-[48px] text-[14px] shadow-md',
@@ -35,9 +40,15 @@ export default function LinkButton({
     '2xl': 'w-[234px] h-[56px] text-[16px]',
     square: 'w-12 h-12',
   };
-
+  const variantStyles = {
+    outlined: `border-2 border-main-primary ${colorStyles[color]} bg-transparent cursor-pointer`,
+    filled: `${colorStyles[color]}`,
+  };
   return (
-    <Link href={path} className={`${sizeStyles[size]} rounded-md ${className}`} {...props}>
+    <Link
+      href={path}
+      className={`${variantStyles[variant]} ${sizeStyles[size]} flex items-center justify-center rounded-md ${className}`}
+      {...props}>
       {children}
     </Link>
   );
