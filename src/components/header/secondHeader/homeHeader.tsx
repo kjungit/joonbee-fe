@@ -6,7 +6,7 @@ export const HomeHeader = () => {
   const categoryParams = searchParams.get('category');
 
   return (
-    <nav className="flex gap-2 ">
+    <nav className="flex">
       <IconButtonLink
         color={categoryParams === 'interview' ? 'blue' : 'white'}
         className={`${categoryParams === 'interview' && 'font-bold'}`}

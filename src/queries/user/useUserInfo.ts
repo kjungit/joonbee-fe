@@ -3,7 +3,6 @@ import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { NickNameAtom } from '@/recoils/user/isNickName/atom';
 import { userInfoAtom } from '@/recoils/user/userInfo/atom';
 import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -11,8 +10,6 @@ export const useUserInfo = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
   const [nickState, setNickState] = useRecoilState(NickNameAtom);
-
-  const router = useRouter();
 
   const {
     data,
@@ -27,14 +24,12 @@ export const useUserInfo = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       setUserInfo(data);
       setIsLogined(true);
       setNickState({
         ...nickState,
         id: data.id,
       });
-      router.push('/');
     }
   }, [isSuccess, isFetching]);
 

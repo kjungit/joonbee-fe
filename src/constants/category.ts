@@ -1,7 +1,7 @@
 import { QuestionCategory } from '@/types';
 
 export const questionCategory: QuestionCategory[] = [
-  { category: 'fe', subcategory: ['react', 'vuejs', 'nextjs', 'svelte', 'html/css'] },
+  { category: 'fe', subcategory: ['react', 'vuejs', 'nextjs', 'svelte', 'html:css'] },
   {
     category: 'be',
     subcategory: ['db', 'spring_framework', 'msa', 'nestjs', 'nodejs', 'rebbitmq', 'redis'],
@@ -15,7 +15,7 @@ export const questionCategory: QuestionCategory[] = [
       'typescript',
       'delphi',
       'c_c++',
-      'c#',
+      'cHash',
       'golang',
       'swift',
       'objective-c',

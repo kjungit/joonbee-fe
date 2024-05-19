@@ -1,11 +1,10 @@
 'use client';
 
-import Button from '@/components/@common/button';
+import LinkButton from '@/components/@common/linkButton';
 import { Text } from '@/components/@common/text';
 import useResetInterviewData from '@/hooks/useResetInterviewData';
 import Image from 'next/image';
-import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 export default function RandomPage() {
   useResetInterviewData('random');
@@ -25,9 +24,9 @@ export default function RandomPage() {
             예상하지 못한 문제를 준비해보세요!
           </Text>
         </div>
-        <Link href="/interview/random/setting">
-          <Button size="xl">면접 시작하기</Button>
-        </Link>
+        <LinkButton size="xl" path="/interview/random/setting">
+          면접 시작하기
+        </LinkButton>
       </div>
     </>
   );

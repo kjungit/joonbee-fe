@@ -7,6 +7,7 @@ export interface InterviewItem {
   nickname: string;
   questions: QuestionContent[];
   thumbnail: string;
+  subCategoryName: string[];
 }
 
 export type MyInterview = {

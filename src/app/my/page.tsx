@@ -3,14 +3,11 @@
 import authApis from '@/apis/services/authApis';
 import { MyInterviewSection } from '@/components/@pages/my/myInterviewSection';
 import { MyQuestionSection } from '@/components/@pages/my/myQuestionSection';
-import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import { useRecoilValue } from 'recoil';
 
 export default function MyPage() {
-  const isOpen = useRecoilValue(NavbarIsOpenAtom);
   const searchParams = useSearchParams();
   const categoryParams = searchParams.get('category');
   const [cookies] = useCookies(['joonbee-token']);
@@ -18,9 +15,7 @@ export default function MyPage() {
 
   useEffect(() => {
     if (!cookies['joonbee-token']) {
-      authApis.getRefresh().then(data => {
-        if (data.status !== 200) router.push('/login');
-      });
+      router.push('/login');
     }
   }, []);
   return (

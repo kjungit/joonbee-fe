@@ -1,12 +1,12 @@
 import { getUserQuestions } from '@/apis/services/questionApis';
-import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
-import { CategoryName, SubcategoryName } from '@/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 
 export const useGetMyQuestion = () => {
-  const mySelectCategory = useRecoilValue(mySelectQuestionCategoryState);
+  const searchParams = useSearchParams();
+  const qFieldParams = searchParams.get('Qfield') as string;
+  const subFieldParams = searchParams.get('subField') as string;
   const {
     data: questionData,
     refetch,
@@ -17,20 +17,20 @@ export const useGetMyQuestion = () => {
     status,
     error,
   } = useInfiniteQuery({
-    queryKey: ['getMyQuestion', mySelectCategory.category, mySelectCategory.subCategory],
+    queryKey: ['getMyQuestion', qFieldParams, subFieldParams],
     queryFn: ({ pageParam }) => getUserQuestions(pageParam),
     initialPageParam: {
       page: 1,
-      category: mySelectCategory.category,
-      subCategory: mySelectCategory.subCategory,
+      category: qFieldParams,
+      subCategory: subFieldParams,
     },
     getNextPageParam: (lastPage, allPage) => {
       const resultData = allPage.flatMap(page => page.result);
       return resultData.length < lastPage.total
         ? {
             page: allPage.length + 1,
-            category: mySelectCategory.category,
-            subCategory: mySelectCategory.subCategory,
+            category: qFieldParams,
+            subCategory: subFieldParams,
           }
         : undefined;
     },

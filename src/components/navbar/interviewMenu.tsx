@@ -14,11 +14,15 @@ export const InterviewMenu = () => {
   const categoryParams = searchParams.get('category');
 
   return (
-    <div className="p-4 h-full flex flex-col gap-2">
+    <div className="p-4 h-full flex flex-col gap-2 md:mt-0 mt-10">
       {toggleNavbarIntreviewList.map(item => (
         <button
           key={item.id}
-          className={`flex items-center ${fieldParams === item.id && 'font-bold'}`}
+          className={`flex items-center gap-2 px-2 ${
+            fieldParams === item.id &&
+            'font-bold bg-blue-primary hover:text-white hover:bg-blue-primary text-white '
+          }
+            hover:bg-blue-light py-2 rounded-md hover:font-bold`}
           onClick={() => {
             setSelectInterviewCategory({ ...selectInterviewCategory, category: item.id });
             router.push(`/?category=${categoryParams}&Ifield=${item.id}`);
