@@ -1,5 +1,29 @@
 import { ToggleInterviewProps, ToggleItemProps } from '@/types';
-
+export const useCategoryImageList = [
+  'react',
+  'vuejs',
+  'nodejs',
+  'nestjs',
+  'html:css',
+  'svelte',
+  'nextjs',
+  'redis',
+  'rebbitmq',
+  'java',
+  'kotlin',
+  'javascript',
+  'typescript',
+  'c_c++',
+  'cHash',
+  'golang',
+  'swift',
+  'react_native',
+  'flutter',
+  'ios',
+  'aos',
+  'git',
+  'docker',
+];
 export const toggleNavbarIntreviewList: ToggleInterviewProps[] = [
   {
     id: 'fe',
@@ -36,7 +60,7 @@ export const toggleNavbarQuestionList: ToggleItemProps[] = [
       { id: 'react', value: '리액트' },
       { id: 'vuejs', value: '뷰' },
       { id: 'web', value: '웹 관련' },
-      { id: 'html/css', value: 'HTML/CSS' },
+      { id: 'html:css', value: 'HTML/CSS' },
       { id: 'nextjs', value: '넥스트' },
       { id: 'svelte', value: '스벨트' },
     ],
@@ -65,7 +89,7 @@ export const toggleNavbarQuestionList: ToggleItemProps[] = [
       { id: 'typescript', value: '타입스크립트' },
       { id: 'delphi', value: '델파이' },
       { id: 'c_c++', value: 'C, C++' },
-      { id: 'c#', value: 'C#' },
+      { id: 'cHash', value: 'C#' },
       { id: 'golang', value: 'GO' },
       { id: 'swift', value: '스위프트' },
       { id: 'objective-c', value: '오브젝티브-C' },

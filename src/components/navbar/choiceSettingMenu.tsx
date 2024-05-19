@@ -1,10 +1,11 @@
-import { CategoryName, ChildrenProps, SubcategoryName, ToggleItemProps } from '@/types';
-import { toggleNavbarQuestionList } from '@/constants/toggleNavbarItem';
+import { ChildrenProps, ToggleItemProps } from '@/types';
+import { toggleNavbarQuestionList, useCategoryImageList } from '@/constants/toggleNavbarItem';
 import { useState } from 'react';
 import { ToggleItem } from '../@common/toggleItem';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
+import Image from 'next/image';
+import { GoCodeReview } from 'react-icons/go';
 
 export default function ChoiceSettingMenu() {
   const [items, setItems] = useState<ToggleItemProps[]>(toggleNavbarQuestionList);
@@ -51,12 +52,18 @@ export default function ChoiceSettingMenu() {
               if (item.id === selectQuestionCategory.category) return;
               handleClickOpen(item);
             }}
+            className={`${
+              selectQuestionCategory.category === item.id &&
+              'font-bold bg-blue-primary hover:text-white hover:bg-blue-primary text-white '
+            }`}
           />
           <div className="font-normal flex flex-col text-start w-full gap-1 text-sm px-1 py-1">
             {selectQuestionCategory.category === item.id &&
               item.children?.map(childItem => (
                 <button
-                  className="flex items-center"
+                  className={`flex items-center hover:bg-blue-light py-1 rounded-md
+                ${childItem.id === selectQuestionCategory.subCategory && 'bg-blue-light'}
+                `}
                   key={childItem.id}
                   onClick={() => {
                     handleClickChild(childItem);
@@ -64,7 +71,19 @@ export default function ChoiceSettingMenu() {
                   <div
                     className={`${
                       selectQuestionCategory.subCategory === childItem.id && 'font-bold'
-                    } flex pl-[50px]`}>
+                    } flex pl-[50px] items-center gap-2`}>
+                    {useCategoryImageList.includes(childItem.id) ? (
+                      <Image
+                        src={`/icons/logo/${childItem.id}.png`}
+                        alt="react"
+                        width={30}
+                        height={30}
+                      />
+                    ) : (
+                      <div className="w-[30px] h-[30px] flex items-center justify-center">
+                        <GoCodeReview className="w-[24px] h-[24px] text-gray-light" />
+                      </div>
+                    )}
                     {childItem.value}
                   </div>
                 </button>
