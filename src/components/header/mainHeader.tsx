@@ -7,12 +7,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 export const MainHeader = () => {
   const userInfo = useRecoilValue(userInfoAtom);
-  const [cookies] = useCookies(['joonbee-token']);
   const resetSelectInterview = useResetRecoilState(selectInterviewState);
   const pathName = usePathname();
   const { userInfoRefetch } = useUserInfo();

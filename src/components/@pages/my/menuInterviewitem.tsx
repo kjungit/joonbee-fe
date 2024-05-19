@@ -4,24 +4,20 @@ import { MainCategory } from '@/constants/category';
 import { MyMenuInterviewItem } from '@/types';
 
 interface MenuInterviewItemProps {
-  detailIdParams: number;
+  className: string;
   item: MyMenuInterviewItem;
   onClick: (item: MyMenuInterviewItem) => void;
 }
 
-export const MenuInterviewItem = ({ detailIdParams, item, onClick }: MenuInterviewItemProps) => {
+export const MenuInterviewItem = ({ className, item, onClick }: MenuInterviewItemProps) => {
   return (
     <li
-      className={`flex h-[54px] p-2 cursor-pointer ${
-        Number(detailIdParams) === item.interviewId && 'bg-blue-light'
-      }`}
+      className={`flex h-[64px] p-2 cursor-pointer hover:bg-blue-light ${className}`}
       onClick={() => onClick(item)}>
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full justify-between">
         <div className="flex items-center gap-1">
-          <VariableIcon name="calendar" size={12} className="text-gray-light" />
-          <Text size="sm" color="gray">
-            2024.02.22 14:22
-          </Text>
+          <VariableIcon name="calendar" size={14} />
+          <Text>2024.02.22 14:22</Text>
         </div>
         <div className="flex items-center gap-2 justify-between w-full">
           <div className="flex items-center gap-1">

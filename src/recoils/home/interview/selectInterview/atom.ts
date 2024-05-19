@@ -11,5 +11,6 @@ export const selectInterviewState = atom({
     nickname: '',
     questions: [{ questionId: 0, questionContent: '' }],
     thumbnail: '',
+    subCategoryName: [''],
   },
 });

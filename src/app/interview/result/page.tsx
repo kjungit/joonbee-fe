@@ -54,8 +54,6 @@ export default function ResultPage() {
     }
   }, [postMutateData, isSuccess]);
 
-  console.log('openAiResultData', openAiResultData);
-
   useEffect(() => {
     if (openAiResultData?.questions) {
       setPostViewMutateData({

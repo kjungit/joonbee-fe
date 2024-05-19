@@ -21,6 +21,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   className?: string;
   onClick?: () => void;
+  type?: 'button' | 'submit';
 }
 
 export default function Button({
@@ -31,6 +32,7 @@ export default function Button({
   onClick,
   disabled = false,
   children,
+  type = 'button',
   ...props
 }: ButtonProps) {
   const colorStyles = {
@@ -63,6 +65,7 @@ export default function Button({
 
   return (
     <button
+      type={type}
       disabled={disabled}
       onClick={onClick}
       className={`${buttonStyles} ${sizeStyles[size]} rounded-md ${className}`}

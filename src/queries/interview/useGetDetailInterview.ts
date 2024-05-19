@@ -19,6 +19,7 @@ export const useGetDetailInterview = (id: number) => {
       };
       return editData;
     },
+    enabled: id !== 0,
   });
 
   return { detailInterview, isDetailSuccess, isDetailFetch };

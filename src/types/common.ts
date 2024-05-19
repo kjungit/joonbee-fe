@@ -20,6 +20,7 @@ export interface ChildrenProps {
 export interface ToggleProps {
   item: ToggleItemProps;
   onClickOpen: (clickedItem: ToggleItemProps) => void;
+  className?: string;
 }
 
 export interface ToggleInterviewProps {

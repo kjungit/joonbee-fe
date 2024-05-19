@@ -26,7 +26,8 @@ export const MyInterviewMenu = () => {
     );
   };
   return (
-    <div className={`flex flex-col justify-between h-full w-full ${isOpen && 'mt-10'}`}>
+    <div
+      className={`flex flex-col justify-between h-full w-full ${isOpen && 'mt-10'}  md:mt-0 mt-10`}>
       {status === 'pending' ? (
         <div className="flex items-center justify-center w-full">
           <Image src={'/loginLoading.gif'} width={40} height={40} alt="loading" />
@@ -37,9 +38,13 @@ export const MyInterviewMenu = () => {
             interviewData.map(item => (
               <MenuInterviewItem
                 key={item.interviewId}
-                detailIdParams={Number(detailIdParams)}
                 item={item}
                 onClick={handleClick}
+                className={`${
+                  (select.interviewId === item.interviewId ||
+                    Number(detailIdParams) === item.interviewId) &&
+                  'font-bold bg-blue-primary hover:text-white hover:bg-blue-primary text-white '
+                }`}
               />
             ))}
           <div ref={setTarget}></div>

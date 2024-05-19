@@ -48,7 +48,10 @@ export default function Navbar() {
       className={`md:min-w-[260px] min-w-[50px] relative questionListHeight effect-white text-gray-dark bg-white ${
         isOpen ? '!min-w-[260px]' : 'md:min-w-[260px] min-w-[50px]'
       }`}>
-      <div className={`flex absolute top-2 right-2 md:hidden ${isOpen && '!justify-end '}`}>
+      <div
+        className={`flex absolute top-2 right-2 md:hidden hover:bg-blue-light rounded-md p-2 ${
+          isOpen && '!justify-end '
+        }`}>
         <VariableIcon name="bar" onClick={onClickOpen} />
       </div>
       <div

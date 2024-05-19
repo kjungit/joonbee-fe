@@ -23,7 +23,7 @@ export const MyHeader = () => {
 
   return (
     <nav className="flex justify-between w-full">
-      <div className="flex justify-between items-center gap-2">
+      <div className="flex justify-between items-center">
         <IconButtonLink
           color={categoryParams === 'interview' ? 'blue' : 'white'}
           className={`${categoryParams === 'interview' && 'font-bold'}`}

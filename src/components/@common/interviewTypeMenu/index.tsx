@@ -11,7 +11,7 @@ export default function InterviewTypeMenu() {
   const [interviewType, setInterviewType] = useRecoilState(interviewTypeAtom);
 
   return (
-    <nav className="flex items-center justify-between w-full gap-2">
+    <nav className="flex items-center justify-between w-full">
       <Link href="/interview/random">
         <IconButton
           iconName="random.png"

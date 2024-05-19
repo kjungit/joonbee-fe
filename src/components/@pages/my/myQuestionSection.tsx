@@ -10,6 +10,7 @@ import { CommonModal } from '@/components/@common/commonModal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { isDeleteQuestion } from '@/recoils/user/isDeleteQuestion/atom';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
+import { useEffect } from 'react';
 
 export const MyQuestionSection = () => {
   const isNavbarOpen = useRecoilValue(NavbarIsOpenAtom);
@@ -20,7 +21,7 @@ export const MyQuestionSection = () => {
   return (
     <CenterSectionWrapper>
       <div className="questionListHeight p-5">
-        {isNavbarOpen && questionData?.length === 0 && (
+        {!isNavbarOpen && questionData?.length === 0 && (
           <div className="flex flex-col items-center justify-center interviewListHeight pt-20">
             <Image src="/desktop.png" width={200} height={200} alt="desktop" className="ml-4" />
             <Text size="lg" weight="md">
@@ -30,10 +31,10 @@ export const MyQuestionSection = () => {
         )}
         {status === 'pending' ? (
           <div className=" flex items-center justify-center interviewListHeight ">
-            <Image src={'/loginLoading.gif'} width={100} height={100} alt="loading" />
+            <Image src={'/loginLoading.gif'} width={70} height={70} alt="loading" />
           </div>
         ) : (
-          <ul className=" flex flex-col gap-4 interviewListHeight overflow-auto pr-1">
+          <ul className=" flex flex-col gap-5 interviewListHeight overflow-auto pr-1">
             {questionData &&
               questionData?.map(item => (
                 <li key={item.questionId} className="flex gap-4 w-full justify-between">
