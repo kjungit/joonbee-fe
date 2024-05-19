@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useUserInfo } from '../useUserInfo';
 import { useRecoilState } from 'recoil';
@@ -23,8 +23,10 @@ export const useOauthLogin = (key: string, loginFunc: (AUTHORIZATION_CODE: strin
     queryKey: [key],
     queryFn: () => loginFunc(AUTHORIZATION_CODE),
   });
+  const router = useRouter();
   useEffect(() => {
     if (isSuccess) {
+      router.push('/');
       userInfoRefetch();
     }
   }, [isSuccess]);
