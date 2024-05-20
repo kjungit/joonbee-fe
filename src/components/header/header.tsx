@@ -31,7 +31,7 @@ export default function Header() {
       <div className="h-[60px] effect-white md:px-0 px-2 flex items-center">
         <div className="md:min-w-[260px] min-w-[100px] flex items-center justify-center">
           <Link href="/">
-            <Image src="/main_logo_font.png" alt="main_logo" width={120} height={200} />
+            <Image src="/main_logo_font.png" alt="main_logo" width={120} height={200} priority />
           </Link>
         </div>
         <MainHeader />
