@@ -13,12 +13,9 @@ import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { LoginInfo } from './LoginInfo';
 
 const MainHeader = dynamic(() => import('./mainHeader').then(mod => mod.MainHeader), {
-  ssr: false,
-});
-
-const LoginInfo = dynamic(() => import('./LoginInfo').then(mod => mod.LoginInfo), {
   ssr: false,
 });
 
