@@ -8,12 +8,19 @@ import { InterviewHeader } from './secondHeader/interviewHeader';
 import { HomeHeader } from './secondHeader/homeHeader';
 import ModalPortal from '../@common/modalPortal';
 import { NickNameModal } from '../@common/nickNameModal';
-import { LoginInfo } from './LoginInfo';
-import { MainHeader } from './mainHeader';
 import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const MainHeader = dynamic(() => import('./mainHeader').then(mod => mod.MainHeader), {
+  ssr: false,
+});
+
+const LoginInfo = dynamic(() => import('./LoginInfo').then(mod => mod.LoginInfo), {
+  ssr: false,
+});
 
 export default function Header() {
   const isOpen = useRecoilValue(NavbarIsOpenAtom);
