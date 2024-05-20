@@ -11,11 +11,11 @@ export default function useGetInterviewData() {
   const [questionData, setQuestionData] = useState<MyInterviewQuestions[]>([]);
   const interviewType = useRecoilValue(interviewTypeAtom);
   const mySelectCategory = useRecoilValue(mySelectQuestionCategoryState);
-  const chocieQuestionData = useRecoilValue(addQuestionSelector);
+  const choiceQuestionData = useRecoilValue(addQuestionSelector);
 
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
 
-  const { randomQuestionData, isSuccess } = useGetRandomQuestionList({
+  const { data: randomQuestionData, isSuccess } = useGetRandomQuestionList({
     category: mySelectCategory.category,
     subcategory: mySelectCategory.subCategory,
     questionCount,
@@ -32,9 +32,8 @@ export default function useGetInterviewData() {
 
         setQuestionData(updatedQuestionData);
       }
-    }
-    if (interviewType === 'choice') {
-      const updatedQuestionData = chocieQuestionData.map((question: any) => ({
+    } else if (interviewType === 'choice') {
+      const updatedQuestionData = choiceQuestionData.map((question: any) => ({
         ...question,
         answerContent: '',
       }));

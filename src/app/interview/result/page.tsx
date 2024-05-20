@@ -191,8 +191,8 @@ export default function ResultPage() {
                       isMain>
                       {question.isOpen && (
                         <>
-                          {Object.values(question.infoList).map(item => (
-                            <>
+                          {Object.values(question.infoList).map((item, idx) => (
+                            <div key={idx}>
                               <Accordion
                                 title={questionTitle[item.id]}
                                 onClick={() =>
@@ -210,7 +210,7 @@ export default function ResultPage() {
                                   </div>
                                 )}
                               </Accordion>
-                            </>
+                            </div>
                           ))}
                         </>
                       )}
