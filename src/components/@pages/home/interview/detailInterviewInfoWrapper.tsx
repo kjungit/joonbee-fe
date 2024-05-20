@@ -71,9 +71,6 @@ export default function DetailInterviewInfoWrapper() {
     router.push('/interview/choice/setting');
   };
 
-  useEffect(() => {
-    console.log(selectInterview);
-  }, []);
   return (
     <>
       <div
@@ -109,9 +106,9 @@ export default function DetailInterviewInfoWrapper() {
                 className="rounded-full"
                 width={28}
                 height={28}
-                alt={selectInterview.nickname + ' imgae'}
+                alt={selectInterview.nickname + ' image'}
                 src={
-                  selectInterview.thumbnail === 'NONE'
+                  !selectInterview.thumbnail || selectInterview.thumbnail === 'NONE'
                     ? '/basicProfile.png'
                     : selectInterview.thumbnail
                 }
