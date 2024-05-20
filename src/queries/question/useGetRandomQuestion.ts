@@ -9,11 +9,9 @@ export default function useGetRandomQuestionList(data: {
   interviewType: InterviewType | '';
 }) {
   const { interviewType, ...params } = data;
-  const { data: randomQuestionData, isSuccess } = useQuery({
-    queryKey: ['randomQuestionList'],
+  return useQuery({
+    queryKey: ['randomQuestionList', params],
     queryFn: () => getRandomQuestionList(params),
     enabled: interviewType === 'random',
   });
-
-  return { randomQuestionData, isSuccess };
 }
