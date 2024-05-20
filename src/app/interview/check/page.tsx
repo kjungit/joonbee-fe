@@ -26,7 +26,6 @@ export default function CheckPage() {
 
   const textareaRefs = useRef<HTMLTextAreaElement[]>([]);
   const setQuestionList = useSetRecoilState(addQuestionListSelector);
-  const [openStates, setOpenStates] = useState(questionList.map(() => true));
   const [editingStates, setEditingStates] = useState(questionList.map(() => false));
   const [currentAnswers, setCurrentAnswers] = useState(
     questionList.map((question, index) => question.answerContent),
@@ -74,15 +73,19 @@ export default function CheckPage() {
   const hasEmptyAnswer = currentAnswers.some(answer => answer === '');
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>, index: number) => {
-    if (e.key == 'Enter') {
+    if (!e.nativeEvent.isComposing && e.key == 'Enter') {
       e.preventDefault();
       handleClick(index);
       e.currentTarget.blur();
-      setIsEditState({ index, isEdit: true });
     }
 
-    if (e.key === 'Tab') {
+    if (!e.nativeEvent.isComposing && e.key === 'Tab') {
       e.preventDefault();
+
+      const nextIndex = (index + 1) % textareaRefs.current.length;
+      if (textareaRefs.current[nextIndex]) {
+        textareaRefs.current[nextIndex].focus();
+      }
     }
   };
 
@@ -115,16 +118,12 @@ export default function CheckPage() {
   useEffect(() => {
     setEditingStates(editingStates.map((state, index) => (index === 0 ? true : state)));
 
-    if (textareaRefs.current[0]) {
-      const element = textareaRefs.current[0];
+    const element = textareaRefs.current[0];
+    if (element) {
       element.focus();
       const valueLength = element.value.length;
       element.setSelectionRange(valueLength, valueLength);
     }
-  }, []);
-
-  useEffect(() => {
-    textareaRefs.current[0]?.focus();
   }, []);
 
   useBeforeUnload();
@@ -163,9 +162,7 @@ export default function CheckPage() {
                 onClick={() => handleClick(index)}
                 onBlur={e => handleInputBlur(e, index)}
                 onKeyDown={e => handleKeyDown(e, index)}
-                readOnly={!editingStates[index]}
-                tabIndex={0}
-                autoFocus
+                tabIndex={index}
               />
               <div className="h-4">
                 {!currentAnswers[index] && (
