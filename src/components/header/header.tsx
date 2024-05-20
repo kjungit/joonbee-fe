@@ -13,12 +13,9 @@ import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
 import { NavbarIsOpenAtom } from '@/recoils/responsive/navbar/atom';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { LoginInfo } from './LoginInfo';
 
 const MainHeader = dynamic(() => import('./mainHeader').then(mod => mod.MainHeader), {
-  ssr: false,
-});
-
-const LoginInfo = dynamic(() => import('./LoginInfo').then(mod => mod.LoginInfo), {
   ssr: false,
 });
 
@@ -34,7 +31,7 @@ export default function Header() {
       <div className="h-[60px] effect-white md:px-0 px-2 flex items-center">
         <div className="md:min-w-[260px] min-w-[100px] flex items-center justify-center">
           <Link href="/">
-            <Image src="/main_logo_font.png" alt="main_logo" width={120} height={200} />
+            <Image src="/main_logo_font.png" alt="main_logo" width={120} height={200} priority />
           </Link>
         </div>
         <MainHeader />
