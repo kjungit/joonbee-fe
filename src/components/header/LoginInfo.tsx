@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Text } from '../@common/text';
@@ -42,7 +44,6 @@ export const LoginInfo = () => {
               alt={`${userInfo.nickName} profile`}
               width={24}
               height={24}
-              objectFit="cover"
             />
             <Text size="lg">{userInfo.nickName}</Text>
             <button

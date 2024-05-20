@@ -26,7 +26,6 @@ export const Avatar = ({ size = 'sm', thumbnail, onClick }: AvatarProps) => {
         className="rounded-full"
         src={thumbnail === 'NONE' ? '/basicProfile.png' : thumbnail}
         alt="thumbnail"
-        objectFit="cover"
       />
     </div>
   );
