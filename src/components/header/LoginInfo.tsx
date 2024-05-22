@@ -26,6 +26,10 @@ export const LoginInfo = () => {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [isNickOpen]);
+
   return (
     <div
       className={`h-full min-w-[260px] flex items-center justify-center border-r-[1px] border-gray-normal ${
