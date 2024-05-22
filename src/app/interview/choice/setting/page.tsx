@@ -19,7 +19,11 @@ import {
   updateCategoryNameSelector,
   updateUserNameSelector,
 } from '@/recoils/myInterview/withAdd';
-import { interviewQuestionCountAtom, isClickNextBtnAtom } from '@/recoils/interview/atom';
+import {
+  interviewQuestionCountAtom,
+  interviewTypeAtom,
+  isClickNextBtnAtom,
+} from '@/recoils/interview/atom';
 import userQueries from '@/queries/user/useGetUser';
 import PreventBackModal from '@/components/@common/preventBackModal';
 import AlertModal from '@/components/@common/alertModal';
@@ -50,11 +54,17 @@ export default function ChoiceSettingPage() {
   const { questionData, setTarget } = useGetSettingQuestion();
 
   const [questionCount, setQuestionCount] = useRecoilState(interviewQuestionCountAtom);
+  const [interviewType, setInterviewType] = useRecoilState(interviewTypeAtom);
 
   const { data: userInfo } = userQueries.useGetInfo();
 
-  const handleClickQuestion = (questionId: number, questionContent: string, category: string) => {
-    if (checkedQuestionIdList.length > 7) {
+  const handleClickQuestion = (
+    questionId: number,
+    questionContent: string,
+    category: string,
+    isChecked: boolean,
+  ) => {
+    if (checkedQuestionIdList.length > 7 && !isChecked) {
       onOpen();
       return;
     }
@@ -68,6 +78,10 @@ export default function ChoiceSettingPage() {
       }
     });
   };
+
+  useEffect(() => {
+    setInterviewType('choice');
+  }, []);
 
   useEffect(() => {
     const uniqueCategories = new Set(checkedQuestionIdList.map(item => item.category));
@@ -118,7 +132,14 @@ export default function ChoiceSettingPage() {
                       checkedItem => checkedItem.questionId === item.questionId,
                     )}
                     onCheckChange={() =>
-                      handleClickQuestion(item.questionId, item.questionContent, item.category)
+                      handleClickQuestion(
+                        item.questionId,
+                        item.questionContent,
+                        item.category,
+                        checkedQuestionIdList.some(
+                          checkedItem => checkedItem.questionId === item.questionId,
+                        ),
+                      )
                     }
                   />
                 ))}
