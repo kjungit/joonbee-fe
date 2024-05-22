@@ -3,7 +3,8 @@
 import { postInterviewLike } from '@/apis/services/memberApis';
 import { QueryClient, useMutation } from '@tanstack/react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { useGetInterview } from './useGetInterview';
+import { useGetLikedInterview } from '@/queries/interview/useGetLikedInterview';
+import { useGetLatestInterview } from './useGetLatestInterview';
 import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { isNotLogined } from '@/recoils/user/isNotLogined/atom';
@@ -14,16 +15,24 @@ export const usePostInterviewLike = (interviewId: number) => {
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
   const [isOpen, setIsOpen] = useRecoilState(isNotLogined);
 
-  const { interviewRefetch } = useGetInterview({
+  const { interviewRefetch: latestRefetch } = useGetLatestInterview({
     selectCategory: selectInterviewCategory.category,
-    sort: selectInterviewCategory.sort,
+  });
+
+  const { interviewRefetch: likedRefetch } = useGetLikedInterview({
+    selectCategory: selectInterviewCategory.category,
   });
   const { mutate: interviewLikeMutate } = useMutation({
     mutationKey: ['postInterviewLike', interviewId],
     mutationFn: () => postInterviewLike(interviewId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userInfo'] });
-      interviewRefetch();
+
+      if (selectInterviewCategory.sort === 'like') {
+        likedRefetch();
+      } else {
+        latestRefetch();
+      }
     },
     onError: (error: number) => {
       if (error === 401) {
