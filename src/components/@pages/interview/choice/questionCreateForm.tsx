@@ -20,22 +20,23 @@ export default function QuestionCreateForm() {
     questionContent: value,
   });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    questionSaveMutate();
+    await questionSaveMutate();
+    setValue('');
   };
   return (
     <form onSubmit={handleSubmit} className="border border-gray-light rounded-md w-full p-3">
       <label htmlFor="question" className="flex justify-center items-center">
         <input
           id="question"
-          placeholder="질문을 입력하세요!"
+          placeholder="면접 연습을 위한 질문을 작성해 보세요."
           className="w-full text-[14px] bg-white"
           value={value}
           onChange={onChange}
         />
         <button type="submit">
-          <VariableIcon name="send" size={18} className="text-grayl-light" />
+          <VariableIcon name="send" size={18} className="text-gray-light" />
         </button>
       </label>
     </form>
