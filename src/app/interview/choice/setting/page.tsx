@@ -5,12 +5,10 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import InterviewLoading from '@/components/@common/interviewLoading/';
 import useRedirectButtonClick from '@/hooks/interview/useRedirectButtonClick';
-import { useGetMyQuestion } from '@/queries/question/useGetMyQuestion';
 import QuestionCreateForm from '@/components/@pages/interview/choice/questionCreateForm';
 import IconButton from '@/components/@common/iconButton';
 import QuestionCheck from '@/components/@pages/interview/choice/questionCheck';
 import CategoryDropdown from '@/components/@common/categoryDropdown';
-import Dropdown from '@/components/@common/dropdown';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
 import QuestionTimeButtonGroup from '@/components/@common/questionTimeButtonGroup';
 import {
@@ -22,7 +20,9 @@ import {
 import {
   interviewQuestionCountAtom,
   interviewTypeAtom,
+  isOpenedCategoryResetModalAtom,
   isClickNextBtnAtom,
+  checkedQuestionIdListAtom,
 } from '@/recoils/interview/atom';
 import userQueries from '@/queries/user/useGetUser';
 import PreventBackModal from '@/components/@common/preventBackModal';
@@ -30,19 +30,21 @@ import AlertModal from '@/components/@common/alertModal';
 import { useModal } from '@/hooks/useModal';
 import PermissionButtonGroup from '@/components/@common/permissionButtonGroup';
 import { useGetSettingQuestion } from '@/queries/interview/useGetSettingQuestion';
+import { Category } from '@/constants/category';
 
 export default function ChoiceSettingPage() {
   const [isClickNextBtn, setIsClickNextBtn] = useRecoilState(isClickNextBtnAtom);
   const [isClickMicrophone, setIsClickMicrophone] = useState<boolean>(false);
   const [isClickCamera, setIsClickCamera] = useState<boolean>(false);
-  const [checkedQuestionIdList, setCheckedQuestionIdList] = useState<
-    {
-      questionId: number;
-      questionContent: string;
-      category: string;
-    }[]
-  >([]);
-  const { isOpened, onClose, onOpen } = useModal();
+  const [checkedQuestionIdList, setCheckedQuestionIdList] =
+    useRecoilState(checkedQuestionIdListAtom);
+
+  const {
+    isOpened: isOpenedMaxQuestion,
+    onClose: onCloseMaxQuestion,
+    onOpen: onOpenMaxQuestion,
+  } = useModal();
+
   const [mySelectCategory, setMySelectCategory] = useRecoilState(mySelectQuestionCategoryState);
   const checkedQuestionList = useRecoilValue(addQuestionSelector);
   const setQuestion = useSetRecoilState(addQuestionListSelector);
@@ -65,7 +67,7 @@ export default function ChoiceSettingPage() {
     isChecked: boolean,
   ) => {
     if (checkedQuestionIdList.length > 7 && !isChecked) {
-      onOpen();
+      onOpenMaxQuestion();
       return;
     }
 
@@ -110,6 +112,10 @@ export default function ChoiceSettingPage() {
       setQuestionCount(checkedQuestionIdList.length);
     }
   }, [isClickNextBtn]);
+
+  useEffect(() => {
+    setCheckedQuestionIdList([]);
+  }, [mySelectCategory.category]);
 
   return (
     <>
@@ -195,13 +201,9 @@ export default function ChoiceSettingPage() {
                   <p className="min-w-[120px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
                     카테고리
                   </p>
-                  <Dropdown
-                    direction="top"
-                    size="md"
-                    data={categoryList || []}
-                    selected={mySelectCategory.category}
-                    onSelect={category => setMySelectCategory(prev => ({ ...prev, category }))}
-                  />
+                  <p className="min-w-[120px] h-[48px] bg-main-primary text-white flex justify-center items-center rounded-md text-[14px]">
+                    {Category[mySelectCategory.category]}
+                  </p>
                 </div>
               </div>
               <QuestionTimeButtonGroup />
@@ -231,8 +233,8 @@ export default function ChoiceSettingPage() {
         </div>
       )}
       <AlertModal
-        isOpened={isOpened}
-        onClose={onClose}
+        isOpened={isOpenedMaxQuestion}
+        onClose={onCloseMaxQuestion}
         text="질문은 최대 8개 선택할 수 있습니다."
       />
       <PreventBackModal />

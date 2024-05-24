@@ -37,3 +37,19 @@ export const isClickNextBtnAtom = atom<boolean>({
   key: 'isClickNextBtnAtom',
   default: false,
 });
+
+export const isOpenedCategoryResetModalAtom = atom<boolean>({
+  key: 'isOpenedCategoryResetModalAtom',
+  default: false,
+});
+
+export const checkedQuestionIdListAtom = atom<
+  {
+    questionId: number;
+    questionContent: string;
+    category: string;
+  }[]
+>({
+  key: 'checkedQuestionIdListAtom',
+  default: [],
+});
