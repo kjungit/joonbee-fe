@@ -3,15 +3,9 @@ import { CategoryName } from '@/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
-export const useGetInterview = ({
-  selectCategory,
-  sort,
-}: {
-  selectCategory: CategoryName;
-  sort: string;
-}) => {
+export const useGetLatestInterview = ({ selectCategory }: { selectCategory: CategoryName }) => {
   const {
-    data: interviewData,
+    data: interviewLatestData,
     fetchNextPage,
     hasNextPage,
     isFetching,
@@ -19,20 +13,21 @@ export const useGetInterview = ({
     status,
     refetch: interviewRefetch,
   } = useInfiniteQuery({
-    queryKey: ['getInterview', selectCategory, sort],
+    queryKey: ['getLatestInterview', selectCategory, 'latest'],
     queryFn: ({ pageParam }) => getInterview(pageParam),
     initialPageParam: {
       page: 1,
       selectCategory,
-      sort,
+      sort: 'latest',
     },
+    enabled: false,
     getNextPageParam: (lastPage, allPage) => {
       const resultData = allPage.flatMap(page => page.result);
       return resultData.length < lastPage.total
         ? {
             page: allPage.length + 1,
             selectCategory,
-            sort,
+            sort: 'latest',
           }
         : undefined;
     },
@@ -60,7 +55,7 @@ export const useGetInterview = ({
   }, [observerCallback, target]);
 
   return {
-    interviewData,
+    interviewLatestData,
     isFetching,
     isFetchingNextPage,
     status,

@@ -129,7 +129,7 @@ export default function ChoiceSettingPage() {
               <Text as="h2" size="md" weight="md" color="blue" className="mb-2">
                 * 면접을 진행할 질문을 선택해주세요
               </Text>
-              <ul className="overflow-auto h-[360px] mb-8">
+              <ul className="overflow-auto h-[360px] mb-8 flex flex-col gap-2">
                 {questionData?.map(item => (
                   <QuestionCheck
                     key={item.questionId}
