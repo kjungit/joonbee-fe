@@ -1,24 +1,29 @@
 import { getInterview } from '@/apis/services/interviewApis';
 import { CategoryName } from '@/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export const useGetLatestInterview = ({ selectCategory }: { selectCategory: CategoryName }) => {
+export const useGetLatestInterview = () => {
+  const searchParams = useSearchParams();
+  const iFieldParams = searchParams.get('Ifield') as CategoryName;
+  const sortParams = (searchParams.get('sort') as 'latest') || 'like';
+
   const {
     data: interviewLatestData,
     fetchNextPage,
     hasNextPage,
-    isFetching,
+    isRefetching,
     isFetchingNextPage,
     status,
     refetch: interviewRefetch,
   } = useInfiniteQuery({
-    queryKey: ['getLatestInterview', selectCategory, 'latest'],
+    queryKey: ['getLatestInterview', iFieldParams, sortParams],
     queryFn: ({ pageParam }) => getInterview(pageParam),
     initialPageParam: {
       page: 1,
-      selectCategory,
-      sort: 'latest',
+      selectCategory: iFieldParams || 'fe',
+      sort: sortParams,
     },
     enabled: false,
     getNextPageParam: (lastPage, allPage) => {
@@ -26,8 +31,8 @@ export const useGetLatestInterview = ({ selectCategory }: { selectCategory: Cate
       return resultData.length < lastPage.total
         ? {
             page: allPage.length + 1,
-            selectCategory,
-            sort: 'latest',
+            selectCategory: iFieldParams || 'fe',
+            sort: sortParams,
           }
         : undefined;
     },
@@ -56,7 +61,7 @@ export const useGetLatestInterview = ({ selectCategory }: { selectCategory: Cate
 
   return {
     interviewLatestData,
-    isFetching,
+    isRefetching,
     isFetchingNextPage,
     status,
     setTarget,

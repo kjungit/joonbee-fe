@@ -10,7 +10,7 @@ export const HomeHeader = () => {
       <IconButtonLink
         color={categoryParams === 'interview' ? 'blue' : 'white'}
         className={`${categoryParams === 'interview' && 'font-bold'}`}
-        path="/?category=interview&Ifield=fe"
+        path="/?category=interview&Ifield=fe&sort=latest"
         iconName="checklist.png"
         edge="start"
         size="sm">
