@@ -32,10 +32,10 @@ export const NickNameModal = ({ isClose = false }: { isClose?: boolean }) => {
     nickMutate({ id: nickState.id, nickName: nickState.nickName });
   };
 
-  const pressEnter = (e: any) => {
+  const pressEnter = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      nickMutate({ id: nickState.id, nickName: nickState.nickName });
+      handleSubmit(e as unknown as React.FormEvent);
     }
   };
   return (
@@ -60,7 +60,7 @@ export const NickNameModal = ({ isClose = false }: { isClose?: boolean }) => {
             <div>
               <input
                 type="text"
-                placeholder="닉네임을 입력해주세요."
+                placeholder="닉네임을 입력해 주세요."
                 value={inputState}
                 onChange={handleChangeNick}
                 autoFocus
@@ -71,12 +71,7 @@ export const NickNameModal = ({ isClose = false }: { isClose?: boolean }) => {
               </Text>
             </div>
           </div>
-          <Button
-            size="xl"
-            onClick={() => {
-              nickMutate({ id: nickState.id, nickName: nickState.nickName });
-            }}
-            disabled={inputState === '' ? true : false}>
+          <Button size="xl" type="submit" disabled={inputState === '' ? true : false}>
             확인
           </Button>
         </div>

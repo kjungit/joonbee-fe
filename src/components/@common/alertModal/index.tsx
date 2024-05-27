@@ -23,7 +23,10 @@ export default function AlertModal({ text, isOpened, onClose, onConfirm }: Alert
           <div className="relative w-[280px]  rounded-xl bg-white shadow-md" ref={modalRef}>
             <div className="w-full p-6 mx-auto">
               <div className="flex items-start">
-                <Text size="xl" className="text-blue-secondary w-full" weight="lg">
+                <Text
+                  size="xl"
+                  className="text-blue-secondary w-full whitespace-pre-line"
+                  weight="lg">
                   {text}
                 </Text>
                 <button onClick={onClose}>
