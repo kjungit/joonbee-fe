@@ -25,7 +25,9 @@ export default function Header() {
   const pathName = usePathname();
   const isLogined = useRecoilValue(isLoginedAtom);
   const isNickOpen = useRecoilValue(isNickAtom);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <header className="z-50 flex-col w-screen h-[114px] relative bg-white text-gray-dark">
       <div className="h-[60px] effect-white md:px-0 px-2 flex items-center">

@@ -120,8 +120,8 @@ export default function DetailInterviewInfoWrapper() {
           </div>
           <VariableIcon
             name="close"
-            size={16}
-            className="leading-5 cursor-pointer"
+            size={32}
+            className="leading-5 cursor-pointer p-2"
             onClick={handleClose}
           />
         </div>
