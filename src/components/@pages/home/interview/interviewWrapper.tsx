@@ -1,9 +1,8 @@
 import { RadioButtonGroup } from '@/components/@common/radioButtonGroup';
 import { Text } from '@/components/@common/text';
-import { useSearchParams } from 'next/navigation';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useRecoilValue } from 'recoil';
 import { InterviewMenuItem } from './interviewMenuItem';
-import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import Image from 'next/image';
 import { MainCategory } from '@/constants/category';
 import { CategoryName, InterviewItem } from '@/types';
@@ -13,55 +12,66 @@ import { useGetLikedInterview } from '@/queries/interview/useGetLikedInterview';
 import { useGetLatestInterview } from '@/queries/interview/useGetLatestInterview';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+
 interface ItemProps {
   id: string;
   text: string;
 }
 
+const NoInterviewMessage = ({ category }: { category: string }) => (
+  <div className="flex flex-col interviewListHeight items-center justify-center h-full pt-20">
+    <Image src="/desktop.png" width={200} height={200} alt="desktop" className="ml-4" />
+    <Text size="lg" weight="md">
+      등록된 {category} 면접이 없습니다.
+    </Text>
+  </div>
+);
+const LoadingMessage = () => (
+  <div className="flex flex-col interviewListHeight items-center justify-center h-full pt-20">
+    <Image src={'/loginLoading.gif'} width={70} height={70} alt="loading" />
+  </div>
+);
 export const InterviewWrapper = () => {
   const isNavbarOpen = useRecoilValue(NavbarIsOpenAtom);
   const queryClient = useQueryClient();
-
-  const [selectInterviewCategory, setSelectInterviewCategory] = useRecoilState(
-    selectInterviewCategoryState,
-  );
+  const router = useRouter();
 
   const searchParams = useSearchParams();
   const categoryParams = searchParams.get('category');
   const iFieldParams = searchParams.get('Ifield') as CategoryName;
+  const sortParams = searchParams.get('sort') as string;
 
   const {
     interviewLikedData,
     setTarget: setLikedTarget,
     interviewRefetch: likedRefetch,
-  } = useGetLikedInterview({
-    selectCategory: iFieldParams,
-  });
-
+    isRefetching: likedFetching,
+  } = useGetLikedInterview();
   const {
     interviewLatestData,
     setTarget: setLatestTarget,
     interviewRefetch: latestRefetch,
-  } = useGetLatestInterview({
-    selectCategory: iFieldParams,
-  });
+    isRefetching: latestFetching,
+  } = useGetLatestInterview();
 
   const handleClickCategory = (item: ItemProps) => {
     queryClient.removeQueries({ queryKey: ['getInterview'] });
-    setSelectInterviewCategory({
-      ...selectInterviewCategory,
-      sort: item.id,
-    });
+    router.replace(`/?category=${categoryParams}&Ifield=${iFieldParams}&sort=${item.id}`);
   };
 
   useEffect(() => {
-    if (selectInterviewCategory.sort === 'latest') {
+    if (sortParams === 'latest') {
       latestRefetch();
     }
-    if (selectInterviewCategory.sort === 'like') {
+    if (sortParams === 'like') {
       likedRefetch();
     }
-  }, [selectInterviewCategory]);
+  }, [categoryParams, iFieldParams, sortParams]);
+
+  const noInterviews =
+    (sortParams === 'like' && !interviewLikedData?.length) ||
+    (sortParams === 'latest' && !interviewLatestData?.length);
+  const isLoading = likedFetching || latestFetching;
 
   return (
     <section className="md:max-w-[370px] w-full h-full effect-white ">
@@ -79,7 +89,7 @@ export const InterviewWrapper = () => {
               </Text>
             </div>
             <RadioButtonGroup
-              defaultId={selectInterviewCategory.sort}
+              defaultId={sortParams}
               groupName="main-category"
               size="sm"
               data={[
@@ -89,33 +99,29 @@ export const InterviewWrapper = () => {
               onClickFunc={handleClickCategory}
             />
           </div>
-          {selectInterviewCategory.sort === 'like' && interviewLikedData && (
-            <ul className="interviewListHeight overflow-auto">
-              {interviewLikedData &&
-                interviewLikedData.map((item: InterviewItem) => (
-                  <InterviewMenuItem key={item.interviewId + 'like'} item={item} />
-                ))}
-              <div ref={setLikedTarget} className="pb-[90px]"></div>
-            </ul>
+          {isLoading && <LoadingMessage />}
+          {!isLoading && noInterviews ? (
+            <NoInterviewMessage category={MainCategory[iFieldParams]} />
+          ) : (
+            <>
+              {sortParams === 'like' && interviewLikedData?.length && (
+                <ul className="interviewListHeight overflow-auto">
+                  {interviewLikedData.map((item: InterviewItem) => (
+                    <InterviewMenuItem key={item.interviewId + 'like'} item={item} />
+                  ))}
+                  <div ref={setLikedTarget} className="pb-[90px]"></div>
+                </ul>
+              )}
+              {sortParams === 'latest' && interviewLatestData?.length && (
+                <ul className="interviewListHeight overflow-auto">
+                  {interviewLatestData.map((item: InterviewItem) => (
+                    <InterviewMenuItem key={item.interviewId + 'latest'} item={item} />
+                  ))}
+                  <div ref={setLatestTarget} className="pb-[90px]"></div>
+                </ul>
+              )}
+            </>
           )}
-          {selectInterviewCategory.sort === 'latest' && interviewLatestData && (
-            <ul className="interviewListHeight overflow-auto">
-              {interviewLatestData &&
-                interviewLatestData.map((item: InterviewItem) => (
-                  <InterviewMenuItem key={item.interviewId + 'latest'} item={item} />
-                ))}
-              <div ref={setLatestTarget} className="pb-[90px]"></div>
-            </ul>
-          )}
-          {(selectInterviewCategory.sort === 'like' && interviewLikedData?.length === 0) ||
-            (selectInterviewCategory.sort === 'latest' && interviewLatestData?.length === 0 && (
-              <div className="flex flex-col items-center justify-center h-full pt-20">
-                <Image src="/desktop.png" width={200} height={200} alt="desktop" className="ml-4" />
-                <Text size="lg" weight="md">
-                  등록된 {MainCategory[iFieldParams]} 면접이 없습니다.
-                </Text>
-              </div>
-            ))}
         </div>
       )}
     </section>

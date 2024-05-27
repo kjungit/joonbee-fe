@@ -1,37 +1,33 @@
 'use client';
 
 import { postInterviewLike } from '@/apis/services/memberApis';
-import { QueryClient, useMutation } from '@tanstack/react-query';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRecoilState } from 'recoil';
 import { useGetLikedInterview } from '@/queries/interview/useGetLikedInterview';
 import { useGetLatestInterview } from './useGetLatestInterview';
-import { selectInterviewCategoryState } from '@/recoils/home/interview/selectInterviewCategory/atom';
 import { isLoginedAtom } from '@/recoils/user/isLogined/atom';
 import { isNotLogined } from '@/recoils/user/isNotLogined/atom';
-const queryClient = new QueryClient();
+import { useSearchParams } from 'next/navigation';
 
 export const usePostInterviewLike = (interviewId: number) => {
-  const selectInterviewCategory = useRecoilValue(selectInterviewCategoryState);
+  const searchParams = useSearchParams();
+  const sortParams = searchParams.get('sort') as string;
+  const queryClient = useQueryClient();
   const [isLogined, setIsLogined] = useRecoilState(isLoginedAtom);
   const [isOpen, setIsOpen] = useRecoilState(isNotLogined);
 
-  const { interviewRefetch: latestRefetch } = useGetLatestInterview({
-    selectCategory: selectInterviewCategory.category,
-  });
-
-  const { interviewRefetch: likedRefetch } = useGetLikedInterview({
-    selectCategory: selectInterviewCategory.category,
-  });
+  const { interviewRefetch: latestRefetch } = useGetLatestInterview();
+  const { interviewRefetch: likedRefetch } = useGetLikedInterview();
   const { mutate: interviewLikeMutate } = useMutation({
     mutationKey: ['postInterviewLike', interviewId],
     mutationFn: () => postInterviewLike(interviewId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userInfo'] });
-
-      if (selectInterviewCategory.sort === 'like') {
-        likedRefetch();
-      } else {
+      if (sortParams === 'latest') {
         latestRefetch();
+      }
+      if (sortParams === 'like') {
+        likedRefetch();
       }
     },
     onError: (error: number) => {

@@ -1,33 +1,38 @@
 import { getInterview } from '@/apis/services/interviewApis';
 import { CategoryName } from '@/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export const useGetLikedInterview = ({ selectCategory }: { selectCategory: CategoryName }) => {
+export const useGetLikedInterview = () => {
+  const searchParams = useSearchParams();
+  const iFieldParams = searchParams.get('Ifield') as CategoryName;
+  const sortParams = (searchParams.get('sort') as 'latest') || 'like';
+
   const {
     data: interviewLikedData,
     fetchNextPage,
     hasNextPage,
-    isFetching,
+    isRefetching,
     isFetchingNextPage,
     status,
     refetch: interviewRefetch,
   } = useInfiniteQuery({
-    queryKey: ['getInterview', selectCategory, 'like'],
+    queryKey: ['getInterview', iFieldParams, sortParams],
     queryFn: ({ pageParam }) => getInterview(pageParam),
     initialPageParam: {
       page: 1,
-      selectCategory,
-      sort: 'like',
+      selectCategory: iFieldParams || 'fe',
+      sort: sortParams,
     },
-    enabled: false,
+    enabled: true,
     getNextPageParam: (lastPage, allPage) => {
       const resultData = allPage.flatMap(page => page.result);
       return resultData.length < lastPage.total
         ? {
             page: allPage.length + 1,
-            selectCategory,
-            sort: 'like',
+            selectCategory: iFieldParams || 'fe',
+            sort: sortParams,
           }
         : undefined;
     },
@@ -56,7 +61,7 @@ export const useGetLikedInterview = ({ selectCategory }: { selectCategory: Categ
 
   return {
     interviewLikedData,
-    isFetching,
+    isRefetching,
     isFetchingNextPage,
     status,
     setTarget,
