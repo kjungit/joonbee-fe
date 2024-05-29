@@ -1,6 +1,6 @@
 import { CategoryName, ChildrenProps, ToggleItemProps } from '@/types';
 import { toggleNavbarQuestionList, useCategoryImageList } from '@/constants/toggleNavbarItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToggleItem } from '../@common/toggleItem';
 import { useRecoilState } from 'recoil';
 import { mySelectQuestionCategoryState } from '@/recoils/home/question/mySelectQuestionCategory/atom';
@@ -14,7 +14,7 @@ import AlertModal from '../@common/alertModal';
 
 export default function ChoiceSettingMenu() {
   const [items, setItems] = useState<ToggleItemProps[]>(toggleNavbarQuestionList);
-  const [clickedItem, setClickedItem] = useState<ToggleItemProps>();
+  const [clickedItem, setClickedItem] = useState<ToggleItemProps>(items[0]);
   const [isOpened, setIsOpened] = useRecoilState(isOpenedCategoryResetModalAtom);
 
   const [selectQuestionCategory, setSelectQuestionCategory] = useRecoilState(
@@ -23,8 +23,6 @@ export default function ChoiceSettingMenu() {
 
   const [checkedQuestionIdList, setCheckedQuestionIdList] =
     useRecoilState(checkedQuestionIdListAtom);
-
-  console.log(checkedQuestionIdList);
 
   const handleClickChild = (childItem: ChildrenProps) => {
     setSelectQuestionCategory({
@@ -52,6 +50,11 @@ export default function ChoiceSettingMenu() {
     });
     setItems(updatedItems);
   };
+
+  useEffect(() => {
+    setSelectQuestionCategory({ category: 'fe', subCategory: 'react' });
+    setClickedItem(items[0]);
+  }, []);
 
   return (
     <>
