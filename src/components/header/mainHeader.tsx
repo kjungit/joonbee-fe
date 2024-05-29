@@ -32,10 +32,10 @@ export const MainHeader = () => {
         </Link>
         <Link
           className={`${pathName.includes('interview') && 'font-bold'}`}
-          href={userInfo.thumbnail ? '/interview/random' : '/login'}>
+          href={!!2 ? '/interview/random' : '/login'}>
           AI 면접
         </Link>
-        {userInfo.thumbnail && (
+        {!!2 && (
           <Link
             className={`${pathName.includes('my') && 'font-bold'}`}
             href="/my?category=interview&Ifield=fe">
@@ -47,7 +47,7 @@ export const MainHeader = () => {
         </Link> */}
       </div>
       <div className="flex justify-center items-center gap-4 md:text-md text-sm">
-        {userInfo.thumbnail ? (
+        {!!2 ? (
           <div className="relative">
             <Link href="/my?category=interview&Ifield=fe">
               <Image

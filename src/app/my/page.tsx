@@ -13,11 +13,11 @@ export default function MyPage() {
   const [cookies] = useCookies(['joonbee-token']);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!cookies['joonbee-token']) {
-      router.push('/login');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!cookies['joonbee-token']) {
+  //     router.push('/login');
+  //   }
+  // }, []);
   return (
     <div className={`w-full overflow-auto questionListHeight `}>
       {categoryParams === 'interview' && <MyInterviewSection />}
