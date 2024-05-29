@@ -15,7 +15,7 @@ const useSpeechToText = () => {
   };
 
   const onStartListening = () => {
-    console.log('onStartListening');
+    // console.log('onStartListening');
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
@@ -40,7 +40,7 @@ const useSpeechToText = () => {
   };
 
   const onStopListening = () => {
-    console.log('onStopListening');
+    // console.log('onStopListening');
     if (speechRecognition) {
       speechRecognition.stop();
     }

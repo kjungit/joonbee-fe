@@ -65,7 +65,7 @@ export default function PermissionPage() {
         const devices = await getConnectedDevices('video');
         setVideoDeviceList(devices);
       } else if (permissionStatus.state === 'prompt') {
-        console.log('Requesting camera permission...');
+        // console.log('Requesting camera permission...');
       }
       permissionStatus.onchange = () => {
         (async () => {
@@ -88,7 +88,7 @@ export default function PermissionPage() {
         const devices = await getConnectedDevices('audio');
         setAudioDeviceList(devices);
       } else if (permissionStatus.state === 'prompt') {
-        console.log('Requesting video permission...');
+        // console.log('Requesting video permission...');
       }
       permissionStatus.onchange = () => {
         (async () => {
