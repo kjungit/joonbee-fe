@@ -11,7 +11,7 @@ export default function useMediaRecord(videoStream: MediaStream, audioStream: Me
 
   const onStartRecord = () => {
     if (!videoStream || !audioStream) {
-      // console.log('비디오나 오디오 스트림이 없습니다.');
+      console.log('비디오나 오디오 스트림이 없습니다.');
       return;
     }
 

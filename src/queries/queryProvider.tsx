@@ -42,7 +42,7 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
       queryCache: new QueryCache({
         onError: (error: any) => {
           if (error === 406) {
-            // router.push('/login');
+            router.push('/login');
 
             removeCookie('joonbee-token');
             removeCookie('joonbee-token-refresh');
@@ -51,7 +51,7 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
           if (error === 403) {
             authApis.getRefresh().then(data => {
               if (data.status !== 200) {
-                // router.push('/login');
+                router.push('/login');
                 removeCookie('joonbee-token');
                 removeCookie('joonbee-token-refresh');
                 setIsOpen(true);
@@ -72,7 +72,7 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
   return (
     <QueryClientProvider client={client}>
       {children}
-      {/* {isOpen && (
+      {isOpen && (
         <ModalPortal>
           <CommonModal isModalOpen={isOpen} setIsModalOpen={setIsOpen}>
             <Text size="xl" className="text-blue-secondary w-full" weight="lg">
@@ -80,7 +80,7 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
             </Text>
           </CommonModal>
         </ModalPortal>
-      )} */}
+      )}
       {isLoginError && (
         <ModalPortal>
           <CommonModal

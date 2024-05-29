@@ -24,7 +24,7 @@ export const HomeSectionWrapper = () => {
         {categoryParams !== null && categoryParams === 'interview' && <InterviewWrapper />}
         {categoryParams !== 'question' && <DetailInterviewSection />}
         {categoryParams === 'question' && <QuestionWrapper />}
-        {/* {isOpen && (
+        {isOpen && (
           <ModalPortal>
             <CommonModal isModalOpen={isOpen} setIsModalOpen={setIsOpen}>
               <Text size="xl" className="text-blue-secondary w-full" weight="lg">
@@ -32,7 +32,7 @@ export const HomeSectionWrapper = () => {
               </Text>
             </CommonModal>
           </ModalPortal>
-        )} */}
+        )}
       </div>
     </div>
   );
