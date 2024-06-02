@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import { NickNameAtom } from '@/recoils/user/isNickName/atom';
 import { isNickAtom } from '@/recoils/user/isNickOpen/atom';
 import { isLoginErrorAtom } from '@/recoils/user/isRefresh/atom';
+import { isFirstLoginAtom } from '@/recoils/user/isFirstLogin/atom';
 
 interface LoginError {
   message: string;
@@ -16,6 +17,7 @@ export const useOauthLogin = (key: string, loginFunc: (AUTHORIZATION_CODE: strin
   const [nickState, setNickState] = useRecoilState(NickNameAtom);
   const [isNickOpen, setIsNickOpen] = useRecoilState(isNickAtom);
   const [isLoginError, setIsLoginError] = useRecoilState(isLoginErrorAtom);
+  const [isFirstLogin, setIsFirstLogin] = useRecoilState(isFirstLoginAtom);
   const { userInfoRefetch } = useUserInfo();
   const searchParams = useSearchParams();
   const AUTHORIZATION_CODE: string = searchParams.get('code') as string;
@@ -40,6 +42,7 @@ export const useOauthLogin = (key: string, loginFunc: (AUTHORIZATION_CODE: strin
         ...nickState,
         id: error.message,
       });
+      setIsFirstLogin(!isFirstLogin);
       setIsNickOpen(!isNickOpen);
     }
   }, [error]);
